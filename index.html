@@ -3,12 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Agatha Viva Surdo — Aprender, ensinar e comunicar em Língua Gestual Angolana</title>
-<meta name="description" content="A Agatha é a plataforma da Viva Surdo: aulas gratuitas de Língua Gestual Angolana (LGA), dicionário, tradutor de bolso português-LGA e recursos para professores.">
+<title>Agatha — texto em, sinais out</title>
+<meta name="description" content="Cola texto, legendas ou um PDF e vê a glosa em sinais com mãos animadas. Dicionário de sinais de estudo em Língua Gestual Angolana, por validar por sinalizadores surdos. Sem conta, sem recolha de dados.">
 <meta name="theme-color" content="#10342F">
-<!-- Instalável como aplicação (telemóvel): "Adicionar ao ecrã principal" abre a Agatha
-     sem barra do browser e funciona sem rede. Os ícones são a marca provisória rasterizada
-     de assets/logo-mark.svg — ver README, "Substituir a marca provisória". -->
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/icon-192.png">
 <meta name="mobile-web-app-capable" content="yes">
@@ -16,20 +13,15 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_AO">
 <meta property="og:site_name" content="Agatha Viva Surdo">
-<meta property="og:title" content="Agatha Viva Surdo — Aprender, ensinar e comunicar em Língua Gestual Angolana">
-<meta property="og:description" content="Iniciativa angolana de inclusão das pessoas surdas. Aulas gratuitas de Língua Gestual Angolana (LGA), recursos para professores e conteúdo da comunidade.">
+<meta property="og:title" content="Agatha — texto em, sinais out">
+<meta property="og:description" content="Cola texto, legendas ou um PDF e vê a glosa em sinais com mãos animadas. Glosa de estudo, não tradução automática.">
 <link rel="icon" type="image/svg+xml" href="assets/logo-mark.svg">
-<!-- Marca "Agatha" em wordmark textual provisório — substituir pelo logótipo aprovado pela Viva Surdo (ver README.md) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- miniaturas das aulas (i.ytimg.com) aparecem em quase todas as páginas: ligar cedo poupa uma ida e volta em 3G -->
-<link rel="preconnect" href="https://i.ytimg.com">
-<link rel="dns-prefetch" href="https://www.youtube-nocookie.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=vs83">
+<link rel="stylesheet" href="styles.css?v=vs95">
 <script>
-/* As opções de acessibilidade são guardadas só neste dispositivo (localStorage).
-   Aplicá-las antes do primeiro paint evita que a página "salte" de tema/contraste. */
+/* Aplicar as opções de acessibilidade antes do primeiro paint. */
 (function () {
   try {
     var p = JSON.parse(localStorage.getItem('vs.a11y') || '{}');
@@ -37,19 +29,17 @@
     if (p.temaEscuro) h.setAttribute('data-tema-escuro', '');
     if (p.contraste) h.setAttribute('data-contraste-alto', '');
     if (p.movimento) h.setAttribute('data-movimento-reduzido', '');
-    if (p.simples) h.setAttribute('data-leitura-simples', '');
-    /* --escala no <html> desde o primeiro paint: o botão flutuante e a barra inferior
-       precisam dela para não se sobreporem antes de o app.js montar o #app escalado */
     h.style.setProperty('--escala', ([100, 115, 130, 150].indexOf(p.escala) >= 0 ? p.escala : 100) / 100);
-  } catch (e) { /* sem localStorage disponível: usar valores padrão */ }
+  } catch (e) { /* sem localStorage: usar valores padrão */ }
 })();
 </script>
 </head>
 <body>
 <a class="skip" href="#conteudo">Saltar para o conteúdo principal</a>
-<div id="a11y-root"></div>
 <div id="app"></div>
 <span id="route-live" class="sr-only" aria-live="polite"></span>
-<script src="app.js?v=vs83"></script>
+<script src="dados.js?v=vs95"></script>
+<script src="maos.js?v=vs95"></script>
+<script src="app.js?v=vs95"></script>
 </body>
 </html>

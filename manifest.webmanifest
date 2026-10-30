@@ -1,7 +1,7 @@
 {
   "name": "Agatha Viva Surdo — Língua Gestual Angolana",
   "short_name": "Agatha",
-  "description": "Aulas gratuitas de Língua Gestual Angolana, dicionário de sinais, o Pamosii (tradutor português ↔ sinais) e a Bíblia em texto, áudio e sinais.",
+  "description": "Glosa de estudo em Língua Gestual Angolana: cola texto, legendas ou um PDF e vê os sinais, com dicionário de palavras.",
   "lang": "pt-AO",
   "dir": "ltr",
   "start_url": "./",
@@ -17,20 +17,8 @@
     { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
     { "src": "assets/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
-  "share_target": {
-    "action": "./",
-    "method": "GET",
-    "enctype": "application/x-www-form-urlencoded",
-    "params": {
-      "title": "title",
-      "text": "text",
-      "url": "url"
-    }
-  },
   "shortcuts": [
-    { "name": "Pamosii — traduzir", "short_name": "Pamosii", "url": "./#/pamosii", "description": "Escreve ou dita em português e vê a sequência de sinais; ou escolhe sinais e ouve a frase." },
-    { "name": "Dicionário de sinais", "short_name": "Dicionário", "url": "./#/dicionario", "description": "Procurar palavras e ver o sinal na aula." },
-    { "name": "Bíblia — ouvir e ver em sinais", "short_name": "Bíblia", "url": "./#/biblia", "description": "Ler e ouvir a Bíblia em português, com a glosa de sinais versículo a versículo." },
-    { "name": "Colheita — registar sinais que faltam", "short_name": "Colheita", "url": "./#/colher", "description": "Registar sinais que conheces e exportar os registos para a equipa validar." }
+    { "name": "Sinalizar", "short_name": "Sinalizar", "url": "./#/", "description": "Cola um texto ou legendas e vê a glosa em sinais." },
+    { "name": "Dicionário", "short_name": "Dicionário", "url": "./#/dicionario", "description": "Procurar uma palavra e ver a forma da mão que a representa." }
   ]
 }
