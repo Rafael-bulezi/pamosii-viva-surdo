@@ -225,4 +225,7 @@ const PM_EXEMPLOS = [
   'A minha mãe trabalha no hospital.',
   'Eu queria água, por favor.',
   'Amanhã eu não vou à escola.',
+  'Eu gosto de música.',
+  'Estou feliz hoje.',
+  'A minha irmã está doente.',
 ];

@@ -2,8 +2,8 @@
   <!-- MARCA PROVISÓRIA (V estilizado + dois pontos = comunicação entre duas pessoas).
        Substituir este ficheiro pelo logótipo oficial aprovado pela Viva Surdo.
        Ver README.md — secção "Substituir a marca provisória". -->
-  <rect width="64" height="64" rx="15" fill="#0E756B"/>
-  <path d="M17 22l15 26 15-26" fill="none" stroke="#F7C948" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="15" cy="13" r="4" fill="#F7C948"/>
-  <circle cx="49" cy="13" r="4" fill="#F7C948"/>
+  <rect width="64" height="64" rx="15" fill="#58CC02"/>
+  <path d="M17 22l15 26 15-26" fill="none" stroke="#123000" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="15" cy="13" r="4" fill="#123000"/>
+  <circle cx="49" cy="13" r="4" fill="#123000"/>
 </svg>
