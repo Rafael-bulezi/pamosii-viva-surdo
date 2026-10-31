@@ -112,7 +112,7 @@ promessa no site, o teste falha.
 
 ## Publicação
 
-Publicado em <https://rafael-bulezi.github.io/pamosii-viva-surdo/> (fork, vs110).
+Publicado em <https://rafael-bulezi.github.io/pamosii-viva-surdo/> (fork, vs111).
 O repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
 continua na versão anterior (18 rotas): a conta de publicação só tem leitura no
 repositório original, por isso as versões novas saem pelo fork.

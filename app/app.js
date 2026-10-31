@@ -137,16 +137,22 @@ const pausa = () => ({
   pos0: REP.pos, rot0: REP.rot, pos1: REP.pos, rot1: REP.rot, dur: 260,
 });
 
-function preparar(texto) {
-  P.texto = String(texto || '');
-  P.frases = analisarTexto(P.texto);
+function analisarEmBeats(texto) {
+  const frases = analisarTexto(String(texto || ''));
   const beats = [];
-  P.frases.forEach(fr => {
+  frases.forEach(fr => {
     const bs = [];
     fr.itens.forEach(it => bs.push(...beatsDeItem(it)));
     if (!bs.length) return;
     beats.push(...bs, pausa());
   });
+  return { frases, beats };
+}
+
+function preparar(texto) {
+  P.texto = String(texto || '');
+  const { frases, beats } = analisarEmBeats(texto);
+  P.frases = frases;
   P.beats = beats;
   P.fita = beats.map((b, i) => ({ i, rotulo: b.rotulo, tipo: b.tipo })).filter(b => b.rotulo);
   P.i = 0;
@@ -172,7 +178,7 @@ function recalcularPoses() {
 let ULTIMO_BEAT = -1;
 
 function desenhar() {
-  if (!EL.palco) return;
+  if (!EL.palco || SG.aberto) return;
   const b = P.beats[P.i];
   const rotulo = b && b.tipo !== 'pausa' ? b.rotulo : '';
   if (P.avatarOn && window.AVATAR && AVATAR.pronto) {
@@ -285,7 +291,7 @@ function selecaoNaPagina() {
   if (!s || s.isCollapsed || !s.rangeCount) return '';
   const no = s.anchorNode;
   const el = no && (no.nodeType === 1 ? no : no.parentElement);
-  if (el && el.closest('input, select, textarea, #sel-pill, .topo, .rodape, [contenteditable="true"]')) return '';
+  if (el && el.closest('input, select, textarea, #sel-pill, #sg-painel, .topo, .rodape, [contenteditable="true"]')) return '';
   return String(s);
 }
 
@@ -293,29 +299,25 @@ function atualizarSelecao() {
   const pill = document.getElementById('sel-pill');
   if (!pill) return;
   const texto = selecaoNaPagina().replace(/\s+/g, ' ').trim();
-  if (texto.length < 3 || !/[A-Za-zÀ-ÿ]/.test(texto)) { pill.hidden = true; SEL_TEXTO = ''; return; }
+  if (texto.length < 3 || !/[A-Za-zÀ-ÿ]/.test(texto)) {
+    pill.hidden = true; SEL_TEXTO = ''; SG.pillVisivel = false; atualizarFab();
+    return;
+  }
   SEL_TEXTO = texto;
   const n = texto.split(' ').filter(Boolean).length;
   pill.querySelector('.sel-txt').textContent = 'Sinalizar «' + (texto.length > 46 ? texto.slice(0, 46).trimEnd() + '…' : texto) + '»';
   pill.querySelector('.sel-conta').textContent = n === 1 ? '1 palavra' : n + ' palavras';
   pill.hidden = false;
+  SG.pillVisivel = true;
+  atualizarFab();
 }
 
 function esconderSelecao() {
   const pill = document.getElementById('sel-pill');
   if (pill) pill.hidden = true;
+  SG.pillVisivel = false;
+  atualizarFab();
   SEL_TEXTO = '';
-}
-
-function sinalizarSelecao(texto) {
-  const t = String(texto || '').replace(/\s+/g, ' ').trim();
-  if (!t) return;
-  if (!$('#txt')) { location.hash = '#/?s=' + encodeURIComponent(t); return; }
-  $('#txt').value = t;
-  const ver = $('#bt-ver');
-  if (ver) ver.click();
-  const palco = $('#palco-sec');
-  if (palco) palco.scrollIntoView({ block: 'start', behavior: A11Y.movimento ? 'auto' : 'smooth' });
 }
 
 function montarSelecao() {
@@ -325,7 +327,7 @@ function montarSelecao() {
   pill.type = 'button';
   pill.className = 'selecao-pill';
   pill.hidden = true;
-  pill.setAttribute('aria-label', 'Sinalizar o texto selecionado');
+  pill.setAttribute('aria-label', 'Abrir a sinalizadora com o texto selecionado');
   pill.innerHTML = '<span class="sel-txt"></span><span class="sel-conta"></span><span class="sel-seta" aria-hidden="true">→</span>';
   /* o mousedown não pode roubar a seleção ao botão */
   pill.addEventListener('mousedown', (e) => e.preventDefault());
@@ -334,12 +336,277 @@ function montarSelecao() {
     esconderSelecao();
     const s = window.getSelection();
     if (s && !s.isCollapsed) s.removeAllRanges();
-    sinalizarSelecao(t);
+    abrirSigner(t);
   });
   document.body.appendChild(pill);
   document.addEventListener('selectionchange', atualizarSelecao);
   document.addEventListener('mouseup', () => setTimeout(atualizarSelecao, 0));
   document.addEventListener('keyup', () => setTimeout(atualizarSelecao, 0));
+}
+
+/* ---------------- painel da sinalizadora (Agatha signer) ---------------- */
+const SG_FRASE = 'Bom dia! Onde fica a escola? Amanhã eu vou com a minha família.';
+const SG = {
+  aberto: false, texto: '', beats: [], passos: [], poses: null, inicio: [], total: 0,
+  t: 0, beat: -1, tocando: false, raf: 0, last: 0, vel: 1, repetir: true,
+  pillVisivel: false, palcoAVista: false, editorAVista: false,
+};
+
+/* o botão flutuante sai da frente da bolha de seleção, do transporte do palco
+   e dos botões do editor (no telemóvel tapava o «Ficheiro») */
+function atualizarFab() {
+  const fab = document.getElementById('sg-fab');
+  if (!fab) return;
+  fab.hidden = !!(SG.aberto || SG.pillVisivel || SG.palcoAVista || SG.editorAVista);
+}
+
+let OBS_PALCO = null;
+function vigiarPalco() {
+  if (OBS_PALCO) { OBS_PALCO.disconnect(); OBS_PALCO = null; }
+  SG.palcoAVista = false;
+  SG.editorAVista = false;
+  const alvos = [['palcoAVista', $('#palco-sec')], ['editorAVista', $('.painel.editor')]]
+    .filter(([, el]) => el);
+  if (!alvos.length || !('IntersectionObserver' in window)) return;
+  const chave = new WeakMap(alvos.map(([k, el]) => [el, k]));
+  OBS_PALCO = new IntersectionObserver((entradas) => {
+    entradas.forEach((e) => { SG[chave.get(e.target)] = e.isIntersecting; });
+    atualizarFab();
+  }, { threshold: 0.06 });
+  alvos.forEach(([, el]) => OBS_PALCO.observe(el));
+}
+
+/* o modelo só existe uma vez: o painel leva o mesmo canvas, e o palco da
+   página recebe-o de volta quando o painel fecha */
+function casaSigner() {
+  let casa = document.getElementById('sg-casa');
+  if (!casa) {
+    casa = document.createElement('div');
+    casa.id = 'sg-casa';
+    casa.className = 'sg-casa';
+    casa.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(casa);
+  }
+  return casa;
+}
+
+function montarSigner() {
+  if (document.getElementById('sg-painel')) return;
+
+  const fab = document.createElement('button');
+  fab.id = 'sg-fab';
+  fab.type = 'button';
+  fab.className = 'sg-fab';
+  fab.setAttribute('aria-expanded', 'false');
+  fab.setAttribute('aria-controls', 'sg-painel');
+  fab.innerHTML = '<img src="assets/logo-mark.svg" alt="" width="18" height="18"><span>Agatha signer</span>';
+
+  const painel = document.createElement('div');
+  painel.id = 'sg-painel';
+  painel.className = 'sg-painel';
+  painel.setAttribute('role', 'dialog');
+  painel.setAttribute('aria-labelledby', 'sg-titulo');
+  painel.hidden = true;
+  painel.innerHTML = `
+    <div class="sg-topo">
+      <p class="sg-titulo" id="sg-titulo">Agatha · sinalizador</p>
+      <button class="sg-fechar" id="sg-fechar" type="button" aria-label="Fechar a sinalizadora">×</button>
+    </div>
+    <p class="sg-frase" id="sg-frase"></p>
+    <div class="sg-palco" id="sg-palco"><p class="sg-espera">A preparar a sinalizadora…</p></div>
+    <div class="sg-acoes">
+      <button class="bt icone" id="sg-play" type="button" aria-label="Reproduzir">▶</button>
+      <button class="sg-rep on" id="sg-rep" type="button" aria-pressed="true">Repetir</button>
+      <div class="vel" role="group" aria-label="Velocidade">
+        <button type="button" class="vel-b" data-sgvel="0.5">0,5×</button>
+        <button type="button" class="vel-b on" data-sgvel="1">1×</button>
+        <button type="button" class="vel-b" data-sgvel="1.5">1,5×</button>
+      </div>
+    </div>
+    <div class="sg-chips" id="sg-chips" aria-label="Glosa"></div>
+    <a class="sg-abrir" id="sg-abrir" href="#/" hidden>Abrir em Sinalizar →</a>
+    <p class="sg-nota">Gestos de estudo inspirados na língua gestual internacional. <b>Não</b> são sinais de LGA validados por sinalizadores surdos.</p>`;
+  document.body.append(painel, fab);
+
+  fab.addEventListener('click', () => {
+    if (SG.aberto) fecharSigner(); else abrirSigner(SG.texto || SG_FRASE);
+  });
+  $('#sg-fechar').addEventListener('click', () => fecharSigner());
+  $('#sg-play').addEventListener('click', () => { if (SG.tocando) pausarSigner(); else tocarSigner(); });
+  $('#sg-rep').addEventListener('click', (e) => {
+    SG.repetir = !SG.repetir;
+    e.currentTarget.classList.toggle('on', SG.repetir);
+    e.currentTarget.setAttribute('aria-pressed', String(SG.repetir));
+  });
+  $$('[data-sgvel]').forEach(b => b.addEventListener('click', () => {
+    SG.vel = Number(b.dataset.sgvel);
+    $$('[data-sgvel]').forEach(x => x.classList.toggle('on', x === b));
+  }));
+  $('#sg-chips').addEventListener('click', (e) => {
+    const c = e.target.closest('[data-beat]');
+    if (!c) return;
+    SG.t = SG.inicio[Number(c.dataset.beat)] || 0;
+    SG.beat = -1;
+    desenharSigner(SG.t);
+    if (!SG.tocando) tocarSigner();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && SG.aberto) fecharSigner();
+  });
+}
+
+async function abrirSigner(texto) {
+  if (!document.getElementById('sg-painel')) montarSigner();
+  const t = String(texto || '').replace(/\s+/g, ' ').trim() || SG.texto || SG_FRASE;
+  SG.texto = t;
+  SG.aberto = true;
+  SG.beats = analisarEmBeats(t).beats;
+  SG.passos = [];
+  SG.poses = null;
+  SG.inicio = [];
+  SG.total = 0;
+  SG.t = 0;
+  SG.beat = -1;
+  pausar(); /* o leitor da página não pode conduzir o avatar com o painel aberto */
+  $('#sg-painel').hidden = false;
+  $('#sg-fab').setAttribute('aria-expanded', 'true');
+  atualizarFab();
+  $('#sg-frase').textContent = '«' + t + '»';
+  pintarChipsSigner();
+  const abrir = $('#sg-abrir');
+  if (abrir) {
+    const rota = (location.hash || '').replace(/^#/, '').split('?')[0] || '/';
+    abrir.hidden = rota !== '/dicionario';
+    abrir.href = '#/?s=' + encodeURIComponent(t);
+  }
+  $('#sg-fechar').focus({ preventScroll: true });
+
+  const palco = $('#sg-palco');
+  if (!(window.AVATAR && window.SINAL3D)) {
+    palco.innerHTML = '<p class="sg-espera">O modelo 3D não carregou.</p>';
+    return;
+  }
+  if (!SG.beats.length) {
+    palco.innerHTML = '<p class="sg-espera">Sem sinais para esta frase. Escreve outra.</p>';
+    return;
+  }
+  try {
+    await AVATAR.init(palco);
+    /* fechado enquanto o modelo carregava: o canvas volta para o palco da página */
+    if (!SG.aberto) { devolverAvatar(); return; }
+    const espera = palco.querySelector('.sg-espera');
+    if (espera) espera.remove();
+    AVATAR.enquadrar('busto', 1.16);
+    SG.passos = SINAL3D.sequencia(SG.beats);
+    let acc = 0;
+    SG.passos.forEach((p) => {
+      if (SG.inicio[p.beat] === undefined) SG.inicio[p.beat] = acc;
+      acc += p.dur;
+    });
+    SG.total = acc;
+    SG.poses = AVATAR.prepararPoses(SG.passos);
+    if (!SG.poses.length) throw new Error('sem passos');
+    if (A11Y.movimento || matchMedia('(prefers-reduced-motion: reduce)').matches) desenharSigner(0);
+    else tocarSigner();
+  } catch (err) {
+    palco.innerHTML = '<p class="sg-espera">O modelo 3D não carregou.</p>';
+  }
+}
+
+function devolverAvatar() {
+  if (!(window.AVATAR && AVATAR.pronto)) return;
+  AVATAR.pousar();
+  const casa = (EL.palco && EL.palco.isConnected) ? EL.palco : casaSigner();
+  AVATAR.init(casa);
+  if (casa === EL.palco) { AVATAR.enquadrar('busto', 1.18); desenhar(); }
+}
+
+function fecharSigner(silencioso) {
+  const painel = document.getElementById('sg-painel');
+  if (!painel || painel.hidden) return;
+  painel.hidden = true;
+  SG.aberto = false;
+  SG.tocando = false;
+  cancelAnimationFrame(SG.raf);
+  SG.t = 0;
+  SG.beat = -1;
+  const fab = document.getElementById('sg-fab');
+  if (fab) {
+    fab.setAttribute('aria-expanded', 'false');
+    atualizarFab();
+    if (!fab.hidden && !silencioso) fab.focus();
+  }
+  const play = $('#sg-play');
+  if (play) { play.textContent = '▶'; play.setAttribute('aria-label', 'Reproduzir'); }
+  devolverAvatar();
+}
+
+function pintarChipsSigner() {
+  const caixa = $('#sg-chips');
+  if (!caixa) return;
+  caixa.innerHTML = SG.beats.map((b, i) => (!b.rotulo || b.tipo === 'pausa') ? ''
+    : `<button type="button" class="sg-chip${b.tipo === 'letra' ? ' sg-letra' : ''}" data-beat="${i}">${esc(b.rotulo)}</button>`).join('');
+  SG.beat = -1;
+}
+
+function marcarChipsSigner() {
+  const caixa = $('#sg-chips');
+  if (!caixa) return;
+  $$('[data-beat]', caixa).forEach(el => el.classList.toggle('on', Number(el.dataset.beat) === SG.beat));
+}
+
+function beatEm(t) {
+  let acc = 0, i = 0;
+  while (i < SG.passos.length - 1 && t >= acc + SG.passos[i].dur) { acc += SG.passos[i].dur; i++; }
+  for (let j = i; j >= 0; j--) {
+    const b = SG.beats[SG.passos[j].beat];
+    if (b && b.tipo !== 'pausa') return SG.passos[j].beat;
+  }
+  return 0;
+}
+
+function desenharSigner(t) {
+  if (!SG.poses || !SG.poses.length || !(window.AVATAR && AVATAR.pronto)) return;
+  AVATAR.mostrar(SG.poses, t);
+  const beat = beatEm(t);
+  if (beat !== SG.beat) { SG.beat = beat; marcarChipsSigner(); }
+}
+
+function tocarSigner() {
+  if (!SG.poses || !SG.poses.length) return;
+  if (SG.total && SG.t >= SG.total - 0.01) SG.t = 0;
+  SG.tocando = true;
+  SG.last = 0;
+  const play = $('#sg-play');
+  if (play) { play.textContent = '❚❚'; play.setAttribute('aria-label', 'Pausa'); }
+  cancelAnimationFrame(SG.raf);
+  SG.raf = requestAnimationFrame(passoSigner);
+}
+
+function pausarSigner() {
+  SG.tocando = false;
+  cancelAnimationFrame(SG.raf);
+  const play = $('#sg-play');
+  if (play) { play.textContent = '▶'; play.setAttribute('aria-label', 'Reproduzir'); }
+}
+
+function passoSigner(ts) {
+  if (!SG.tocando) return;
+  const dt = SG.last ? Math.min(80, ts - SG.last) : 16;
+  SG.last = ts;
+  SG.t += (dt / 1000) * SG.vel;
+  if (SG.total && SG.t >= SG.total) {
+    if (SG.repetir) {
+      SG.t %= SG.total;
+    } else {
+      SG.t = SG.total - 0.001;
+      desenharSigner(SG.t);
+      pausarSigner();
+      return;
+    }
+  }
+  desenharSigner(SG.t);
+  SG.raf = requestAnimationFrame(passoSigner);
 }
 
 /* ---------------- legendas e PDF ---------------- */
@@ -540,6 +807,15 @@ function vistaSinalizar() {
     </a>
   </section>
 
+  <section class="demo" aria-label="Frase de demonstração">
+    <div class="demo-topo">
+      <p class="rotulo">Frase de demonstração</p>
+      <button class="bt" id="bt-demo" type="button">Abrir sinalizadora</button>
+    </div>
+    <p class="demo-frase">${esc(SG_FRASE)}</p>
+    <p class="demo-dica">Seleciona uma frase com o rato ou com o dedo. A bolha verde abre a sinalizadora com essa frase.</p>
+  </section>
+
   <section class="painel editor">
     <div class="painel-topo">
       <label class="rotulo" for="txt">Texto para sinalizar</label>
@@ -553,7 +829,7 @@ function vistaSinalizar() {
       <button class="bt" id="bt-exemplo" type="button">Exemplo</button>
     </div>
     <p class="recado" id="recado" role="status" hidden></p>
-    <p class="dica">Ctrl + Enter para ver. Seleciona uma frase — no texto ou em qualquer parágrafo desta página — e sinaliza só essa parte.</p>
+    <p class="dica">Ctrl + Enter para ver. Seleciona uma frase — aqui ou em qualquer parágrafo desta página — e a bolha verde abre a sinalizadora com essa frase.</p>
   </section>
 
   <section class="palco-sec" id="palco-sec" aria-label="Sinalizador">
@@ -598,6 +874,7 @@ function ligarSinalizar(params) {
   EL.play = $('#bt-play');
   EL.fita = $('#fita');
   EL.contas = $('#contas');
+  vigiarPalco();
   if (window.AVATAR && window.SINAL3D) {
     P.carregando3d = true;
     EL.palco.innerHTML = '<p class="palco-espera">A preparar a sinalizadora…</p>';
@@ -606,9 +883,8 @@ function ligarSinalizar(params) {
       P.carregando3d = false;
       const espera = EL.palco.querySelector('.palco-espera');
       if (espera) espera.remove();
-      AVATAR.enquadrar('busto');
       recalcularPoses();
-      desenhar();
+      if (!SG.aberto) { AVATAR.init(EL.palco); AVATAR.enquadrar('busto', 1.18); desenhar(); }
     }).catch(() => {
       P.avatarOn = false;
       P.carregando3d = false;
@@ -652,13 +928,15 @@ function ligarSinalizar(params) {
   $('#bt-ver').addEventListener('click', ver);
   txt.addEventListener('keydown', (e) => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); ver(); } });
   $('#bt-exemplo').addEventListener('click', () => { txt.value = PM_EXEMPLOS[Math.floor(Math.random() * PM_EXEMPLOS.length)]; aplicar(txt.value); });
+  const demo = $('#bt-demo');
+  if (demo) demo.addEventListener('click', () => abrirSigner(SG_FRASE));
 
   EL.play.addEventListener('click', () => { if (P.tocando) pausar(); else tocar(); });
   $('#bt-prev').addEventListener('click', () => { pausar(); irPara(P.i - 1); });
   $('#bt-next').addEventListener('click', () => { pausar(); irPara(P.i + 1); });
-  $$('.vel-b').forEach(b => b.addEventListener('click', () => {
+  $$('.vel-b', $('.controles')).forEach(b => b.addEventListener('click', () => {
     P.vel = Number(b.dataset.vel);
-    $$('.vel-b').forEach(x => x.classList.toggle('on', x === b));
+    $$('.vel-b', $('.controles')).forEach(x => x.classList.toggle('on', x === b));
   }));
   EL.fita.addEventListener('click', (e) => {
     const b = e.target.closest('[data-beat]');
@@ -749,9 +1027,12 @@ function cartoes() {
   const q = norm(PESQUISA);
   const lista = ENTRADAS.filter(e => (!TEMA || e.tema === TEMA) && (!q || norm(e.palavra).includes(q)));
   if (!lista.length) return '<p class="vazio">Nada encontrado.</p>';
+  /* O href continua a ser o caminho sem JavaScript; o clique abre a sinalizadora
+     em cima da própria lista, para não se perder o contexto do dicionário. */
   return lista.map(e => `
-    <a class="cartao" href="#/?s=${encodeURIComponent(e.palavra)}">
-      <span class="fig">${maoFigura(e.notacao.forma)}</span>
+    <a class="cartao" href="#/?s=${encodeURIComponent(e.palavra)}" data-palavra="${esc(e.palavra)}"
+       aria-label="${esc(e.palavra)} — ver o sinal em 3D">
+      <span class="fig">${maoFigura(e.notacao.forma)}<span class="cartao-play" aria-hidden="true">▶</span></span>
       <b>${esc(e.palavra)}</b>
       <small>${esc(e.notacao.forma)} · ${esc(e.notacao.movimento)}${e.notacao.duas ? ' · 2 mãos' : ''}</small>
     </a>`).join('');
@@ -780,6 +1061,12 @@ function vistaDicionario() {
 function ligarDicionario() {
   const grade = $('#grade'), busca = $('#busca');
   busca.addEventListener('input', () => { PESQUISA = busca.value; grade.innerHTML = cartoes(); });
+  grade.addEventListener('click', (e) => {
+    const c = e.target.closest('[data-palavra]');
+    if (!c || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    abrirSigner(c.dataset.palavra);
+  });
   $('#temas').addEventListener('click', (e) => {
     const b = e.target.closest('[data-tema]');
     if (!b) return;
@@ -800,11 +1087,18 @@ function render() {
   const app = document.getElementById('app');
   pausar();
   esconderSelecao();
+  fecharSigner(true);
   app.innerHTML = shell(view(), ativo);
   const live = document.getElementById('route-live');
   if (live) live.textContent = ativo === '/dicionario' ? 'Dicionário' : 'Sinalizar';
-  if (ativo === '/dicionario') ligarDicionario();
+  if (ativo === '/dicionario') {
+    if (OBS_PALCO) { OBS_PALCO.disconnect(); OBS_PALCO = null; }
+    SG.palcoAVista = false;
+    SG.editorAVista = false;
+    ligarDicionario();
+  }
   else ligarSinalizar(m ? m.params : {});
+  atualizarFab();
   montarA11y();
 }
 
@@ -813,6 +1107,7 @@ document.addEventListener('DOMContentLoaded', () => {
   aplicarA11y();
   render();
   montarSelecao();
+  montarSigner();
 });
 
 /* Em localhost o service worker esconde ficheiros acabados de editar; só é usado

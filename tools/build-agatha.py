@@ -18,6 +18,7 @@ Sem isso o three.js põe tudo transparent + depthWrite off e a cara "fura".
 """
 
 import bpy, os, json, math, random
+import bmesh
 import numpy as np
 from mathutils import Vector
 
@@ -32,7 +33,7 @@ SYS_DATA = os.path.join(
     "user_default", "mpfb", "data")
 AQUI = os.path.dirname(__file__)
 OUT = os.path.abspath(os.path.join(AQUI, "fonte", "agatha-mpfb.glb"))
-CAMISOLA = os.path.abspath(os.path.join(AQUI, "assets", "camisola.png"))
+CAMISOLA = os.path.abspath(os.path.join(AQUI, "assets", "camisola-verde.png"))
 TEX_OLHOS = os.path.abspath(os.path.join(AQUI, "assets", "olhos.png"))
 
 from bl_ext.user_default.mpfb.services.humanservice import HumanService
@@ -60,6 +61,36 @@ def principal(mat):
         if n.type == "BSDF_PRINCIPLED":
             return n
     return None
+
+
+def encolher_acima(obj, z0, z1, fator):
+    """Puxa para dentro a parte do calçado que sobe por dentro da perna.
+    A meia do sapato furava o ganga; assim não há cortes nem buracos."""
+    bm = bmesh.new()
+    bm.from_mesh(obj.data)
+    mw = obj.matrix_world
+    inv = mw.inverted()
+    centros = {}
+    for sinal in (1, -1):
+        baixo = [mw @ v.co for v in bm.verts
+                 if z0 <= (mw @ v.co).z <= z0 + 0.025 and (mw @ v.co).x * sinal > 0]
+        if baixo:
+            centros[sinal] = (sum(p.x for p in baixo) / len(baixo),
+                              sum(p.y for p in baixo) / len(baixo))
+    mexidos = 0
+    for v in bm.verts:
+        p = mw @ v.co
+        c = centros.get(1 if p.x >= 0 else -1)
+        if c is None or p.z <= z0:
+            continue
+        t = min(1.0, (p.z - z0) / max(1e-6, z1 - z0))
+        k = 1.0 - (1.0 - fator) * (t * t * (3.0 - 2.0 * t))
+        v.co = inv @ Vector((c[0] + (p.x - c[0]) * k, c[1] + (p.y - c[1]) * k, p.z))
+        mexidos += 1
+    bm.to_mesh(obj.data)
+    bm.free()
+    obj.data.update()
+    print("SAPATO encolhido acima de", z0, "vértices:", mexidos)
 
 
 def alfa_opaco(obj):
@@ -456,8 +487,8 @@ def main():
         ("eyelashes", "eyelashes01", "Eyelashes"),
         ("teeth", "teeth_base", "Teeth"),
         ("tongue", "tongue01", "Tongue"),
-        ("clothes", "female_casualsuit02", "Clothes"),
-        ("clothes", "shoes03", "Clothes"),
+        ("clothes", "female_casualsuit01", "Clothes"),
+        ("clothes", "shoes05", "Clothes"),
     ]
     feitos = {}
     for cat, name, tipo in pecas:
@@ -470,8 +501,12 @@ def main():
         except Exception as e:
             print("PEÇA_FALHOU", tipo, name, repr(e))
 
-    if feitos.get(("clothes", "female_casualsuit02")) and os.path.exists(CAMISOLA):
-        trocar_textura(feitos[("clothes", "female_casualsuit02")], CAMISOLA)
+    if feitos.get(("clothes", "female_casualsuit01")) and os.path.exists(CAMISOLA):
+        trocar_textura(feitos[("clothes", "female_casualsuit01")], CAMISOLA)
+
+    # a meia do calçado subia por dentro do ganga e furava o tecido
+    if feitos.get(("clothes", "shoes05")):
+        encolher_acima(feitos[("clothes", "shoes05")], 0.090, 0.150, 0.70)
 
     for (cat, name), obj in feitos.items():
         if not obj:

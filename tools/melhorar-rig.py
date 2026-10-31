@@ -260,6 +260,59 @@ for obj in malhas:
     print("BIND", obj.name, "vértices movidos:", len(usados),
           "shape keys:", len(obj.data.shape_keys.key_blocks) if obj.data.shape_keys else 0)
 
+# --------------------------------------------------- 3.5 engrossar o pulso
+# O pulso ficava mais estreito que a palma (efeito de saco de rebuçado).
+# Infla só a zona do pulso, na direção radial, com queda suave para os lados.
+# Alvo antropométrico: pulso ~ 0,72 da largura da mão (51 mm vs 70 mm medidos).
+GANHO = 0.0045
+for lado in ("R", "L"):
+    d = eixo_cotovelo[lado]
+    punho = d["pulso"]
+    u = (punho - d["cotovelo"]).normalized()
+    for obj in malhas:
+        ga = obj.vertex_groups.get("J_Bip_%s_Hand" % lado)
+        gb = obj.vertex_groups.get("J_Bip_%s_LowerArm" % lado)
+        if not (ga or gb):
+            continue
+        aceites = {g.index for g in (ga, gb) if g}
+        mw = obj.matrix_world
+        inv = mw.inverted()
+        novos = {}
+        antes, depois = [], []
+        for v in obj.data.vertices:
+            if not any(g.group in aceites and g.weight > 0.05 for g in v.groups):
+                continue
+            p = mw @ v.co
+            t = (p - punho).dot(u)
+            if t < -0.055 or t > 0.030:
+                continue
+            r = (p - punho) - u * t
+            raio = r.length
+            if raio < 1e-5 or raio > 0.075:
+                continue
+            if t < -0.025:
+                k = suave((t + 0.055) / 0.030)
+            elif t > 0.008:
+                k = suave((0.030 - t) / 0.022)
+            else:
+                k = 1.0
+            novos[v.index] = (inv @ (p + r.normalized() * (GANHO * k)),
+                              (r.normalized() * (GANHO * k)))
+            if abs(t) < 0.012:
+                antes.append(raio)
+                depois.append(raio + GANHO * k)
+        for i, (co, _) in novos.items():
+            obj.data.vertices[i].co = co
+        if obj.data.shape_keys:
+            for kb in obj.data.shape_keys.key_blocks:
+                for i, (_, delta) in novos.items():
+                    kb.data[i].co = kb.data[i].co + inv.to_3x3() @ delta
+        obj.data.update()
+        if antes:
+            med = lambda xs: sorted(xs)[len(xs) // 2]
+            print("PULSO", lado, obj.name, "vértices:", len(novos),
+                  "raio mediano %.1f -> %.1f mm" % (med(antes) * 1000, med(depois) * 1000))
+
 # ------------------------------------------------- 4. pesos suaves e torção
 # Calculado em Python e escrito de uma vez. Os operadores normalize_all /
 # limit_total corriam antes deste passo e deixaram o osso de torção com peso
