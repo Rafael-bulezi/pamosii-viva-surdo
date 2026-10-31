@@ -4,7 +4,7 @@
    Não guarda: o vídeo que a pessoa abre (fica no aparelho dela e não sai de lá).
    Ao publicar, o `?v=` do index.html e o VERSAO abaixo mudam juntos. */
 
-const VERSAO = 'vs108';
+const VERSAO = 'vs109';
 const CASULO = 'casulo-' + VERSAO;
 
 const FICHEIROS = [
@@ -57,9 +57,12 @@ self.addEventListener('fetch', ev => {
     ev.respondWith((async () => {
       try {
         const res = await fetch(req);
-        const c = await caches.open(CASULO);
-        await c.put('./index.html', res.clone());
-        await c.put('./', res.clone());
+        /* guardar é um extra: se o cache recusar, a página segue na mesma */
+        try {
+          const c = await caches.open(CASULO);
+          await c.put('./index.html', res.clone());
+          await c.put('./', res.clone());
+        } catch (e) { /* sem cache, mas com rede */ }
         return res;
       } catch (e) {
         const c = await caches.open(CASULO);
@@ -77,7 +80,11 @@ self.addEventListener('fetch', ev => {
       if (guardado) return guardado;
       try {
         const res = await fetch(req);
-        if (res && res.ok) await c.put(req, res.clone());
+        /* o modelo 3D (13 MB) fica de fora do cache; e falhar a escrita nunca
+           pode estragar uma resposta que veio bem da rede */
+        if (res && res.ok && !/\.glb$/i.test(url.pathname)) {
+          try { await c.put(req, res.clone()); } catch (e) { /* cache cheio */ }
+        }
         return res;
       } catch (e) {
         return Response.error();
