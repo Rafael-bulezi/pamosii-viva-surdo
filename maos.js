@@ -133,6 +133,10 @@ const FORMAS_MAO = {
   punho: { i: [84, 98, 66], m: [86, 100, 66], r: [88, 100, 64], p: [90, 100, 62], t: [18, 46, 52], esp: [-4, -2, 1, 4] },
   aponta: { i: [0, 1, 0], m: [84, 96, 62], r: [86, 98, 62], p: [88, 98, 60], t: [24, 36, 40], esp: [-1, -4, 0, 4] },
   curva: { i: [34, 46, 28], m: [38, 50, 30], r: [40, 50, 30], p: [42, 52, 30], t: [36, 28, 34], esp: [-8, -2, 3, 8] },
+  /* mão em repouso: o dedo mindinho fecha mais do que o indicador, como numa
+     mão largada ao lado do corpo; o polegar fica junto do indicador e um pouco
+     à frente, não espetado para o lado */
+  relax: { i: [10, 14, 6], m: [16, 22, 10], r: [22, 28, 12], p: [28, 34, 14], t: [6, 16, 10], esp: [-2, 0, 1, 3] },
   garra: { i: [32, 68, 46], m: [34, 70, 48], r: [36, 70, 48], p: [38, 72, 46], t: [46, 28, 42], esp: [-11, -2, 6, 13] },
 };
 

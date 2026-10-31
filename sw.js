@@ -4,7 +4,7 @@
    Não guarda: o vídeo que a pessoa abre (fica no aparelho dela e não sai de lá).
    Ao publicar, o `?v=` do index.html e o VERSAO abaixo mudam juntos. */
 
-const VERSAO = 'vs109';
+const VERSAO = 'vs110';
 const CASULO = 'casulo-' + VERSAO;
 
 const FICHEIROS = [
