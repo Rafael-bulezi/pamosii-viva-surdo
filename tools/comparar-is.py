@@ -85,10 +85,56 @@ def folha(palavra, ref, imagens):
     return destino
 
 
-def main(palavras):
+def monte(palavras, destino):
+    """Várias palavras numa só folha (4 fotogramas por linha): uma leitura de
+    imagem por lote em vez de uma por sinal."""
     refs = ler_referencias()
+    linhas = []
+    for pw in palavras:
+        ref = refs.get(pw)
+        if not ref:
+            print("%-16s sem referência IS" % pw)
+            continue
+        try:
+            mp4 = os.path.join(VIDEOS, ref["slug"] + ".mp4")
+            if not os.path.exists(mp4):
+                v = url_video(ref["url"])
+                if not v:
+                    print("%-16s sem mp4 na página" % pw)
+                    continue
+                baixar(v, mp4)
+            imgs = [im.resize((int(im.width * ALTO / 2 / im.height), ALTO // 2)) for im in fotogramas(mp4, 4)]
+            if imgs:
+                linhas.append((pw, ref["glossa"], imgs))
+        except Exception as e:
+            print("%-16s FALHOU: %s" % (pw, e))
+    if not linhas:
+        return None
+    larg = sum(im.width for im in linhas[0][2])
+    banda = 22
+    folha = Image.new("RGB", (larg, (ALTO // 2 + banda) * len(linhas)), "white")
+    d = ImageDraw.Draw(folha)
+    y = 0
+    for pw, g, imgs in linhas:
+        x = 0
+        for im in imgs:
+            folha.paste(im, (x, y))
+            x += im.width
+        d.rectangle([0, y + ALTO // 2, larg, y + ALTO // 2 + banda], fill="#111814")
+        d.text((8, y + ALTO // 2 + 5), "%s · IS: %s" % (pw, g), fill="white")
+        y += ALTO // 2 + banda
+    os.makedirs(FOLHAS, exist_ok=True)
+    folha.save(destino)
+    return destino
+
+
+def main(palavras):
+    if palavras and palavras[0] == "--lote":
+        destino, palavras = palavras[1], palavras[2:]
+        print(monte(palavras, destino) or "nada montado")
+        return
     for palavra in palavras:
-        ref = refs.get(palavra)
+        ref = ler_referencias().get(palavra)
         if not ref:
             print("%-16s sem referência IS" % palavra)
             continue

@@ -9,5 +9,13 @@
   "professor": { "veredicto": "corrigido", "no_video": "as duas mãos, abertas e viradas uma para a outra, apresentam-se à frente do peito", "antes": "aponta testa frente", "depois": "2:plano frente frente", "em": "2026-10-31" },
   "comer": { "veredicto": "igual", "no_video": "mão em pinça leva algo à boca, repetido", "antes": "curva boca repete", "depois": "curva boca repete", "em": "2026-10-31" },
   "água": { "veredicto": "corrigido", "no_video": "mão aberta com dedos afastados junto à boca, palma para a cara, um toque", "antes": "L queixo toque", "depois": "abre boca toque", "em": "2026-10-31" },
-  "trabalhar": { "veredicto": "igual", "no_video": "dois punhos: o dominante bate no dorso do outro, à frente do corpo", "antes": "2:punho frente bate", "depois": "2:punho frente bate", "em": "2026-10-31" }
+  "trabalhar": { "veredicto": "igual", "no_video": "dois punhos: o dominante bate no dorso do outro, à frente do corpo", "antes": "2:punho frente bate", "depois": "2:punho frente bate", "em": "2026-10-31" },
+  "hoje": { "veredicto": "corrigido", "no_video": "um só indicador aponta para baixo e bate junto à cintura", "antes": "2:plano frente baixo", "depois": "aponta baixo bate", "em": "2026-10-31" },
+  "amanhã": { "veredicto": "corrigido", "no_video": "polegar estendido (punho fechado) avança a partir do peito", "antes": "aponta queixo frente", "depois": "A peito frente", "em": "2026-10-31" },
+  "ontem": { "veredicto": "corrigido", "no_video": "polegar estendido recua do peito para trás do ombro", "antes": "aponta queixo tras", "depois": "A peito tras", "em": "2026-10-31" },
+  "agora": { "veredicto": "corrigido", "no_video": "as duas mãos, planas e com palmas para baixo, descem juntos à frente da cintura", "antes": "2:Y frente baixo", "depois": "2:plano frente baixo", "em": "2026-10-31" },
+  "semana": { "veredicto": "corrigido", "no_video": "indicador descreve um círculo sobre o pulso/dorso da outra mão", "antes": "aponta mao varre", "depois": "aponta mao circulo", "em": "2026-10-31" },
+  "mãe": { "veredicto": "igual", "no_video": "mão aberta toca o queixo", "antes": "abre queixo toque", "depois": "abre queixo toque", "em": "2026-10-31" },
+  "pai": { "veredicto": "igual", "no_video": "mão aberta (polegar destacado) toca a testa", "antes": "abre testa toque", "depois": "abre testa toque", "em": "2026-10-31" },
+  "família": { "veredicto": "igual", "no_video": "as duas mãos em F descrevem um círculo que alarga à frente do corpo", "antes": "2:F frente circulo", "depois": "2:F frente circulo", "em": "2026-10-31" }
 }
