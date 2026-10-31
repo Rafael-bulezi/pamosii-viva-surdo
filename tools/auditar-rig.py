@@ -8,7 +8,7 @@ import bpy, json, os, math
 from mathutils import Vector
 
 AQUI = os.path.dirname(__file__)
-GLB = os.path.abspath(os.path.join(AQUI, "..", "app", "assets", "agatha-mpfb.glb"))
+GLB = os.path.abspath(os.path.join(AQUI, "fonte", "agatha-mpfb.glb"))
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
 bpy.ops.import_scene.gltf(filepath=GLB)

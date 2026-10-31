@@ -31,7 +31,7 @@ SYS_DATA = os.path.join(
     "Blender Foundation", "Blender", "5.2", "extensions",
     "user_default", "mpfb", "data")
 AQUI = os.path.dirname(__file__)
-OUT = os.path.abspath(os.path.join(AQUI, "..", "app", "assets", "agatha-mpfb.glb"))
+OUT = os.path.abspath(os.path.join(AQUI, "fonte", "agatha-mpfb.glb"))
 CAMISOLA = os.path.abspath(os.path.join(AQUI, "assets", "camisola.png"))
 TEX_OLHOS = os.path.abspath(os.path.join(AQUI, "assets", "olhos.png"))
 
