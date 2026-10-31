@@ -1,0 +1,13 @@
+{
+  "_nota": "O que foi comparado, palavra a palavra, com o vídeo da entrada IS. «no_video» descreve apenas o que se vê nos fotogramas (ferramenta: tools/comparar-is.py). Veredictos: igual = a nossa notação já desenhava a mesma família; corrigido = a notação foi mudada por causa do vídeo; aproximado = o vídeo mostra mais do que a nossa notação consegue dizer (não temos orientação de palma por sinal).",
+  "bom dia": { "veredicto": "corrigido", "no_video": "duas mãos planas unem-se à frente do tronco, palmas viradas uma para a outra", "antes": "abre queixo frente", "depois": "2:plano frente bate", "em": "2026-10-31" },
+  "boa tarde": { "veredicto": "corrigido", "no_video": "uma mão plana desce sobre a palma horizontal da outra, à frente do peito", "antes": "abre queixo frente", "depois": "2:plano peito baixo", "em": "2026-10-31" },
+  "boa noite": { "veredicto": "aproximado", "no_video": "pontas dos dedos da mão dominante junto ao queixo, depois sobre a outra mão (família dormir)", "antes": "curva queixo baixo", "depois": "curva queixo baixo", "em": "2026-10-31" },
+  "sim": { "veredicto": "corrigido", "no_video": "mão em L (indicador e polegar estendidos) flete-se junto à cabeça, como uma anuência", "antes": "punho frente bate", "depois": "L frente bate", "em": "2026-10-31" },
+  "não": { "veredicto": "aproximado", "no_video": "indicador erguido à altura do ombro com um movimento seco; a orientação da palma não se representa na nossa notação", "antes": "aponta frente torce", "depois": "aponta frente torce", "em": "2026-10-31" },
+  "escola": { "veredicto": "igual", "no_video": "duas mãos planas, palmas verticais uma contra a outra, batem à frente do peito", "antes": "2:plano peito bate", "depois": "2:plano peito bate", "em": "2026-10-31" },
+  "professor": { "veredicto": "corrigido", "no_video": "as duas mãos, abertas e viradas uma para a outra, apresentam-se à frente do peito", "antes": "aponta testa frente", "depois": "2:plano frente frente", "em": "2026-10-31" },
+  "comer": { "veredicto": "igual", "no_video": "mão em pinça leva algo à boca, repetido", "antes": "curva boca repete", "depois": "curva boca repete", "em": "2026-10-31" },
+  "água": { "veredicto": "corrigido", "no_video": "mão aberta com dedos afastados junto à boca, palma para a cara, um toque", "antes": "L queixo toque", "depois": "abre boca toque", "em": "2026-10-31" },
+  "trabalhar": { "veredicto": "igual", "no_video": "dois punhos: o dominante bate no dorso do outro, à frente do corpo", "antes": "2:punho frente bate", "depois": "2:punho frente bate", "em": "2026-10-31" }
+}

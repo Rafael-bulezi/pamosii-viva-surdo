@@ -8,8 +8,10 @@ const vm = require('vm');
 
 const ficheiro = path.resolve(process.argv[2] || path.join(__dirname, '..', 'app', 'dados.js'));
 const ctx = { console };
+ctx.window = ctx; /* os módulos do app fecham-se com (function(global){…})(window) */
 vm.createContext(ctx);
-vm.runInContext(fs.readFileSync(ficheiro, 'utf8') + `
+const referencias = fs.readFileSync(path.join(__dirname, '..', 'app', 'referencias.js'), 'utf8');
+vm.runInContext(referencias + '\n' + fs.readFileSync(ficheiro, 'utf8') + `
 ;globalThis.__api = { analisarTexto, glosaTexto, procurarSinal, GLOSSARIO, PM_EXEMPLOS };`, ctx);
 const api = ctx.__api;
 

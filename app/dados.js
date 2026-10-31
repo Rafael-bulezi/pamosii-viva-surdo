@@ -24,6 +24,21 @@ const GLOSSARIO = [
   { tema: 'Dia a dia', termos: ['mercado', 'autocarro', 'dinheiro', 'telefone', 'amigo', 'amiga', 'computador', 'hospital', 'médico', 'igreja', 'futebol', 'música', 'dança', 'roupa', 'sapato', 'cartão', 'comprar', 'vender', 'pagar', 'esperar', 'chegar', 'precisar', 'poder', 'dever', 'muito', 'pouco', 'aqui', 'ali'] },
 ].map(g => ({ tema: g.tema, termos: g.termos.map(t => ({ palavra: String(t), estado: 'a-validar', sinal: null })) }));
 
+/* Temas que só existem aqui porque o léxico International Sign os documenta.
+   Vêm do ficheiro gerado por tools/gerar-referencias.py, para que a palavra e a
+   referência nunca se separem. Se o tema já existe (Escola, Tempo…), as palavras
+   entram no grupo que já está — dois grupos com o mesmo nome dividiam os filtros. */
+if (typeof IS_TEMAS !== 'undefined') {
+  IS_TEMAS.forEach(g => {
+    const destino = GLOSSARIO.find(gr => gr.tema === g.tema);
+    const novas = g.termos.filter(t => !GLOSSARIO.some(gr => gr.termos.some(x => x.palavra === t)));
+    if (!novas.length) return;
+    const termos = novas.map(t => ({ palavra: t, estado: 'a-validar', sinal: null }));
+    if (destino) destino.termos.push(...termos);
+    else GLOSSARIO.push({ tema: g.tema, termos });
+  });
+}
+
 const GLOSSARIO_QTD = GLOSSARIO.reduce((n, g) => n + g.termos.length, 0);
 
 const norm = (s) => String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();

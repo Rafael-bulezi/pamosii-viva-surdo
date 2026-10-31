@@ -802,7 +802,7 @@ function vistaSinalizar() {
       <span class="mode-art">${ARTE.dicionario}</span>
       <span class="mode-copy">
         <span class="mode-head"><span class="mode-name">Dicionário</span><span class="mode-go" aria-hidden="true">→</span></span>
-        <span class="mode-sub">${ENTRADAS.length} sinais de estudo, por tema.</span>
+        <span class="mode-sub">${CONTAS.ref} palavras com sinal International Sign documentado.</span>
       </span>
     </a>
   </section>
@@ -1009,43 +1009,87 @@ function ligarSinalizar(params) {
 }
 
 /* ---------------- vista: dicionário ---------------- */
-let PESQUISA = '', TEMA = '';
+let PESQUISA = '', TEMA = '', ESTADO = '';
+
+const REFS = (typeof REFERENCIAS_IS !== 'undefined') ? REFERENCIAS_IS : {};
+const FONTE_IS = (typeof IS_FONTE !== 'undefined') ? IS_FONTE : { nome: 'Sématos', total: 0, colhido: '' };
 
 function entradasDicionario() {
   const out = [];
   GLOSSARIO.forEach(g => g.termos.forEach(t => {
-    const n = sinalNotacao(String(t.palavra).toLowerCase().trim());
-    if (n) out.push({ palavra: t.palavra, tema: g.tema, notacao: n });
+    const chave = String(t.palavra).toLowerCase().trim();
+    out.push({
+      palavra: t.palavra,
+      tema: g.tema,
+      notacao: sinalNotacao(chave) || null,
+      ref: REFS[chave] || null,
+    });
   }));
   return out;
 }
 
 const ENTRADAS = entradasDicionario();
 const TEMAS = [...new Set(ENTRADAS.map(e => e.tema))];
+const CONTAS = {
+  total: ENTRADAS.length,
+  ref: ENTRADAS.filter(e => e.ref).length,
+  pose: ENTRADAS.filter(e => e.notacao).length,
+  refComPose: ENTRADAS.filter(e => e.ref && e.notacao).length,
+  comparado: ENTRADAS.filter(e => e.ref && e.ref.comparado).length,
+  soRef: ENTRADAS.filter(e => e.ref && !e.notacao).length,
+  soPose: ENTRADAS.filter(e => e.notacao && !e.ref).length,
+};
+
+const FILTROS_ESTADO = [
+  ['', 'Tudo'],
+  ['ref', 'Com referência IS'],
+  ['pose', 'Com pose 3D'],
+  ['sem', 'Sem referência'],
+];
 
 function cartoes() {
   const q = norm(PESQUISA);
-  const lista = ENTRADAS.filter(e => (!TEMA || e.tema === TEMA) && (!q || norm(e.palavra).includes(q)));
+  const lista = ENTRADAS.filter(e => {
+    if (TEMA && e.tema !== TEMA) return false;
+    if (ESTADO === 'ref' && !e.ref) return false;
+    if (ESTADO === 'pose' && !e.notacao) return false;
+    if (ESTADO === 'sem' && e.ref) return false;
+    return !q || norm(e.palavra).includes(q);
+  });
   if (!lista.length) return '<p class="vazio">Nada encontrado.</p>';
-  /* O href continua a ser o caminho sem JavaScript; o clique abre a sinalizadora
-     em cima da própria lista, para não se perder o contexto do dicionário. */
-  return lista.map(e => `
-    <a class="cartao" href="#/?s=${encodeURIComponent(e.palavra)}" data-palavra="${esc(e.palavra)}"
-       aria-label="${esc(e.palavra)} — ver o sinal em 3D">
-      <span class="fig">${maoFigura(e.notacao.forma)}<span class="cartao-play" aria-hidden="true">▶</span></span>
+  /* Uma entrada só é tocável no palco se tiver notação. As que só têm
+     referência levam ao vídeo da fonte: pôr a personagem a fazer um gesto que
+     nunca foi comparado com o sinal seria dizer que sabemos o que não sabemos. */
+  return lista.map(e => {
+    const temPose = !!e.notacao;
+    const href = temPose ? '#/?s=' + encodeURIComponent(e.palavra) : esc(e.ref.url);
+    const externo = temPose ? '' : ' target="_blank" rel="noopener noreferrer"';
+    const selo = temPose ? '▶' : '↗';
+    const detalhe = e.ref
+      ? 'IS · ' + esc(e.ref.glossa) + (e.ref.comparado ? ' · visto no vídeo' : '')
+      : (e.notacao ? esc(e.notacao.forma) + ' · ' + esc(e.notacao.movimento) : 'sem pose');
+    const nota = temPose && !e.ref ? ' · sem referência IS' : '';
+    const aria = e.ref
+      ? `${esc(e.palavra)} — sinal International Sign documentado (${esc(e.ref.glossa)})`
+      : `${esc(e.palavra)} — gesto de estudo, sem referência`;
+    return `
+    <a class="cartao${temPose ? '' : ' cartao-ref'}" href="${href}"${externo}
+       ${temPose ? `data-palavra="${esc(e.palavra)}"` : ''} aria-label="${aria}">
+      <span class="fig">${temPose ? maoFigura(e.notacao.forma) : '<span class="ref-marca">IS</span>'}<span class="cartao-play" aria-hidden="true">${selo}</span></span>
       <b>${esc(e.palavra)}</b>
-      <small>${esc(e.notacao.forma)} · ${esc(e.notacao.movimento)}${e.notacao.duas ? ' · 2 mãos' : ''}</small>
-    </a>`).join('');
+      <small>${detalhe}${esc(nota)}</small>
+    </a>`;
+  }).join('');
 }
 
 function vistaDicionario() {
   const chips = ['', ...TEMAS].map(t => `<button type="button" class="chip${t === TEMA ? ' on' : ''}" data-tema="${esc(t)}">${t || 'Tudo'}</button>`).join('');
-  const faltam = GLOSSARIO_QTD - ENTRADAS.length;
+  const estados = FILTROS_ESTADO.map(([v, r]) => `<button type="button" class="chip chip-estado${ESTADO === v ? ' on' : ''}" data-estado="${v}">${r}</button>`).join('');
   return `
   <section class="entrada">
     <p class="kicker">Dicionário</p>
-    <h1>${ENTRADAS.length} sinais de estudo.</h1>
-    <p class="sub">${faltam > 0 ? `${faltam} palavras do glossário ainda não têm descrição de sinal e são soletradas letra a letra.` : 'Todos os sinais do glossário já têm descrição.'}</p>
+    <h1>${CONTAS.ref} palavras com sinal documentado em International Sign.</h1>
+    <p class="sub">As ${CONTAS.ref} referências vêm do léxico International Sign da ${FONTE_IS.nome} (${FONTE_IS.total} sinais, colhido a ${FONTE_IS.colhido}) e ligam ao vídeo de cada sinal. ${CONTAS.pose} têm pose no palco 3D — ${CONTAS.soRef} ainda só existem na fonte, ${CONTAS.soPose} são gestos nossos sem correspondência IS. ${CONTAS.comparado} poses já foram comparadas fotograma a fotograma com o vídeo.</p>
   </section>
   <section class="painel busca">
     <label class="campo">
@@ -1053,9 +1097,10 @@ function vistaDicionario() {
       <input id="busca" type="search" value="${esc(PESQUISA)}" placeholder="Procurar palavra…" autocomplete="off">
     </label>
     <div class="chips" id="temas">${chips}</div>
+    <div class="chips" id="estados">${estados}</div>
   </section>
   <section class="grade" id="grade" aria-live="polite">${cartoes()}</section>
-  <p class="rodape-nota">As descrições (forma · movimento) são uma notação nossa para treinar a mão — não substituem o vídeo de um sinalizador surdo.</p>`;
+  <p class="rodape-nota">As referências dizem que o International Sign tem um sinal para esta ideia e onde o vê-lo; não substituem o vídeo de um sinalizador surdo. As ${CONTAS.pose} poses do palco 3D são aproximações nossas — ${CONTAS.refComPose} delas ligadas a um sinal IS documentado, nenhuma validada por sinalizadores surdos.</p>`;
 }
 
 function ligarDicionario() {
@@ -1072,6 +1117,13 @@ function ligarDicionario() {
     if (!b) return;
     TEMA = b.dataset.tema;
     $$('.chip', $('#temas')).forEach(c => c.classList.toggle('on', c === b));
+    grade.innerHTML = cartoes();
+  });
+  $('#estados').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-estado]');
+    if (!b) return;
+    ESTADO = b.dataset.estado;
+    $$('.chip', $('#estados')).forEach(c => c.classList.toggle('on', c === b));
     grade.innerHTML = cartoes();
   });
 }

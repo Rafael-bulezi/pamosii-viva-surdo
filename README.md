@@ -27,9 +27,10 @@ acabados de editar). Para o testar: `http://127.0.0.1:8123/?sw=1`.
 
 ```
 app/
-  index.html            página única, carrega dados → mãos → 3D → app
+  index.html            página única, carrega referências → dados → mãos → 3D → app
   styles.css            tokens, temas claro/escuro/alto contraste, telemóvel
-  dados.js              glossário (12 temas, 179 palavras) + glosador
+  referencias.js        GERADO: o que o léxico International Sign documenta
+  dados.js              glossário (19 temas, 298 palavras) + glosador
   maos.js               rig das mãos em SVG + notação dos sinais (191 sinais)
   avatar.js             sinalizadora 3D (three.js + GLB), câmara, poses
   sinal3d.js            notação → poses de ossos (âncoras em metros na malha)
@@ -110,6 +111,36 @@ A interface não pode afirmar o que o código não faz:
 Estas regras vivem em `tools/integridade-test.cjs`; se alguém escrever a
 promessa no site, o teste falha.
 
+## De onde vêm as referências (International Sign)
+
+O dicionário separa três coisas que antes se misturavam numa palavra só:
+
+- **referência** — a palavra tem sinal documentado no léxico International Sign
+  da Sématos (439 entradas, colhidas dos sitemaps públicos a 2026-10-31 para
+  `tools/fonte/sematos-isl-slugs.txt`). O cartão liga ao vídeo da fonte.
+- **pose 3D** — a nossa notação `forma · lugar · movimento`. Nem toda a
+  referência tem pose e nem toda a pose tem referência; o site diz os dois
+  números separados, à partida.
+- **comparado** — alguém viu fotogramas do vídeo da fonte e escreveu o veredicto
+  (`igual`, `corrigido` ou `aproximado`) em `tools/fonte/is-comparado.json`.
+
+A pipeline, pela ordem:
+
+```
+python tools/mapear-is.py --escrever    # português -> slug IS; o mapa vive aqui
+python tools/gerar-referencias.py       # escreve app/referencias.js
+python tools/comparar-is.py "bom dia"   # folhas de fotogramas em ~/glb-lab/shots
+```
+
+`tools/integridade-test.cjs` não deixa as três camadas voltarem a separar-se: só
+há «visto no vídeo» se a palavra estiver no caderno com uma descrição do que se
+vê, e o `depois` do caderno tem de bater com o que `maos.js` desenha hoje — mudar
+um sinal sem voltar a compará-lo chumba o teste.
+
+O que a fonte não documenta fica sem referência, e o cartão diz isso: é o caso de
+«olá», «obrigado», «por favor» e dos catorze termos do tema Corpo, entre outros
+96. Não se inventa parentesco para encher o quadro.
+
 ## Publicação
 
 Link para partilhar: <https://vivasurdo.vercel.app> (projeto `vivasurdo`, conta
@@ -127,7 +158,7 @@ um `VERCEL_OIDC_TOKEN` e, se o ficheiro ainda estiver lá, sobe como ficheiro
 estático público do site. `app/.gitignore` já ignora `.vercel` e `.env*`.
 
 Publicado também em <https://rafael-bulezi.github.io/pamosii-viva-surdo/> (fork,
-vs111). O repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
+vs112). O repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
 continua na versão anterior (18 rotas): a conta de publicação só tem leitura no
 repositório original, por isso as versões novas saem pelo fork.
 

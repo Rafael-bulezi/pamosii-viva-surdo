@@ -18,6 +18,7 @@ const ler = f => fs.readFileSync(path.join(RAIZ, f), 'utf8');
 const app = ler('app.js');
 const dados = ler('dados.js');
 const maos = ler('maos.js');
+const referencias = ler('referencias.js');
 const html = ler('index.html');
 const css = ler('styles.css');
 const sw = ler('sw.js');
@@ -95,7 +96,7 @@ const SEGREDAS = [
   /github_pat_[0-9A-Za-z_]{40,}/,
 ];
 for (const [nome, texto] of [['app.js', app], ['dados.js', dados], ['maos.js', maos],
-  ['index.html', html], ['styles.css', css], ['sw.js', sw]]) {
+  ['referencias.js', referencias], ['index.html', html], ['styles.css', css], ['sw.js', sw]]) {
   for (const re of SEGREDAS) if (re.test(texto)) falhas.push('Possível credencial em ' + nome + ' (' + re + ')');
 }
 if (/(?:apiKey|api_key|API_KEY)\s*[:=]/.test(app)) falhas.push('Aparece algo com cara de chave de API no frontend.');
@@ -173,10 +174,12 @@ if (!/class="skip"/.test(html)) falhas.push('Desapareceu o link «Saltar para o 
 if (!/aria-label="Opções de acessibilidade"/.test(app)) falhas.push('O botão de acessibilidade perdeu nome acessível.');
 
 /* ------------------------------------------------------- 8. arquitectura nova */
-/* ordem de carregamento: dados -> mãos -> app (o app usa os dois) */
-const ordem = ['dados.js', 'maos.js', 'app.js'].map(f => html.indexOf(f + '?v='));
-if (ordem.some(i => i < 0)) falhas.push('index.html não carrega dados.js, maos.js e app.js.');
-else if (!(ordem[0] < ordem[1] && ordem[1] < ordem[2])) falhas.push('Os scripts carregam fora de ordem (dados → mãos → app).');
+/* ordem de carregamento: referências -> dados -> mãos -> app (o app usa os três) */
+const ordem = ['referencias.js', 'dados.js', 'maos.js', 'app.js'].map(f => html.indexOf(f + '?v='));
+if (ordem.some(i => i < 0)) falhas.push('index.html não carrega referencias.js, dados.js, maos.js e app.js.');
+else if (!(ordem[0] < ordem[1] && ordem[1] < ordem[2] && ordem[2] < ordem[3])) {
+  falhas.push('Os scripts carregam fora de ordem (referências → dados → mãos → app).');
+}
 
 /* o site desenha os sinais sozinho; não pode voltar a depender de imagens de mãos */
 if (!/function maoCena/.test(maos) || !/function maoPecas/.test(maos) || !/function formaMisturar/.test(maos)) {
@@ -203,14 +206,15 @@ for (const [nome, texto] of [['dados.js', dados], ['maos.js', maos], ['app.js', 
 
 /* --------------------------------------------------- 9. a notação é desenhável */
 const ctx = { console };
+ctx.window = ctx; /* os módulos fecham-se com (function(global){…})(window) */
 vm.createContext(ctx);
-vm.runInContext(dados + '\n' + maos + `
+vm.runInContext(referencias + '\n' + dados + '\n' + maos + `
 ;globalThis.__api = { SINAIS, FORMAS_MAO, LOCAIS, MOVIMENTOS, sinalNotacao,
   GLOSSARIO, GLOSSARIO_QTD, procurarSinal, analisarTexto, glosaTexto,
-  PM_EXEMPLOS, TEMPO_FRENTE };
+  PM_EXEMPLOS, TEMPO_FRENTE, REFERENCIAS_IS, IS_TEMAS, IS_FONTE };
 `, ctx);
 const api = ctx.__api;
-if (!api) throw new Error('não foi possível avaliar dados.js + maos.js no vm');
+if (!api) throw new Error('não foi possível avaliar referencias.js + dados.js + maos.js no vm');
 
 const sinais = Object.keys(api.SINAIS);
 const notacaoMaus = [];
@@ -247,6 +251,59 @@ for (const chave of sinais) {
     falhas.push('Sinal de duas mãos sem o prefixo 2: em ' + chave);
   }
 }
+
+/* -------------------------------------- 9b. as referências International Sign */
+const palavrasGlossario = new Set();
+for (const g of api.GLOSSARIO) for (const t of g.termos) palavrasGlossario.add(String(t.palavra).toLowerCase().trim());
+
+const refsFora = Object.keys(api.REFERENCIAS_IS).filter(p => !palavrasGlossario.has(p));
+if (refsFora.length) falhas.push('Referências IS para palavras que não estão no glossário: ' + refsFora.join(', '));
+
+const urlsMas = Object.entries(api.REFERENCIAS_IS)
+  .filter(([, r]) => !/^https:\/\/www\.sematos\.eu\/en\/isl\/words\/[a-z0-9-]+$/.test(r.url))
+  .map(([p]) => p);
+if (urlsMas.length) falhas.push('Referências IS sem URL válida da Sématos: ' + urlsMas.join(', '));
+
+for (const g of api.IS_TEMAS) {
+  const tema = api.GLOSSARIO.find(x => x.tema === g.tema);
+  if (!tema) { falhas.push('O tema IS «' + g.tema + '» não chegou ao glossário — dados.js deixou de juntar IS_TEMAS.'); continue; }
+  const faltam = g.termos.filter(t => !tema.termos.some(x => x.palavra === t));
+  if (faltam.length) falhas.push('Faltam no glossário palavras IS do tema ' + g.tema + ': ' + faltam.join(', '));
+}
+
+/* uma palavra sem notação não pode aparecer como se a personagem soubesse o sinal */
+if (!/cartao-ref/.test(app)) falhas.push('O dicionário perdeu o cartão de referência sem pose (cartao-ref).');
+if (!/target="_blank" rel="noopener/.test(app)) falhas.push('Os cartões de referência deixaram de abrir a fonte em aba própria com rel=noopener.');
+
+/* as contas da página têm de sair dos dados, não de um número escrito à mão */
+const h1Dic = (app.match(/<h1>\$\{([^}]+)\}[^<]*sinal/i) || [])[1] || '(sem contagem)';
+if (!/CONTAS\./.test(h1Dic)) falhas.push('O título do dicionário voltou a ter uma contagem escrita à mão: ' + h1Dic);
+if (!/FONTE_IS\.total/.test(app)) falhas.push('A contagem de sinais da fonte deixou de vir de IS_FONTE (tools/fonte/sematos-isl-slugs.txt).');
+
+/* ------------------------------------------- 9c. o caderno de comparações IS */
+const COMPARADO = JSON.parse(fs.readFileSync(path.join(__dirname, 'fonte', 'is-comparado.json'), 'utf8'));
+const VEREDICTOS = ['igual', 'corrigido', 'aproximado'];
+for (const [palavra, c] of Object.entries(COMPARADO)) {
+  if (palavra.startsWith('_')) continue;
+  if (!api.REFERENCIAS_IS[palavra]) { falhas.push('«' + palavra + '» está no caderno de comparações sem referência IS.'); continue; }
+  if (!VEREDICTOS.includes(c.veredicto)) falhas.push('«' + palavra + '» tem veredicto desconhecido: ' + c.veredicto);
+  if (!c.no_video || c.no_video.length < 20) falhas.push('«' + palavra + '» não descreve o que se vê no vídeo.');
+  const actual = api.SINAIS[palavra];
+  if (actual !== c.depois) {
+    falhas.push('«' + palavra + '» foi comparada e o código mudou depois disso: o caderno diz «' + c.depois +
+      '», maos.js tem «' + actual + '». Voltar a comparar, ou corrigir o caderno com prova.');
+  }
+}
+const comparadas = Object.keys(api.REFERENCIAS_IS).filter(p => api.REFERENCIAS_IS[p].comparado).length;
+if (comparadas !== Object.keys(COMPARADO).filter(k => !k.startsWith('_')).length) {
+  falhas.push('referencias.js marca ' + comparadas + ' palavras como comparadas mas o caderno tem ' +
+    Object.keys(COMPARADO).filter(k => !k.startsWith('_')).length + ' — correr tools/gerar-referencias.py.');
+}
+nota('comparações: ' + comparadas + ' poses vistas fotograma a fotograma contra o vídeo da fonte');
+
+const comRef = Object.keys(api.REFERENCIAS_IS).length;
+const refComPose = Object.keys(api.REFERENCIAS_IS).filter(p => api.sinalNotacao(p)).length;
+nota('referências: ' + comRef + ' palavras ligadas ao léxico IS da Sématos (' + refComPose + ' já com pose 3D)');
 
 /* o glosador tem de continuar a ordenar como promete a nota do site */
 for (const frase of ['Amanhã eu vou à escola.', 'Eu não quero água.']) {
