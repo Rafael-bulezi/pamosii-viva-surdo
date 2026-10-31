@@ -23,10 +23,20 @@
 
   const AX = V(1, 0, 0), AY = V(0, 1, 0), AZ = V(0, 0, 1);
 
+  /* Scratch do caminho quente: rodarMundo corre dezenas de vezes por pose e
+     duas por fotograma; alocar aqui enchia a pilha de lixo do GC. */
+  const _qA = new THREE.Quaternion(), _qL = new THREE.Quaternion();
+
   function rodarMundo(osso, delta) {
-    const qp = new THREE.Quaternion();
-    osso.parent.getWorldQuaternion(qp);
-    osso.quaternion.premultiply(qp.clone().invert().multiply(delta).multiply(qp));
+    /* q_mundo = q_pai · q_local; premultiplicar (q_pai⁻¹ δ q_pai) dá
+       q_mundo_novo = δ · q_mundo, ou seja o giro pedido no referencial do mundo. */
+    if (!osso.parent) {
+      osso.quaternion.premultiply(delta);
+    } else {
+      osso.parent.getWorldQuaternion(_qA);
+      _qL.copy(_qA).invert().multiply(delta).multiply(_qA);
+      osso.quaternion.premultiply(_qL);
+    }
     osso.updateMatrixWorld(true);
   }
 
@@ -61,21 +71,31 @@
     renderer.setSize(el.clientWidth || 640, el.clientHeight || 360);
     renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.08;
+    renderer.toneMappingExposure = 1.0;
     renderer.domElement.style.display = 'block';
     el.appendChild(renderer.domElement);
 
     cena = new THREE.Scene();
     cam = new THREE.PerspectiveCamera(o.fov || 30, (el.clientWidth || 16) / (el.clientHeight || 9), 0.05, 30);
 
-    cena.add(new THREE.HemisphereLight(0xffffff, 0xb9c6b4, 1.0));
-    const sol = new THREE.DirectionalLight(0xffffff, 1.25);
-    sol.position.set(-1.4, 2.8, 2.6);
+    /* Estúdio claro: a luz de recorte (rim) é o que separa o cabelo e os ombros
+       do fundo branco; o contraluz quente anterior era fraco demais para isso. */
+    cena.add(new THREE.HemisphereLight(0xffffff, 0xc4d0bd, 0.42));
+    const sol = new THREE.DirectionalLight(0xfff8ee, 1.35);
+    sol.position.set(-1.7, 2.9, 2.5);
     cena.add(sol);
-    const contraluz = new THREE.DirectionalLight(0xfff2dc, 0.35);
-    contraluz.position.set(1.8, 1.4, -1.6);
-    cena.add(contraluz);
-    const rosto = new THREE.DirectionalLight(0xfff4e6, 0.55);
+    const recorte = new THREE.DirectionalLight(0xeaf4ff, 0.85);
+    recorte.position.set(1.3, 2.4, -2.3);
+    cena.add(recorte);
+    /* Segundo recorte, mais fraco, do outro lado: com um só, o lado esquerdo do
+       cabelo e do ombro perdia a aresta e colava ao fundo claro. */
+    const recorteB = new THREE.DirectionalLight(0xeaf4ff, 0.45);
+    recorteB.position.set(-1.4, 2.1, -2.3);
+    cena.add(recorteB);
+    const enchimento = new THREE.DirectionalLight(0xdfeaff, 0.38);
+    enchimento.position.set(2.1, 1.1, 1.9);
+    cena.add(enchimento);
+    const rosto = new THREE.DirectionalLight(0xfff4e6, 0.34);
     rosto.position.set(0.6, 1.70, 2.2);
     rosto.target.position.set(0, 1.6, 0);
     cena.add(rosto, rosto.target);
@@ -96,15 +116,24 @@
   function montarModelo(raiz) {
     modelo = raiz;
     cena.add(modelo);
+    /* O export deixou um Icosphere de raio 1 sem material em volta dos pés.
+       Não aparece, mas esticava a caixa do modelo de 1,80 m para 2,78 m e a
+       câmara enquadrava pela caixa — daí a figura pequena no palco. */
+    const sobras = [];
     modelo.traverse((o) => {
       if (o.isBone) ossos[o.name] = o;
       if (o.isMesh || o.isSkinnedMesh) {
+        if (/^Icosphere/i.test(o.name) && o.geometry.attributes.position.count < 100) {
+          sobras.push(o);
+          return;
+        }
         malhas.push(o);
         o.frustumCulled = false;
         const mats = Array.isArray(o.material) ? o.material : [o.material];
         mats.forEach((m) => { if (m.map) m.map.encoding = THREE.sRGBEncoding; });
       }
     });
+    sobras.forEach((o) => o.parent.remove(o));
     modelo.updateMatrixWorld(true);
     const bb = new THREE.Box3().setFromObject(modelo);
     modelo.userData.altura = bb.max.y - bb.min.y;
@@ -201,11 +230,20 @@
     rodarMundo(clav, new THREE.Quaternion().setFromAxisAngle(eixoR, Math.min(0.42, (ang - 0.6) * 0.32)));
   }
 
+  const _vA = V(0, 0, 0), _vB = V(0, 0, 0), _vC = V(0, 0, 0);
+
+  /* Perpendicular estável: cruzar com o eixo de menor componente dá sempre o
+     maior produto vectorial (≥ 0,816) — nunca normaliza um vector quase nulo. */
+  function perpendicular(v) {
+    const ax = Math.abs(v.x), ay = Math.abs(v.y), az = Math.abs(v.z);
+    const alt = (ax <= ay && ax <= az) ? AX : (ay <= az ? AY : AZ);
+    return _vC.crossVectors(v, alt).normalize();
+  }
+
   function qEntre(a, b) {
-    const na = a.clone().normalize(), nb = b.clone().normalize();
-    if (na.dot(nb) < -0.9999) {
-      const alt = Math.abs(na.x) < 0.9 ? V(1, 0, 0) : V(0, 1, 0);
-      return new THREE.Quaternion().setFromAxisAngle(alt.cross(na).normalize(), Math.PI);
+    const na = _vA.copy(a).normalize(), nb = _vB.copy(b).normalize();
+    if (na.dot(nb) < -0.99999) {
+      return new THREE.Quaternion().setFromAxisAngle(perpendicular(na), Math.PI);
     }
     return new THREE.Quaternion().setFromUnitVectors(na, nb);
   }
@@ -230,6 +268,13 @@
     const f = (global.FORMAS_MAO && global.FORMAS_MAO[forma]) || (global.FORMAS_MAO && global.FORMAS_MAO.abre);
     if (!f) return;
     DEDOS.forEach(([nome, chave, iEsp]) => {
+      /* repõe só os três ossos deste dedo antes de os rodar: assim aplicarMao
+         é idempotente e chamá-la duas vezes (API pública, fora da pipeline)
+         não enrola os dedos. */
+      for (let j = 1; j <= 3; j++) {
+        const bn = 'J_Bip_' + L + '_' + nome + j;
+        if (ossos[bn] && repousoOssos[bn]) ossos[bn].quaternion.copy(repousoOssos[bn]);
+      }
       const ang = f[chave];
       if (nome === 'Thumb') {
         const abertura = ang ? ang[0] : POLEGAR_BIND;
@@ -401,15 +446,18 @@
     const alvoD = V(...(D.mao || REP.D.mao)), alvoE = V(...(E.mao || REP.E.mao));
     ajudOmbro('D', alvoD);
     ikBraco('D', alvoD, V(-0.55, -1.6, D.polar || 0.25));
-    rodarMao('D', D.pulso);
+    /* Com alvo de palma, orientarPalma repõe a mão e resolve-a toda a partir
+       do alvo: rodarMao antes disso era trabalho perdido (e lia-se como se o
+       pulso da notação fosse aplicado, quando nunca era). Sem palma, vale. */
     if (D.palma) orientarPalma('D', D.palma);
+    else rodarMao('D', D.pulso);
     if (p.sim) {
       espelharBraco();
     } else {
       ajudOmbro('E', alvoE);
       ikBraco('E', alvoE, V(0.55, -1.6, E.polar || 0.25));
-      rodarMao('E', E.pulso);
       if (E.palma) orientarPalma('E', E.palma);
+      else rodarMao('E', E.pulso);
     }
     if (p.cabeca) {
       const c = ossos['J_Bip_C_Head'];
@@ -523,13 +571,17 @@
   }
 
   /* ===================== enquadramento ===================== */
-  function enquadrar(tipo) {
+  /* `folga` > 1 afasta a câmara do alvo: o painel 4:5 é mais estreito do que o
+     palco da página e os braços abertos ficavam fora do quadro. */
+  function enquadrar(tipo, folga) {
     if (!modelo) return;
     const h = modelo.userData.altura || 1.75;
+    const f = folga || 1;
+    const alvo = new THREE.Vector3();
     if (tipo === 'corpo') {
       cam.fov = 30;
       cam.position.set(0.7, h * 0.55, h * 2.0);
-      cam.lookAt(0, h * 0.5, 0);
+      alvo.set(0, h * 0.5, 0);
     } else {
       /* plano de sinalização: das mãos em repouso (~0,80 m) a acima da cabeça
          (~1,96 m); enquadrar só a cabeça aos ombros cortava os dedos caídos.
@@ -537,8 +589,10 @@
          0,749h = 1,31 m num corpo de 1,75 m, ou seja 0,72 a 1,90 m. */
       cam.fov = 34;
       cam.position.set(0.30, h * 0.749, h * 1.114);
-      cam.lookAt(0, h * 0.749, 0);
+      alvo.set(0, h * 0.749, 0);
     }
+    if (f !== 1) cam.position.sub(alvo).multiplyScalar(f).add(alvo);
+    cam.lookAt(alvo);
     cam.updateProjectionMatrix();
   }
 
