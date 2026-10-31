@@ -4,13 +4,14 @@
    Não guarda: o vídeo que a pessoa abre (fica no aparelho dela e não sai de lá).
    Ao publicar, o `?v=` do index.html e o VERSAO abaixo mudam juntos. */
 
-const VERSAO = 'vs111';
+const VERSAO = 'vs112';
 const CASULO = 'casulo-' + VERSAO;
 
 const FICHEIROS = [
   './',
   './index.html',
   './styles.css?v=' + VERSAO,
+  './referencias.js?v=' + VERSAO,
   './dados.js?v=' + VERSAO,
   './maos.js?v=' + VERSAO,
   './vendor/three.min.js?v=' + VERSAO,

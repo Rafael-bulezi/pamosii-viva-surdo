@@ -1043,14 +1043,14 @@ const MOVIMENTOS = {
 
 /* 'forma local movimento' — uma linha por palavra, com dois-pontos para a mão esquerda */
 const SINAIS = {
-  'olá': 'abre alto onda', 'bom dia': 'abre queixo frente', 'boa tarde': 'abre queixo frente',
+  'olá': 'abre alto onda', 'bom dia': '2:plano frente bate', 'boa tarde': '2:plano peito baixo',
   'boa noite': 'curva queixo baixo', 'tchau': 'abre alto onda', 'obrigado': 'plano queixo frente',
   'obrigada': 'plano queixo frente', 'como está?': 'abre frente torce', 'bom': 'plano peito frente',
   'mau': 'plano peito baixo', 'por favor': 'plano peito circulo', 'desculpa': 'punho peito circulo',
-  'sim': 'punho frente bate', 'não': 'aponta frente torce',
+  'sim': 'L frente bate', 'não': 'aponta frente torce',
   'conversa': '2:aponta frente circulo', 'perguntar': 'aponta queixo frente', 'responder': 'aponta queixo frente',
   'falar em lga': '2:aponta boca circulo',
-  'escola': '2:plano peito bate', 'professor': 'aponta testa frente', 'aluno': '2:plano peito frente',
+  'escola': '2:plano peito bate', 'professor': '2:plano frente frente', 'aluno': '2:plano peito frente',
   'caderno': '2:plano frente abre', 'caneta': 'aponta mao frente', 'lápis': 'aponta mao frente',
   'borracha': 'plano mao varre', 'mochila': 'curva ombro bate', 'livro': '2:plano frente abre',
   'carteira': '2:plano frente parado', 'recreio': 'abre frente arco', 'lição': '2:plano mao frente',
@@ -1064,7 +1064,7 @@ const SINAIS = {
   'estudar': '2:plano frente abre', 'gostar': 'plano peito circulo', 'querer': 'garra frente tras',
   'ter': 'curva peito toque', 'dar': 'plano peito frente', 'fazer': '2:punho frente torce',
   'ajudar': '2:plano mao cima', 'brincar': '2:Y frente torce', 'ir': 'aponta frente frente', 'vir': 'aponta frente tras',
-  'água': 'L queixo toque', 'pão': 'curva mao varre', 'arroz': 'curva mao frente', 'feijão': 'aponta mao frente',
+  'água': 'abre boca toque', 'pão': 'curva mao varre', 'arroz': 'curva mao frente', 'feijão': 'aponta mao frente',
   'peixe': 'plano frente onda', 'carne': 'F mao frente', 'fruta': 'curva boca torce', 'legumes': 'curva mao frente',
   'leite': 'punho frente repete', 'café': 'punho mao circulo', 'açúcar': 'curva queixo toque', 'sal': 'H mao bate',
   'óleo': 'Y mao baixo', 'comida': 'curva boca repete', 'bebida': 'C boca cima', 'faminta': 'curva barriga baixo',
