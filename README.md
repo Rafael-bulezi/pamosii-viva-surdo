@@ -112,12 +112,26 @@ promessa no site, o teste falha.
 
 ## Publicação
 
-Publicado em <https://rafael-bulezi.github.io/pamosii-viva-surdo/> (fork, vs111).
-O repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
+Link para partilhar: <https://vivasurdo.vercel.app> (projeto `vivasurdo`, conta
+`rafael-bulezi`). Publicado com o CLI, a partir da raiz do repositório:
+
+```
+vercel deploy --prod --yes --cwd app
+```
+
+O `vercel link --yes --project vivasurdo --cwd app` que cria o projeto tenta
+ligar o repositório GitHub e falha (`400`, a conta de publicação só tem leitura
+no repositório de origem). A falha é inofensiva: o projeto fica criado e `app/.vercel/`
+fica ligado a ele. **Depois do link, apagar `app/.env.local`** — o CLI escreve lá
+um `VERCEL_OIDC_TOKEN` e, se o ficheiro ainda estiver lá, sobe como ficheiro
+estático público do site. `app/.gitignore` já ignora `.vercel` e `.env*`.
+
+Publicado também em <https://rafael-bulezi.github.io/pamosii-viva-surdo/> (fork,
+vs111). O repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
 continua na versão anterior (18 rotas): a conta de publicação só tem leitura no
 repositório original, por isso as versões novas saem pelo fork.
 
-Para publicar: copiar `app/` para a branch `gh-pages`, mudar `const VERSAO` em
+Para publicar no Pages: copiar `app/` para a branch `gh-pages`, mudar `const VERSAO` em
 `app/sw.js` **e** todos os `?v=` em `app/index.html` para o mesmo valor, correr
 os dois testes e enviar a `gh-pages`. A Pages do fork pode precisar de um build
 manual (`POST /repos/Rafael-bulezi/pamosii-viva-surdo/pages/builds`).
