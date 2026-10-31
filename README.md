@@ -36,7 +36,7 @@ app/
   app.js                duas vistas, leitor (SRT/VTT), PDF local, acessibilidade
   sw.js                 casulo offline (VERSAO = ?v= do index)
   manifest.webmanifest  instalação e atalhos
-  assets/               marca, ícones e agatha-mpfb.glb (o modelo)
+  assets/               marca, ícones e agatha-mpfb-rig.glb (o modelo)
   vendor/               three.js e GLTFLoader servidos de casa, sem CDN
 ```
 
@@ -50,12 +50,13 @@ prefixo `2:` marca dois mãos:
 ```
 
 As 32 formas de mão (`A`–`Z` e `abre`, `plano`, `punho`, `aponta`, `curva`,
-`garra`) são **ângulos de articulação**, não desenhos. Entre dois sinais o rig
+`relax`, `garra`) são **ângulos de articulação**, não desenhos. Entre dois sinais o rig
 interpola os ângulos (`formaMisturar`), por isso a mão **dobra-se** em vez de
 trocar de imagem.
 
 No palco principal a mesma notação move uma **sinalizadora em 3D**: um modelo
-rigged (`assets/agatha-mpfb.glb`, 53 ossos com nomes VRM) animado por
+rigged (`assets/agatha-mpfb-rig.glb`, 55 ossos com nomes VRM, gerado de
+`tools/fonte/agatha-mpfb.glb` por `tools/melhorar-rig.py`) animado por
 `avatar.js`. Cada lugar da notação é um alvo em metros para o pulso — testa,
 boca, queixo, esterno, ombro, telhado — medido na própria malha, não nos pivôs
 dos ossos; `sinal3d.js` resolve-o por IK de dois ossos e aplica a forma da mão
