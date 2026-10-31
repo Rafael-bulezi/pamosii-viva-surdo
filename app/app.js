@@ -73,6 +73,7 @@ function montarA11y() {
 const P = {
   frases: [], beats: [], fita: [], i: 0, t: 0, tocando: false, raf: 0, last: 0,
   vel: 1, leg: [], cue: null, modo: 'texto', texto: '',
+  passos: [], poses: null, inicioBeat: [], avatarOn: false, carregando3d: false, salto: false,
 };
 const EL = {};
 
@@ -118,7 +119,7 @@ function beatsDeItem(it) {
   if (it.marca === 'assinado') {
     const n = sinalNotacao(String(it.palavra).toLowerCase().trim());
     if (n) return [{
-      tipo: 'sinal', rotulo: it.palavra, forma: n.forma, duas: n.duas, reps: n.reps,
+      tipo: 'sinal', rotulo: it.palavra, forma: n.forma, duas: n.duas, reps: n.reps, local: n.local,
       pos0: n.inicio.pos, rot0: n.inicio.rot, pos1: n.fim.pos, rot1: n.fim.rot, dur: 760,
     }];
   }
@@ -150,17 +151,44 @@ function preparar(texto) {
   P.fita = beats.map((b, i) => ({ i, rotulo: b.rotulo, tipo: b.tipo })).filter(b => b.rotulo);
   P.i = 0;
   P.t = 0;
+  recalcularPoses();
   desenhar();
   pintarFita();
   pintarContas();
+}
+
+/* passos de osso e poses pré-calculadas a partir dos beats (o relógio manda) */
+function recalcularPoses() {
+  P.passos = (window.SINAL3D && P.beats.length) ? SINAL3D.sequencia(P.beats) : [];
+  P.inicioBeat = [];
+  let acc = 0;
+  P.passos.forEach(s => {
+    if (P.inicioBeat[s.beat] === undefined) P.inicioBeat[s.beat] = acc;
+    acc += s.dur;
+  });
+  P.poses = (P.avatarOn && window.AVATAR && AVATAR.pronto) ? AVATAR.prepararPoses(P.passos) : null;
 }
 
 let ULTIMO_BEAT = -1;
 
 function desenhar() {
   if (!EL.palco) return;
-  const { cena, rotulo } = cenaEm(P.i, P.t);
-  EL.palco.innerHTML = maoCena(cena, rotulo ? 'Sinal ' + rotulo : 'Sinalizador em repouso');
+  const b = P.beats[P.i];
+  const rotulo = b && b.tipo !== 'pausa' ? b.rotulo : '';
+  if (P.avatarOn && window.AVATAR && AVATAR.pronto) {
+    if (P.poses && P.poses.length) {
+      const t0 = P.inicioBeat[P.i] || 0;
+      /* parado no início de um salto: a mistura k=0 mostraria a pose anterior */
+      const saltar = P.salto ? 0.2 : 0;
+      P.salto = false;
+      AVATAR.mostrar(P.poses, t0 + P.t / 1000 + saltar);
+    } else {
+      AVATAR.pousar();
+    }
+  } else if (!P.carregando3d) {
+    const { cena, rotulo: r } = cenaEm(P.i, P.t);
+    EL.palco.innerHTML = maoCena(cena, r ? 'Sinal ' + r : 'Sinalizador em repouso');
+  }
   if (EL.agora) EL.agora.textContent = rotulo || 'Em repouso';
   if (P.i !== ULTIMO_BEAT) { ULTIMO_BEAT = P.i; marcarFita(); }
 }
@@ -239,8 +267,79 @@ function pausar() {
 function irPara(i) {
   P.i = lim(i, 0, Math.max(0, P.beats.length - 1));
   P.t = 0;
+  P.salto = true;
   desenhar();
   if (P.tocando) { P.last = 0; cancelAnimationFrame(P.raf); P.raf = requestAnimationFrame(passo); }
+}
+
+/* ---------------- seleção de texto ---------------- */
+let SEL_TEXTO = '';
+
+function selecaoNaPagina() {
+  const ativo = document.activeElement;
+  if (ativo && ativo.id === 'txt' && typeof ativo.selectionStart === 'number'
+    && ativo.selectionEnd > ativo.selectionStart) {
+    return ativo.value.slice(ativo.selectionStart, ativo.selectionEnd);
+  }
+  const s = window.getSelection();
+  if (!s || s.isCollapsed || !s.rangeCount) return '';
+  const no = s.anchorNode;
+  const el = no && (no.nodeType === 1 ? no : no.parentElement);
+  if (el && el.closest('input, select, textarea, #sel-pill, .topo, .rodape, [contenteditable="true"]')) return '';
+  return String(s);
+}
+
+function atualizarSelecao() {
+  const pill = document.getElementById('sel-pill');
+  if (!pill) return;
+  const texto = selecaoNaPagina().replace(/\s+/g, ' ').trim();
+  if (texto.length < 3 || !/[A-Za-zÀ-ÿ]/.test(texto)) { pill.hidden = true; SEL_TEXTO = ''; return; }
+  SEL_TEXTO = texto;
+  const n = texto.split(' ').filter(Boolean).length;
+  pill.querySelector('.sel-txt').textContent = 'Sinalizar «' + (texto.length > 46 ? texto.slice(0, 46).trimEnd() + '…' : texto) + '»';
+  pill.querySelector('.sel-conta').textContent = n === 1 ? '1 palavra' : n + ' palavras';
+  pill.hidden = false;
+}
+
+function esconderSelecao() {
+  const pill = document.getElementById('sel-pill');
+  if (pill) pill.hidden = true;
+  SEL_TEXTO = '';
+}
+
+function sinalizarSelecao(texto) {
+  const t = String(texto || '').replace(/\s+/g, ' ').trim();
+  if (!t) return;
+  if (!$('#txt')) { location.hash = '#/?s=' + encodeURIComponent(t); return; }
+  $('#txt').value = t;
+  const ver = $('#bt-ver');
+  if (ver) ver.click();
+  const palco = $('#palco-sec');
+  if (palco) palco.scrollIntoView({ block: 'start', behavior: A11Y.movimento ? 'auto' : 'smooth' });
+}
+
+function montarSelecao() {
+  if (document.getElementById('sel-pill')) return;
+  const pill = document.createElement('button');
+  pill.id = 'sel-pill';
+  pill.type = 'button';
+  pill.className = 'selecao-pill';
+  pill.hidden = true;
+  pill.setAttribute('aria-label', 'Sinalizar o texto selecionado');
+  pill.innerHTML = '<span class="sel-txt"></span><span class="sel-conta"></span><span class="sel-seta" aria-hidden="true">→</span>';
+  /* o mousedown não pode roubar a seleção ao botão */
+  pill.addEventListener('mousedown', (e) => e.preventDefault());
+  pill.addEventListener('click', () => {
+    const t = SEL_TEXTO;
+    esconderSelecao();
+    const s = window.getSelection();
+    if (s && !s.isCollapsed) s.removeAllRanges();
+    sinalizarSelecao(t);
+  });
+  document.body.appendChild(pill);
+  document.addEventListener('selectionchange', atualizarSelecao);
+  document.addEventListener('mouseup', () => setTimeout(atualizarSelecao, 0));
+  document.addEventListener('keyup', () => setTimeout(atualizarSelecao, 0));
 }
 
 /* ---------------- legendas e PDF ---------------- */
@@ -329,11 +428,14 @@ async function textoDePDF(cache) {
 const routes = [];
 const on = (path, view) => routes.push({ path, view });
 const matchRoute = (hash) => {
-  const limpo = (hash || '').replace(/^#/, '').split('?')[0] || '/';
+  const [caminho, consulta] = (hash || '').replace(/^#/, '').split('?');
+  const limpo = caminho || '/';
+  const busca = {};
+  new URLSearchParams(consulta || '').forEach((v, k) => { busca[k] = v; });
   for (const r of routes) {
     const pr = r.path.split('/').filter(Boolean), pa = limpo.split('/').filter(Boolean);
     if (pr.length !== pa.length) continue;
-    const params = {};
+    const params = { ...busca };
     const ok = pr.every((seg, i) => seg.startsWith(':') ? ((params[seg.slice(1)] = decodeURIComponent(pa[i])), true) : seg === pa[i]);
     if (ok) return { view: r.view, params };
   }
@@ -342,16 +444,62 @@ const matchRoute = (hash) => {
 
 const NAV = [['/', 'Sinalizar'], ['/dicionario', 'Dicionário']];
 
+/* Ilustrações dos cartões da entrada: traço, não fotografia. */
+const ARTE = {
+  texto: `<svg viewBox="0 0 320 150" fill="none" aria-hidden="true">
+      <rect x="24" y="22" width="164" height="106" rx="15" fill="var(--surface)" stroke="currentColor" stroke-opacity=".4" stroke-width="3"/>
+      <rect x="38" y="42" width="86" height="9" rx="4.5" fill="currentColor" fill-opacity=".38"/>
+      <rect x="36" y="60" width="140" height="22" rx="8" fill="var(--green)" fill-opacity=".22"/>
+      <rect x="38" y="66" width="124" height="9" rx="4.5" fill="currentColor" fill-opacity=".85"/>
+      <rect x="38" y="92" width="70" height="9" rx="4.5" fill="currentColor" fill-opacity=".38"/>
+      <g stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(212 30)">
+        <rect x="16" y="50" width="52" height="42" rx="16"/>
+        <path d="M25 50V32a6.5 6.5 0 0 1 13 0v18"/>
+        <path d="M38 50V25a6.5 6.5 0 0 1 13 0v25"/>
+        <path d="M51 50V31a6.5 6.5 0 0 1 13 0v19"/>
+        <path d="M64 54V45a6.5 6.5 0 0 1 13 0v9"/>
+        <path d="M16 64c-7 0-11 5-11 10s4 9 11 9"/>
+      </g>
+    </svg>`,
+  legendas: `<svg viewBox="0 0 320 150" fill="none" aria-hidden="true">
+      <rect x="22" y="30" width="276" height="92" rx="16" fill="var(--surface)" stroke="currentColor" stroke-opacity=".4" stroke-width="3"/>
+      <g fill="currentColor" fill-opacity=".24">
+        <rect x="38" y="40" width="12" height="8" rx="2"/><rect x="60" y="40" width="12" height="8" rx="2"/><rect x="82" y="40" width="12" height="8" rx="2"/>
+        <rect x="38" y="102" width="12" height="8" rx="2"/><rect x="60" y="102" width="12" height="8" rx="2"/><rect x="82" y="102" width="12" height="8" rx="2"/>
+        <rect x="226" y="40" width="12" height="8" rx="2"/><rect x="248" y="40" width="12" height="8" rx="2"/><rect x="270" y="40" width="12" height="8" rx="2"/>
+        <rect x="226" y="102" width="12" height="8" rx="2"/><rect x="248" y="102" width="12" height="8" rx="2"/><rect x="270" y="102" width="12" height="8" rx="2"/>
+      </g>
+      <rect x="104" y="58" width="112" height="36" rx="10" fill="currentColor" fill-opacity=".1"/>
+      <rect x="116" y="66" width="88" height="8" rx="4" fill="currentColor" fill-opacity=".7"/>
+      <rect x="128" y="80" width="64" height="8" rx="4" fill="currentColor" fill-opacity=".4"/>
+    </svg>`,
+  dicionario: `<svg viewBox="0 0 320 150" fill="none" aria-hidden="true">
+      <rect x="34" y="20" width="150" height="110" rx="16" fill="var(--surface)" stroke="currentColor" stroke-opacity=".4" stroke-width="3"/>
+      <g stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" transform="translate(56 36)">
+        <rect x="14" y="40" width="48" height="38" rx="14"/>
+        <path d="M23 40V22a6 6 0 0 1 12 0v18"/>
+        <path d="M35 40V16a6 6 0 0 1 12 0v24"/>
+        <path d="M47 40V23a6 6 0 0 1 12 0v17"/>
+        <path d="M59 44v-8a6 6 0 0 1 12 0v8"/>
+        <path d="M14 54c-6 0-10 5-10 9s4 9 10 9"/>
+      </g>
+      <circle cx="214" cy="96" r="34" fill="var(--yellow)" fill-opacity=".35" stroke="currentColor" stroke-width="4"/>
+      <path d="M238 120l24 24" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+    </svg>`,
+};
+
 function shell(conteudo, ativo) {
   const itens = NAV.map(([href, rotulo]) => `<a href="#${href}" class="nav-a${ativo === href ? ' on' : ''}"${ativo === href ? ' aria-current="page"' : ''}>${rotulo}</a>`).join('');
   return `
     <header class="topo">
-      <a class="marca" href="#/" aria-label="Agatha, início">
-        <img src="assets/logo-mark.svg" alt="" width="26" height="26">
-        <span>Agatha</span>
-      </a>
+      <div class="topo-ini">
+        <a class="marca" href="#/" aria-label="Agatha, início">
+          <img src="assets/logo-mark.svg" alt="" width="20" height="20">
+          <span>Agatha</span>
+        </a>
+      </div>
       <nav class="nav" aria-label="Principal">${itens}</nav>
-      <div id="a11y-root"></div>
+      <div class="topo-fim" id="a11y-root"></div>
     </header>
     <main id="conteudo" tabindex="-1">${conteudo}</main>
     <footer class="rodape">
@@ -363,12 +511,41 @@ function shell(conteudo, ativo) {
 function vistaSinalizar() {
   return `
   <section class="entrada">
-    <h1>Texto em, sinais out.</h1>
-    <p class="sub">Cola uma frase, um texto ou as legendas de um filme. Vê a glosa em sinais.</p>
-    <label class="campo">
-      <span class="sr-only">Texto para sinalizar</span>
-      <textarea id="txt" rows="3" placeholder="Escreve aqui…" spellcheck="false"></textarea>
-    </label>
+    <p class="kicker">Protótipo · Viva Surdo</p>
+    <h1>Texto em,<br><em>sinais</em> out.</h1>
+    <p class="sub">Cola uma frase, um texto ou as legendas de um filme. Vê a glosa em sinais, gesto a gesto.</p>
+  </section>
+
+  <section class="modo-grid" aria-label="Começar">
+    <button class="modo-card texto" type="button" data-modo="texto">
+      <span class="mode-art">${ARTE.texto}</span>
+      <span class="mode-copy">
+        <span class="mode-head"><span class="mode-name">Texto</span><span class="mode-go" aria-hidden="true">→</span></span>
+        <span class="mode-sub">Cola aqui e vê sinal a sinal.</span>
+      </span>
+    </button>
+    <button class="modo-card legendas" type="button" data-modo="legendas">
+      <span class="mode-art">${ARTE.legendas}</span>
+      <span class="mode-copy">
+        <span class="mode-head"><span class="mode-name">Legendas</span><span class="mode-go" aria-hidden="true">→</span></span>
+        <span class="mode-sub">Abre um .srt ou .vtt e um vídeo.</span>
+      </span>
+    </button>
+    <a class="modo-card dicionario" href="#/dicionario">
+      <span class="mode-art">${ARTE.dicionario}</span>
+      <span class="mode-copy">
+        <span class="mode-head"><span class="mode-name">Dicionário</span><span class="mode-go" aria-hidden="true">→</span></span>
+        <span class="mode-sub">${ENTRADAS.length} sinais de estudo, por tema.</span>
+      </span>
+    </a>
+  </section>
+
+  <section class="painel editor">
+    <div class="painel-topo">
+      <label class="rotulo" for="txt">Texto para sinalizar</label>
+      <span class="conta" id="editor-conta">0 palavras</span>
+    </div>
+    <textarea id="txt" rows="3" placeholder="Escreve ou cola aqui…" spellcheck="false"></textarea>
     <div class="acoes">
       <button class="bt primario" id="bt-ver" type="button">Ver sinais</button>
       <label class="bt" for="fich">Ficheiro</label>
@@ -376,20 +553,23 @@ function vistaSinalizar() {
       <button class="bt" id="bt-exemplo" type="button">Exemplo</button>
     </div>
     <p class="recado" id="recado" role="status" hidden></p>
+    <p class="dica">Ctrl + Enter para ver. Seleciona uma frase — no texto ou em qualquer parágrafo desta página — e sinaliza só essa parte.</p>
   </section>
 
-  <section class="palco-sec" aria-label="Sinalizador">
+  <section class="palco-sec" id="palco-sec" aria-label="Sinalizador">
     <div class="palco" id="palco"></div>
     <div class="controles">
-      <p class="agora" id="agora" aria-live="polite">Em repouso</p>
-      <div class="transporte">
-        <button class="bt icone" id="bt-play" type="button" aria-label="Reproduzir">▶</button>
-        <button class="bt icone" id="bt-prev" type="button" aria-label="Sinal anterior">‹</button>
-        <button class="bt icone" id="bt-next" type="button" aria-label="Sinal seguinte">›</button>
-        <div class="vel" role="group" aria-label="Velocidade">
-          <button type="button" class="vel-b" data-vel="0.5">0,5×</button>
-          <button type="button" class="vel-b on" data-vel="1">1×</button>
-          <button type="button" class="vel-b" data-vel="1.5">1,5×</button>
+      <div class="ctrl-topo">
+        <p class="agora" id="agora" aria-live="polite">Em repouso</p>
+        <div class="transporte">
+          <button class="bt icone" id="bt-play" type="button" aria-label="Reproduzir">▶</button>
+          <button class="bt icone" id="bt-prev" type="button" aria-label="Sinal anterior">‹</button>
+          <button class="bt icone" id="bt-next" type="button" aria-label="Sinal seguinte">›</button>
+          <div class="vel" role="group" aria-label="Velocidade">
+            <button type="button" class="vel-b" data-vel="0.5">0,5×</button>
+            <button type="button" class="vel-b on" data-vel="1">1×</button>
+            <button type="button" class="vel-b" data-vel="1.5">1,5×</button>
+          </div>
         </div>
       </div>
       <div class="fita" id="fita" aria-label="Glosa"></div>
@@ -418,16 +598,54 @@ function ligarSinalizar(params) {
   EL.play = $('#bt-play');
   EL.fita = $('#fita');
   EL.contas = $('#contas');
-  const txt = $('#txt'), recado = $('#recado');
+  if (window.AVATAR && window.SINAL3D) {
+    P.carregando3d = true;
+    EL.palco.innerHTML = '<p class="palco-espera">A preparar a sinalizadora…</p>';
+    AVATAR.init(EL.palco).then(() => {
+      P.avatarOn = true;
+      P.carregando3d = false;
+      const espera = EL.palco.querySelector('.palco-espera');
+      if (espera) espera.remove();
+      AVATAR.enquadrar('busto');
+      recalcularPoses();
+      desenhar();
+    }).catch(() => {
+      P.avatarOn = false;
+      P.carregando3d = false;
+      P.poses = null;
+      desenhar();
+    });
+  }
+  const txt = $('#txt'), recado = $('#recado'), conta = $('#editor-conta');
   const aviso = (m) => { recado.hidden = !m; recado.textContent = m || ''; };
   const reduzido = () => A11Y.movimento || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  const contar = (v) => {
+    if (!conta) return;
+    const n = String(v).trim() ? String(v).trim().split(/\s+/).length : 0;
+    conta.textContent = n === 1 ? '1 palavra' : n + ' palavras';
+  };
+  contar('');
+  txt.addEventListener('input', () => contar(txt.value));
+  txt.addEventListener('select', () => atualizarSelecao());
+  txt.addEventListener('mouseup', () => setTimeout(atualizarSelecao, 0));
+
+  $$('.modo-card[data-modo]').forEach((c) => c.addEventListener('click', () => {
+    if (c.dataset.modo === 'legendas') { $('#fich').click(); return; }
+    txt.focus();
+    const alvo = $('.painel.editor');
+    if (alvo) alvo.scrollIntoView({ block: 'center', behavior: reduzido() ? 'auto' : 'smooth' });
+  }));
+
   const aplicar = (texto) => {
     txt.value = texto;
+    contar(texto);
     preparar(texto);
     if (!P.beats.length) { aviso('Escreve alguma coisa para ver sinais.'); return; }
     aviso('');
     if (reduzido()) pausar(); else tocar();
+    const palco = $('#palco-sec');
+    if (palco) palco.scrollIntoView({ block: 'start', behavior: reduzido() ? 'auto' : 'smooth' });
   };
 
   const ver = () => aplicar(txt.value);
@@ -492,6 +710,7 @@ function ligarSinalizar(params) {
     const f = dur / base;
     P.beats.forEach(b => { b.dur = Math.max(120, b.dur * f); });
     P.i = 0; P.t = 0;
+    recalcularPoses();
     desenhar();
     if (!vid.paused) tocar();
   };
@@ -543,10 +762,13 @@ function vistaDicionario() {
   const faltam = GLOSSARIO_QTD - ENTRADAS.length;
   return `
   <section class="entrada">
-    <h1>Dicionário</h1>
-    <p class="sub">${ENTRADAS.length} sinais de estudo.${faltam > 0 ? ` ${faltam} palavras do glossário ainda não têm descrição de sinal e são soletradas.` : ''}</p>
+    <p class="kicker">Dicionário</p>
+    <h1>${ENTRADAS.length} sinais de estudo.</h1>
+    <p class="sub">${faltam > 0 ? `${faltam} palavras do glossário ainda não têm descrição de sinal e são soletradas letra a letra.` : 'Todos os sinais do glossário já têm descrição.'}</p>
+  </section>
+  <section class="painel busca">
     <label class="campo">
-      <span class="sr-only">Procurar palavra</span>
+      <span class="rotulo">Procurar palavra</span>
       <input id="busca" type="search" value="${esc(PESQUISA)}" placeholder="Procurar palavra…" autocomplete="off">
     </label>
     <div class="chips" id="temas">${chips}</div>
@@ -577,6 +799,7 @@ function render() {
   const ativo = (location.hash || '').replace(/^#/, '').split('?')[0] === '/dicionario' ? '/dicionario' : '/';
   const app = document.getElementById('app');
   pausar();
+  esconderSelecao();
   app.innerHTML = shell(view(), ativo);
   const live = document.getElementById('route-live');
   if (live) live.textContent = ativo === '/dicionario' ? 'Dicionário' : 'Sinalizar';
@@ -589,6 +812,7 @@ window.addEventListener('hashchange', render);
 document.addEventListener('DOMContentLoaded', () => {
   aplicarA11y();
   render();
+  montarSelecao();
 });
 
 /* Em localhost o service worker esconde ficheiros acabados de editar; só é usado

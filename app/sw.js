@@ -4,9 +4,8 @@
    Não guarda: o vídeo que a pessoa abre (fica no aparelho dela e não sai de lá).
    Ao publicar, o `?v=` do index.html e o VERSAO abaixo mudam juntos. */
 
-const VERSAO = 'vs95';
+const VERSAO = 'vs108';
 const CASULO = 'casulo-' + VERSAO;
-const EXTERNO = 'externo-' + VERSAO;
 
 const FICHEIROS = [
   './',
@@ -14,6 +13,10 @@ const FICHEIROS = [
   './styles.css?v=' + VERSAO,
   './dados.js?v=' + VERSAO,
   './maos.js?v=' + VERSAO,
+  './vendor/three.min.js?v=' + VERSAO,
+  './vendor/GLTFLoader.js?v=' + VERSAO,
+  './avatar.js?v=' + VERSAO,
+  './sinal3d.js?v=' + VERSAO,
   './app.js?v=' + VERSAO,
   './manifest.webmanifest',
   './assets/logo-mark.svg',
@@ -21,8 +24,6 @@ const FICHEIROS = [
   './assets/icon-512.png',
   './assets/icon-maskable-512.png',
 ];
-
-const eExterno = u => /^(fonts\.googleapis\.com|fonts\.gstatic\.com)$/.test(new URL(u).hostname);
 
 self.addEventListener('install', ev => {
   ev.waitUntil((async () => {
@@ -40,7 +41,7 @@ self.addEventListener('install', ev => {
 self.addEventListener('activate', ev => {
   ev.waitUntil((async () => {
     for (const nome of await caches.keys()) {
-      if (nome !== CASULO && nome !== EXTERNO) await caches.delete(nome);
+      if (nome !== CASULO) await caches.delete(nome);
     }
     await self.clients.claim();
   })());
@@ -64,21 +65,6 @@ self.addEventListener('fetch', ev => {
         const c = await caches.open(CASULO);
         return (await c.match('./index.html')) || (await c.match('./')) || Response.error();
       }
-    })());
-    return;
-  }
-
-  /* tipos: o que está guardado serve já, a rede actualiza por trás */
-  if (eExterno(url)) {
-    ev.respondWith((async () => {
-      const c = await caches.open(EXTERNO);
-      const guardado = await c.match(req);
-      const rede = fetch(req).then(async res => {
-        if (res && (res.ok || res.type === 'opaque')) await c.put(req, res.clone());
-        return res;
-      }).catch(() => null);
-      if (guardado) { rede.catch(() => {}); return guardado; }
-      return (await rede) || Response.error();
     })());
     return;
   }

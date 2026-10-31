@@ -1,6 +1,6 @@
 /* Gera os ícones PNG do manifest a partir da marca provisória (app/assets/logo-mark.svg).
 
-   Não é um logótipo novo: é a mesma marca (rectângulo arredondado teal + "V" âmbar +
+   Não é um logótipo novo: é a mesma marca (rectângulo arredondado verde + "V" escuro +
    dois pontos) rasterizada, porque o "Adicionar ao ecrã principal" do iOS e vários
    launchers Android pedem PNG e ignoram SVG.
 
@@ -14,8 +14,8 @@ const path = require('path');
 const zlib = require('zlib');
 
 const OUT = path.join(__dirname, '..', 'app', 'assets');
-const TEAL = [0x0e / 255, 0x75 / 255, 0x6b / 255];
-const AMBER = [0xf7 / 255, 0xc9 / 255, 0x48 / 255];
+const VERDE = [0x58 / 255, 0xcc / 255, 0x02 / 255];
+const TINTA = [0x12 / 255, 0x30 / 255, 0x00 / 255];
 
 /* ---- geometria no viewBox 64×64 (a mesma do SVG) ---- */
 const V = [[17, 22], [32, 48], [47, 22]];
@@ -71,9 +71,9 @@ function renderizar(n, { maskable }) {
       }
       const aFundo = fundo / (sub * sub), aMarca = marca / (sub * sub);
       /* marca por cima do fundo; fora do fundo fica transparente */
-      const r = TEAL[0] * (1 - aMarca) + AMBER[0] * aMarca;
-      const g = TEAL[1] * (1 - aMarca) + AMBER[1] * aMarca;
-      const b = TEAL[2] * (1 - aMarca) + AMBER[2] * aMarca;
+      const r = VERDE[0] * (1 - aMarca) + TINTA[0] * aMarca;
+      const g = VERDE[1] * (1 - aMarca) + TINTA[1] * aMarca;
+      const b = VERDE[2] * (1 - aMarca) + TINTA[2] * aMarca;
       const alfa = maskable ? 1 : aFundo;
       const k = (j * n + i) * 4;
       px[k] = Math.round(r * 255);

@@ -1114,7 +1114,7 @@ function sinalNotacao(chave) {
   const p = Array.isArray(L) ? L : L.p;
   const base = Array.isArray(L) ? [0, 0, 0] : L.rot;
   return {
-    forma, duas, movimento: mov, reps: mov === 'repete' ? 2 : 1,
+    forma, duas, movimento: mov, local, reps: mov === 'repete' ? 2 : 1,
     inicio: { forma, pos: p.slice(), rot: base.slice() },
     fim: {
       forma,
