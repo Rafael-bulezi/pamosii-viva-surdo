@@ -123,6 +123,10 @@ O dicionário separa três coisas que antes se misturavam numa palavra só:
   números separados, à partida.
 - **comparado** — alguém viu fotogramas do vídeo da fonte e escreveu o veredicto
   (`igual`, `corrigido` ou `aproximado`) em `tools/fonte/is-comparado.json`.
+  À data de 2026-11-01 as 83 palavras que têm referência **e** pose foram todas
+  vistas: 50 notas corrigidas, 22 já batiam certo e 11 ficaram `aproximado`
+  porque a notação de três palavras não consegue dizer o que o vídeo mostra
+  (palma por sinal, ou as duas mãos com formas diferentes).
 
 A pipeline, pela ordem:
 
@@ -130,6 +134,8 @@ A pipeline, pela ordem:
 python tools/mapear-is.py --escrever    # português -> slug IS; o mapa vive aqui
 python tools/gerar-referencias.py       # escreve app/referencias.js
 python tools/comparar-is.py "bom dia"   # folhas de fotogramas em ~/glb-lab/shots
+python tools/comparar-is.py --lote <folha> --zoom1 "casa" "café"  # várias
+                                       # palavras numa folha, a altura toda
 ```
 
 `tools/integridade-test.cjs` não deixa as três camadas voltarem a separar-se: só
@@ -158,7 +164,7 @@ um `VERCEL_OIDC_TOKEN` e, se o ficheiro ainda estiver lá, sobe como ficheiro
 estático público do site. `app/.gitignore` já ignora `.vercel` e `.env*`.
 
 Publicado também em <https://rafael-bulezi.github.io/pamosii-viva-surdo/> (fork,
-vs112). O repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
+vs113). O repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
 continua na versão anterior (18 rotas): a conta de publicação só tem leitura no
 repositório original, por isso as versões novas saem pelo fork.
 
