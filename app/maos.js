@@ -1028,17 +1028,27 @@ const MOVIMENTOS = {
   parado:  [[0, 0, 0], [0, 0, 0]],
   frente:  [[0, -0.04, 0.36], [8, 0, 0]],
   tras:    [[0, 0.04, -0.24], [-6, 0, 0]],
-  cima:    [[0, 0.28, 0.04], [0, 0, 0]],
-  baixo:   [[0, -0.26, 0.04], [10, 0, 0]],
+  cima:    [[0, 0.28, 0.04], [-12, 0, 0]],
+  baixo:   [[0, -0.18, 0.03], [16, 0, 0]],
   onda:    [[0.06, 0.02, 0], [0, 0, 24]],
   arco:    [[-0.22, 0.14, 0.14], [0, 20, -12]],
   circulo: [[0.06, 0.10, 0.10], [8, 34, 12]],
   toque:   [[0.08, -0.04, -0.04], [6, 0, -6]],
   abre:    [[-0.14, 0.02, 0.12], [0, -18, 8]],
   torce:   [[0, 0.04, 0.04], [0, 42, 10]],
-  varre:   [[0.34, 0, 0.06], [0, 0, -10]],
+  varre:   [[0.34, 0, 0.06], [0, -16, -10]],
   bate:    [[0, -0.14, 0.06], [10, 0, 0]],
   repete:  [[0, -0.12, 0.08], [8, 0, 0]],
+};
+
+/* Ajustes por sinal que os três campos não exprimem. A chave é a palavra; os
+   valores são opcionais:
+     palma  — vector da palma próprio (sobrepõe-se ao do lugar);
+     esq    — 'forma local movimento' da mão esquerda, quando o sinal é
+              assimétrico (sem 2:, que significa espelho);
+     amp    — intensidade em metros por unidade de palco, fora do padrão.
+   Vazio por agora: o mecanismo nasce aqui para a autoria sinal a sinal. */
+const AJUSTES = {
 };
 
 /* 'forma local movimento' — uma linha por palavra, com dois-pontos para a mão esquerda */
@@ -1117,6 +1127,7 @@ function sinalNotacao(chave) {
   const L = LOCAIS[local];
   const p = Array.isArray(L) ? L : L.p;
   const base = Array.isArray(L) ? [0, 0, 0] : L.rot;
+  const aj = AJUSTES[chave] || {};
   return {
     forma, duas, movimento: mov, local, reps: mov === 'repete' ? 2 : 1,
     inicio: { forma, pos: p.slice(), rot: base.slice() },
@@ -1125,7 +1136,17 @@ function sinalNotacao(chave) {
       pos: [p[0] + delta[0], p[1] + delta[1], p[2] + delta[2]],
       rot: [base[0] + giro[0], base[1] + giro[1], base[2] + giro[2]],
     },
+    palma: aj.palma || null,
+    esq: aj.esq ? notacaoParcial(aj.esq) : null,
+    amp: aj.amp || null,
   };
+}
+
+/* 'forma local movimento' da mão esquerda de um sinal assimétrico */
+function notacaoParcial(texto) {
+  const [forma, local, mov] = String(texto).split(/\s+/);
+  if (!FORMAS_MAO[forma] || !LOCAIS[local]) return null;
+  return { forma, local, movimento: mov || 'parado' };
 }
 
 /* Interpola duas formas de mão osso a osso com limites articulares e arco de
@@ -1168,7 +1189,7 @@ function maoMisturar(a, b, t) {
 
 if (typeof window !== 'undefined') {
   Object.assign(window, {
-    FORMAS_MAO, LOCAIS, MOVIMENTOS, SINAIS,
+    FORMAS_MAO, LOCAIS, MOVIMENTOS, SINAIS, AJUSTES,
     sinalNotacao, maoFigura, maoCena, maoMisturar, formaMisturar,
     MAO_CORPO, MAO_VISTA,
   });

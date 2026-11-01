@@ -121,19 +121,20 @@ function beatsDeItem(it) {
     if (n) return [{
       tipo: 'sinal', rotulo: it.palavra, forma: n.forma, duas: n.duas, reps: n.reps, local: n.local,
       pos0: n.inicio.pos, rot0: n.inicio.rot, pos1: n.fim.pos, rot1: n.fim.rot, dur: 760,
+      palma: n.palma, esq: n.esq, amp: n.amp, movimento: n.movimento,
     }];
   }
   const letras = it.marca === 'assinado'
     ? [...String(it.palavra).toUpperCase()].filter(l => /[A-Z]/.test(l))
     : (it.letras || []);
   return letras.filter(l => FORMAS_MAO[l]).map(l => ({
-    tipo: 'letra', rotulo: l, forma: l, duas: false, reps: 1,
+    tipo: 'letra', rotulo: l, forma: l, duas: false, reps: 1, movimento: 'parado',
     pos0: LOCAIS.frente, rot0: [0, 0, 0], pos1: LOCAIS.frente, rot1: [0, 0, 0], dur: 340,
   }));
 }
 
 const pausa = () => ({
-  tipo: 'pausa', rotulo: '', forma: REP.forma, duas: false, reps: 1,
+  tipo: 'pausa', rotulo: '', forma: REP.forma, duas: false, reps: 1, movimento: 'parado',
   pos0: REP.pos, rot0: REP.rot, pos1: REP.pos, rot1: REP.rot, dur: 260,
 });
 

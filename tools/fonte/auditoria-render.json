@@ -1,0 +1,3734 @@
+{
+ "resumo": {
+  "gerado": "2026-11-01",
+  "ferramenta": "tools/folha-3d.cjs + tools/sonda-alcance.cjs + tools/analisa-alcance.cjs",
+  "palavras": 191,
+  "immobili": 13,
+  "sem_mao_parceira": 0,
+  "com_gemeas": 133,
+  "fora_de_alcance": 0,
+  "palma_nao_vira": 23,
+  "mao_nao_roda": 15,
+  "pares_indistinguiveis": 241,
+  "pares_iguais_maos": 59,
+  "movimentos": {
+   "soma_ossos_por_movimento": {
+    "onda": 52,
+    "bate": 40,
+    "baixo": 70,
+    "frente": 106,
+    "torce": 158,
+    "circulo": 152,
+    "cima": 97,
+    "abre": 96,
+    "varre": 177,
+    "parado": 0,
+    "arco": 266,
+    "toque": 26,
+    "repete": 33,
+    "tras": 62
+   }
+  }
+ },
+ "linhas": [
+  {
+   "palavra": "olá",
+   "nota": "abre alto onda",
+   "forma": "abre",
+   "local": "alto",
+   "duas": false,
+   "movimento_total_graus": 40.2,
+   "palma_vira_graus": 0,
+   "dedos_rodam_graus": 18.4,
+   "punho_desliza_cm": 3.2,
+   "mao_parada_a_cm": 92,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "tchau (0°/mão)"
+   ]
+  },
+  {
+   "palavra": "bom dia",
+   "nota": "2:plano frente bate",
+   "forma": "plano",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 40.9,
+   "palma_vira_graus": 11.3,
+   "dedos_rodam_graus": 9.5,
+   "punho_desliza_cm": 6.1,
+   "mao_parada_a_cm": 38,
+   "erros": [
+    "gemeas:7"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "lento (5°/mão)",
+    "devagar (5°/mão)",
+    "agora (7.53°/mão)",
+    "mercado (7.53°/mão)",
+    "carteira (9.03°/mão)",
+    "quarto (9.03°/mão)"
+   ]
+  },
+  {
+   "palavra": "boa tarde",
+   "nota": "2:plano peito baixo",
+   "forma": "plano",
+   "local": "peito",
+   "duas": true,
+   "movimento_total_graus": 118.9,
+   "palma_vira_graus": 16,
+   "dedos_rodam_graus": 20.2,
+   "punho_desliza_cm": 10.6,
+   "mao_parada_a_cm": 28,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "escola (9.74°/mão)"
+   ]
+  },
+  {
+   "palavra": "boa noite",
+   "nota": "curva queixo baixo",
+   "forma": "curva",
+   "local": "queixo",
+   "duas": false,
+   "movimento_total_graus": 34.7,
+   "palma_vira_graus": 16,
+   "dedos_rodam_graus": 16.4,
+   "punho_desliza_cm": 5.8,
+   "mao_parada_a_cm": 48,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "açúcar (6.29°/mão)"
+   ]
+  },
+  {
+   "palavra": "tchau",
+   "nota": "abre alto onda",
+   "forma": "abre",
+   "local": "alto",
+   "duas": false,
+   "movimento_total_graus": 40.2,
+   "palma_vira_graus": 0,
+   "dedos_rodam_graus": 18.4,
+   "punho_desliza_cm": 3.2,
+   "mao_parada_a_cm": 92,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "olá (0°/mão)"
+   ]
+  },
+  {
+   "palavra": "obrigado",
+   "nota": "plano queixo frente",
+   "forma": "plano",
+   "local": "queixo",
+   "duas": false,
+   "movimento_total_graus": 56.6,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 8.3,
+   "punho_desliza_cm": 11,
+   "mao_parada_a_cm": 52,
+   "erros": [
+    "gemeas:2"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "obrigada (0°/mão)",
+    "mãe (7.18°/mão)"
+   ]
+  },
+  {
+   "palavra": "obrigada",
+   "nota": "plano queixo frente",
+   "forma": "plano",
+   "local": "queixo",
+   "duas": false,
+   "movimento_total_graus": 56.6,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 8.3,
+   "punho_desliza_cm": 11,
+   "mao_parada_a_cm": 52,
+   "erros": [
+    "gemeas:2"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "obrigado (0°/mão)",
+    "mãe (7.18°/mão)"
+   ]
+  },
+  {
+   "palavra": "como está?",
+   "nota": "abre frente torce",
+   "forma": "abre",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 170.5,
+   "palma_vira_graus": 42,
+   "dedos_rodam_graus": 67.3,
+   "punho_desliza_cm": 2.8,
+   "mao_parada_a_cm": 57,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "bom",
+   "nota": "plano peito frente",
+   "forma": "plano",
+   "local": "peito",
+   "duas": false,
+   "movimento_total_graus": 114.1,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 10.6,
+   "punho_desliza_cm": 19.9,
+   "mao_parada_a_cm": 50,
+   "erros": [
+    "gemeas:5"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "dar (0°/mão)",
+    "chamo-me (2.49°/mão)",
+    "cinza (4.6°/mão)",
+    "branco (7.21°/mão)",
+    "cama (7.49°/mão)"
+   ]
+  },
+  {
+   "palavra": "mau",
+   "nota": "plano peito baixo",
+   "forma": "plano",
+   "local": "peito",
+   "duas": false,
+   "movimento_total_graus": 63,
+   "palma_vira_graus": 16,
+   "dedos_rodam_graus": 20.5,
+   "punho_desliza_cm": 10.6,
+   "mao_parada_a_cm": 45,
+   "erros": [
+    "gemeas:4"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "filho (0°/mão)",
+    "filha (0°/mão)",
+    "chamo-me (8.82°/mão)",
+    "cinza (9.42°/mão)"
+   ]
+  },
+  {
+   "palavra": "por favor",
+   "nota": "plano peito circulo",
+   "forma": "plano",
+   "local": "peito",
+   "duas": false,
+   "movimento_total_graus": 128.1,
+   "palma_vira_graus": 34.8,
+   "dedos_rodam_graus": 17.9,
+   "punho_desliza_cm": 10.8,
+   "mao_parada_a_cm": 50,
+   "erros": [
+    "gemeas:2"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "cores (8.67°/mão)",
+    "bonito (8.67°/mão)"
+   ]
+  },
+  {
+   "palavra": "desculpa",
+   "nota": "punho peito circulo",
+   "forma": "punho",
+   "local": "peito",
+   "duas": false,
+   "movimento_total_graus": 128.1,
+   "palma_vira_graus": 34.8,
+   "dedos_rodam_graus": 17.9,
+   "punho_desliza_cm": 10.8,
+   "mao_parada_a_cm": 50,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "agosto (3.55°/mão)"
+   ]
+  },
+  {
+   "palavra": "sim",
+   "nota": "L frente bate",
+   "forma": "L",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 22.5,
+   "palma_vira_graus": 10,
+   "dedos_rodam_graus": 7.4,
+   "punho_desliza_cm": 6.1,
+   "mao_parada_a_cm": 55,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "não",
+   "nota": "aponta frente torce",
+   "forma": "aponta",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 170.5,
+   "palma_vira_graus": 42,
+   "dedos_rodam_graus": 67.3,
+   "punho_desliza_cm": 2.8,
+   "mao_parada_a_cm": 57,
+   "erros": [
+    "gemeas:2"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "verde (0.01°/mão)",
+    "roxo (0.01°/mão)"
+   ]
+  },
+  {
+   "palavra": "conversa",
+   "nota": "2:aponta frente circulo",
+   "forma": "aponta",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 252.7,
+   "palma_vira_graus": 34.8,
+   "dedos_rodam_graus": 47.9,
+   "punho_desliza_cm": 10.8,
+   "mao_parada_a_cm": 30,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "perguntar",
+   "nota": "2:abre frente cima",
+   "forma": "abre",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 145.5,
+   "palma_vira_graus": 12,
+   "dedos_rodam_graus": 12.8,
+   "punho_desliza_cm": 17,
+   "mao_parada_a_cm": 38,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "responder",
+   "nota": "aponta queixo frente",
+   "forma": "aponta",
+   "local": "queixo",
+   "duas": false,
+   "movimento_total_graus": 56.6,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 8.3,
+   "punho_desliza_cm": 11,
+   "mao_parada_a_cm": 52,
+   "erros": [
+    "gemeas:4"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "dever (0°/mão)",
+    "vermelho (7.28°/mão)",
+    "rosa (7.28°/mão)",
+    "doente (8.8°/mão)"
+   ]
+  },
+  {
+   "palavra": "falar em lga",
+   "nota": "2:abre peito onda",
+   "forma": "abre",
+   "local": "peito",
+   "duas": true,
+   "movimento_total_graus": 90,
+   "palma_vira_graus": 0,
+   "dedos_rodam_graus": 23.3,
+   "punho_desliza_cm": 3.2,
+   "mao_parada_a_cm": 22,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "escola",
+   "nota": "2:plano peito bate",
+   "forma": "plano",
+   "local": "peito",
+   "duas": true,
+   "movimento_total_graus": 58.1,
+   "palma_vira_graus": 10,
+   "dedos_rodam_graus": 9.9,
+   "punho_desliza_cm": 6.1,
+   "mao_parada_a_cm": 28,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "boa tarde (9.74°/mão)"
+   ]
+  },
+  {
+   "palavra": "professor",
+   "nota": "2:plano frente frente",
+   "forma": "plano",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 332.5,
+   "palma_vira_graus": 35.9,
+   "dedos_rodam_graus": 43.3,
+   "punho_desliza_cm": 19.6,
+   "mao_parada_a_cm": 38,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "aluno",
+   "nota": "2:plano peito frente",
+   "forma": "plano",
+   "local": "peito",
+   "duas": true,
+   "movimento_total_graus": 218.1,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 13.1,
+   "punho_desliza_cm": 19.9,
+   "mao_parada_a_cm": 28,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "caderno",
+   "nota": "2:plano frente abre",
+   "forma": "plano",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 113.8,
+   "palma_vira_graus": 20.3,
+   "dedos_rodam_graus": 14.1,
+   "punho_desliza_cm": 11.1,
+   "mao_parada_a_cm": 38,
+   "erros": [
+    "gemeas:3"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "livro (0°/mão)",
+    "grande (0°/mão)",
+    "porta (9.45°/mão)"
+   ]
+  },
+  {
+   "palavra": "caneta",
+   "nota": "aponta mao frente",
+   "forma": "aponta",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 40.1,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 7.6,
+   "punho_desliza_cm": 7,
+   "mao_parada_a_cm": 11,
+   "erros": [
+    "gemeas:11"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "lápis (0.02°/mão)",
+    "feijão (0.02°/mão)",
+    "pagar (0.02°/mão)",
+    "semana (2.95°/mão)",
+    "hora (2.95°/mão)",
+    "mês (4.37°/mão)"
+   ]
+  },
+  {
+   "palavra": "lápis",
+   "nota": "aponta mao frente",
+   "forma": "aponta",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 40.1,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 7.6,
+   "punho_desliza_cm": 7,
+   "mao_parada_a_cm": 11,
+   "erros": [
+    "gemeas:11"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "caneta (0.02°/mão)",
+    "feijão (0.02°/mão)",
+    "pagar (0.02°/mão)",
+    "semana (2.95°/mão)",
+    "hora (2.95°/mão)",
+    "mês (4.37°/mão)"
+   ]
+  },
+  {
+   "palavra": "borracha",
+   "nota": "plano mao varre",
+   "forma": "plano",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 66,
+   "palma_vira_graus": 5.3,
+   "dedos_rodam_graus": 18,
+   "punho_desliza_cm": 9.1,
+   "mao_parada_a_cm": 4,
+   "erros": [
+    "gemeas:6"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "mão (4.36°/mão)",
+    "hospital (4.36°/mão)",
+    "chegar (7.72°/mão)",
+    "médico (7.8°/mão)",
+    "lição (9.66°/mão)",
+    "vender (9.66°/mão)"
+   ]
+  },
+  {
+   "palavra": "mochila",
+   "nota": "curva ombro bate",
+   "forma": "curva",
+   "local": "ombro",
+   "duas": false,
+   "movimento_total_graus": 48.4,
+   "palma_vira_graus": 10,
+   "dedos_rodam_graus": 12.2,
+   "punho_desliza_cm": 6.1,
+   "mao_parada_a_cm": 62,
+   "erros": [
+    "gemeas:2"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "ombro (2.17°/mão)",
+    "cabeça (7.06°/mão)"
+   ]
+  },
+  {
+   "palavra": "livro",
+   "nota": "2:plano frente abre",
+   "forma": "plano",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 113.8,
+   "palma_vira_graus": 20.3,
+   "dedos_rodam_graus": 14.1,
+   "punho_desliza_cm": 11.1,
+   "mao_parada_a_cm": 38,
+   "erros": [
+    "gemeas:3"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "caderno (0°/mão)",
+    "grande (0°/mão)",
+    "porta (9.45°/mão)"
+   ]
+  },
+  {
+   "palavra": "carteira",
+   "nota": "2:plano frente parado",
+   "forma": "plano",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 0.2,
+   "palma_vira_graus": 0,
+   "dedos_rodam_graus": 0,
+   "punho_desliza_cm": 0,
+   "mao_parada_a_cm": 38,
+   "erros": [
+    "imóvel:0.2°",
+    "gemeas:4"
+   ],
+   "veredicto": "errado",
+   "gemeas": [
+    "quarto (0°/mão)",
+    "lento (4.09°/mão)",
+    "devagar (4.09°/mão)",
+    "bom dia (9.03°/mão)"
+   ]
+  },
+  {
+   "palavra": "recreio",
+   "nota": "abre frente arco",
+   "forma": "abre",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 265.9,
+   "palma_vira_graus": 20,
+   "dedos_rodam_graus": 59,
+   "punho_desliza_cm": 20.7,
+   "mao_parada_a_cm": 57,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "dia (7.2°/mão)"
+   ]
+  },
+  {
+   "palavra": "lição",
+   "nota": "2:plano mao frente",
+   "forma": "plano",
+   "local": "mao",
+   "duas": true,
+   "movimento_total_graus": 40.1,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 7.6,
+   "punho_desliza_cm": 7,
+   "mao_parada_a_cm": 11,
+   "erros": [
+    "gemeas:9"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "vender (0.02°/mão)",
+    "chegar (2.64°/mão)",
+    "cozinha (5.35°/mão)",
+    "novo (5.59°/mão)",
+    "mão (5.9°/mão)",
+    "hospital (5.9°/mão)"
+   ]
+  },
+  {
+   "palavra": "vermelho",
+   "nota": "aponta boca baixo",
+   "forma": "aponta",
+   "local": "boca",
+   "duas": false,
+   "movimento_total_graus": 39.5,
+   "palma_vira_graus": 16,
+   "dedos_rodam_graus": 18.8,
+   "punho_desliza_cm": 5.8,
+   "mao_parada_a_cm": 51,
+   "erros": [
+    "gemeas:6"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "rosa (0°/mão)",
+    "responder (7.28°/mão)",
+    "dever (7.28°/mão)",
+    "doente (7.53°/mão)",
+    "boca (7.95°/mão)",
+    "até amanhã (8.23°/mão)"
+   ]
+  },
+  {
+   "palavra": "azul",
+   "nota": "B frente cima",
+   "forma": "B",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 83.4,
+   "palma_vira_graus": 12,
+   "dedos_rodam_graus": 14.5,
+   "punho_desliza_cm": 17,
+   "mao_parada_a_cm": 57,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "peixe (7.47°/mão)"
+   ]
+  },
+  {
+   "palavra": "verde",
+   "nota": "aponta frente torce",
+   "forma": "aponta",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 170.5,
+   "palma_vira_graus": 42,
+   "dedos_rodam_graus": 67.3,
+   "punho_desliza_cm": 2.8,
+   "mao_parada_a_cm": 57,
+   "erros": [
+    "gemeas:2"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "não (0.01°/mão)",
+    "roxo (0.01°/mão)"
+   ]
+  },
+  {
+   "palavra": "amarelo",
+   "nota": "Y ombro torce",
+   "forma": "Y",
+   "local": "ombro",
+   "duas": false,
+   "movimento_total_graus": 67,
+   "palma_vira_graus": 24.9,
+   "dedos_rodam_graus": 17.1,
+   "punho_desliza_cm": 2.8,
+   "mao_parada_a_cm": 66,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "preto",
+   "nota": "aponta testa varre",
+   "forma": "aponta",
+   "local": "testa",
+   "duas": false,
+   "movimento_total_graus": 180.9,
+   "palma_vira_graus": 16,
+   "dedos_rodam_graus": 10.8,
+   "punho_desliza_cm": 14.2,
+   "mao_parada_a_cm": 56,
+   "erros": [
+    "gemeas:2"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "olho (7.38°/mão)",
+    "nariz (7.38°/mão)"
+   ]
+  },
+  {
+   "palavra": "branco",
+   "nota": "abre peito toque",
+   "forma": "abre",
+   "local": "peito",
+   "duas": false,
+   "movimento_total_graus": 36.9,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 5.4,
+   "punho_desliza_cm": 3.9,
+   "mao_parada_a_cm": 47,
+   "erros": [
+    "gemeas:4"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "chamo-me (7.2°/mão)",
+    "bom (7.21°/mão)",
+    "dar (7.21°/mão)",
+    "cinza (8.56°/mão)"
+   ]
+  },
+  {
+   "palavra": "laranja",
+   "nota": "curva boca torce",
+   "forma": "curva",
+   "local": "boca",
+   "duas": false,
+   "movimento_total_graus": 91.1,
+   "palma_vira_graus": 42,
+   "dedos_rodam_graus": 11.9,
+   "punho_desliza_cm": 1.6,
+   "mao_parada_a_cm": 55,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "fruta (0.01°/mão)"
+   ]
+  },
+  {
+   "palavra": "roxo",
+   "nota": "aponta frente torce",
+   "forma": "aponta",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 170.5,
+   "palma_vira_graus": 42,
+   "dedos_rodam_graus": 67.3,
+   "punho_desliza_cm": 2.8,
+   "mao_parada_a_cm": 57,
+   "erros": [
+    "gemeas:2"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "não (0.01°/mão)",
+    "verde (0.01°/mão)"
+   ]
+  },
+  {
+   "palavra": "rosa",
+   "nota": "aponta boca baixo",
+   "forma": "aponta",
+   "local": "boca",
+   "duas": false,
+   "movimento_total_graus": 39.5,
+   "palma_vira_graus": 16,
+   "dedos_rodam_graus": 18.8,
+   "punho_desliza_cm": 5.8,
+   "mao_parada_a_cm": 51,
+   "erros": [
+    "gemeas:6"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "vermelho (0°/mão)",
+    "responder (7.28°/mão)",
+    "dever (7.28°/mão)",
+    "doente (7.53°/mão)",
+    "boca (7.95°/mão)",
+    "até amanhã (8.23°/mão)"
+   ]
+  },
+  {
+   "palavra": "castanho",
+   "nota": "B testa baixo",
+   "forma": "B",
+   "local": "testa",
+   "duas": false,
+   "movimento_total_graus": 46.6,
+   "palma_vira_graus": 16,
+   "dedos_rodam_graus": 17.1,
+   "punho_desliza_cm": 5.8,
+   "mao_parada_a_cm": 59,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "cinza",
+   "nota": "plano peito parado",
+   "forma": "plano",
+   "local": "peito",
+   "duas": false,
+   "movimento_total_graus": 0.2,
+   "palma_vira_graus": 0,
+   "dedos_rodam_graus": 0,
+   "punho_desliza_cm": 0,
+   "mao_parada_a_cm": 50,
+   "erros": [
+    "imóvel:0.2°",
+    "gemeas:8"
+   ],
+   "veredicto": "errado",
+   "gemeas": [
+    "chamo-me (2.58°/mão)",
+    "cama (4.31°/mão)",
+    "bom (4.6°/mão)",
+    "dar (4.6°/mão)",
+    "branco (8.56°/mão)",
+    "mau (9.42°/mão)"
+   ]
+  },
+  {
+   "palavra": "cores",
+   "nota": "abre boca circulo",
+   "forma": "abre",
+   "local": "boca",
+   "duas": false,
+   "movimento_total_graus": 97.3,
+   "palma_vira_graus": 34.8,
+   "dedos_rodam_graus": 8.4,
+   "punho_desliza_cm": 5.9,
+   "mao_parada_a_cm": 55,
+   "erros": [
+    "gemeas:2"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "bonito (0°/mão)",
+    "por favor (8.67°/mão)"
+   ]
+  },
+  {
+   "palavra": "comer",
+   "nota": "curva boca repete",
+   "forma": "curva",
+   "local": "boca",
+   "duas": false,
+   "movimento_total_graus": 21.8,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 9.4,
+   "punho_desliza_cm": 3.2,
+   "mao_parada_a_cm": 53,
+   "erros": [
+    "gemeas:4"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "comida (0°/mão)",
+    "triste (5.92°/mão)",
+    "gostar (6.61°/mão)",
+    "ter (8.74°/mão)"
+   ]
+  },
+  {
+   "palavra": "beber",
+   "nota": "C boca cima",
+   "forma": "C",
+   "local": "boca",
+   "duas": false,
+   "movimento_total_graus": 62.9,
+   "palma_vira_graus": 12,
+   "dedos_rodam_graus": 15.6,
+   "punho_desliza_cm": 9.3,
+   "mao_parada_a_cm": 55,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "bebida (0°/mão)"
+   ]
+  },
+  {
+   "palavra": "dormir",
+   "nota": "2:plano olho baixo",
+   "forma": "plano",
+   "local": "olho",
+   "duas": true,
+   "movimento_total_graus": 87.3,
+   "palma_vira_graus": 16,
+   "dedos_rodam_graus": 16.4,
+   "punho_desliza_cm": 5.8,
+   "mao_parada_a_cm": 28,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "acordar",
+   "nota": "2:punho olho abre",
+   "forma": "punho",
+   "local": "olho",
+   "duas": true,
+   "movimento_total_graus": 84.8,
+   "palma_vira_graus": 18,
+   "dedos_rodam_graus": 8.1,
+   "punho_desliza_cm": 6.1,
+   "mao_parada_a_cm": 28,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "andar",
+   "nota": "2:aponta frente frente",
+   "forma": "aponta",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 332.5,
+   "palma_vira_graus": 35.9,
+   "dedos_rodam_graus": 43.3,
+   "punho_desliza_cm": 19.6,
+   "mao_parada_a_cm": 38,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "correr",
+   "nota": "2:punho frente frente",
+   "forma": "punho",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 332.4,
+   "palma_vira_graus": 35.9,
+   "dedos_rodam_graus": 43.3,
+   "punho_desliza_cm": 19.6,
+   "mao_parada_a_cm": 38,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "ver",
+   "nota": "V olho frente",
+   "forma": "V",
+   "local": "olho",
+   "duas": false,
+   "movimento_total_graus": 59.4,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 10,
+   "punho_desliza_cm": 11,
+   "mao_parada_a_cm": 61,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "escrever",
+   "nota": "aponta mao toque",
+   "forma": "aponta",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 15,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 9.8,
+   "punho_desliza_cm": 1.4,
+   "mao_parada_a_cm": 9,
+   "erros": [
+    "gemeas:10"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "dedo (0.02°/mão)",
+    "ler (4.36°/mão)",
+    "mês (4.93°/mão)",
+    "caneta (5.9°/mão)",
+    "lápis (5.9°/mão)",
+    "feijão (5.9°/mão)"
+   ]
+  },
+  {
+   "palavra": "ler",
+   "nota": "aponta mao varre",
+   "forma": "aponta",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 66,
+   "palma_vira_graus": 5.3,
+   "dedos_rodam_graus": 18,
+   "punho_desliza_cm": 9.1,
+   "mao_parada_a_cm": 4,
+   "erros": [
+    "gemeas:7"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "escrever (4.36°/mão)",
+    "dedo (4.36°/mão)",
+    "mês (8.72°/mão)",
+    "caneta (9.66°/mão)",
+    "lápis (9.66°/mão)",
+    "feijão (9.66°/mão)"
+   ]
+  },
+  {
+   "palavra": "trabalhar",
+   "nota": "2:punho frente bate",
+   "forma": "punho",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 41,
+   "palma_vira_graus": 11.3,
+   "dedos_rodam_graus": 9.5,
+   "punho_desliza_cm": 6.1,
+   "mao_parada_a_cm": 38,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "sapato (0°/mão)"
+   ]
+  },
+  {
+   "palavra": "estudar",
+   "nota": "plano mao cima",
+   "forma": "plano",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 24.5,
+   "palma_vira_graus": 12,
+   "dedos_rodam_graus": 8.8,
+   "punho_desliza_cm": 5.9,
+   "mao_parada_a_cm": 11,
+   "erros": [
+    "gemeas:7"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "novo (7.13°/mão)",
+    "lição (8.03°/mão)",
+    "vender (8.03°/mão)",
+    "cozinha (8.69°/mão)",
+    "mão (8.92°/mão)",
+    "hospital (8.92°/mão)"
+   ]
+  },
+  {
+   "palavra": "gostar",
+   "nota": "curva peito frente",
+   "forma": "curva",
+   "local": "peito",
+   "duas": false,
+   "movimento_total_graus": 114.1,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 10.6,
+   "punho_desliza_cm": 19.9,
+   "mao_parada_a_cm": 50,
+   "erros": [
+    "gemeas:5"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "ter (2.49°/mão)",
+    "triste (5.37°/mão)",
+    "comer (6.61°/mão)",
+    "comida (6.61°/mão)",
+    "açúcar (9.72°/mão)"
+   ]
+  },
+  {
+   "palavra": "querer",
+   "nota": "garra frente tras",
+   "forma": "garra",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 58.5,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 5.2,
+   "punho_desliza_cm": 10.9,
+   "mao_parada_a_cm": 56,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "ter",
+   "nota": "curva peito toque",
+   "forma": "curva",
+   "local": "peito",
+   "duas": false,
+   "movimento_total_graus": 36.9,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 5.4,
+   "punho_desliza_cm": 3.9,
+   "mao_parada_a_cm": 47,
+   "erros": [
+    "gemeas:4"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "gostar (2.49°/mão)",
+    "triste (7.08°/mão)",
+    "comer (8.74°/mão)",
+    "comida (8.74°/mão)"
+   ]
+  },
+  {
+   "palavra": "dar",
+   "nota": "plano peito frente",
+   "forma": "plano",
+   "local": "peito",
+   "duas": false,
+   "movimento_total_graus": 114.1,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 10.6,
+   "punho_desliza_cm": 19.9,
+   "mao_parada_a_cm": 50,
+   "erros": [
+    "gemeas:5"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "bom (0°/mão)",
+    "chamo-me (2.49°/mão)",
+    "cinza (4.6°/mão)",
+    "branco (7.21°/mão)",
+    "cama (7.49°/mão)"
+   ]
+  },
+  {
+   "palavra": "fazer",
+   "nota": "2:punho frente torce",
+   "forma": "punho",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 263.2,
+   "palma_vira_graus": 42,
+   "dedos_rodam_graus": 66.5,
+   "punho_desliza_cm": 2.8,
+   "mao_parada_a_cm": 38,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "ajudar",
+   "nota": "punho mao cima",
+   "forma": "punho",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 24.5,
+   "palma_vira_graus": 12,
+   "dedos_rodam_graus": 8.8,
+   "punho_desliza_cm": 5.9,
+   "mao_parada_a_cm": 11,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "futebol (8.03°/mão)"
+   ]
+  },
+  {
+   "palavra": "brincar",
+   "nota": "2:Y frente torce",
+   "forma": "Y",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 263.2,
+   "palma_vira_graus": 42,
+   "dedos_rodam_graus": 66.5,
+   "punho_desliza_cm": 2.8,
+   "mao_parada_a_cm": 38,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "ir",
+   "nota": "aponta frente frente",
+   "forma": "aponta",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 214.4,
+   "palma_vira_graus": 29.8,
+   "dedos_rodam_graus": 54.3,
+   "punho_desliza_cm": 19.7,
+   "mao_parada_a_cm": 57,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "ali (0°/mão)"
+   ]
+  },
+  {
+   "palavra": "vir",
+   "nota": "aponta frente tras",
+   "forma": "aponta",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 58.5,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 5.2,
+   "punho_desliza_cm": 10.9,
+   "mao_parada_a_cm": 56,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "dezembro (4.03°/mão)"
+   ]
+  },
+  {
+   "palavra": "água",
+   "nota": "abre boca toque",
+   "forma": "abre",
+   "local": "boca",
+   "duas": false,
+   "movimento_total_graus": 24.7,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 8.2,
+   "punho_desliza_cm": 2.2,
+   "mao_parada_a_cm": 53,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "pai (6.57°/mão)"
+   ]
+  },
+  {
+   "palavra": "pão",
+   "nota": "curva mao varre",
+   "forma": "curva",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 66,
+   "palma_vira_graus": 5.3,
+   "dedos_rodam_graus": 18,
+   "punho_desliza_cm": 9.1,
+   "mao_parada_a_cm": 4,
+   "erros": [
+    "gemeas:4"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "comprar (4.36°/mão)",
+    "repete por favor (7.44°/mão)",
+    "arroz (9.66°/mão)",
+    "legumes (9.66°/mão)"
+   ]
+  },
+  {
+   "palavra": "arroz",
+   "nota": "curva mao frente",
+   "forma": "curva",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 40.1,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 7.6,
+   "punho_desliza_cm": 7,
+   "mao_parada_a_cm": 11,
+   "erros": [
+    "gemeas:5"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "legumes (0.02°/mão)",
+    "repete por favor (3.07°/mão)",
+    "comprar (5.9°/mão)",
+    "cedo (8.03°/mão)",
+    "pão (9.66°/mão)"
+   ]
+  },
+  {
+   "palavra": "feijão",
+   "nota": "aponta mao frente",
+   "forma": "aponta",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 40.1,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 7.6,
+   "punho_desliza_cm": 7,
+   "mao_parada_a_cm": 11,
+   "erros": [
+    "gemeas:11"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "caneta (0.02°/mão)",
+    "lápis (0.02°/mão)",
+    "pagar (0.02°/mão)",
+    "semana (2.95°/mão)",
+    "hora (2.95°/mão)",
+    "mês (4.37°/mão)"
+   ]
+  },
+  {
+   "palavra": "peixe",
+   "nota": "plano frente onda",
+   "forma": "plano",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 34.5,
+   "palma_vira_graus": 0,
+   "dedos_rodam_graus": 20.2,
+   "punho_desliza_cm": 3.2,
+   "mao_parada_a_cm": 55,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "azul (7.47°/mão)"
+   ]
+  },
+  {
+   "palavra": "carne",
+   "nota": "F mao frente",
+   "forma": "F",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 40.1,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 7.6,
+   "punho_desliza_cm": 7,
+   "mao_parada_a_cm": 11,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "fruta",
+   "nota": "curva boca torce",
+   "forma": "curva",
+   "local": "boca",
+   "duas": false,
+   "movimento_total_graus": 91.1,
+   "palma_vira_graus": 42,
+   "dedos_rodam_graus": 11.9,
+   "punho_desliza_cm": 1.6,
+   "mao_parada_a_cm": 55,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "laranja (0.01°/mão)"
+   ]
+  },
+  {
+   "palavra": "legumes",
+   "nota": "curva mao frente",
+   "forma": "curva",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 40.1,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 7.6,
+   "punho_desliza_cm": 7,
+   "mao_parada_a_cm": 11,
+   "erros": [
+    "gemeas:5"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "arroz (0.02°/mão)",
+    "repete por favor (3.07°/mão)",
+    "comprar (5.9°/mão)",
+    "cedo (8.03°/mão)",
+    "pão (9.66°/mão)"
+   ]
+  },
+  {
+   "palavra": "leite",
+   "nota": "punho frente repete",
+   "forma": "punho",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 26,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 6.1,
+   "punho_desliza_cm": 5.8,
+   "mao_parada_a_cm": 56,
+   "erros": [
+    "gemeas:4"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "setembro (1.71°/mão)",
+    "abril (4.83°/mão)",
+    "novembro (5.75°/mão)",
+    "março (7.03°/mão)"
+   ]
+  },
+  {
+   "palavra": "café",
+   "nota": "2:punho peito bate",
+   "forma": "punho",
+   "local": "peito",
+   "duas": true,
+   "movimento_total_graus": 58.2,
+   "palma_vira_graus": 10,
+   "dedos_rodam_graus": 9.9,
+   "punho_desliza_cm": 6.1,
+   "mao_parada_a_cm": 28,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "frio (5.81°/mão)"
+   ]
+  },
+  {
+   "palavra": "açúcar",
+   "nota": "curva queixo toque",
+   "forma": "curva",
+   "local": "queixo",
+   "duas": false,
+   "movimento_total_graus": 22.4,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 6.4,
+   "punho_desliza_cm": 2.2,
+   "mao_parada_a_cm": 50,
+   "erros": [
+    "gemeas:3"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "boa noite (6.29°/mão)",
+    "triste (6.46°/mão)",
+    "gostar (9.72°/mão)"
+   ]
+  },
+  {
+   "palavra": "sal",
+   "nota": "H mao bate",
+   "forma": "H",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 17,
+   "palma_vira_graus": 10,
+   "dedos_rodam_graus": 6.3,
+   "punho_desliza_cm": 2.1,
+   "mao_parada_a_cm": 10,
+   "erros": [
+    "gemeas:2"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "rápido (2.64°/mão)",
+    "computador (3.71°/mão)"
+   ]
+  },
+  {
+   "palavra": "óleo",
+   "nota": "Y mao baixo",
+   "forma": "Y",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 25.8,
+   "palma_vira_graus": 16,
+   "dedos_rodam_graus": 10,
+   "punho_desliza_cm": 3.7,
+   "mao_parada_a_cm": 10,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "comida",
+   "nota": "curva boca repete",
+   "forma": "curva",
+   "local": "boca",
+   "duas": false,
+   "movimento_total_graus": 21.8,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 9.4,
+   "punho_desliza_cm": 3.2,
+   "mao_parada_a_cm": 53,
+   "erros": [
+    "gemeas:4"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "comer (0°/mão)",
+    "triste (5.92°/mão)",
+    "gostar (6.61°/mão)",
+    "ter (8.74°/mão)"
+   ]
+  },
+  {
+   "palavra": "bebida",
+   "nota": "C boca cima",
+   "forma": "C",
+   "local": "boca",
+   "duas": false,
+   "movimento_total_graus": 62.9,
+   "palma_vira_graus": 12,
+   "dedos_rodam_graus": 15.6,
+   "punho_desliza_cm": 9.3,
+   "mao_parada_a_cm": 55,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "beber (0°/mão)"
+   ]
+  },
+  {
+   "palavra": "faminta",
+   "nota": "curva barriga baixo",
+   "forma": "curva",
+   "local": "barriga",
+   "duas": false,
+   "movimento_total_graus": 153.5,
+   "palma_vira_graus": 16,
+   "dedos_rodam_graus": 29.2,
+   "punho_desliza_cm": 10.6,
+   "mao_parada_a_cm": 39,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "sede",
+   "nota": "aponta pescoco baixo",
+   "forma": "aponta",
+   "local": "pescoco",
+   "duas": false,
+   "movimento_total_graus": 25.7,
+   "palma_vira_graus": 16,
+   "dedos_rodam_graus": 15,
+   "punho_desliza_cm": 5.8,
+   "mao_parada_a_cm": 45,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "grande",
+   "nota": "2:plano frente abre",
+   "forma": "plano",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 113.8,
+   "palma_vira_graus": 20.3,
+   "dedos_rodam_graus": 14.1,
+   "punho_desliza_cm": 11.1,
+   "mao_parada_a_cm": 38,
+   "erros": [
+    "gemeas:3"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "caderno (0°/mão)",
+    "livro (0°/mão)",
+    "porta (9.45°/mão)"
+   ]
+  },
+  {
+   "palavra": "pequeno",
+   "nota": "F queixo parado",
+   "forma": "F",
+   "local": "queixo",
+   "duas": false,
+   "movimento_total_graus": 0.2,
+   "palma_vira_graus": 0,
+   "dedos_rodam_graus": 0,
+   "punho_desliza_cm": 0,
+   "mao_parada_a_cm": 52,
+   "erros": [
+    "imóvel:0.2°",
+    "gemeas:1"
+   ],
+   "veredicto": "errado",
+   "gemeas": [
+    "pouco (2.74°/mão)"
+   ]
+  },
+  {
+   "palavra": "bonito",
+   "nota": "abre boca circulo",
+   "forma": "abre",
+   "local": "boca",
+   "duas": false,
+   "movimento_total_graus": 97.3,
+   "palma_vira_graus": 34.8,
+   "dedos_rodam_graus": 8.4,
+   "punho_desliza_cm": 5.9,
+   "mao_parada_a_cm": 55,
+   "erros": [
+    "gemeas:2"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "cores (0°/mão)",
+    "por favor (8.67°/mão)"
+   ]
+  },
+  {
+   "palavra": "novo",
+   "nota": "plano mao abre",
+   "forma": "plano",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 20.7,
+   "palma_vira_graus": 5.9,
+   "dedos_rodam_graus": 16.1,
+   "punho_desliza_cm": 3.9,
+   "mao_parada_a_cm": 11,
+   "erros": [
+    "gemeas:5"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "lição (5.59°/mão)",
+    "vender (5.59°/mão)",
+    "estudar (7.13°/mão)",
+    "chegar (8°/mão)",
+    "cozinha (8.17°/mão)"
+   ]
+  },
+  {
+   "palavra": "velho",
+   "nota": "aponta mao cima",
+   "forma": "aponta",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 24.5,
+   "palma_vira_graus": 12,
+   "dedos_rodam_graus": 8.8,
+   "punho_desliza_cm": 5.9,
+   "mao_parada_a_cm": 11,
+   "erros": [
+    "gemeas:8"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "caneta (8.03°/mão)",
+    "lápis (8.03°/mão)",
+    "feijão (8.03°/mão)",
+    "pagar (8.03°/mão)",
+    "escrever (8.92°/mão)",
+    "dedo (8.92°/mão)"
+   ]
+  },
+  {
+   "palavra": "rápido",
+   "nota": "H mao frente",
+   "forma": "H",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 40.1,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 7.6,
+   "punho_desliza_cm": 7,
+   "mao_parada_a_cm": 11,
+   "erros": [
+    "gemeas:3"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "sal (2.64°/mão)",
+    "computador (5.9°/mão)",
+    "dança (8.39°/mão)"
+   ]
+  },
+  {
+   "palavra": "lento",
+   "nota": "2:plano frente repete",
+   "forma": "plano",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 45.6,
+   "palma_vira_graus": 10.2,
+   "dedos_rodam_graus": 8.9,
+   "punho_desliza_cm": 5.8,
+   "mao_parada_a_cm": 38,
+   "erros": [
+    "gemeas:4"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "devagar (0°/mão)",
+    "carteira (4.09°/mão)",
+    "quarto (4.09°/mão)",
+    "bom dia (5°/mão)"
+   ]
+  },
+  {
+   "palavra": "quente",
+   "nota": "plano boca cima",
+   "forma": "plano",
+   "local": "boca",
+   "duas": false,
+   "movimento_total_graus": 62.9,
+   "palma_vira_graus": 12,
+   "dedos_rodam_graus": 15.6,
+   "punho_desliza_cm": 9.3,
+   "mao_parada_a_cm": 55,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "feliz (3.73°/mão)"
+   ]
+  },
+  {
+   "palavra": "frio",
+   "nota": "2:punho peito repete",
+   "forma": "punho",
+   "local": "peito",
+   "duas": true,
+   "movimento_total_graus": 55.7,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 7.5,
+   "punho_desliza_cm": 5.8,
+   "mao_parada_a_cm": 28,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "café (5.81°/mão)"
+   ]
+  },
+  {
+   "palavra": "feliz",
+   "nota": "plano peito cima",
+   "forma": "plano",
+   "local": "peito",
+   "duas": false,
+   "movimento_total_graus": 126.8,
+   "palma_vira_graus": 12,
+   "dedos_rodam_graus": 29.4,
+   "punho_desliza_cm": 17,
+   "mao_parada_a_cm": 50,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "quente (3.73°/mão)"
+   ]
+  },
+  {
+   "palavra": "triste",
+   "nota": "curva boca baixo",
+   "forma": "curva",
+   "local": "boca",
+   "duas": false,
+   "movimento_total_graus": 39.5,
+   "palma_vira_graus": 16,
+   "dedos_rodam_graus": 18.8,
+   "punho_desliza_cm": 5.8,
+   "mao_parada_a_cm": 51,
+   "erros": [
+    "gemeas:5"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "gostar (5.37°/mão)",
+    "comer (5.92°/mão)",
+    "comida (5.92°/mão)",
+    "açúcar (6.46°/mão)",
+    "ter (7.08°/mão)"
+   ]
+  },
+  {
+   "palavra": "cansado",
+   "nota": "2:curva peito baixo",
+   "forma": "curva",
+   "local": "peito",
+   "duas": true,
+   "movimento_total_graus": 119,
+   "palma_vira_graus": 16,
+   "dedos_rodam_graus": 20.2,
+   "punho_desliza_cm": 10.6,
+   "mao_parada_a_cm": 28,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "doente",
+   "nota": "aponta testa baixo",
+   "forma": "aponta",
+   "local": "testa",
+   "duas": false,
+   "movimento_total_graus": 46.6,
+   "palma_vira_graus": 16,
+   "dedos_rodam_graus": 17.1,
+   "punho_desliza_cm": 5.8,
+   "mao_parada_a_cm": 59,
+   "erros": [
+    "gemeas:8"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "até amanhã (3.2°/mão)",
+    "boca (5.12°/mão)",
+    "olho (6.5°/mão)",
+    "nariz (6.5°/mão)",
+    "vermelho (7.53°/mão)",
+    "rosa (7.53°/mão)"
+   ]
+  },
+  {
+   "palavra": "saudável",
+   "nota": "2:curva peito frente",
+   "forma": "curva",
+   "local": "peito",
+   "duas": true,
+   "movimento_total_graus": 218.1,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 13.1,
+   "punho_desliza_cm": 19.9,
+   "mao_parada_a_cm": 28,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "como te chamas",
+   "nota": "2:H frente bate",
+   "forma": "H",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 41,
+   "palma_vira_graus": 11.3,
+   "dedos_rodam_graus": 9.5,
+   "punho_desliza_cm": 6.1,
+   "mao_parada_a_cm": 38,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "cadeira (7.53°/mão)"
+   ]
+  },
+  {
+   "palavra": "chamo-me",
+   "nota": "plano peito toque",
+   "forma": "plano",
+   "local": "peito",
+   "duas": false,
+   "movimento_total_graus": 36.9,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 5.4,
+   "punho_desliza_cm": 3.9,
+   "mao_parada_a_cm": 47,
+   "erros": [
+    "gemeas:8"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "bom (2.49°/mão)",
+    "dar (2.49°/mão)",
+    "cinza (2.58°/mão)",
+    "cama (6.27°/mão)",
+    "branco (7.2°/mão)",
+    "mau (8.82°/mão)"
+   ]
+  },
+  {
+   "palavra": "onde fica",
+   "nota": "2:abre frente torce",
+   "forma": "abre",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 263.1,
+   "palma_vira_graus": 42,
+   "dedos_rodam_graus": 66.5,
+   "punho_desliza_cm": 2.8,
+   "mao_parada_a_cm": 38,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "quanto custa",
+   "nota": "F frente torce",
+   "forma": "F",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 170.5,
+   "palma_vira_graus": 42,
+   "dedos_rodam_graus": 67.3,
+   "punho_desliza_cm": 2.8,
+   "mao_parada_a_cm": 57,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "fevereiro (0°/mão)"
+   ]
+  },
+  {
+   "palavra": "não entendo",
+   "nota": "aponta testa torce",
+   "forma": "aponta",
+   "local": "testa",
+   "duas": false,
+   "movimento_total_graus": 98.4,
+   "palma_vira_graus": 42,
+   "dedos_rodam_graus": 20.9,
+   "punho_desliza_cm": 1.6,
+   "mao_parada_a_cm": 64,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "repete por favor",
+   "nota": "curva mao repete",
+   "forma": "curva",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 14.8,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 5,
+   "punho_desliza_cm": 2,
+   "mao_parada_a_cm": 10,
+   "erros": [
+    "gemeas:5"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "arroz (3.07°/mão)",
+    "legumes (3.07°/mão)",
+    "comprar (4.04°/mão)",
+    "cedo (6.63°/mão)",
+    "pão (7.44°/mão)"
+   ]
+  },
+  {
+   "palavra": "muito bem",
+   "nota": "2:punho frente cima",
+   "forma": "punho",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 145.5,
+   "palma_vira_graus": 12,
+   "dedos_rodam_graus": 12.8,
+   "punho_desliza_cm": 17,
+   "mao_parada_a_cm": 38,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "até amanhã",
+   "nota": "aponta testa frente",
+   "forma": "aponta",
+   "local": "testa",
+   "duas": false,
+   "movimento_total_graus": 64.8,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 10.2,
+   "punho_desliza_cm": 11,
+   "mao_parada_a_cm": 64,
+   "erros": [
+    "gemeas:6"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "boca (2.04°/mão)",
+    "doente (3.2°/mão)",
+    "olho (5.2°/mão)",
+    "nariz (5.2°/mão)",
+    "vermelho (8.23°/mão)",
+    "rosa (8.23°/mão)"
+   ]
+  },
+  {
+   "palavra": "casa",
+   "nota": "2:plano frente cima",
+   "forma": "plano",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 145.5,
+   "palma_vira_graus": 12,
+   "dedos_rodam_graus": 12.8,
+   "punho_desliza_cm": 17,
+   "mao_parada_a_cm": 38,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "porta",
+   "nota": "2:B frente abre",
+   "forma": "B",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 113.8,
+   "palma_vira_graus": 20.3,
+   "dedos_rodam_graus": 14.1,
+   "punho_desliza_cm": 11.1,
+   "mao_parada_a_cm": 38,
+   "erros": [
+    "gemeas:3"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "caderno (9.45°/mão)",
+    "livro (9.45°/mão)",
+    "grande (9.45°/mão)"
+   ]
+  },
+  {
+   "palavra": "janela",
+   "nota": "2:B frente bate",
+   "forma": "B",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 41,
+   "palma_vira_graus": 11.3,
+   "dedos_rodam_graus": 9.5,
+   "punho_desliza_cm": 6.1,
+   "mao_parada_a_cm": 38,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "bom dia (9.45°/mão)"
+   ]
+  },
+  {
+   "palavra": "cama",
+   "nota": "plano orelha parado",
+   "forma": "plano",
+   "local": "orelha",
+   "duas": false,
+   "movimento_total_graus": 0.3,
+   "palma_vira_graus": 0,
+   "dedos_rodam_graus": 0,
+   "punho_desliza_cm": 0,
+   "mao_parada_a_cm": 79,
+   "erros": [
+    "imóvel:0.3°",
+    "gemeas:4"
+   ],
+   "veredicto": "errado",
+   "gemeas": [
+    "cinza (4.31°/mão)",
+    "chamo-me (6.27°/mão)",
+    "bom (7.49°/mão)",
+    "dar (7.49°/mão)"
+   ]
+  },
+  {
+   "palavra": "mesa",
+   "nota": "2:plano frente varre",
+   "forma": "plano",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 332.8,
+   "palma_vira_graus": 18,
+   "dedos_rodam_graus": 40.1,
+   "punho_desliza_cm": 25.9,
+   "mao_parada_a_cm": 13,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "cadeira",
+   "nota": "2:H frente baixo",
+   "forma": "H",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 66.5,
+   "palma_vira_graus": 20,
+   "dedos_rodam_graus": 17.6,
+   "punho_desliza_cm": 10.6,
+   "mao_parada_a_cm": 38,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "como te chamas (7.53°/mão)"
+   ]
+  },
+  {
+   "palavra": "cozinha",
+   "nota": "2:plano mao torce",
+   "forma": "plano",
+   "local": "mao",
+   "duas": true,
+   "movimento_total_graus": 32.9,
+   "palma_vira_graus": 13.6,
+   "dedos_rodam_graus": 10.4,
+   "punho_desliza_cm": 1,
+   "mao_parada_a_cm": 11,
+   "erros": [
+    "gemeas:7"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "lição (5.35°/mão)",
+    "vender (5.35°/mão)",
+    "chegar (6.41°/mão)",
+    "novo (8.17°/mão)",
+    "mão (8.49°/mão)",
+    "hospital (8.49°/mão)"
+   ]
+  },
+  {
+   "palavra": "quarto",
+   "nota": "2:plano frente parado",
+   "forma": "plano",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 0.2,
+   "palma_vira_graus": 0,
+   "dedos_rodam_graus": 0,
+   "punho_desliza_cm": 0,
+   "mao_parada_a_cm": 38,
+   "erros": [
+    "imóvel:0.2°",
+    "gemeas:4"
+   ],
+   "veredicto": "errado",
+   "gemeas": [
+    "carteira (0°/mão)",
+    "lento (4.09°/mão)",
+    "devagar (4.09°/mão)",
+    "bom dia (9.03°/mão)"
+   ]
+  },
+  {
+   "palavra": "sala",
+   "nota": "2:curva frente circulo",
+   "forma": "curva",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 252.7,
+   "palma_vira_graus": 34.8,
+   "dedos_rodam_graus": 47.9,
+   "punho_desliza_cm": 10.8,
+   "mao_parada_a_cm": 30,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "casa de banho",
+   "nota": "O peito bate",
+   "forma": "O",
+   "local": "peito",
+   "duas": false,
+   "movimento_total_graus": 30.5,
+   "palma_vira_graus": 10,
+   "dedos_rodam_graus": 10.5,
+   "punho_desliza_cm": 6.1,
+   "mao_parada_a_cm": 47,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "teto",
+   "nota": "2:plano telhado varre",
+   "forma": "plano",
+   "local": "telhado",
+   "duas": true,
+   "movimento_total_graus": 292.3,
+   "palma_vira_graus": 7.1,
+   "dedos_rodam_graus": 13.8,
+   "punho_desliza_cm": 14.2,
+   "mao_parada_a_cm": 2,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "chão",
+   "nota": "2:plano barriga varre",
+   "forma": "plano",
+   "local": "barriga",
+   "duas": true,
+   "movimento_total_graus": 234.1,
+   "palma_vira_graus": 16,
+   "dedos_rodam_graus": 29,
+   "punho_desliza_cm": 25.9,
+   "mao_parada_a_cm": 25,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "família",
+   "nota": "2:F frente circulo",
+   "forma": "F",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 252.6,
+   "palma_vira_graus": 34.8,
+   "dedos_rodam_graus": 47.9,
+   "punho_desliza_cm": 10.8,
+   "mao_parada_a_cm": 30,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "mãe",
+   "nota": "abre queixo toque",
+   "forma": "abre",
+   "local": "queixo",
+   "duas": false,
+   "movimento_total_graus": 22.4,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 6.4,
+   "punho_desliza_cm": 2.2,
+   "mao_parada_a_cm": 50,
+   "erros": [
+    "gemeas:2"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "obrigado (7.18°/mão)",
+    "obrigada (7.18°/mão)"
+   ]
+  },
+  {
+   "palavra": "pai",
+   "nota": "abre testa toque",
+   "forma": "abre",
+   "local": "testa",
+   "duas": false,
+   "movimento_total_graus": 34.9,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 10.3,
+   "punho_desliza_cm": 2.2,
+   "mao_parada_a_cm": 62,
+   "erros": [
+    "gemeas:2"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "água (6.57°/mão)",
+    "braço (9.4°/mão)"
+   ]
+  },
+  {
+   "palavra": "filho",
+   "nota": "plano peito baixo",
+   "forma": "plano",
+   "local": "peito",
+   "duas": false,
+   "movimento_total_graus": 63,
+   "palma_vira_graus": 16,
+   "dedos_rodam_graus": 20.5,
+   "punho_desliza_cm": 10.6,
+   "mao_parada_a_cm": 45,
+   "erros": [
+    "gemeas:4"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "mau (0°/mão)",
+    "filha (0°/mão)",
+    "chamo-me (8.82°/mão)",
+    "cinza (9.42°/mão)"
+   ]
+  },
+  {
+   "palavra": "filha",
+   "nota": "plano peito baixo",
+   "forma": "plano",
+   "local": "peito",
+   "duas": false,
+   "movimento_total_graus": 63,
+   "palma_vira_graus": 16,
+   "dedos_rodam_graus": 20.5,
+   "punho_desliza_cm": 10.6,
+   "mao_parada_a_cm": 45,
+   "erros": [
+    "gemeas:4"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "mau (0°/mão)",
+    "filho (0°/mão)",
+    "chamo-me (8.82°/mão)",
+    "cinza (9.42°/mão)"
+   ]
+  },
+  {
+   "palavra": "avó",
+   "nota": "punho queixo frente",
+   "forma": "punho",
+   "local": "queixo",
+   "duas": false,
+   "movimento_total_graus": 56.6,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 8.3,
+   "punho_desliza_cm": 11,
+   "mao_parada_a_cm": 52,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "avô",
+   "nota": "punho testa frente",
+   "forma": "punho",
+   "local": "testa",
+   "duas": false,
+   "movimento_total_graus": 64.8,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 10.2,
+   "punho_desliza_cm": 11,
+   "mao_parada_a_cm": 64,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "dente (9.67°/mão)"
+   ]
+  },
+  {
+   "palavra": "irmão",
+   "nota": "2:aponta frente bate",
+   "forma": "aponta",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 41,
+   "palma_vira_graus": 11.3,
+   "dedos_rodam_graus": 9.5,
+   "punho_desliza_cm": 6.1,
+   "mao_parada_a_cm": 38,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "irmã (0°/mão)"
+   ]
+  },
+  {
+   "palavra": "irmã",
+   "nota": "2:aponta frente bate",
+   "forma": "aponta",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 41,
+   "palma_vira_graus": 11.3,
+   "dedos_rodam_graus": 9.5,
+   "punho_desliza_cm": 6.1,
+   "mao_parada_a_cm": 38,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "irmão (0°/mão)"
+   ]
+  },
+  {
+   "palavra": "hoje",
+   "nota": "aponta baixo bate",
+   "forma": "aponta",
+   "local": "baixo",
+   "duas": false,
+   "movimento_total_graus": 55.8,
+   "palma_vira_graus": 10,
+   "dedos_rodam_graus": 10.2,
+   "punho_desliza_cm": 6.1,
+   "mao_parada_a_cm": 44,
+   "erros": [
+    "gemeas:2"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "aqui (5.28°/mão)",
+    "perna (7.5°/mão)"
+   ]
+  },
+  {
+   "palavra": "amanhã",
+   "nota": "A peito frente",
+   "forma": "A",
+   "local": "peito",
+   "duas": false,
+   "movimento_total_graus": 114.1,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 10.6,
+   "punho_desliza_cm": 19.9,
+   "mao_parada_a_cm": 50,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "ontem (8.28°/mão)"
+   ]
+  },
+  {
+   "palavra": "ontem",
+   "nota": "A peito tras",
+   "forma": "A",
+   "local": "peito",
+   "duas": false,
+   "movimento_total_graus": 68.9,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 8.4,
+   "punho_desliza_cm": 10.9,
+   "mao_parada_a_cm": 50,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "amanhã (8.28°/mão)"
+   ]
+  },
+  {
+   "palavra": "agora",
+   "nota": "2:plano frente baixo",
+   "forma": "plano",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 66.5,
+   "palma_vira_graus": 20,
+   "dedos_rodam_graus": 17.6,
+   "punho_desliza_cm": 10.6,
+   "mao_parada_a_cm": 38,
+   "erros": [
+    "gemeas:2"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "mercado (0°/mão)",
+    "bom dia (7.53°/mão)"
+   ]
+  },
+  {
+   "palavra": "depois",
+   "nota": "L mao frente",
+   "forma": "L",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 40.1,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 7.6,
+   "punho_desliza_cm": 7,
+   "mao_parada_a_cm": 11,
+   "erros": [
+    "gemeas:6"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "caneta (7.74°/mão)",
+    "lápis (7.74°/mão)",
+    "feijão (7.74°/mão)",
+    "pagar (7.74°/mão)",
+    "semana (9.86°/mão)",
+    "hora (9.86°/mão)"
+   ]
+  },
+  {
+   "palavra": "semana",
+   "nota": "aponta mao circulo",
+   "forma": "aponta",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 42.2,
+   "palma_vira_graus": 11.7,
+   "dedos_rodam_graus": 9.4,
+   "punho_desliza_cm": 3.8,
+   "mao_parada_a_cm": 11,
+   "erros": [
+    "gemeas:10"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "hora (0.02°/mão)",
+    "caneta (2.95°/mão)",
+    "lápis (2.95°/mão)",
+    "feijão (2.95°/mão)",
+    "pagar (2.95°/mão)",
+    "mês (5.41°/mão)"
+   ]
+  },
+  {
+   "palavra": "mês",
+   "nota": "aponta mao baixo",
+   "forma": "aponta",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 25.8,
+   "palma_vira_graus": 16,
+   "dedos_rodam_graus": 10,
+   "punho_desliza_cm": 3.7,
+   "mao_parada_a_cm": 10,
+   "erros": [
+    "gemeas:9"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "caneta (4.37°/mão)",
+    "lápis (4.37°/mão)",
+    "feijão (4.37°/mão)",
+    "pagar (4.37°/mão)",
+    "escrever (4.93°/mão)",
+    "dedo (4.93°/mão)"
+   ]
+  },
+  {
+   "palavra": "ano",
+   "nota": "2:punho frente circulo",
+   "forma": "punho",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 252.7,
+   "palma_vira_graus": 34.8,
+   "dedos_rodam_graus": 47.9,
+   "punho_desliza_cm": 10.8,
+   "mao_parada_a_cm": 30,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "dia",
+   "nota": "plano frente arco",
+   "forma": "plano",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 265.9,
+   "palma_vira_graus": 20,
+   "dedos_rodam_graus": 59,
+   "punho_desliza_cm": 20.7,
+   "mao_parada_a_cm": 57,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "recreio (7.2°/mão)"
+   ]
+  },
+  {
+   "palavra": "hora",
+   "nota": "aponta mao circulo",
+   "forma": "aponta",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 42.2,
+   "palma_vira_graus": 11.7,
+   "dedos_rodam_graus": 9.4,
+   "punho_desliza_cm": 3.8,
+   "mao_parada_a_cm": 11,
+   "erros": [
+    "gemeas:10"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "semana (0.02°/mão)",
+    "caneta (2.95°/mão)",
+    "lápis (2.95°/mão)",
+    "feijão (2.95°/mão)",
+    "pagar (2.95°/mão)",
+    "mês (5.41°/mão)"
+   ]
+  },
+  {
+   "palavra": "janeiro",
+   "nota": "J frente torce",
+   "forma": "J",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 170.5,
+   "palma_vira_graus": 42,
+   "dedos_rodam_graus": 67.3,
+   "punho_desliza_cm": 2.8,
+   "mao_parada_a_cm": 57,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "fevereiro",
+   "nota": "F frente torce",
+   "forma": "F",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 170.5,
+   "palma_vira_graus": 42,
+   "dedos_rodam_graus": 67.3,
+   "punho_desliza_cm": 2.8,
+   "mao_parada_a_cm": 57,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "quanto custa (0°/mão)"
+   ]
+  },
+  {
+   "palavra": "março",
+   "nota": "M frente parado",
+   "forma": "M",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 0.2,
+   "palma_vira_graus": 0,
+   "dedos_rodam_graus": 0,
+   "punho_desliza_cm": 0,
+   "mao_parada_a_cm": 57,
+   "erros": [
+    "imóvel:0.2°",
+    "gemeas:4"
+   ],
+   "veredicto": "errado",
+   "gemeas": [
+    "novembro (1.54°/mão)",
+    "setembro (5.7°/mão)",
+    "leite (7.03°/mão)",
+    "abril (9.23°/mão)"
+   ]
+  },
+  {
+   "palavra": "abril",
+   "nota": "A frente parado",
+   "forma": "A",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 0.2,
+   "palma_vira_graus": 0,
+   "dedos_rodam_graus": 0,
+   "punho_desliza_cm": 0,
+   "mao_parada_a_cm": 57,
+   "erros": [
+    "imóvel:0.2°",
+    "gemeas:4"
+   ],
+   "veredicto": "errado",
+   "gemeas": [
+    "setembro (3.71°/mão)",
+    "leite (4.83°/mão)",
+    "novembro (7.83°/mão)",
+    "março (9.23°/mão)"
+   ]
+  },
+  {
+   "palavra": "maio",
+   "nota": "M frente torce",
+   "forma": "M",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 170.5,
+   "palma_vira_graus": 42,
+   "dedos_rodam_graus": 67.3,
+   "punho_desliza_cm": 2.8,
+   "mao_parada_a_cm": 57,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "junho",
+   "nota": "J frente parado",
+   "forma": "J",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 0.2,
+   "palma_vira_graus": 0,
+   "dedos_rodam_graus": 0,
+   "punho_desliza_cm": 0,
+   "mao_parada_a_cm": 57,
+   "erros": [
+    "imóvel:0.2°"
+   ],
+   "veredicto": "errado",
+   "gemeas": []
+  },
+  {
+   "palavra": "julho",
+   "nota": "J mao circulo",
+   "forma": "J",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 42.2,
+   "palma_vira_graus": 11.7,
+   "dedos_rodam_graus": 9.4,
+   "punho_desliza_cm": 3.8,
+   "mao_parada_a_cm": 11,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "agosto",
+   "nota": "A peito circulo",
+   "forma": "A",
+   "local": "peito",
+   "duas": false,
+   "movimento_total_graus": 128.1,
+   "palma_vira_graus": 34.8,
+   "dedos_rodam_graus": 17.9,
+   "punho_desliza_cm": 10.8,
+   "mao_parada_a_cm": 50,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "desculpa (3.55°/mão)"
+   ]
+  },
+  {
+   "palavra": "setembro",
+   "nota": "S frente parado",
+   "forma": "S",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 0.2,
+   "palma_vira_graus": 0,
+   "dedos_rodam_graus": 0,
+   "punho_desliza_cm": 0,
+   "mao_parada_a_cm": 57,
+   "erros": [
+    "imóvel:0.2°",
+    "gemeas:4"
+   ],
+   "veredicto": "errado",
+   "gemeas": [
+    "leite (1.71°/mão)",
+    "abril (3.71°/mão)",
+    "novembro (4.37°/mão)",
+    "março (5.7°/mão)"
+   ]
+  },
+  {
+   "palavra": "outubro",
+   "nota": "O frente circulo",
+   "forma": "O",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 156.8,
+   "palma_vira_graus": 34.8,
+   "dedos_rodam_graus": 49.6,
+   "punho_desliza_cm": 10.8,
+   "mao_parada_a_cm": 57,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "novembro",
+   "nota": "N frente parado",
+   "forma": "N",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 0.2,
+   "palma_vira_graus": 0,
+   "dedos_rodam_graus": 0,
+   "punho_desliza_cm": 0,
+   "mao_parada_a_cm": 57,
+   "erros": [
+    "imóvel:0.2°",
+    "gemeas:4"
+   ],
+   "veredicto": "errado",
+   "gemeas": [
+    "março (1.54°/mão)",
+    "setembro (4.37°/mão)",
+    "leite (5.75°/mão)",
+    "abril (7.83°/mão)"
+   ]
+  },
+  {
+   "palavra": "dezembro",
+   "nota": "D frente parado",
+   "forma": "D",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 0.2,
+   "palma_vira_graus": 0,
+   "dedos_rodam_graus": 0,
+   "punho_desliza_cm": 0,
+   "mao_parada_a_cm": 57,
+   "erros": [
+    "imóvel:0.2°",
+    "gemeas:1"
+   ],
+   "veredicto": "errado",
+   "gemeas": [
+    "vir (4.03°/mão)"
+   ]
+  },
+  {
+   "palavra": "cabeça",
+   "nota": "curva testa toque",
+   "forma": "curva",
+   "local": "testa",
+   "duas": false,
+   "movimento_total_graus": 34.9,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 10.3,
+   "punho_desliza_cm": 2.2,
+   "mao_parada_a_cm": 62,
+   "erros": [
+    "gemeas:2"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "ombro (5.28°/mão)",
+    "mochila (7.06°/mão)"
+   ]
+  },
+  {
+   "palavra": "olho",
+   "nota": "aponta olho toque",
+   "forma": "aponta",
+   "local": "olho",
+   "duas": false,
+   "movimento_total_graus": 31.2,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 9.7,
+   "punho_desliza_cm": 2.2,
+   "mao_parada_a_cm": 59,
+   "erros": [
+    "gemeas:5"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "nariz (0°/mão)",
+    "até amanhã (5.2°/mão)",
+    "boca (5.41°/mão)",
+    "doente (6.5°/mão)",
+    "preto (7.38°/mão)"
+   ]
+  },
+  {
+   "palavra": "mão",
+   "nota": "plano mao toque",
+   "forma": "plano",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 15,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 9.8,
+   "punho_desliza_cm": 1.4,
+   "mao_parada_a_cm": 9,
+   "erros": [
+    "gemeas:8"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "hospital (0.03°/mão)",
+    "chegar (3.71°/mão)",
+    "borracha (4.36°/mão)",
+    "médico (4.74°/mão)",
+    "lição (5.9°/mão)",
+    "vender (5.9°/mão)"
+   ]
+  },
+  {
+   "palavra": "dedo",
+   "nota": "aponta mao toque",
+   "forma": "aponta",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 15,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 9.8,
+   "punho_desliza_cm": 1.4,
+   "mao_parada_a_cm": 9,
+   "erros": [
+    "gemeas:10"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "escrever (0.02°/mão)",
+    "ler (4.36°/mão)",
+    "mês (4.93°/mão)",
+    "caneta (5.9°/mão)",
+    "lápis (5.9°/mão)",
+    "feijão (5.9°/mão)"
+   ]
+  },
+  {
+   "palavra": "boca",
+   "nota": "aponta boca toque",
+   "forma": "aponta",
+   "local": "boca",
+   "duas": false,
+   "movimento_total_graus": 24.7,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 8.2,
+   "punho_desliza_cm": 2.2,
+   "mao_parada_a_cm": 53,
+   "erros": [
+    "gemeas:6"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "até amanhã (2.04°/mão)",
+    "doente (5.12°/mão)",
+    "olho (5.41°/mão)",
+    "nariz (5.41°/mão)",
+    "vermelho (7.95°/mão)",
+    "rosa (7.95°/mão)"
+   ]
+  },
+  {
+   "palavra": "nariz",
+   "nota": "aponta olho toque",
+   "forma": "aponta",
+   "local": "olho",
+   "duas": false,
+   "movimento_total_graus": 31.2,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 9.7,
+   "punho_desliza_cm": 2.2,
+   "mao_parada_a_cm": 59,
+   "erros": [
+    "gemeas:5"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "olho (0°/mão)",
+    "até amanhã (5.2°/mão)",
+    "boca (5.41°/mão)",
+    "doente (6.5°/mão)",
+    "preto (7.38°/mão)"
+   ]
+  },
+  {
+   "palavra": "orelha",
+   "nota": "aponta orelha toque",
+   "forma": "aponta",
+   "local": "orelha",
+   "duas": false,
+   "movimento_total_graus": 20.5,
+   "palma_vira_graus": 3.5,
+   "dedos_rodam_graus": 3.7,
+   "punho_desliza_cm": 2.2,
+   "mao_parada_a_cm": 77,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "ombro",
+   "nota": "curva ombro toque",
+   "forma": "curva",
+   "local": "ombro",
+   "duas": false,
+   "movimento_total_graus": 65.5,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 12.7,
+   "punho_desliza_cm": 3.3,
+   "mao_parada_a_cm": 63,
+   "erros": [
+    "gemeas:2"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "mochila (2.17°/mão)",
+    "cabeça (5.28°/mão)"
+   ]
+  },
+  {
+   "palavra": "braço",
+   "nota": "plano ombro baixo",
+   "forma": "plano",
+   "local": "ombro",
+   "duas": false,
+   "movimento_total_graus": 88.2,
+   "palma_vira_graus": 16,
+   "dedos_rodam_graus": 18.7,
+   "punho_desliza_cm": 10.6,
+   "mao_parada_a_cm": 60,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "pai (9.4°/mão)"
+   ]
+  },
+  {
+   "palavra": "perna",
+   "nota": "aponta barriga baixo",
+   "forma": "aponta",
+   "local": "barriga",
+   "duas": false,
+   "movimento_total_graus": 153.5,
+   "palma_vira_graus": 16,
+   "dedos_rodam_graus": 29.2,
+   "punho_desliza_cm": 10.6,
+   "mao_parada_a_cm": 39,
+   "erros": [
+    "gemeas:2"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "aqui (2.4°/mão)",
+    "hoje (7.5°/mão)"
+   ]
+  },
+  {
+   "palavra": "pé",
+   "nota": "2:plano baixo bate",
+   "forma": "plano",
+   "local": "baixo",
+   "duas": true,
+   "movimento_total_graus": 105.7,
+   "palma_vira_graus": 10,
+   "dedos_rodam_graus": 10.4,
+   "punho_desliza_cm": 6.1,
+   "mao_parada_a_cm": 36,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "barriga",
+   "nota": "plano barriga toque",
+   "forma": "plano",
+   "local": "barriga",
+   "duas": false,
+   "movimento_total_graus": 26.4,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 7.3,
+   "punho_desliza_cm": 3.9,
+   "mao_parada_a_cm": 36,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "dente",
+   "nota": "X boca toque",
+   "forma": "X",
+   "local": "boca",
+   "duas": false,
+   "movimento_total_graus": 24.7,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 8.2,
+   "punho_desliza_cm": 2.2,
+   "mao_parada_a_cm": 53,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "avô (9.67°/mão)"
+   ]
+  },
+  {
+   "palavra": "cabelo",
+   "nota": "F orelha toque",
+   "forma": "F",
+   "local": "orelha",
+   "duas": false,
+   "movimento_total_graus": 20.5,
+   "palma_vira_graus": 3.5,
+   "dedos_rodam_graus": 3.7,
+   "punho_desliza_cm": 2.2,
+   "mao_parada_a_cm": 77,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "mercado",
+   "nota": "2:plano frente baixo",
+   "forma": "plano",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 66.5,
+   "palma_vira_graus": 20,
+   "dedos_rodam_graus": 17.6,
+   "punho_desliza_cm": 10.6,
+   "mao_parada_a_cm": 38,
+   "erros": [
+    "gemeas:2"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "agora (0°/mão)",
+    "bom dia (7.53°/mão)"
+   ]
+  },
+  {
+   "palavra": "autocarro",
+   "nota": "2:C frente onda",
+   "forma": "C",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 61.4,
+   "palma_vira_graus": 0,
+   "dedos_rodam_graus": 18.4,
+   "punho_desliza_cm": 3.2,
+   "mao_parada_a_cm": 32,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "dinheiro",
+   "nota": "O mao bate",
+   "forma": "O",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 17,
+   "palma_vira_graus": 10,
+   "dedos_rodam_graus": 6.3,
+   "punho_desliza_cm": 2.1,
+   "mao_parada_a_cm": 10,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "telefone",
+   "nota": "Y orelha parado",
+   "forma": "Y",
+   "local": "orelha",
+   "duas": false,
+   "movimento_total_graus": 0.3,
+   "palma_vira_graus": 0,
+   "dedos_rodam_graus": 0,
+   "punho_desliza_cm": 0,
+   "mao_parada_a_cm": 79,
+   "erros": [
+    "imóvel:0.3°"
+   ],
+   "veredicto": "errado",
+   "gemeas": []
+  },
+  {
+   "palavra": "amigo",
+   "nota": "2:X mao bate",
+   "forma": "X",
+   "local": "mao",
+   "duas": true,
+   "movimento_total_graus": 17,
+   "palma_vira_graus": 10,
+   "dedos_rodam_graus": 6.3,
+   "punho_desliza_cm": 2.1,
+   "mao_parada_a_cm": 10,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "amiga (0.02°/mão)"
+   ]
+  },
+  {
+   "palavra": "amiga",
+   "nota": "2:X mao bate",
+   "forma": "X",
+   "local": "mao",
+   "duas": true,
+   "movimento_total_graus": 17,
+   "palma_vira_graus": 10,
+   "dedos_rodam_graus": 6.3,
+   "punho_desliza_cm": 2.1,
+   "mao_parada_a_cm": 10,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "amigo (0.02°/mão)"
+   ]
+  },
+  {
+   "palavra": "computador",
+   "nota": "H mao toque",
+   "forma": "H",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 15,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 9.8,
+   "punho_desliza_cm": 1.4,
+   "mao_parada_a_cm": 9,
+   "erros": [
+    "gemeas:2"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "sal (3.71°/mão)",
+    "rápido (5.9°/mão)"
+   ]
+  },
+  {
+   "palavra": "hospital",
+   "nota": "plano mao toque",
+   "forma": "plano",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 15,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 9.8,
+   "punho_desliza_cm": 1.4,
+   "mao_parada_a_cm": 9,
+   "erros": [
+    "gemeas:8"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "mão (0.03°/mão)",
+    "chegar (3.71°/mão)",
+    "borracha (4.36°/mão)",
+    "médico (4.74°/mão)",
+    "lição (5.9°/mão)",
+    "vender (5.9°/mão)"
+   ]
+  },
+  {
+   "palavra": "médico",
+   "nota": "B mao toque",
+   "forma": "B",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 15,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 9.8,
+   "punho_desliza_cm": 1.4,
+   "mao_parada_a_cm": 9,
+   "erros": [
+    "gemeas:6"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "mão (4.74°/mão)",
+    "hospital (4.74°/mão)",
+    "chegar (6.38°/mão)",
+    "borracha (7.8°/mão)",
+    "lição (8.07°/mão)",
+    "vender (8.07°/mão)"
+   ]
+  },
+  {
+   "palavra": "igreja",
+   "nota": "2:plano telhado parado",
+   "forma": "plano",
+   "local": "telhado",
+   "duas": true,
+   "movimento_total_graus": 0.4,
+   "palma_vira_graus": 0,
+   "dedos_rodam_graus": 0,
+   "punho_desliza_cm": 0,
+   "mao_parada_a_cm": 30,
+   "erros": [
+    "imóvel:0.4°",
+    "mãos-não-tocam"
+   ],
+   "veredicto": "errado",
+   "gemeas": []
+  },
+  {
+   "palavra": "futebol",
+   "nota": "punho mao frente",
+   "forma": "punho",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 40.1,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 7.6,
+   "punho_desliza_cm": 7,
+   "mao_parada_a_cm": 11,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "ajudar (8.03°/mão)"
+   ]
+  },
+  {
+   "palavra": "música",
+   "nota": "2:plano frente onda",
+   "forma": "plano",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 61.3,
+   "palma_vira_graus": 0,
+   "dedos_rodam_graus": 18.4,
+   "punho_desliza_cm": 3.2,
+   "mao_parada_a_cm": 32,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "dança",
+   "nota": "V mao onda",
+   "forma": "V",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 28.7,
+   "palma_vira_graus": 0,
+   "dedos_rodam_graus": 22.7,
+   "punho_desliza_cm": 1.1,
+   "mao_parada_a_cm": 10,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "rápido (8.39°/mão)"
+   ]
+  },
+  {
+   "palavra": "roupa",
+   "nota": "2:garra peito baixo",
+   "forma": "garra",
+   "local": "peito",
+   "duas": true,
+   "movimento_total_graus": 118.9,
+   "palma_vira_graus": 16,
+   "dedos_rodam_graus": 20.2,
+   "punho_desliza_cm": 10.6,
+   "mao_parada_a_cm": 28,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "sapato",
+   "nota": "2:punho frente bate",
+   "forma": "punho",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 41,
+   "palma_vira_graus": 11.3,
+   "dedos_rodam_graus": 9.5,
+   "punho_desliza_cm": 6.1,
+   "mao_parada_a_cm": 38,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "trabalhar (0°/mão)"
+   ]
+  },
+  {
+   "palavra": "cartão",
+   "nota": "2:L frente abre",
+   "forma": "L",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 113.8,
+   "palma_vira_graus": 20.3,
+   "dedos_rodam_graus": 14.1,
+   "punho_desliza_cm": 11.1,
+   "mao_parada_a_cm": 38,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "comprar",
+   "nota": "curva mao toque",
+   "forma": "curva",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 15,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 9.8,
+   "punho_desliza_cm": 1.4,
+   "mao_parada_a_cm": 9,
+   "erros": [
+    "gemeas:5"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "repete por favor (4.04°/mão)",
+    "pão (4.36°/mão)",
+    "arroz (5.9°/mão)",
+    "legumes (5.9°/mão)",
+    "cedo (8.92°/mão)"
+   ]
+  },
+  {
+   "palavra": "vender",
+   "nota": "plano mao frente",
+   "forma": "plano",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 40.1,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 7.6,
+   "punho_desliza_cm": 7,
+   "mao_parada_a_cm": 11,
+   "erros": [
+    "gemeas:9"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "lição (0.02°/mão)",
+    "chegar (2.64°/mão)",
+    "cozinha (5.35°/mão)",
+    "novo (5.59°/mão)",
+    "mão (5.9°/mão)",
+    "hospital (5.9°/mão)"
+   ]
+  },
+  {
+   "palavra": "pagar",
+   "nota": "aponta mao frente",
+   "forma": "aponta",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 40.1,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 7.6,
+   "punho_desliza_cm": 7,
+   "mao_parada_a_cm": 11,
+   "erros": [
+    "gemeas:11"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "caneta (0.02°/mão)",
+    "lápis (0.02°/mão)",
+    "feijão (0.02°/mão)",
+    "semana (2.95°/mão)",
+    "hora (2.95°/mão)",
+    "mês (4.37°/mão)"
+   ]
+  },
+  {
+   "palavra": "esperar",
+   "nota": "2:abre frente onda",
+   "forma": "abre",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 61.3,
+   "palma_vira_graus": 0,
+   "dedos_rodam_graus": 18.4,
+   "punho_desliza_cm": 3.2,
+   "mao_parada_a_cm": 32,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "chegar",
+   "nota": "plano mao bate",
+   "forma": "plano",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 17,
+   "palma_vira_graus": 10,
+   "dedos_rodam_graus": 6.3,
+   "punho_desliza_cm": 2.1,
+   "mao_parada_a_cm": 10,
+   "erros": [
+    "gemeas:9"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "lição (2.64°/mão)",
+    "vender (2.64°/mão)",
+    "mão (3.71°/mão)",
+    "hospital (3.71°/mão)",
+    "médico (6.38°/mão)",
+    "cozinha (6.41°/mão)"
+   ]
+  },
+  {
+   "palavra": "precisar",
+   "nota": "X frente baixo",
+   "forma": "X",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 38.4,
+   "palma_vira_graus": 16.9,
+   "dedos_rodam_graus": 13.6,
+   "punho_desliza_cm": 10.6,
+   "mao_parada_a_cm": 53,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "poder",
+   "nota": "2:punho lado cima",
+   "forma": "punho",
+   "local": "lado",
+   "duas": true,
+   "movimento_total_graus": 213,
+   "palma_vira_graus": 12,
+   "dedos_rodam_graus": 36.3,
+   "punho_desliza_cm": 17,
+   "mao_parada_a_cm": 78,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "dever",
+   "nota": "aponta queixo frente",
+   "forma": "aponta",
+   "local": "queixo",
+   "duas": false,
+   "movimento_total_graus": 56.6,
+   "palma_vira_graus": 8,
+   "dedos_rodam_graus": 8.3,
+   "punho_desliza_cm": 11,
+   "mao_parada_a_cm": 52,
+   "erros": [
+    "gemeas:4"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "responder (0°/mão)",
+    "vermelho (7.28°/mão)",
+    "rosa (7.28°/mão)",
+    "doente (8.8°/mão)"
+   ]
+  },
+  {
+   "palavra": "cedo",
+   "nota": "curva mao cima",
+   "forma": "curva",
+   "local": "mao",
+   "duas": false,
+   "movimento_total_graus": 24.5,
+   "palma_vira_graus": 12,
+   "dedos_rodam_graus": 8.8,
+   "punho_desliza_cm": 5.9,
+   "mao_parada_a_cm": 11,
+   "erros": [
+    "gemeas:4"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "repete por favor (6.63°/mão)",
+    "arroz (8.03°/mão)",
+    "legumes (8.03°/mão)",
+    "comprar (8.92°/mão)"
+   ]
+  },
+  {
+   "palavra": "tarde",
+   "nota": "plano frente baixo",
+   "forma": "plano",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 38.4,
+   "palma_vira_graus": 16.9,
+   "dedos_rodam_graus": 13.6,
+   "punho_desliza_cm": 10.6,
+   "mao_parada_a_cm": 53,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "sempre",
+   "nota": "2:plano frente circulo",
+   "forma": "plano",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 252.6,
+   "palma_vira_graus": 34.8,
+   "dedos_rodam_graus": 47.9,
+   "punho_desliza_cm": 10.8,
+   "mao_parada_a_cm": 30,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "nunca",
+   "nota": "B frente varre",
+   "forma": "B",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 177.2,
+   "palma_vira_graus": 21.9,
+   "dedos_rodam_graus": 33.6,
+   "punho_desliza_cm": 25.9,
+   "mao_parada_a_cm": 43,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "muito",
+   "nota": "2:abre lado cima",
+   "forma": "abre",
+   "local": "lado",
+   "duas": true,
+   "movimento_total_graus": 212.9,
+   "palma_vira_graus": 12,
+   "dedos_rodam_graus": 36.3,
+   "punho_desliza_cm": 17,
+   "mao_parada_a_cm": 78,
+   "erros": [],
+   "veredicto": "verificar-visual",
+   "gemeas": []
+  },
+  {
+   "palavra": "pouco",
+   "nota": "F queixo toque",
+   "forma": "F",
+   "local": "queixo",
+   "duas": false,
+   "movimento_total_graus": 22.4,
+   "palma_vira_graus": 6,
+   "dedos_rodam_graus": 6.4,
+   "punho_desliza_cm": 2.2,
+   "mao_parada_a_cm": 50,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "pequeno (2.74°/mão)"
+   ]
+  },
+  {
+   "palavra": "aqui",
+   "nota": "aponta baixo baixo",
+   "forma": "aponta",
+   "local": "baixo",
+   "duas": false,
+   "movimento_total_graus": 118.9,
+   "palma_vira_graus": 16,
+   "dedos_rodam_graus": 22.7,
+   "punho_desliza_cm": 10.6,
+   "mao_parada_a_cm": 44,
+   "erros": [
+    "gemeas:2"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "perna (2.4°/mão)",
+    "hoje (5.28°/mão)"
+   ]
+  },
+  {
+   "palavra": "ali",
+   "nota": "aponta frente frente",
+   "forma": "aponta",
+   "local": "frente",
+   "duas": false,
+   "movimento_total_graus": 214.4,
+   "palma_vira_graus": 29.8,
+   "dedos_rodam_graus": 54.3,
+   "punho_desliza_cm": 19.7,
+   "mao_parada_a_cm": 57,
+   "erros": [
+    "gemeas:1"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "ir (0°/mão)"
+   ]
+  },
+  {
+   "palavra": "devagar",
+   "nota": "2:plano frente repete",
+   "forma": "plano",
+   "local": "frente",
+   "duas": true,
+   "movimento_total_graus": 45.6,
+   "palma_vira_graus": 10.2,
+   "dedos_rodam_graus": 8.9,
+   "punho_desliza_cm": 5.8,
+   "mao_parada_a_cm": 38,
+   "erros": [
+    "gemeas:4"
+   ],
+   "veredicto": "ambíguo",
+   "gemeas": [
+    "lento (0°/mão)",
+    "carteira (4.09°/mão)",
+    "quarto (4.09°/mão)",
+    "bom dia (5°/mão)"
+   ]
+  }
+ ]
+}

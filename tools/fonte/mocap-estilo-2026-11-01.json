@@ -1,0 +1,20 @@
+{
+  "gerado": "2026-11-01",
+  "fonte": "StudioGalt SLMocapArchive (CC0), rig Mixamo, 60 fps",
+  "amostra": 5,
+  "nota": "sinais ASL isolados; um frame fora de série por clip (salto de importação, 59-67 cm) excluído por step < 8 cm",
+  "clips": [
+    { "palavra": "ASL",      "seconds": 4.32, "path_cm": 207.6, "step_med_cm": 0.51, "step_p90_cm": 2.36, "rot_med_deg": 1.83, "rot_p90_deg": 6.08, "rot_travel_deg": 592.2 },
+    { "palavra": "ASL alt",  "seconds": 7.13, "path_cm": 300.0, "step_med_cm": 0.67, "step_p90_cm": 1.22, "rot_med_deg": 1.39, "rot_p90_deg": 3.40, "rot_travel_deg": 714.1 },
+    { "palavra": "Alaska",   "seconds": 2.90, "path_cm": 193.9, "step_med_cm": 0.72, "step_p90_cm": 2.68, "rot_med_deg": 1.72, "rot_p90_deg": 7.13, "rot_travel_deg": 470.7 },
+    { "palavra": "Baby",     "seconds": 4.38, "path_cm": 155.3, "step_med_cm": 0.53, "step_p90_cm": 1.18, "rot_med_deg": 1.09, "rot_p90_deg": 3.06, "rot_travel_deg": 385.5 },
+    { "palavra": "Backpack", "seconds": 3.25, "path_cm": 120.1, "step_med_cm": 0.35, "step_p90_cm": 1.65, "rot_med_deg": 1.11, "rot_p90_deg": 4.95, "rot_travel_deg": 359.5 }
+  ],
+  "nosso_renderer": {
+    "fonte": "tools/fonte/auditoria-render.json",
+    "n": 191,
+    "punho_desliza_cm": { "min": 0.0, "med": 5.7, "p90": 13.4, "max": 13.4 },
+    "palma_vira_graus": { "min": 0.0, "med": 0.0, "p90": 5.0, "max": 13.6 },
+    "movimento_total_graus": { "min": 0.2, "med": 64.0, "p90": 114.2, "max": 246.2 }
+  }
+}

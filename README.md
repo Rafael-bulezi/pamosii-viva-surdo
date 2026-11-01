@@ -93,6 +93,33 @@ sinal tiver forma, lugar ou movimento que o rig não conhece, se os três
 ficheiros declararem a mesma `const` (o segundo deixaria de correr) ou se o
 `?v=` do index não bater com o `VERSAO` do service worker.
 
+### Auditoria do que o avatar realmente faz
+
+Os testes acima validam a *notação*. Nada neles mede o *render*. Para isso:
+
+```bash
+node tools/serve.cjs                              # noutro terminal
+node tools/folha-3d.cjs --todos --porFolha=6      # 32 folhas com início+fim de cada sinal
+node tools/folha-3d.cjs --alfabeto --maos         # as 26 letras em close-up
+node tools/sonda-alcance.cjs                      # 55 ossos × 2 instantes × 191 palavras
+node tools/analisa-alcance.cjs                    # erro de colocação, amplitude, gémeas
+node tools/colisoes.cjs                           # palavras com notação idêntica
+node tools/auditoria-render.cjs > tools/fonte/auditoria-render.json
+```
+
+Veredicto e números em `tools/fonte/auditoria-render-2026-11-01.md`. O resultado
+principal: **187 das 191 palavras têm pelo menos outra palavra cuja animação é
+indistinguível** (＜8° de diferença média por osso), e o gargalo é o modelo de
+capacidades do renderizador — orientação da palma presa ao `local`, mão-parceira
+inexistente, movimento escalado por `ESC_MOV`, e mãos duplas sempre espelhadas —
+não as strings.
+
+Antes de escrever à mão, verificou-se se existia animação aberta para retarget:
+`tools/fonte/pesquisa-animacao-2026-11-01.md` (e `mocap-estilo-2026-11-01.json`).
+Conclusão: **não há dados de LGA**; o corpus CC0 existente é ASL e serve de
+referência de estilo, não de conteúdo. Números medidos: o punho real percorre
+120–300 cm por sinal e a palma roda 360–714°, contra 5,7 cm e 0° no nosso avatar.
+
 Os restantes scripts em `tools/` (`ingerir-*`, `sonda-*`, `auditoria-visual`,
 `fetch-biblia`, `parse-yt`, `yt-search`) são do site maior que este branch
 substituiu — não são usados por esta app.
