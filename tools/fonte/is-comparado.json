@@ -1,21 +1,584 @@
 {
-  "_nota": "O que foi comparado, palavra a palavra, com o vídeo da entrada IS. «no_video» descreve apenas o que se vê nos fotogramas (ferramenta: tools/comparar-is.py). Veredictos: igual = a nossa notação já desenhava a mesma família; corrigido = a notação foi mudada por causa do vídeo; aproximado = o vídeo mostra mais do que a nossa notação consegue dizer (não temos orientação de palma por sinal).",
-  "bom dia": { "veredicto": "corrigido", "no_video": "duas mãos planas unem-se à frente do tronco, palmas viradas uma para a outra", "antes": "abre queixo frente", "depois": "2:plano frente bate", "em": "2026-10-31" },
-  "boa tarde": { "veredicto": "corrigido", "no_video": "uma mão plana desce sobre a palma horizontal da outra, à frente do peito", "antes": "abre queixo frente", "depois": "2:plano peito baixo", "em": "2026-10-31" },
-  "boa noite": { "veredicto": "aproximado", "no_video": "pontas dos dedos da mão dominante junto ao queixo, depois sobre a outra mão (família dormir)", "antes": "curva queixo baixo", "depois": "curva queixo baixo", "em": "2026-10-31" },
-  "sim": { "veredicto": "corrigido", "no_video": "mão em L (indicador e polegar estendidos) flete-se junto à cabeça, como uma anuência", "antes": "punho frente bate", "depois": "L frente bate", "em": "2026-10-31" },
-  "não": { "veredicto": "aproximado", "no_video": "indicador erguido à altura do ombro com um movimento seco; a orientação da palma não se representa na nossa notação", "antes": "aponta frente torce", "depois": "aponta frente torce", "em": "2026-10-31" },
-  "escola": { "veredicto": "igual", "no_video": "duas mãos planas, palmas verticais uma contra a outra, batem à frente do peito", "antes": "2:plano peito bate", "depois": "2:plano peito bate", "em": "2026-10-31" },
-  "professor": { "veredicto": "corrigido", "no_video": "as duas mãos, abertas e viradas uma para a outra, apresentam-se à frente do peito", "antes": "aponta testa frente", "depois": "2:plano frente frente", "em": "2026-10-31" },
-  "comer": { "veredicto": "igual", "no_video": "mão em pinça leva algo à boca, repetido", "antes": "curva boca repete", "depois": "curva boca repete", "em": "2026-10-31" },
-  "água": { "veredicto": "corrigido", "no_video": "mão aberta com dedos afastados junto à boca, palma para a cara, um toque", "antes": "L queixo toque", "depois": "abre boca toque", "em": "2026-10-31" },
-  "trabalhar": { "veredicto": "igual", "no_video": "dois punhos: o dominante bate no dorso do outro, à frente do corpo", "antes": "2:punho frente bate", "depois": "2:punho frente bate", "em": "2026-10-31" },
-  "hoje": { "veredicto": "corrigido", "no_video": "um só indicador aponta para baixo e bate junto à cintura", "antes": "2:plano frente baixo", "depois": "aponta baixo bate", "em": "2026-10-31" },
-  "amanhã": { "veredicto": "corrigido", "no_video": "polegar estendido (punho fechado) avança a partir do peito", "antes": "aponta queixo frente", "depois": "A peito frente", "em": "2026-10-31" },
-  "ontem": { "veredicto": "corrigido", "no_video": "polegar estendido recua do peito para trás do ombro", "antes": "aponta queixo tras", "depois": "A peito tras", "em": "2026-10-31" },
-  "agora": { "veredicto": "corrigido", "no_video": "as duas mãos, planas e com palmas para baixo, descem juntos à frente da cintura", "antes": "2:Y frente baixo", "depois": "2:plano frente baixo", "em": "2026-10-31" },
-  "semana": { "veredicto": "corrigido", "no_video": "indicador descreve um círculo sobre o pulso/dorso da outra mão", "antes": "aponta mao varre", "depois": "aponta mao circulo", "em": "2026-10-31" },
-  "mãe": { "veredicto": "igual", "no_video": "mão aberta toca o queixo", "antes": "abre queixo toque", "depois": "abre queixo toque", "em": "2026-10-31" },
-  "pai": { "veredicto": "igual", "no_video": "mão aberta (polegar destacado) toca a testa", "antes": "abre testa toque", "depois": "abre testa toque", "em": "2026-10-31" },
-  "família": { "veredicto": "igual", "no_video": "as duas mãos em F descrevem um círculo que alarga à frente do corpo", "antes": "2:F frente circulo", "depois": "2:F frente circulo", "em": "2026-10-31" }
+ "_nota": "O que foi comparado, palavra a palavra, com o vídeo da entrada IS. «no_video» descreve apenas o que se vê nos fotogramas (ferramenta: tools/comparar-is.py). Veredictos: igual = a nossa notação já desenhava a mesma família; corrigido = a notação foi mudada por causa do vídeo; aproximado = o vídeo mostra mais do que a nossa notação consegue dizer (não temos orientação de palma por sinal).",
+ "bom dia": {
+  "veredicto": "corrigido",
+  "no_video": "duas mãos planas unem-se à frente do tronco, palmas viradas uma para a outra",
+  "antes": "abre queixo frente",
+  "depois": "2:plano frente bate",
+  "em": "2026-10-31"
+ },
+ "boa tarde": {
+  "veredicto": "corrigido",
+  "no_video": "uma mão plana desce sobre a palma horizontal da outra, à frente do peito",
+  "antes": "abre queixo frente",
+  "depois": "2:plano peito baixo",
+  "em": "2026-10-31"
+ },
+ "boa noite": {
+  "veredicto": "aproximado",
+  "no_video": "pontas dos dedos da mão dominante junto ao queixo, depois sobre a outra mão (família dormir)",
+  "antes": "curva queixo baixo",
+  "depois": "curva queixo baixo",
+  "em": "2026-10-31"
+ },
+ "sim": {
+  "veredicto": "corrigido",
+  "no_video": "mão em L (indicador e polegar estendidos) flete-se junto à cabeça, como uma anuência",
+  "antes": "punho frente bate",
+  "depois": "L frente bate",
+  "em": "2026-10-31"
+ },
+ "não": {
+  "veredicto": "aproximado",
+  "no_video": "indicador erguido à altura do ombro com um movimento seco; a orientação da palma não se representa na nossa notação",
+  "antes": "aponta frente torce",
+  "depois": "aponta frente torce",
+  "em": "2026-10-31"
+ },
+ "escola": {
+  "veredicto": "igual",
+  "no_video": "duas mãos planas, palmas verticais uma contra a outra, batem à frente do peito",
+  "antes": "2:plano peito bate",
+  "depois": "2:plano peito bate",
+  "em": "2026-10-31"
+ },
+ "professor": {
+  "veredicto": "corrigido",
+  "no_video": "as duas mãos, abertas e viradas uma para a outra, apresentam-se à frente do peito",
+  "antes": "aponta testa frente",
+  "depois": "2:plano frente frente",
+  "em": "2026-10-31"
+ },
+ "comer": {
+  "veredicto": "igual",
+  "no_video": "mão em pinça leva algo à boca, repetido",
+  "antes": "curva boca repete",
+  "depois": "curva boca repete",
+  "em": "2026-10-31"
+ },
+ "água": {
+  "veredicto": "corrigido",
+  "no_video": "mão aberta com dedos afastados junto à boca, palma para a cara, um toque",
+  "antes": "L queixo toque",
+  "depois": "abre boca toque",
+  "em": "2026-10-31"
+ },
+ "trabalhar": {
+  "veredicto": "igual",
+  "no_video": "dois punhos: o dominante bate no dorso do outro, à frente do corpo",
+  "antes": "2:punho frente bate",
+  "depois": "2:punho frente bate",
+  "em": "2026-10-31"
+ },
+ "hoje": {
+  "veredicto": "corrigido",
+  "no_video": "um só indicador aponta para baixo e bate junto à cintura",
+  "antes": "2:plano frente baixo",
+  "depois": "aponta baixo bate",
+  "em": "2026-10-31"
+ },
+ "amanhã": {
+  "veredicto": "corrigido",
+  "no_video": "polegar estendido (punho fechado) avança a partir do peito",
+  "antes": "aponta queixo frente",
+  "depois": "A peito frente",
+  "em": "2026-10-31"
+ },
+ "ontem": {
+  "veredicto": "corrigido",
+  "no_video": "polegar estendido recua do peito para trás do ombro",
+  "antes": "aponta queixo tras",
+  "depois": "A peito tras",
+  "em": "2026-10-31"
+ },
+ "agora": {
+  "veredicto": "corrigido",
+  "no_video": "as duas mãos, planas e com palmas para baixo, descem juntos à frente da cintura",
+  "antes": "2:Y frente baixo",
+  "depois": "2:plano frente baixo",
+  "em": "2026-10-31"
+ },
+ "semana": {
+  "veredicto": "corrigido",
+  "no_video": "indicador descreve um círculo sobre o pulso/dorso da outra mão",
+  "antes": "aponta mao varre",
+  "depois": "aponta mao circulo",
+  "em": "2026-10-31"
+ },
+ "mãe": {
+  "veredicto": "igual",
+  "no_video": "mão aberta toca o queixo",
+  "antes": "abre queixo toque",
+  "depois": "abre queixo toque",
+  "em": "2026-10-31"
+ },
+ "pai": {
+  "veredicto": "igual",
+  "no_video": "mão aberta (polegar destacado) toca a testa",
+  "antes": "abre testa toque",
+  "depois": "abre testa toque",
+  "em": "2026-10-31"
+ },
+ "família": {
+  "veredicto": "igual",
+  "no_video": "as duas mãos em F descrevem um círculo que alarga à frente do corpo",
+  "antes": "2:F frente circulo",
+  "depois": "2:F frente circulo",
+  "em": "2026-10-31"
+ },
+ "amarelo": {
+  "veredicto": "corrigido",
+  "no_video": "mão em Y (polegar e mindinho estendidos) ao lado do ombro, a torcer",
+  "antes": "aponta frente torce",
+  "depois": "Y ombro torce",
+  "em": "2026-11-01"
+ },
+ "azul": {
+  "veredicto": "corrigido",
+  "no_video": "mão plana em B, palma para o público, sobe do peito até ao ombro; por isso usamos o lugar «frente», que tem a palma virada para fora",
+  "antes": "aponta frente torce",
+  "depois": "B frente cima",
+  "em": "2026-11-01"
+ },
+ "branco": {
+  "veredicto": "corrigido",
+  "no_video": "mão aberta de dedos afastados encosta à parte de cima do peito",
+  "antes": "curva peito frente",
+  "depois": "abre peito toque",
+  "em": "2026-11-01"
+ },
+ "castanho": {
+  "veredicto": "corrigido",
+  "no_video": "mão plana em B desce da testa até ao queixo, palma virada para a cara",
+  "antes": "aponta olho baixo",
+  "depois": "B testa baixo",
+  "em": "2026-11-01"
+ },
+ "laranja": {
+  "veredicto": "aproximado",
+  "no_video": "mão arredondada junto à boca; a outra mão, plana, fica à garganta — o nosso 2: não serve porque as duas mãos têm formas diferentes",
+  "antes": "curva boca torce",
+  "depois": "curva boca torce",
+  "em": "2026-11-01"
+ },
+ "preto": {
+  "veredicto": "igual",
+  "no_video": "indicador estendido passa sobre a testa e a mão desce depois para o peito",
+  "antes": "aponta testa varre",
+  "depois": "aponta testa varre",
+  "em": "2026-11-01"
+ },
+ "quente": {
+  "veredicto": "corrigido",
+  "no_video": "mão plana e dedos juntos sobe da boca até à testa, palma para a cara",
+  "antes": "garra boca frente",
+  "depois": "plano boca cima",
+  "em": "2026-11-01"
+ },
+ "frio": {
+  "veredicto": "aproximado",
+  "no_video": "as duas mãos sobem ao peito e depois caem relaxadas a tremer — temos o bater no peito, não o largo final",
+  "antes": "2:punho peito repete",
+  "depois": "2:punho peito repete",
+  "em": "2026-11-01"
+ },
+ "verde": {
+  "veredicto": "igual",
+  "no_video": "indicador estendido à frente do peito, mão vertical que se deita para a frente (torce)",
+  "antes": "aponta frente torce",
+  "depois": "aponta frente torce",
+  "em": "2026-11-01"
+ },
+ "vermelho": {
+  "veredicto": "igual",
+  "no_video": "indicador encosta ao lábio inferior / queixo e desce",
+  "antes": "aponta boca baixo",
+  "depois": "aponta boca baixo",
+  "em": "2026-11-01"
+ },
+ "cores": {
+  "veredicto": "igual",
+  "no_video": "mão aberta de dedos afastados, palma para o público, roda junto ao rosto",
+  "antes": "abre boca circulo",
+  "depois": "abre boca circulo",
+  "em": "2026-11-01"
+ },
+ "amigo": {
+  "veredicto": "aproximado",
+  "no_video": "os dois indicadores encaixam um no outro à frente do peito; a nossa nota desenha o par de mãos curvas a bater, não o encaixe",
+  "antes": "2:X mao bate",
+  "depois": "2:X mao bate",
+  "em": "2026-11-01"
+ },
+ "dia": {
+  "veredicto": "corrigido",
+  "no_video": "mão plana passa por cima da outra mão e do antebraço num arco, palma para baixo",
+  "antes": "aponta frente arco",
+  "depois": "plano frente arco",
+  "em": "2026-11-01"
+ },
+ "ano": {
+  "veredicto": "igual",
+  "no_video": "dois punhos um sobre o outro à frente do peito, o de cima roda em círculo",
+  "antes": "2:punho frente circulo",
+  "depois": "2:punho frente circulo",
+  "em": "2026-11-01"
+ },
+ "mês": {
+  "veredicto": "igual",
+  "no_video": "o indicador toca e desce sobre os dedos da outra mão, como a contar",
+  "antes": "aponta mao baixo",
+  "depois": "aponta mao baixo",
+  "em": "2026-11-01"
+ },
+ "sempre": {
+  "veredicto": "corrigido",
+  "no_video": "as duas mãos planas, palmas para baixo, rodam lado a lado à frente do peito",
+  "antes": "aponta frente circulo",
+  "depois": "2:plano frente circulo",
+  "em": "2026-11-01"
+ },
+ "depois": {
+  "veredicto": "igual",
+  "no_video": "o indicador da mão dominante apoia-se na outra mão, plana, e desliza para a frente",
+  "antes": "L mao frente",
+  "depois": "L mao frente",
+  "em": "2026-11-01"
+ },
+ "nunca": {
+  "veredicto": "aproximado",
+  "no_video": "a mão dominante, plana e com a palma para baixo, varre por cima da outra mão plana — a nossa nota só desenha uma mão",
+  "antes": "B frente varre",
+  "depois": "B frente varre",
+  "em": "2026-11-01"
+ },
+ "ver": {
+  "veredicto": "corrigido",
+  "no_video": "só uma mão em V (indicador e médio) junto à cara, a avançar; não são duas",
+  "antes": "2:V olho frente",
+  "depois": "V olho frente",
+  "em": "2026-11-01"
+ },
+ "ler": {
+  "veredicto": "corrigido",
+  "no_video": "o indicador corre por cima da palma aberta da outra mão, como a seguir a linha escrita",
+  "antes": "2:V mao varre",
+  "depois": "aponta mao varre",
+  "em": "2026-11-01"
+ },
+ "escrever": {
+  "veredicto": "corrigido",
+  "no_video": "os dedos juntos batem na palma da outra mão, plana e virada para cima — é um toque, não um varrer",
+  "antes": "aponta mao varre",
+  "depois": "aponta mao toque",
+  "em": "2026-11-01"
+ },
+ "estudar": {
+  "veredicto": "corrigido",
+  "no_video": "a mão apanha algo da palma da outra mão e sobe até à testa; o nosso movimento é curto e fica a meio caminho",
+  "antes": "2:plano frente abre",
+  "depois": "plano mao cima",
+  "em": "2026-11-01"
+ },
+ "perguntar": {
+  "veredicto": "corrigido",
+  "no_video": "as duas mãos abertas, palmas para cima e dedos afastados, erguem-se à frente do peito",
+  "antes": "aponta queixo frente",
+  "depois": "2:abre frente cima",
+  "em": "2026-11-01"
+ },
+ "responder": {
+  "veredicto": "aproximado",
+  "no_video": "o indicador sobe ao lado do corpo e avança; só um fotograma útil nos quatro",
+  "antes": "aponta queixo frente",
+  "depois": "aponta queixo frente",
+  "em": "2026-11-01"
+ },
+ "ajudar": {
+  "veredicto": "corrigido",
+  "no_video": "punho com o polegar para cima balança sobre a palma aberta da outra mão; a nossa forma de punho não ergue o polegar",
+  "antes": "2:plano mao cima",
+  "depois": "punho mao cima",
+  "em": "2026-11-01"
+ },
+ "comprar": {
+  "veredicto": "corrigido",
+  "no_video": "a mão em pinça fecha-se e toca a palma da outra mão, plana e virada para cima",
+  "antes": "plano mao frente",
+  "depois": "curva mao toque",
+  "em": "2026-11-01"
+ },
+ "vender": {
+  "veredicto": "corrigido",
+  "no_video": "a mão plana, palma para baixo, descola da outra mão e segue para a frente",
+  "antes": "2:O frente frente",
+  "depois": "plano mao frente",
+  "em": "2026-11-01"
+ },
+ "dar": {
+  "veredicto": "aproximado",
+  "no_video": "mão plana, palma para baixo, sai da outra mão à altura da anca e avança; a nossa nota põe-na no peito",
+  "antes": "plano peito frente",
+  "depois": "plano peito frente",
+  "em": "2026-11-01"
+ },
+ "ter": {
+  "veredicto": "igual",
+  "no_video": "a mão curva com os dedos juntos puxa para si no peito",
+  "antes": "curva peito toque",
+  "depois": "curva peito toque",
+  "em": "2026-11-01"
+ },
+ "querer": {
+  "veredicto": "igual",
+  "no_video": "a mão em garra fecha-se e puxa para o peito",
+  "antes": "garra frente tras",
+  "depois": "garra frente tras",
+  "em": "2026-11-01"
+ },
+ "ir": {
+  "veredicto": "aproximado",
+  "no_video": "o indicador sobe ao ombro e descreve um arco para a frente; a nossa nota parte mais baixo e em linha recta",
+  "antes": "aponta frente frente",
+  "depois": "aponta frente frente",
+  "em": "2026-11-01"
+ },
+ "vir": {
+  "veredicto": "igual",
+  "no_video": "o indicador faz um gesto de chamada para dentro, na direcção do corpo",
+  "antes": "aponta frente tras",
+  "depois": "aponta frente tras",
+  "em": "2026-11-01"
+ },
+ "esperar": {
+  "veredicto": "igual",
+  "no_video": "as duas mãos abertas, dedos estendidos, palmas uma contra a outra, embalam à frente do peito",
+  "antes": "2:abre frente onda",
+  "depois": "2:abre frente onda",
+  "em": "2026-11-01"
+ },
+ "dever": {
+  "veredicto": "corrigido",
+  "no_video": "o indicador fica de pé ao lado do queixo e cai para a frente; a outra mão não participa",
+  "antes": "aponta mao bate",
+  "depois": "aponta queixo frente",
+  "em": "2026-11-01"
+ },
+ "poder": {
+  "veredicto": "corrigido",
+  "no_video": "os dois punhos, com o polegar para cima, abrem-se para os lados e sobem junto anca",
+  "antes": "2:punho frente baixo",
+  "depois": "2:punho lado cima",
+  "em": "2026-11-01"
+ },
+ "casa": {
+  "veredicto": "corrigido",
+  "no_video": "as duas mãos planas sobem lado a lado, palmas verticais uma contra a outra; o telhado com as pontas unidas não aparece nos fotogramas",
+  "antes": "2:plano telhado toque",
+  "depois": "2:plano frente cima",
+  "em": "2026-11-01"
+ },
+ "autocarro": {
+  "veredicto": "corrigido",
+  "no_video": "as duas mãos em C seguram um volante imaginário ao peito e embalam; não são punhos fechados",
+  "antes": "2:punho frente cima",
+  "depois": "2:C frente onda",
+  "em": "2026-11-01"
+ },
+ "telefone": {
+  "veredicto": "igual",
+  "no_video": "mão em Y (polegar e mindinho) sobe à orelha e fica",
+  "antes": "Y orelha parado",
+  "depois": "Y orelha parado",
+  "em": "2026-11-01"
+ },
+ "hospital": {
+  "veredicto": "corrigido",
+  "no_video": "as duas mãos planas primeiro de pé, palmas uma contra a outra, e depois a mão dominante pousa de través no pulso da outra — é uma mão plana, não a forma H no ombro",
+  "antes": "H ombro toque",
+  "depois": "plano mao toque",
+  "em": "2026-11-01"
+ },
+ "café": {
+  "veredicto": "corrigido",
+  "no_video": "dois punhos empilhados sobre o peito, o de cima balança para a frente como quem deita uma chávena",
+  "antes": "punho mao circulo",
+  "depois": "2:punho peito bate",
+  "em": "2026-11-01"
+ },
+ "leite": {
+  "veredicto": "aproximado",
+  "no_video": "o punho que aperta tem o polegar de fora e a outra mão, plana, fica virada para ele; a nossa forma de punho fecha o polegar",
+  "antes": "punho frente repete",
+  "depois": "punho frente repete",
+  "em": "2026-11-01"
+ },
+ "dinheiro": {
+  "veredicto": "aproximado",
+  "no_video": "a mão em pinça sobe ao ombro e abre; só um fotograma útil, por isso o toque na outra palma não ficou provado",
+  "antes": "O mao bate",
+  "depois": "O mao bate",
+  "em": "2026-11-01"
+ },
+ "mercado": {
+  "veredicto": "corrigido",
+  "no_video": "as duas mãos planas, primeiro de pé com as palmas uma contra a outra, deitam-se e descem — portas de uma loja a abrir; não são mãos curvas a repetir",
+  "antes": "2:curva frente repete",
+  "depois": "2:plano frente baixo",
+  "em": "2026-11-01"
+ },
+ "médico": {
+  "veredicto": "corrigido",
+  "no_video": "a mão plana, de pé, encosta na palma virada para cima da outra mão; os dedos não caem sobre o polegar (forma M)",
+  "antes": "M mao toque",
+  "depois": "B mao toque",
+  "em": "2026-11-01"
+ },
+ "doente": {
+  "veredicto": "corrigido",
+  "no_video": "o indicador toca a testa e desce até à barriga, onde a outra mão, plana, já espera",
+  "antes": "aponta testa toque",
+  "depois": "aponta testa baixo",
+  "em": "2026-11-01"
+ },
+ "cansado": {
+  "veredicto": "igual",
+  "no_video": "as duas mãos descem pelo peito e ficam moles, palmas para cima, à altura da anca",
+  "antes": "2:curva peito baixo",
+  "depois": "2:curva peito baixo",
+  "em": "2026-11-01"
+ },
+ "saudável": {
+  "veredicto": "corrigido",
+  "no_video": "as duas mãos curvas, dedos e polegares de fora, sobem pelo tronco; não são punhos",
+  "antes": "2:punho peito frente",
+  "depois": "2:curva peito frente",
+  "em": "2026-11-01"
+ },
+ "feliz": {
+  "veredicto": "corrigido",
+  "no_video": "uma só mão plana, palma para o peito, sobe do esterno até ao queixo; a outra mão fica caída",
+  "antes": "2:plano peito cima",
+  "depois": "plano peito cima",
+  "em": "2026-11-01"
+ },
+ "triste": {
+  "veredicto": "corrigido",
+  "no_video": "a mão curva encosta à boca e desce até à barriga; é uma mão, não duas abertas ao olho",
+  "antes": "2:abre olho baixo",
+  "depois": "curva boca baixo",
+  "em": "2026-11-01"
+ },
+ "gostar": {
+  "veredicto": "corrigido",
+  "no_video": "a mão curva parte do peito e puxa para fora, a fechar os dedos — tirar algo do coração; não roda em círculo",
+  "antes": "plano peito circulo",
+  "depois": "curva peito frente",
+  "em": "2026-11-01"
+ },
+ "mau": {
+  "veredicto": "igual",
+  "no_video": "a mão plana, palma para baixo, desce do peito para fora",
+  "antes": "plano peito baixo",
+  "depois": "plano peito baixo",
+  "em": "2026-11-01"
+ },
+ "pequeno": {
+  "veredicto": "corrigido",
+  "no_video": "indicador e polegar deixam um dedo de distância entre si, junto ao queixo, e ficam parados",
+  "antes": "2:plano frente toque",
+  "depois": "F queixo parado",
+  "em": "2026-11-01"
+ },
+ "pouco": {
+  "veredicto": "corrigido",
+  "no_video": "o mesmo puxão de indicador e polegar junto ao queixo, mas a dar um toque; o indicador esticado sozinho (forma G) não aparece",
+  "antes": "G frente parado",
+  "depois": "F queixo toque",
+  "em": "2026-11-01"
+ },
+ "muito": {
+  "veredicto": "corrigido",
+  "no_video": "as duas mãos abertas, palmas para cima e dedos afastados, aos lados do corpo, sobem e fecham-se — a recolher; não abrem",
+  "antes": "2:curva frente abre",
+  "depois": "2:abre lado cima",
+  "em": "2026-11-01"
+ },
+ "novo": {
+  "veredicto": "corrigido",
+  "no_video": "a mão plana cola-se ao dorso da outra e depois se descola, a rodar para cima; não varre para o lado",
+  "antes": "plano mao varre",
+  "depois": "plano mao abre",
+  "em": "2026-11-01"
+ },
+ "velho": {
+  "veredicto": "corrigido",
+  "no_video": "a mão parte da outra mão à altura da anca e sobe com o indicador de pé até ao peito; não é um punho no queixo",
+  "antes": "punho queixo baixo",
+  "depois": "aponta mao cima",
+  "em": "2026-11-01"
+ },
+ "rápido": {
+  "veredicto": "corrigido",
+  "no_video": "indicador e médio juntos, palma para baixo, disparam para a frente por cima da outra mão",
+  "antes": "aponta frente arco",
+  "depois": "H mao frente",
+  "em": "2026-11-01"
+ },
+ "lento": {
+  "veredicto": "corrigido",
+  "no_video": "as duas mãos, palmas para baixo e dedos afastados, avançam devagar uma depois da outra; não é uma mão sobre a outra",
+  "antes": "plano mao cima",
+  "depois": "2:plano frente repete",
+  "em": "2026-11-01"
+ },
+ "devagar": {
+  "veredicto": "corrigido",
+  "no_video": "mesma folha de lento: as duas mãos planas, palmas para baixo, a avançar alternadamente",
+  "antes": "plano mao cima",
+  "depois": "2:plano frente repete",
+  "em": "2026-11-01"
+ },
+ "casa de banho": {
+  "veredicto": "corrigido",
+  "no_video": "a mão em O desce do peito batendo; o polegar não fica entre o indicador e o médio (forma T) nem torce",
+  "antes": "T peito torce",
+  "depois": "O peito bate",
+  "em": "2026-11-01"
+ },
+ "conversa": {
+  "veredicto": "igual",
+  "no_video": "os dois indicadores de pé, um de cada lado, movem-se um contra o outro à frente do peito",
+  "antes": "2:aponta frente circulo",
+  "depois": "2:aponta frente circulo",
+  "em": "2026-11-01"
+ },
+ "computador": {
+  "veredicto": "corrigido",
+  "no_video": "indicador e médio da mão dominante teclam sobre a outra mão, plana e deitada; não são duas mãos abertas a embalar",
+  "antes": "2:abre frente onda",
+  "depois": "H mao toque",
+  "em": "2026-11-01"
+ },
+ "filho": {
+  "veredicto": "corrigido",
+  "no_video": "a mão plana, palma para baixo, desce do peito até à altura de uma criança; filha segue-a, sem referência própria",
+  "antes": "plano peito frente",
+  "depois": "plano peito baixo",
+  "em": "2026-11-01"
+ },
+ "falar em lga": {
+  "veredicto": "corrigido",
+  "no_video": "as duas mãos abertas, dedos afastados, embalam uma contra a outra à frente do peito; não apontam para a boca",
+  "antes": "2:aponta boca circulo",
+  "depois": "2:abre peito onda",
+  "em": "2026-11-01"
+ },
+ "desculpa": {
+  "veredicto": "igual",
+  "no_video": "o punho fechado (polegar por fora) descreve círculos no meio do peito",
+  "antes": "punho peito circulo",
+  "depois": "punho peito circulo",
+  "em": "2026-11-01"
+ }
 }

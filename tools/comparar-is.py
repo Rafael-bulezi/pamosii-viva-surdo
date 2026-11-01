@@ -85,10 +85,13 @@ def folha(palavra, ref, imagens):
     return destino
 
 
-def monte(palavras, destino):
+def monte(palavras, destino, zoom=2):
     """Várias palavras numa só folha (4 fotogramas por linha): uma leitura de
-    imagem por lote em vez de uma por sinal."""
+    imagem por lote em vez de uma por sinal. zoom=2 dá meia altura e permite
+    ~8 linhas por folha; zoom=1 dá a altura toda, para julgar a forma da mão —
+    nesse caso manter o lote em 4 palavras para a folha não ficar ilegível."""
     refs = ler_referencias()
+    altura = ALTO // zoom
     linhas = []
     for pw in palavras:
         ref = refs.get(pw)
@@ -103,7 +106,7 @@ def monte(palavras, destino):
                     print("%-16s sem mp4 na página" % pw)
                     continue
                 baixar(v, mp4)
-            imgs = [im.resize((int(im.width * ALTO / 2 / im.height), ALTO // 2)) for im in fotogramas(mp4, 4)]
+            imgs = [im.resize((int(im.width * altura / im.height), altura)) for im in fotogramas(mp4, 4)]
             if imgs:
                 linhas.append((pw, ref["glossa"], imgs))
         except Exception as e:
@@ -112,7 +115,7 @@ def monte(palavras, destino):
         return None
     larg = sum(im.width for im in linhas[0][2])
     banda = 22
-    folha = Image.new("RGB", (larg, (ALTO // 2 + banda) * len(linhas)), "white")
+    folha = Image.new("RGB", (larg, (altura + banda) * len(linhas)), "white")
     d = ImageDraw.Draw(folha)
     y = 0
     for pw, g, imgs in linhas:
@@ -120,18 +123,22 @@ def monte(palavras, destino):
         for im in imgs:
             folha.paste(im, (x, y))
             x += im.width
-        d.rectangle([0, y + ALTO // 2, larg, y + ALTO // 2 + banda], fill="#111814")
-        d.text((8, y + ALTO // 2 + 5), "%s · IS: %s" % (pw, g), fill="white")
-        y += ALTO // 2 + banda
+        d.rectangle([0, y + altura, larg, y + altura + banda], fill="#111814")
+        d.text((8, y + altura + 5), "%s · IS: %s" % (pw, g), fill="white")
+        y += altura + banda
     os.makedirs(FOLHAS, exist_ok=True)
     folha.save(destino)
     return destino
 
 
 def main(palavras):
+    zoom = 2
+    if "--zoom1" in palavras:
+        zoom = 1
+        palavras = [p for p in palavras if p != "--zoom1"]
     if palavras and palavras[0] == "--lote":
         destino, palavras = palavras[1], palavras[2:]
-        print(monte(palavras, destino) or "nada montado")
+        print(monte(palavras, destino, zoom) or "nada montado")
         return
     for palavra in palavras:
         ref = ler_referencias().get(palavra)
