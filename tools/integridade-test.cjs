@@ -274,6 +274,12 @@ for (const g of api.IS_TEMAS) {
 /* uma palavra sem notação não pode aparecer como se a personagem soubesse o sinal */
 if (!/cartao-ref/.test(app)) falhas.push('O dicionário perdeu o cartão de referência sem pose (cartao-ref).');
 if (!/target="_blank" rel="noopener/.test(app)) falhas.push('Os cartões de referência deixaram de abrir a fonte em aba própria com rel=noopener.');
+/* o cartão com pose abre a personagem; o vídeo da fonte é um link à parte */
+if (!/class="cartao-video" href="\$\{esc\(e\.ref\.url\)\}"/.test(app)) {
+  falhas.push('Os cartões com pose e referência perderam o link para o vídeo da fonte (cartao-video).');
+}
+const comRefEPose = Object.keys(api.REFERENCIAS_IS).filter(p => api.sinalNotacao(p)).length;
+nota('vídeo da fonte: ' + comRefEPose + ' cartões com pose levam um selo para o vídeo IS');
 
 /* as contas da página têm de sair dos dados, não de um número escrito à mão */
 const h1Dic = (app.match(/<h1>\$\{([^}]+)\}[^<]*sinal/i) || [])[1] || '(sem contagem)';
