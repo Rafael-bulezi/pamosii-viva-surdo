@@ -89,7 +89,7 @@ o de referência (1000×700) e o recorte volta a ser exactamente o da `folha-03.
 conferido a olho: a figura corre de baixo do bordo superior até abaixo das ancas, ~310
 dos 350 px da célula, como nas folhas anteriores.
 
-## F · `varre` cruza os antebraços (defeito actual — correcção PROPOSTA, não aplicada)
+## F · `varre` cruzava os antebraços (CORRIGIDO em 2026-11-02)
 
 `app/maos.js:1039` define o movimento com um deslocamento lateral positivo:
 
@@ -112,7 +112,7 @@ varre`) são de uma mão e não sofrem disto. O resultado visível nas folhas 09
 nos três: no fim do movimento os antebraços formam um **X** à frente do corpo (em `teto`,
 por cima da cabeça), em vez de varrerem para fora.
 
-**Correcção proposta** (uma condição em `poseEm`, `app/sinal3d.js`, antes de somar `d`):
+**Correcção aplicada** (uma condição em `poseEm`, `app/sinal3d.js`, antes de somar `d`):
 
 ```js
 /* num sinal espelhado a varredura é para fora: a componente lateral que
@@ -122,15 +122,21 @@ if (b.duas && d[0] && Math.sign(d[0]) !== Math.sign(L.mao[0])) d[0] = -d[0];
 
 Efeito: os três sinais passam a abrir as mãos para fora e nenhum antebraço cruza o meio.
 Não toca em mais nada — a condição só dispara em `b.duas` com deslocamento lateral
-contrário ao lado da mão, que hoje são exactamente estes três casos. Alternativas
+contrário ao lado da mão, que são exactamente estes três casos. Alternativas
 rejeitadas: mudar a notação para `abre` (perde a leitura de «varrer» que
 `borracha`/`preto` usam) e autorar keyframes por sinal (é o plano B, não a primeira
 correcção de um erro de sinal).
 
-**Verificação, quando for aprovada:** voltar a fotografar `mesa`, `teto` e `chão` com
-`--palavras=mesa,teto,chão --out=…` e confirmar a olho que (a) os antebraços já não se
-cruzam e (b) cada mão acaba do seu lado do corpo. A sonda de alcance deve continuar a
-dar erro ao alvo ＜3 cm nesses três.
+**Verificação feita em 2026-11-02.** Folha nova
+`~/glb-lab/folhas/folha-fix33.png` (6 poses, 27,1 s): `mesa` acaba com as mãos
+abertas muito para fora do corpo, `teto` abre os braços para cima e para fora, `chão`
+abre para baixo e para fora — em nenhum dos três os antebraços se cruzam. A sonda de
+alcance no mesmo dia: `erroPedido` 0 nos três; o punho acaba em x = −0,445 (`mesa`),
+−0,290 (`teto`) e −0,385 (`chão`), sempre do seu lado do corpo, com deslize de
+0,259 / 0,142 / 0,259 m. O `erroAlvo` do instante final sobe para 0,289 / 0,142 /
+0,289 m por construção: o alvo do `local` é a âncora do início, e o movimento leva a
+mão para longe dela. Os dois testes do repositório (`engine-test`, `integridade-test`)
+passam.
 
 
 ## Números (antes das correcções A)

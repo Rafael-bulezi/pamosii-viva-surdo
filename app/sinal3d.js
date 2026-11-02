@@ -107,6 +107,12 @@
       ((b.pos1[1] || 0) - (b.pos0[1] || 0)) * anda,
       ((b.pos1[2] || 0) - (b.pos0[2] || 0)) * anda,
     ];
+    /* Num sinal espelhado a varredura é para fora. `varre` anda +0,255 m e a
+       mão que assina ia de −0,16 a +0,095 — a esquerda ao contrário — e no fim
+       os antebraços cruzavam-se em X (`mesa`, `teto`, `chão`). A componente
+       lateral que aponta para o meio do corpo inverte-se; só dispara quando as
+       duas mãos existem e o deslocamento aponta contra o lado da mão. */
+    if (b.duas && d[0] && Math.sign(d[0]) !== Math.sign(L.mao[0])) d[0] = -d[0];
     const g = [
       ((b.rot1 && b.rot1[0]) || 0) - ((b.rot0 && b.rot0[0]) || 0),
       ((b.rot1 && b.rot1[1]) || 0) - ((b.rot0 && b.rot0[1]) || 0),
