@@ -144,7 +144,9 @@ O dicionário separa três coisas que antes se misturavam numa palavra só:
 
 - **referência** — a palavra tem sinal documentado no léxico International Sign
   da Sématos (439 entradas, colhidas dos sitemaps públicos a 2026-10-31 para
-  `tools/fonte/sematos-isl-slugs.txt`). O cartão liga ao vídeo da fonte.
+  `tools/fonte/sematos-isl-slugs.txt`). O cartão liga ao vídeo da fonte: nos
+  cartões que só têm referência é o cartão inteiro; nos que também têm pose 3D
+  é o selo ▶ no canto superior direito da figura.
 - **pose 3D** — a nossa notação `forma · lugar · movimento`. Nem toda a
   referência tem pose e nem toda a pose tem referência; o site diz os dois
   números separados, à partida.
