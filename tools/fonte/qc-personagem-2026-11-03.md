@@ -163,9 +163,11 @@ pose para o vídeo IS, 202 ligações ao léxico Sématos, versão vs115).
   IS (`REFERENCIAS_IS`, ambos já comparados); `pequeno` é estático na própria
   referência, `telefone` só perde a subida até à orelha; os outros 11 não têm
   referência IS nenhuma e dependem do léxico LGA/validação surda (tarefa INEE).
-- Não commitei, não publiquei, não apaguei nada. Ficam por apagar, antes de publicar,
-  os artefactos de laboratório não rastreados `tools/sonda-punho.cjs`,
-  `tools/zoom-mao.cjs` e a pasta `~/glb-lab`.
+- Commitei o README e este relatório e publiquei o Pages em vs115 (commit
+  `79c09e9` da branch `gh-pages`, build `built`); o Vercel já estava em vs115.
+  Não apaguei nada: ficam por apagar, antes de publicar, os artefactos de
+  laboratório não rastreados `tools/sonda-punho.cjs`, `tools/zoom-mao.cjs` e a
+  pasta `~/glb-lab`.
 
 ## 5. Próximo passo recomendado
 

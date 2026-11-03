@@ -192,24 +192,14 @@ fica ligado a ele. **Depois do link, apagar `app/.env.local`** — o CLI escreve
 um `VERCEL_OIDC_TOKEN` e, se o ficheiro ainda estiver lá, sobe como ficheiro
 estático público do site. `app/.gitignore` já ignora `.vercel` e `.env*`.
 
-Publicado também em <https://rafael-bulezi.github.io/pamosii-viva-surdo/> (fork,
-**vs113**, conteúdo do commit `e3d9824`). O repositório de origem
-<https://7dark7cloud7.github.io/pamosii-viva-surdo/> continua na versão anterior
-(18 rotas): a conta de publicação só tem leitura no repositório original, por
-isso as versões novas saem pelo fork.
-
-Estado a 2026-11-03: o site do Pages **não** está alinhado com o local. O local
-está em vs115 e falta ao Pages:
-
-| commit | versão | o que o Pages não tem |
-|---|---|---|
-| `d2af632` | — | revisão do renderizador: palma por sinal, mão parceira, amplitude medida, auditoria dos 191 sinais |
-| `305f6ed` | vs114 | correcção `varre` (a varredura espelhada cruzava os antebraços) |
-| `010a225` | vs115 | selo ▶ para os sinais com vídeo de origem |
-
-`app/dados.js` e `app/referencias.js` já são idênticos aos do Pages — só o
-renderizador e a versão ficaram para trás. O fork é o alvo correcto: o slug com
-dois erres (`pamosii-viva-surado`) devolve 404; o slug vivo é `pamosii-viva-surdo`.
+Publicado também em <https://rafael-bulezi.github.io/pamosii-viva-surdo/> (fork).
+A 2026-11-03 o Pages foi alinhado com o local em **vs115** (commit `79c09e9` da
+branch `gh-pages`): inclui a revisão do renderizador (`d2af632`), a correcção
+`varre` (`305f6ed`) e o selo ▶ dos sinais com vídeo de origem (`010a225`). O
+repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
+continua na versão anterior (18 rotas): a conta de publicação só tem leitura no
+repositório original, por isso as versões novas saem pelo fork. O slug com dois
+erres (`pamosii-viva-surado`) devolve 404; o slug vivo é `pamosii-viva-surdo`.
 
 Para publicar no Pages: copiar `app/` para a branch `gh-pages` **sem apagar o
 `.nojekyll`** que só existe nessa branch (um `rsync --delete` da pasta `app/`
