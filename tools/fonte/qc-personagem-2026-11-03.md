@@ -118,6 +118,43 @@ legível, roupa coerente e mãos dentro da escala. O único defeito geométrico 
 continua a ser a prega do pulso a 60° de flexão (−23 % no raio p10), que é skinning e
 não se vê nas poses normais.
 
+### 2.2 Remodelação do palco (vs117, 2026-11-03)
+
+A comparação com um render estilizado de referência mostrou que o problema de
+qualidade não era o modelo: era o palco claro, sem reflexos de ambiente,
+sem sombras e com materiais todos iguais. A passagem gratuita (vs117, commit
+`4165512`) mudou cinco coisas, todas em `app/avatar.js` e `app/styles.css`:
+
+- **Fundo de estúdio escuro** — gradientes teal em `.palco`/`.sg-palco`
+  (`#0C1A17 → #10241F → #0A1411`) com halo quente atrás da cabeça. O CSS deixa de
+  dar luz ao personagem; a luz passa toda a vir da cena 3D.
+- **Ambiente IBL** — `PMREMGenerator.fromScene` sobre uma esfera de fundo e cinco
+  painéis `MeshBasicMaterial` com cores HDR (chave quente, enchimento frio, duas
+  tiras de recorte, teto). É o que dá brilho credível à pele, ao cabelo e aos olhos.
+- **Sombra própria** — luz-chave com `castShadow` (`PCFSoftShadowMap`, 1024²,
+  `normalBias` 0,02); as 10 malhas passam a `castShadow`/`receiveShadow`.
+- **Materiais físicos por peça** — pele `MeshPhysicalMaterial` com
+  `envMapIntensity` 0,32 e clearcoat 0,04; cabelo com sheen 0,34; olhos com
+  clearcoat 1 e roughness 0,12; sapatos com clearcoat 0,2; fato com sheen 0,16 e
+  roughness 0,9. O `copy` de material físico sobre um standard rebenta no r147
+  (lê `clearcoatNormalScale` do original); a solução é
+  `MeshStandardMaterial.prototype.copy.call(novo, mat)`.
+- **Recolor da roupa em execução** — a textura difusa é lida num canvas e
+  recolorida por banda de matiz: verdes (85–185°) passam a teal, azuis
+  (185–268°) passam a carvão com saturação 22 %, e o branco da ganga abaixo de
+  45 % da altura passa a cinza-escuro. Costuras, bolsos e vincos ficam da textura.
+
+Provas: `~/glb-lab/palco-antes.png` vs `~/glb-lab/palco-depois-5.png` (recorte do
+palco, 1100×1500 @2x); `~/glb-lab/pagina-depois.png` (página inteira no tema
+claro); `pamosii-viva-surdo/glb-lab/restyle/folha-r01.png` (quatro sinais —
+`sempre`, `grande`, `nunca`, `casa` — fotografados pelo pipeline da própria app,
+mostrando sombras e skinning em pose).
+
+O que esta passagem **não** resolve, porque é da classe do activo: as costuras
+circulares gravadas na textura da camisola, as facetas da malha do afro, o
+detalhe baixo das mãos e a cara rígida. Isso é o que a lista de candidatos
+(`tools/fonte/avatares-candidatos-2026-11-04.md`) ataca.
+
 ## 3. Estado dos sinais (191 sinais desenháveis)
 
 Fonte: `tools/fonte/auditoria-render.json` (2026-11-01), mais a correcção `varre` de
@@ -158,12 +195,13 @@ palma `[0,-1,0.25]` e amplitude 1,6 (AJUSTES): punho medido de 1,46 m a 1,30 m.
 Testes do repositório, corridos depois da correcção: `engine-test` OK (10 frases
 glosadas); `integridade-test` OK (191 sinais desenháveis, 298 palavras, 179
 cartões, 83 selos de pose para o vídeo IS, 202 ligações ao léxico Sématos,
-versão vs116).
+versão vs117).
 
 ## 4. O que não foi feito
 
-- Não mexi no renderizador da app nem na notação: qualquer alteração de pose precisa de
-  verificação visual.
+- Não mexi na notação: qualquer alteração de pose precisa de verificação visual.
+  O renderizador da app mudou só na apresentação (secção 2.2, vs117); as poses
+  saem exactamente como estavam.
 - Não autoriei os keyframes dos 13 sinais imóveis nem separei os 241 pares: sem
   referência por palavra seria inventar gestos, e a regra é nunca apresentar gestos
   plausíveis como sinais verificados. Dos 13, só `pequeno` e `telefone` têm referência
@@ -173,9 +211,11 @@ versão vs116).
 - Commitei o README e este relatório e publiquei o Pages em vs115 (commit
   `79c09e9` da branch `gh-pages`, build `built`); o Vercel já estava em vs115.
   Com a correcção de `nunca` o Pages foi republicado em vs116 (commit `b614f92`).
-  As folhas de laboratório que caíram dentro do repositório foram apagadas; os
-  instrumentos não rastreados `tools/sonda-*.cjs`, `tools/zoom-mao.cjs` e a
-  pasta `~/glb-lab` continuam a ser material de laboratório, fora do commit.
+  A remodelação do palco (vs117, commit `4165512`) é só de apresentação e não
+  toca em poses nem em notação. As folhas de laboratório que caíram dentro do
+  repositório foram apagadas; os instrumentos não rastreados `tools/sonda-*.cjs`,
+  `tools/zoom-mao.cjs` e a pasta `~/glb-lab` continuam a ser material de
+  laboratório, fora do commit.
 
 ## 5. Próximo passo recomendado
 

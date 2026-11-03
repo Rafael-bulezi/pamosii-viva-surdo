@@ -64,7 +64,10 @@ dos ossos; `sinal3d.js` resolve-o por IK de dois ossos e aplica a forma da mão
 aos dedos. O dicionário continua a mostrar a forma desenhada (`maoFigura`) e,
 se o GLB não carregar ou não houver WebGL, o palco cai para as mãos SVG
 (`maoCena`) sem perder a sequência. Tempo: 760 ms por sinal, 340 ms por letra
-soletrada.
+soletrada. O palco em si (fundo, luzes, sombras, materiais e recolor da roupa)
+está descrito na secção 2.2 de `tools/fonte/qc-personagem-2026-11-03.md`; a
+lista de modelos alternativos, com preços e prova de ossos de dedos, está em
+`tools/fonte/avatares-candidatos-2026-11-04.md`.
 
 ## Entradas
 
@@ -197,7 +200,14 @@ A 2026-11-03 o Pages foi alinhado com o local em **vs116** (commit `b614f92` da
 branch `gh-pages`): sobre a revisão do renderizador (`d2af632`), a correcção
 `varre` (`305f6ed`) e o selo ▶ (`010a225`), corrige `nunca` — vídeo Sématos
 `never-3897`, mão plana com a palma para baixo a descer da cara ao peito, em vez
-da varredura lateral com a palma para a frente (`a90a738`). O
+da varredura lateral com a palma para a frente (`a90a738`). Em **vs117**
+(`4165512`) o palco muda de aspecto: fundo de estúdio escuro teal, ambiente IBL
+gerado por PMREM com cinco painéis, luz-chave com sombra própria
+(`PCFSoftShadowMap`), rig de seis luzes retocado e materiais físicos por peça
+(pele com clearcoat discreto, cabelo e fato com sheen, olhos com clearcoat duro).
+A roupa é recolorida em tempo de execução por banda de matiz — o verde passa a
+teal e a ganga azul a carvão, mantendo costuras e vincos da textura — e o busto
+fica mais apertado (folga 1.10 em vez de 1.18). O
 repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
 continua na versão anterior (18 rotas): a conta de publicação só tem leitura no
 repositório original, por isso as versões novas saem pelo fork. O slug com dois
@@ -206,11 +216,10 @@ erres (`pamosii-viva-surado`) devolve 404; o slug vivo é `pamosii-viva-surdo`.
 Para publicar no Pages: copiar `app/` para a branch `gh-pages` **sem apagar o
 `.nojekyll`** que só existe nessa branch (um `rsync --delete` da pasta `app/`
 remove-o e o Jekyll volta a tentar processar os ficheiros), mudar `const VERSAO`
-em `app/sw.js` **e** todos os `?v=` em `app/index.html` para o mesmo valor (o
-local já está em vs115: 9 ocorrências em `index.html`), correr
+em `app/sw.js` **e** todos os `?v=` em `app/index.html` para o mesmo valor
+(o local está em vs117: 9 ocorrências em `index.html`), correr
 `node tools/integridade-test.cjs` e `node tools/engine-test.cjs` e enviar a
-`gh-pages` (o local está em vs116: 9 ocorrências em `index.html`). A Pages do
-fork pode precisar de um build manual
+`gh-pages`. A Pages do fork pode precisar de um build manual
 (`POST /repos/Rafael-bulezi/pamosii-viva-surdo/pages/builds`).
 
 O service worker guarda a página e os scripts, mas **não** guarda o GLB de
