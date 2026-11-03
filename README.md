@@ -193,14 +193,32 @@ um `VERCEL_OIDC_TOKEN` e, se o ficheiro ainda estiver lá, sobe como ficheiro
 estático público do site. `app/.gitignore` já ignora `.vercel` e `.env*`.
 
 Publicado também em <https://rafael-bulezi.github.io/pamosii-viva-surdo/> (fork,
-vs113). O repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
-continua na versão anterior (18 rotas): a conta de publicação só tem leitura no
-repositório original, por isso as versões novas saem pelo fork.
+**vs113**, conteúdo do commit `e3d9824`). O repositório de origem
+<https://7dark7cloud7.github.io/pamosii-viva-surdo/> continua na versão anterior
+(18 rotas): a conta de publicação só tem leitura no repositório original, por
+isso as versões novas saem pelo fork.
 
-Para publicar no Pages: copiar `app/` para a branch `gh-pages`, mudar `const VERSAO` em
-`app/sw.js` **e** todos os `?v=` em `app/index.html` para o mesmo valor, correr
-os dois testes e enviar a `gh-pages`. A Pages do fork pode precisar de um build
-manual (`POST /repos/Rafael-bulezi/pamosii-viva-surdo/pages/builds`).
+Estado a 2026-11-03: o site do Pages **não** está alinhado com o local. O local
+está em vs115 e falta ao Pages:
+
+| commit | versão | o que o Pages não tem |
+|---|---|---|
+| `d2af632` | — | revisão do renderizador: palma por sinal, mão parceira, amplitude medida, auditoria dos 191 sinais |
+| `305f6ed` | vs114 | correcção `varre` (a varredura espelhada cruzava os antebraços) |
+| `010a225` | vs115 | selo ▶ para os sinais com vídeo de origem |
+
+`app/dados.js` e `app/referencias.js` já são idênticos aos do Pages — só o
+renderizador e a versão ficaram para trás. O fork é o alvo correcto: o slug com
+dois erres (`pamosii-viva-surado`) devolve 404; o slug vivo é `pamosii-viva-surdo`.
+
+Para publicar no Pages: copiar `app/` para a branch `gh-pages` **sem apagar o
+`.nojekyll`** que só existe nessa branch (um `rsync --delete` da pasta `app/`
+remove-o e o Jekyll volta a tentar processar os ficheiros), mudar `const VERSAO`
+em `app/sw.js` **e** todos os `?v=` em `app/index.html` para o mesmo valor (o
+local já está em vs115: 9 ocorrências em `index.html`), correr
+`node tools/integridade-test.cjs` e `node tools/engine-test.cjs` e enviar a
+`gh-pages`. A Pages do fork pode precisar de um build manual
+(`POST /repos/Rafael-bulezi/pamosii-viva-surdo/pages/builds`).
 
 O service worker guarda a página e os scripts, mas **não** guarda o GLB de
 13 MB. Uma escrita de cache falhada nunca pode substituir uma resposta boa da
@@ -218,4 +236,8 @@ rede — o `put` fica num try próprio e a resposta segue.
   cai para as mãos SVG.
 - A ordem das palavras segue seis regras simples de glosa; não é a gramática
   da LGA.
+- As referências IS são palavra a palavra (léxico Sématos). Não existe um
+  conjunto de frases IS com fonte livre usado aqui, por isso o glossário
+  apresenta sinais isolados e não frases assinadas: montar frases exigiria
+  gramática IS validada, e não gestos inventados.
 - A soletração usa uma forma por letra e não distingue variantes regionais.
