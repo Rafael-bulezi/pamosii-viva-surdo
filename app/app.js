@@ -885,7 +885,7 @@ function ligarSinalizar(params) {
       const espera = EL.palco.querySelector('.palco-espera');
       if (espera) espera.remove();
       recalcularPoses();
-      if (!SG.aberto) { AVATAR.init(EL.palco); AVATAR.enquadrar('busto', 1.18); desenhar(); }
+      if (!SG.aberto) { AVATAR.init(EL.palco); AVATAR.enquadrar('busto', 1.10); desenhar(); }
     }).catch(() => {
       P.avatarOn = false;
       P.carregando3d = false;

@@ -44,6 +44,47 @@
 
   /* ===================== cena ===================== */
   let observador = null, carregando = null, alvo = null;
+  let ambienteRT = null;
+
+  /* Estúdio em HDR: uma sala escura com três softboxes. O GLB não traz luz
+     ambiente nem especular próprios — sem isto a pele e o cabelo são cor
+     chapada, porque só recebem as direcionais. O PMREM filtra a sala e dá ao
+     material um reflexo suave, que é o que faz a pele ler como pele e o tecido
+     como tecido. */
+  function montarAmbiente() {
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    const est = new THREE.Scene();
+    const sala = new THREE.Mesh(
+      new THREE.SphereGeometry(9, 32, 16),
+      new THREE.MeshBasicMaterial({ color: new THREE.Color(0.045, 0.075, 0.068), side: THREE.BackSide })
+    );
+    est.add(sala);
+    const painel = (r, g, b, x, y, z, w, h) => {
+      const m = new THREE.Mesh(
+        new THREE.PlaneGeometry(w, h),
+        new THREE.MeshBasicMaterial({ color: new THREE.Color(r, g, b), side: THREE.DoubleSide })
+      );
+      m.position.set(x, y, z);
+      m.lookAt(0, 0, 0);
+      est.add(m);
+    };
+    /* Mesa chave, alta e à esquerda (a mesma direção do `sol`). */
+    painel(5.2, 5.0, 4.7, -3.4, 3.6, 3.2, 4.0, 2.6);
+    /* Enchimento frio à direita, largo e fraco. */
+    painel(0.85, 0.95, 1.05, 3.6, 2.2, 2.4, 3.2, 3.2);
+    /* Duas tiras de recorte atrás: são elas que desenham a auréola dos ombros. */
+    painel(3.4, 3.7, 4.0, 2.9, 2.6, -3.6, 1.0, 3.4);
+    painel(1.9, 2.1, 2.3, -2.9, 2.4, -3.4, 1.0, 3.0);
+    /* Teto, para o cabelo não ficar preto no alto da cabeça. */
+    painel(1.6, 1.55, 1.5, 0, 5.0, 0, 5.0, 5.0);
+    ambienteRT = pmrem.fromScene(est, 0.04);
+    cena.environment = ambienteRT.texture;
+    pmrem.dispose();
+    est.traverse((o) => {
+      if (o.geometry) o.geometry.dispose();
+      if (o.material) o.material.dispose();
+    });
+  }
 
   function redim() {
     if (!alvo || !renderer) return;
@@ -76,33 +117,56 @@
     renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.0;
+    /* A sombra própria do queixo, do cabelo na testa e dos braços no tronco é o
+       que dá volume a uma figura sob uma luz só. Um mapa de 1024 chega: a
+       câmara de sombra cobre 2,4 m em volta do tronco. */
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.domElement.style.display = 'block';
     el.appendChild(renderer.domElement);
 
     cena = new THREE.Scene();
     cam = new THREE.PerspectiveCamera(o.fov || 30, (el.clientWidth || 16) / (el.clientHeight || 9), 0.05, 30);
 
-    /* Estúdio claro: a luz de recorte (rim) é o que separa o cabelo e os ombros
-       do fundo branco; o contraluz quente anterior era fraco demais para isso. */
-    cena.add(new THREE.HemisphereLight(0xffffff, 0xc4d0bd, 0.42));
-    const sol = new THREE.DirectionalLight(0xfff8ee, 1.35);
+    /* Palco escuro: o recorte frio separa o cabelo e os ombros do fundo, e é a
+       luz que revela o brilho da pele e do tecido através do ambiente IBL. */
+    cena.add(new THREE.HemisphereLight(0xcfe4dd, 0x2b1e17, 0.24));
+    const sol = new THREE.DirectionalLight(0xfff6ea, 1.25);
     sol.position.set(-1.7, 2.9, 2.5);
-    cena.add(sol);
-    const recorte = new THREE.DirectionalLight(0xeaf4ff, 0.85);
+    sol.target.position.set(0, 1.25, 0);
+    sol.castShadow = true;
+    sol.shadow.mapSize.set(1024, 1024);
+    sol.shadow.camera.left = -1.2;
+    sol.shadow.camera.right = 1.2;
+    sol.shadow.camera.top = 1.3;
+    sol.shadow.camera.bottom = -1.3;
+    sol.shadow.camera.near = 0.5;
+    sol.shadow.camera.far = 9;
+    sol.shadow.bias = -0.0004;
+    sol.shadow.normalBias = 0.02;
+    cena.add(sol, sol.target);
+    const recorte = new THREE.DirectionalLight(0xe6f6ff, 1.15);
     recorte.position.set(1.3, 2.4, -2.3);
     cena.add(recorte);
     /* Segundo recorte, mais fraco, do outro lado: com um só, o lado esquerdo do
-       cabelo e do ombro perdia a aresta e colava ao fundo claro. */
-    const recorteB = new THREE.DirectionalLight(0xeaf4ff, 0.45);
+       cabelo e do ombro perdia a aresta e colava ao fundo. */
+    const recorteB = new THREE.DirectionalLight(0xe6f6ff, 0.62);
     recorteB.position.set(-1.4, 2.1, -2.3);
     cena.add(recorteB);
-    const enchimento = new THREE.DirectionalLight(0xdfeaff, 0.38);
+    const enchimento = new THREE.DirectionalLight(0xdfeaff, 0.22);
     enchimento.position.set(2.1, 1.1, 1.9);
     cena.add(enchimento);
-    const rosto = new THREE.DirectionalLight(0xfff4e6, 0.34);
+    const rosto = new THREE.DirectionalLight(0xfff4e6, 0.28);
     rosto.position.set(0.6, 1.70, 2.2);
     rosto.target.position.set(0, 1.6, 0);
     cena.add(rosto, rosto.target);
+    /* Luz de baixo, quente e fraca: sem ela a pele escura fica com as órbitas
+       e o queixo a preto chapado. */
+    const baixo = new THREE.DirectionalLight(0xffd8b8, 0.18);
+    baixo.position.set(0, -0.6, 1.6);
+    cena.add(baixo);
+
+    montarAmbiente();
 
     if (global.ResizeObserver) { observador = new ResizeObserver(redim); observador.observe(el); }
     global.addEventListener('resize', redim);
@@ -133,12 +197,15 @@
         }
         malhas.push(o);
         o.frustumCulled = false;
+        o.castShadow = true;
+        o.receiveShadow = true;
         const mats = Array.isArray(o.material) ? o.material : [o.material];
         mats.forEach((m) => { if (m.map) m.map.encoding = THREE.sRGBEncoding; });
       }
     });
     sobras.forEach((o) => o.parent.remove(o));
     modelo.updateMatrixWorld(true);
+    afinarMateriais();
     const bb = new THREE.Box3().setFromObject(modelo);
     modelo.userData.altura = bb.max.y - bb.min.y;
     modelo.userData.topo = bb.max.y;
@@ -149,6 +216,136 @@
     poseBase = capturar();
     aplicarExpressao('neutro');
     pronto = true;
+  }
+
+  /* ===================== materiais ===================== */
+  /* O GLB é um corpo MakeHuman: tudo é MeshStandardMaterial liso. O que está
+     em primeiro plano passa a MeshPhysicalMaterial para ter clearcoat nos
+     olhos e sheen no tecido e no cabelo — é o que separa «modelo de jogo» de
+     «estúdio». O resto fica standard com pouco ambiente, para não brilhar. */
+  function afinarMateriais() {
+    malhas.forEach((malha) => {
+      const proprio = Array.isArray(malha.material);
+      const lista = proprio ? malha.material : [malha.material];
+      const novos = lista.map(afinarMaterial);
+      malha.material = proprio ? novos : novos[0];
+    });
+  }
+
+  function afinarMaterial(mat) {
+    const nome = mat.name || '';
+    const corpo = /Human\.body/.test(nome);
+    const roupa = /casualsuit/.test(nome);
+    const cabelo = /^Cabelo/.test(nome);
+    const olhos = /^Olhos/.test(nome);
+    const sapatos = /shoes/.test(nome);
+    if (!(corpo || roupa || cabelo || olhos || sapatos)) {
+      mat.envMapIntensity = 0.35;
+      return mat;
+    }
+    /* `new MeshPhysicalMaterial().copy(mat)` rebenta no r147: o copy físico lê
+       clearcoatNormalScale do material de origem, que um standard não tem.
+       Copia-se com o copy do standard (os campos são os mesmos) e acrescentam-
+       se só os campos físicos. */
+    const fis = new THREE.MeshPhysicalMaterial();
+    THREE.MeshStandardMaterial.prototype.copy.call(fis, mat);
+    fis.envMapIntensity = corpo ? 0.32 : (olhos ? 0.75 : 0.38);
+    if (corpo) {
+      fis.roughness = 0.58;
+      /* o sebo natural da pele: um brilho largo, não um verniz */
+      fis.clearcoat = 0.04;
+      fis.clearcoatRoughness = 0.5;
+    } else if (cabelo) {
+      fis.roughness = 0.7;
+      fis.sheen = 0.34;
+      fis.sheenRoughness = 0.72;
+      fis.sheenColor = new THREE.Color(0.12, 0.10, 0.09);
+    } else if (roupa) {
+      fis.roughness = 0.9;
+      fis.specularIntensity = 0.5;
+      fis.sheen = 0.16;
+      fis.sheenRoughness = 0.9;
+      fis.sheenColor = new THREE.Color(0.18, 0.34, 0.31);
+      const nova = recolorirRoupa(fis.map);
+      if (nova) fis.map = nova;
+    } else if (olhos) {
+      fis.roughness = 0.12;
+      fis.clearcoat = 1;
+      fis.clearcoatRoughness = 0.08;
+    } else if (sapatos) {
+      fis.roughness = 0.4;
+      fis.clearcoat = 0.2;
+      fis.clearcoatRoughness = 0.4;
+    }
+    fis.needsUpdate = true;
+    return fis;
+  }
+
+  /* A camisola e as calças partilham uma folha de textura: verde de um lado,
+     ganga do outro. Recolore-se por faixa de matiz — o verde vira o verde-
+     azulado profundo do guarda-roupa de referência e a ganga vira calça
+     escura — mantendo as dobras, as costuras e a risca branca. */
+  function recolorirRoupa(mapa) {
+    const img = mapa && mapa.image;
+    if (!img || !img.width) return null;
+    const cv = document.createElement('canvas');
+    cv.width = img.width;
+    cv.height = img.height;
+    const g = cv.getContext('2d', { willReadFrequently: true });
+    g.drawImage(img, 0, 0);
+    let dados;
+    try { dados = g.getImageData(0, 0, cv.width, cv.height); } catch (e) { return null; }
+    const d = dados.data;
+    /* A ganga ocupa a metade de baixo da folha. O desgaste branco fica branco
+       depois de escurecer o azul e lia-se como pingos de tinta; só nessa
+       metade, os claros sem matiz passam a um tom de ganga escura. */
+    const linhaGanga = Math.round(cv.height * 0.45);
+    for (let i = 0; i < d.length; i += 4) {
+      if (!d[i + 3]) continue;
+      const r = d[i] / 255, v = d[i + 1] / 255, b = d[i + 2] / 255;
+      const max = Math.max(r, v, b), min = Math.min(r, v, b);
+      const dd = max - min;
+      const l = (max + min) / 2;
+      const y = (i / 4 / cv.width) | 0;
+      if (y >= linhaGanga && l > 0.66) {
+        d[i] = 58; d[i + 1] = 64; d[i + 2] = 66;
+        continue;
+      }
+      if (dd < 0.03) continue;
+      let h;
+      if (max === r) h = ((v - b) / dd + (v < b ? 6 : 0)) / 6;
+      else if (max === v) h = ((b - r) / dd + 2) / 6;
+      else h = ((r - v) / dd + 4) / 6;
+      const graus = h * 360;
+      const s = dd / ((1 - Math.abs(2 * l - 1)) || 1);
+      let H, S, L;
+      if (graus >= 85 && graus <= 185) {
+        H = 176 / 360; S = Math.min(1, s) * 0.72; L = l * 0.82;
+      } else if (graus > 185 && graus <= 268) {
+        H = 205 / 360; S = s * 0.22; L = l * 0.30;
+      } else continue;
+      const q = L < 0.5 ? L * (1 + S) : L + S - L * S;
+      const p = 2 * L - q;
+      const tom = (t) => {
+        t = (t + 1) % 1;
+        if (t < 1 / 6) return p + (q - p) * 6 * t;
+        if (t < 1 / 2) return q;
+        if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+        return p;
+      };
+      d[i] = Math.round(tom(H + 1 / 3) * 255);
+      d[i + 1] = Math.round(tom(H) * 255);
+      d[i + 2] = Math.round(tom(H - 1 / 3) * 255);
+    }
+    g.putImageData(dados, 0, 0);
+    const tex = new THREE.CanvasTexture(cv);
+    tex.flipY = mapa.flipY;
+    tex.encoding = THREE.sRGBEncoding;
+    tex.wrapS = mapa.wrapS;
+    tex.wrapT = mapa.wrapT;
+    tex.anisotropy = mapa.anisotropy;
+    tex.needsUpdate = true;
+    return tex;
   }
 
   /* ===================== pose ===================== */
