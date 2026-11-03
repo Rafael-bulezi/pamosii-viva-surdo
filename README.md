@@ -207,7 +207,9 @@ gerado por PMREM com cinco painéis, luz-chave com sombra própria
 (pele com clearcoat discreto, cabelo e fato com sheen, olhos com clearcoat duro).
 A roupa é recolorida em tempo de execução por banda de matiz — o verde passa a
 teal e a ganga azul a carvão, mantendo costuras e vincos da textura — e o busto
-fica mais apertado (folga 1.10 em vez de 1.18). O
+fica mais apertado (folga 1.10 em vez de 1.18). O Pages foi republicado em vs117
+(commit `b18192e` da branch `gh-pages`) e o Vercel em
+<https://vivasurdo.vercel.app> serve a mesma versão. O
 repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
 continua na versão anterior (18 rotas): a conta de publicação só tem leitura no
 repositório original, por isso as versões novas saem pelo fork. O slug com dois
