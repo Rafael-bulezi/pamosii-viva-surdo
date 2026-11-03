@@ -378,23 +378,25 @@ textarea::placeholder, input[type="search"]::placeholder { color: var(--muted); 
 /* ---------------- palco ---------------- */
 .palco-sec { margin-top: clamp(20px, 3.4vh, 32px); }
 
-/* O palco é um estúdio, não uma superfície do tema: a sinalizadora é iluminada
-   para fundo claro e desaparecia no preto do tema escuro / alto contraste.
-   Por isso estas cores são literais e não seguem os tokens. */
+/* O palco é um estúdio, não uma superfície do tema: fundo verde-azulado
+   profundo, halo atrás da figura e vinheta. O branco anterior lavava a pele
+   escura e o cabelo; com fundo escuro os dois recortes frios do estúdio
+   desenham a silhueta. Estas cores são literais e não seguem os tokens. */
 .palco {
   display: block; width: 100%; aspect-ratio: 4 / 3;
   max-height: 74vh;
   overflow: hidden;
   border: 2px solid var(--line); border-radius: 24px;
   background:
-    radial-gradient(ellipse 82% 64% at 50% 20%, #FFFFFF 0%, rgba(255, 255, 255, 0) 72%),
-    linear-gradient(180deg, #FBFDF9 0%, #F0F6EA 58%, #E3EDDB 100%);
-  box-shadow: 0 6px 0 var(--line-strong), inset 0 -36px 54px -40px rgba(23, 51, 33, .22);
+    radial-gradient(ellipse 58% 46% at 50% 19%, rgba(74, 138, 126, .46) 0%, rgba(74, 138, 126, 0) 70%),
+    radial-gradient(ellipse 104% 58% at 50% 108%, rgba(31, 74, 64, .55) 0%, rgba(31, 74, 64, 0) 62%),
+    linear-gradient(180deg, #0C1A17 0%, #10241F 58%, #0A1411 100%);
+  box-shadow: 0 6px 0 var(--line-strong), inset 0 0 110px rgba(0, 0, 0, .42);
 }
 .palco svg, .palco canvas { display: block; width: 100%; height: 100%; }
 .palco-espera {
   display: grid; place-items: center; height: 100%; margin: 0;
-  color: #72847A; font: 800 11px/1 var(--mono);
+  color: #8FB3A6; font: 800 11px/1 var(--mono);
   letter-spacing: .07em; text-transform: uppercase;
 }
 
@@ -618,14 +620,15 @@ textarea::placeholder, input[type="search"]::placeholder { color: var(--muted); 
   overflow: hidden;
   border: 2px solid var(--line); border-radius: 18px;
   background:
-    radial-gradient(ellipse 82% 66% at 50% 18%, #FFFFFF 0%, rgba(255, 255, 255, 0) 74%),
-    linear-gradient(180deg, #FBFDF9 0%, #F0F6EA 58%, #E3EDDB 100%);
+    radial-gradient(ellipse 58% 46% at 50% 19%, rgba(74, 138, 126, .46) 0%, rgba(74, 138, 126, 0) 70%),
+    radial-gradient(ellipse 104% 58% at 50% 108%, rgba(31, 74, 64, .55) 0%, rgba(31, 74, 64, 0) 62%),
+    linear-gradient(180deg, #0C1A17 0%, #10241F 58%, #0A1411 100%);
 }
 .sg-palco canvas { display: block; width: 100%; height: 100%; }
 .sg-espera {
   position: absolute; inset: 0; display: grid; place-items: center;
   margin: 0; padding: 20px; text-align: center;
-  color: var(--muted); font: 800 10px/1.5 var(--mono);
+  color: #8FB3A6; font: 800 10px/1.5 var(--mono);
   letter-spacing: .07em; text-transform: uppercase;
 }
 
