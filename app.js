@@ -121,19 +121,20 @@ function beatsDeItem(it) {
     if (n) return [{
       tipo: 'sinal', rotulo: it.palavra, forma: n.forma, duas: n.duas, reps: n.reps, local: n.local,
       pos0: n.inicio.pos, rot0: n.inicio.rot, pos1: n.fim.pos, rot1: n.fim.rot, dur: 760,
+      palma: n.palma, esq: n.esq, amp: n.amp, movimento: n.movimento,
     }];
   }
   const letras = it.marca === 'assinado'
     ? [...String(it.palavra).toUpperCase()].filter(l => /[A-Z]/.test(l))
     : (it.letras || []);
   return letras.filter(l => FORMAS_MAO[l]).map(l => ({
-    tipo: 'letra', rotulo: l, forma: l, duas: false, reps: 1,
+    tipo: 'letra', rotulo: l, forma: l, duas: false, reps: 1, movimento: 'parado',
     pos0: LOCAIS.frente, rot0: [0, 0, 0], pos1: LOCAIS.frente, rot1: [0, 0, 0], dur: 340,
   }));
 }
 
 const pausa = () => ({
-  tipo: 'pausa', rotulo: '', forma: REP.forma, duas: false, reps: 1,
+  tipo: 'pausa', rotulo: '', forma: REP.forma, duas: false, reps: 1, movimento: 'parado',
   pos0: REP.pos, rot0: REP.rot, pos1: REP.pos, rot1: REP.rot, dur: 260,
 });
 
@@ -1064,7 +1065,6 @@ function cartoes() {
     const temPose = !!e.notacao;
     const href = temPose ? '#/?s=' + encodeURIComponent(e.palavra) : esc(e.ref.url);
     const externo = temPose ? '' : ' target="_blank" rel="noopener noreferrer"';
-    const selo = temPose ? '▶' : '↗';
     const detalhe = e.ref
       ? 'IS · ' + esc(e.ref.glossa) + (e.ref.comparado ? ' · visto no vídeo' : '')
       : (e.notacao ? esc(e.notacao.forma) + ' · ' + esc(e.notacao.movimento) : 'sem pose');
@@ -1072,13 +1072,26 @@ function cartoes() {
     const aria = e.ref
       ? `${esc(e.palavra)} — sinal International Sign documentado (${esc(e.ref.glossa)})`
       : `${esc(e.palavra)} — gesto de estudo, sem referência`;
+    /* O selo verde é o vídeo da fonte, não a personagem. No cartão com pose ele
+       não pode ficar dentro do <a> do cartão (link dentro de link é inválido),
+       por isso é um irmão ancorado ao canto superior direito da figura. No
+       cartão que só tem referência, o cartão inteiro já é o vídeo. Sem
+       referência não há vídeo, e o cartão não inventa um selo. */
+    const selo = !temPose && e.ref ? '<span class="cartao-play" aria-hidden="true">▶</span>' : '';
+    const video = temPose && e.ref
+      ? `<a class="cartao-video" href="${esc(e.ref.url)}" target="_blank" rel="noopener noreferrer"
+           title="Vídeo de referência (Sématos)" aria-label="Ver o vídeo de referência de ${esc(e.palavra)} na Sématos">▶</a>`
+      : '';
     return `
-    <a class="cartao${temPose ? '' : ' cartao-ref'}" href="${href}"${externo}
-       ${temPose ? `data-palavra="${esc(e.palavra)}"` : ''} aria-label="${aria}">
-      <span class="fig">${temPose ? maoFigura(e.notacao.forma) : '<span class="ref-marca">IS</span>'}<span class="cartao-play" aria-hidden="true">${selo}</span></span>
-      <b>${esc(e.palavra)}</b>
-      <small>${detalhe}${esc(nota)}</small>
-    </a>`;
+    <div class="cartao-item">
+      <a class="cartao${temPose ? '' : ' cartao-ref'}" href="${href}"${externo}
+         ${temPose ? `data-palavra="${esc(e.palavra)}"` : ''} aria-label="${aria}">
+        <span class="fig">${temPose ? maoFigura(e.notacao.forma) : '<span class="ref-marca">IS</span>'}${selo}</span>
+        <b>${esc(e.palavra)}</b>
+        <small>${detalhe}${esc(nota)}</small>
+      </a>
+      ${video}
+    </div>`;
   }).join('');
 }
 

@@ -66,7 +66,11 @@
     }
 
     const o = opcoes || {};
-    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    /* O modo-folha lê o canvas com drawImage; sem preservar o buffer, a
+       composição limpa o desenho e a cópia saía preta. Na app fica desligado:
+       só custa uma cópia por frame. */
+    const laboratorio = /[?&]folha3d=1/.test(global.location.search);
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: laboratorio });
     renderer.setPixelRatio(Math.min(2, global.devicePixelRatio || 1));
     renderer.setSize(el.clientWidth || 640, el.clientHeight || 360);
     renderer.outputEncoding = THREE.sRGBEncoding;
@@ -438,9 +442,28 @@
   }
 
   /* ===================== pose de sinal ===================== */
+  /* orientarPalma resolve flexão e pronação — dois graus de liberdade. Falta o
+     terceiro: rodar a mão em torno da própria normal da palma, que é o que
+     decide para onde apontam os dedos com a palma já assente. Sem isto a mão
+     saía sempre de cutelo, com os dedos em pé. */
+  function girarPalma(lado, ang) {
+    const mao = ossos['J_Bip_' + BRACO[lado] + '_Hand'];
+    if (!mao || !ang) return;
+    const n = new THREE.Vector3(0, 0, 1).transformDirection(mao.matrixWorld);
+    rodarMundo(mao, new THREE.Quaternion().setFromAxisAngle(n, ang * G));
+  }
+
   function poseParaQuats(p) {
     repor();
     const D = p.D || {}, E = p.E || {};
+    /* O tronco inclina-se ANTES de resolver os braços: o alvo está em
+       coordenadas do mundo, por isso inclinar primeiro só aproxima o ombro
+       do alvo — inclinar depois seria só rodar a pose já resolvida. */
+    if (p.corpo) {
+      const c = ossos['J_Bip_C_Spine'];
+      rodarMundo(c, eixo(AX, p.corpo[0] || 0));
+      rodarMundo(c, eixo(AY, p.corpo[1] || 0));
+    }
     aplicarMao('D', D.forma || 'curva');
     aplicarMao('E', E.forma || 'curva');
     const alvoD = V(...(D.mao || REP.D.mao)), alvoE = V(...(E.mao || REP.E.mao));
@@ -448,15 +471,18 @@
     ikBraco('D', alvoD, V(-0.55, -1.6, D.polar || 0.25));
     /* Com alvo de palma, orientarPalma repõe a mão e resolve-a toda a partir
        do alvo: rodarMao antes disso era trabalho perdido (e lia-se como se o
-       pulso da notação fosse aplicado, quando nunca era). Sem palma, vale. */
-    if (D.palma) orientarPalma('D', D.palma);
+       pulso da notação fosse aplicado, quando nunca era). Sem palma, vale.
+       O `rolar` roda a mão em torno da PRÓPRIA normal da palma: rodá-la em Z
+       do mundo, como antes, desfazia a palma que se tinha acabado de assentar
+       — era isso que punha a mão da parceira de cutelo. */
+    if (D.palma) { orientarPalma('D', D.palma); if (D.rolar) girarPalma('D', D.rolar); }
     else rodarMao('D', D.pulso);
     if (p.sim) {
       espelharBraco();
     } else {
       ajudOmbro('E', alvoE);
       ikBraco('E', alvoE, V(0.55, -1.6, E.polar || 0.25));
-      if (E.palma) orientarPalma('E', E.palma);
+      if (E.palma) { orientarPalma('E', E.palma); if (E.rolar) girarPalma('E', E.rolar); }
       else rodarMao('E', E.pulso);
     }
     if (p.cabeca) {
@@ -464,11 +490,6 @@
       rodarMundo(c, eixo(AY, p.cabeca[1] || 0));
       rodarMundo(c, eixo(AX, p.cabeca[0] || 0));
       rodarMundo(c, eixo(AZ, p.cabeca[2] || 0));
-    }
-    if (p.corpo) {
-      const c = ossos['J_Bip_C_Spine'];
-      rodarMundo(c, eixo(AY, p.corpo[1] || 0));
-      rodarMundo(c, eixo(AX, p.corpo[0] || 0));
     }
     return { quats: capturar(), expr: p.expr || 'neutro' };
   }
