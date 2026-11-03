@@ -1049,6 +1049,11 @@ const MOVIMENTOS = {
      amp    — intensidade em metros por unidade de palco, fora do padrão.
    Vazio por agora: o mecanismo nasce aqui para a autoria sinal a sinal. */
 const AJUSTES = {
+  /* `nunca`: no vídeo IS é uma mão plana, palma para baixo, que desce da cara
+     ao peito. O lugar `testa` põe o punho à altura da cara, mas a descida do
+     `baixo` é amortecida para metade (lugares da cabeça); `amp` 1.6 repõe os
+     ~16 cm medidos entre o punho de partida e o de chegada. */
+  'nunca': { palma: [0, -1, 0.25], amp: 1.6 },
 };
 
 /* 'forma local movimento' — uma linha por palavra, com dois-pontos para a mão esquerda */
@@ -1110,7 +1115,7 @@ const SINAIS = {
   'roupa': '2:garra peito baixo', 'sapato': '2:punho frente bate', 'cartão': '2:L frente abre',
   'comprar': 'curva mao toque', 'vender': 'plano mao frente', 'pagar': 'aponta mao frente', 'esperar': '2:abre frente onda',
   'chegar': 'plano mao bate', 'precisar': 'X frente baixo', 'poder': '2:punho lado cima', 'dever': 'aponta queixo frente',
-  'cedo': 'curva mao cima', 'tarde': 'plano frente baixo', 'sempre': '2:plano frente circulo', 'nunca': 'B frente varre',
+  'cedo': 'curva mao cima', 'tarde': 'plano frente baixo', 'sempre': '2:plano frente circulo', 'nunca': 'B testa baixo',
   'muito': '2:abre lado cima', 'pouco': 'F queixo toque', 'aqui': 'aponta baixo baixo', 'ali': 'aponta frente frente',
   'devagar': '2:plano frente repete',
 };
