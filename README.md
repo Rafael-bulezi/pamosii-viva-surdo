@@ -193,9 +193,11 @@ um `VERCEL_OIDC_TOKEN` e, se o ficheiro ainda estiver lá, sobe como ficheiro
 estático público do site. `app/.gitignore` já ignora `.vercel` e `.env*`.
 
 Publicado também em <https://rafael-bulezi.github.io/pamosii-viva-surdo/> (fork).
-A 2026-11-03 o Pages foi alinhado com o local em **vs115** (commit `79c09e9` da
-branch `gh-pages`): inclui a revisão do renderizador (`d2af632`), a correcção
-`varre` (`305f6ed`) e o selo ▶ dos sinais com vídeo de origem (`010a225`). O
+A 2026-11-03 o Pages foi alinhado com o local em **vs116** (commit `b614f92` da
+branch `gh-pages`): sobre a revisão do renderizador (`d2af632`), a correcção
+`varre` (`305f6ed`) e o selo ▶ (`010a225`), corrige `nunca` — vídeo Sématos
+`never-3897`, mão plana com a palma para baixo a descer da cara ao peito, em vez
+da varredura lateral com a palma para a frente (`a90a738`). O
 repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
 continua na versão anterior (18 rotas): a conta de publicação só tem leitura no
 repositório original, por isso as versões novas saem pelo fork. O slug com dois
@@ -207,7 +209,8 @@ remove-o e o Jekyll volta a tentar processar os ficheiros), mudar `const VERSAO`
 em `app/sw.js` **e** todos os `?v=` em `app/index.html` para o mesmo valor (o
 local já está em vs115: 9 ocorrências em `index.html`), correr
 `node tools/integridade-test.cjs` e `node tools/engine-test.cjs` e enviar a
-`gh-pages`. A Pages do fork pode precisar de um build manual
+`gh-pages` (o local está em vs116: 9 ocorrências em `index.html`). A Pages do
+fork pode precisar de um build manual
 (`POST /repos/Rafael-bulezi/pamosii-viva-surdo/pages/builds`).
 
 O service worker guarda a página e os scripts, mas **não** guarda o GLB de
@@ -216,9 +219,9 @@ rede — o `put` fica num try próprio e a resposta segue.
 
 ## Limites conhecidos
 
-- A notação não tem uso do espaço nem orientação de palma por sinal (só o
-  lugar `telhado` tem uma inclinação própria); é um treino de estrutura, não
-  um vídeo de referência. A expressão facial do modelo 3D vem do tipo de
+- A notação não tem uso do espaço próprio do sinal; a orientação da palma
+  existe por sinal em `AJUSTES` (hoje só `nunca`) e por lugar (`telhado`); é um
+  treino de estrutura, não um vídeo de referência. A expressão facial do modelo 3D vem do tipo de
   palavra — pergunta, negação, saudação — e não do sinal; o rig SVG não tem
   rosto.
 - O modelo 3D tem 13 MB e fica fora do casulo offline: num telemóvel em 3G o

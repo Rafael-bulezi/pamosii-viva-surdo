@@ -149,9 +149,16 @@ Outros defeitos medidos:
 | palma parada, dedos rodam | 8 | `olá`, `tchau`, `falar em lga`, `peixe`, `autocarro`, `música`, `dança`, `esperar` |
 | pares indistinguíveis (mãos a < 10°) | 241 pares, 59 abaixo de 3° | ver auditoria de 2026-11-01 |
 
-Testes do repositório, corridos hoje: `engine-test` OK (10 frases glosadas);
-`integridade-test` OK (191 sinais desenháveis, 298 palavras, 179 cartões, 83 selos de
-pose para o vídeo IS, 202 ligações ao léxico Sématos, versão vs115).
+Correcção posterior, a 2026-11-03: `nunca` foi revisto fotograma a fotograma
+contra o vídeo Sématos `never-3897` — o vídeo mostra uma só mão, plana e com a
+palma para baixo, a descer da cara ao peito, e a nota `B frente varre` desenhava
+uma varredura lateral com a palma para a frente. Passou a `B testa baixo` com
+palma `[0,-1,0.25]` e amplitude 1,6 (AJUSTES): punho medido de 1,46 m a 1,30 m.
+
+Testes do repositório, corridos depois da correcção: `engine-test` OK (10 frases
+glosadas); `integridade-test` OK (191 sinais desenháveis, 298 palavras, 179
+cartões, 83 selos de pose para o vídeo IS, 202 ligações ao léxico Sématos,
+versão vs116).
 
 ## 4. O que não foi feito
 
@@ -165,9 +172,10 @@ pose para o vídeo IS, 202 ligações ao léxico Sématos, versão vs115).
   referência IS nenhuma e dependem do léxico LGA/validação surda (tarefa INEE).
 - Commitei o README e este relatório e publiquei o Pages em vs115 (commit
   `79c09e9` da branch `gh-pages`, build `built`); o Vercel já estava em vs115.
-  Não apaguei nada: ficam por apagar, antes de publicar, os artefactos de
-  laboratório não rastreados `tools/sonda-punho.cjs`, `tools/zoom-mao.cjs` e a
-  pasta `~/glb-lab`.
+  Com a correcção de `nunca` o Pages foi republicado em vs116 (commit `b614f92`).
+  As folhas de laboratório que caíram dentro do repositório foram apagadas; os
+  instrumentos não rastreados `tools/sonda-*.cjs`, `tools/zoom-mao.cjs` e a
+  pasta `~/glb-lab` continuam a ser material de laboratório, fora do commit.
 
 ## 5. Próximo passo recomendado
 
