@@ -27,6 +27,7 @@
     },
     'obrigado/a': {
       notacao: '2:plano boca frente',
+      aproximado: true,
       aula: 'Aula 01 — Saudação de LGA',
       segundos: [102, 107],
       confianca: 'alta',
@@ -34,6 +35,7 @@
     },
     'por favor': {
       notacao: 'plano boca frente',
+      aproximado: true,
       aula: 'Aula 01 — Saudação de LGA',
       segundos: [123, 129],
       confianca: 'alta',
@@ -41,6 +43,7 @@
     },
     'ouvinte': {
       notacao: 'C orelha parado',
+      aproximado: true,
       aula: 'Aula 01 — Saudação de LGA',
       segundos: [150, 154],
       confianca: 'alta',

@@ -3,8 +3,14 @@
     "palavra": "oi/olá",
     "chave": "oi/ola",
     "aula": "Aula 01 — Saudação de LGA",
-    "segundos": [2, 7],
-    "segundosVistos": [2, 7],
+    "segundos": [
+      2,
+      7
+    ],
+    "segundosVistos": [
+      2,
+      7
+    ],
     "folha": ".mine/saudacao/palavra-oi-ola.png",
     "notacao": "abre alto onda",
     "oQueVisto": "mão direita aberta palma para a frente ao lado da cabeça a acenar lateralmente em onda",
@@ -16,8 +22,14 @@
     "palavra": "bom/boa/bem",
     "chave": "bom/boa/bem",
     "aula": "Aula 01 — Saudação de LGA",
-    "segundos": [10, 16],
-    "segundosVistos": [10, 16],
+    "segundos": [
+      10,
+      16
+    ],
+    "segundosVistos": [
+      10,
+      16
+    ],
     "folha": ".mine/saudacao/palavra-bom-boa-bem.png",
     "notacao": "joinha peito frente",
     "oQueVisto": "mão direita fecha em punho com polegar erguido vertical e projeta-se em frente no peito (positivo / joinha)",
@@ -29,8 +41,14 @@
     "palavra": "bom dia",
     "chave": "bom dia",
     "aula": "Aula 01 — Saudação de LGA",
-    "segundos": [19, 27],
-    "segundosVistos": [19, 27],
+    "segundos": [
+      19,
+      27
+    ],
+    "segundosVistos": [
+      19,
+      27
+    ],
     "folha": ".mine/saudacao/palavra-bom-dia.png",
     "notacao": null,
     "oQueVisto": "sinal de 'bom' (polegar erguido) seguido sequencialmente do sinal de 'dia' (mão aberta na lateral da face)",
@@ -42,8 +60,14 @@
     "palavra": "boa tarde",
     "chave": "boa tarde",
     "aula": "Aula 01 — Saudação de LGA",
-    "segundos": [30, 38],
-    "segundosVistos": [30, 38],
+    "segundos": [
+      30,
+      38
+    ],
+    "segundosVistos": [
+      30,
+      38
+    ],
     "folha": ".mine/saudacao/palavra-boa-tarde.png",
     "notacao": null,
     "oQueVisto": "sinal de 'boa' (polegar erguido) seguido do sinal de 'tarde' (mão junto à têmpora/testa)",
@@ -55,8 +79,14 @@
     "palavra": "boa noite",
     "chave": "boa noite",
     "aula": "Aula 01 — Saudação de LGA",
-    "segundos": [41, 51],
-    "segundosVistos": [41, 51],
+    "segundos": [
+      41,
+      51
+    ],
+    "segundosVistos": [
+      41,
+      51
+    ],
     "folha": ".mine/saudacao/palavra-boa-noite.png",
     "notacao": null,
     "oQueVisto": "sinal de 'boa' (polegar erguido) seguido de mão aberta a varrer à frente dos olhos (anoitecer)",
@@ -68,8 +98,14 @@
     "palavra": "meu nome",
     "chave": "meu nome",
     "aula": "Aula 01 — Saudação de LGA",
-    "segundos": [54, 63],
-    "segundosVistos": [54, 63],
+    "segundos": [
+      54,
+      63
+    ],
+    "segundosVistos": [
+      54,
+      63
+    ],
     "folha": ".mine/saudacao/palavra-meu-nome.png",
     "notacao": null,
     "oQueVisto": "mão aberta no peito (meu) seguida de batimento em cruz com contacto mútuo de ambos os indicadores (nome)",
@@ -81,8 +117,14 @@
     "palavra": "qual é o teu nome / teu nome",
     "chave": "qual e o teu nome / teu nome",
     "aula": "Aula 01 — Saudação de LGA",
-    "segundos": [66, 73],
-    "segundosVistos": [66, 73],
+    "segundos": [
+      66,
+      73
+    ],
+    "segundosVistos": [
+      66,
+      73
+    ],
     "folha": ".mine/saudacao/palavra-qual-e-o-teu-nome.png",
     "notacao": null,
     "oQueVisto": "indicador apontado frontal interrogativo seguido de cruzamento de indicadores em X",
@@ -94,8 +136,14 @@
     "palavra": "tudo bem",
     "chave": "tudo bem",
     "aula": "Aula 01 — Saudação de LGA",
-    "segundos": [75, 87],
-    "segundosVistos": [75, 87],
+    "segundos": [
+      75,
+      87
+    ],
+    "segundosVistos": [
+      75,
+      87
+    ],
     "folha": ".mine/saudacao/palavra-tudo-bem.png",
     "notacao": null,
     "oQueVisto": "sinal em duas fases sequenciais — mãos abertas com palmas para cima (tudo) e só depois punhos com duplo polegar no peito (bem)",
@@ -107,8 +155,14 @@
     "palavra": "desculpa",
     "chave": "desculpa",
     "aula": "Aula 01 — Saudação de LGA",
-    "segundos": [91, 98],
-    "segundosVistos": [91, 98],
+    "segundos": [
+      91,
+      98
+    ],
+    "segundosVistos": [
+      91,
+      98
+    ],
     "folha": ".mine/saudacao/palavra-desculpa.png",
     "notacao": null,
     "oQueVisto": "mão esquerda aberta horizontal de base; mão direita fletida passa sobre ela com fricção palmar contínua",
@@ -120,21 +174,34 @@
     "palavra": "obrigado/a",
     "chave": "obrigado/a",
     "aula": "Aula 01 — Saudação de LGA",
-    "segundos": [102, 107],
-    "segundosVistos": [102, 107],
+    "segundos": [
+      102,
+      107
+    ],
+    "segundosVistos": [
+      102,
+      107
+    ],
     "folha": ".mine/saudacao/palavra-obrigado-a.png",
     "notacao": "2:plano boca frente",
     "oQueVisto": "ambas as mãos abertas com dedos juntos tocam os lábios/queixo e projetam-se para a frente",
     "oQueAproximado": "palma parte de plano frontal junto aos lábios e projeta-se em frente; nos fotogramas as pontas dos dedos tocam os lábios com palma em ângulo oblíquo",
     "veredicto": "aproximado",
-    "motivo": "gesto bimanual simétrico saindo da boca/queixo para a frente nítido nos fotogramas a 0.5s; orientação palmar inicial no rig é ligeiramente mais plana do que oblíqua"
+    "motivo": "gesto bimanual simétrico saindo da boca/queixo para a frente nítido nos fotogramas a 0.5s; orientação palmar inicial no rig é ligeiramente mais plana do que oblíqua",
+    "aproximado": true
   },
   {
     "palavra": "de nada",
     "chave": "de nada",
     "aula": "Aula 01 — Saudação de LGA",
-    "segundos": [110, 120],
-    "segundosVistos": [110, 120],
+    "segundos": [
+      110,
+      120
+    ],
+    "segundosVistos": [
+      110,
+      120
+    ],
     "folha": ".mine/saudacao/palavra-de-nada.png",
     "notacao": null,
     "oQueVisto": "ambos os punhos com polegares tocam-se nos nós/polegares e abrem em leque oscilando lateralmente",
@@ -146,21 +213,34 @@
     "palavra": "por favor",
     "chave": "por favor",
     "aula": "Aula 01 — Saudação de LGA",
-    "segundos": [123, 129],
-    "segundosVistos": [123, 129],
+    "segundos": [
+      123,
+      129
+    ],
+    "segundosVistos": [
+      123,
+      129
+    ],
     "folha": ".mine/saudacao/palavra-por-favor.png",
     "notacao": "plano boca frente",
     "oQueVisto": "pontas dos dedos da mão direita tocam suavemente nos lábios/queixo e projetam-se suavemente para a frente",
     "oQueAproximado": "palma parte de plano frontal junto aos lábios e projeta-se em frente; nos fotogramas as pontas dos dedos tocam os lábios com palma em ângulo oblíquo",
     "veredicto": "aproximado",
-    "motivo": "contacto nos lábios e avanço frontal suave visível nos fotogramas a 0.5s; orientação palmar inicial ligeiramente aproximada no rig"
+    "motivo": "contacto nos lábios e avanço frontal suave visível nos fotogramas a 0.5s; orientação palmar inicial ligeiramente aproximada no rig",
+    "aproximado": true
   },
   {
     "palavra": "prazer em conhecer-te",
     "chave": "prazer em conhecer-te",
     "aula": "Aula 01 — Saudação de LGA",
-    "segundos": [132, 141],
-    "segundosVistos": [132, 141],
+    "segundos": [
+      132,
+      141
+    ],
+    "segundosVistos": [
+      132,
+      141
+    ],
     "folha": ".mine/saudacao/palavra-prazer-em-conhecer-te.png",
     "notacao": null,
     "oQueVisto": "frase de 3 passos: fricção circular no peito (prazer) + indicador no queixo (conhecer) + apontar em frente (te)",
@@ -172,8 +252,14 @@
     "palavra": "surdo/a",
     "chave": "surdo/a",
     "aula": "Aula 01 — Saudação de LGA",
-    "segundos": [143, 147],
-    "segundosVistos": [143, 147],
+    "segundos": [
+      143,
+      147
+    ],
+    "segundosVistos": [
+      143,
+      147
+    ],
     "folha": ".mine/saudacao/palavra-surdo-a.png",
     "notacao": null,
     "oQueVisto": "dedo indicador da mão direita toca no ouvido direito e logo em seguida toca na boca",
@@ -185,21 +271,34 @@
     "palavra": "ouvinte",
     "chave": "ouvinte",
     "aula": "Aula 01 — Saudação de LGA",
-    "segundos": [150, 154],
-    "segundosVistos": [150, 154],
+    "segundos": [
+      150,
+      154
+    ],
+    "segundosVistos": [
+      150,
+      154
+    ],
     "folha": ".mine/saudacao/palavra-ouvinte.png",
     "notacao": "C orelha parado",
     "oQueVisto": "mão direita em concha auricular curvada posicionada junto à orelha direita em escuta estática",
     "oQueAproximado": "local 'orelha' no rig MPFB posiciona o punho a 1.56m (altura da têmpora/orelha superior), aproximando a concha auditiva junto ao canal auditivo",
     "veredicto": "aproximado",
-    "motivo": "mão em concha na orelha identificável nos fotogramas a 0.5s; altura no rig fica ligeiramente acima do pavilhão auricular (nível da têmpora)"
+    "motivo": "mão em concha na orelha identificável nos fotogramas a 0.5s; altura no rig fica ligeiramente acima do pavilhão auricular (nível da têmpora)",
+    "aproximado": true
   },
   {
     "palavra": "intérprete",
     "chave": "interprete",
     "aula": "Aula 01 — Saudação de LGA",
-    "segundos": [158, 164],
-    "segundosVistos": [158, 164],
+    "segundos": [
+      158,
+      164
+    ],
+    "segundosVistos": [
+      158,
+      164
+    ],
     "folha": ".mine/saudacao/palavra-interprete.png",
     "notacao": null,
     "oQueVisto": "ambas as mãos em pinça 'F' tocam-se e giram alternadamente uma em torno da outra com engate",
@@ -211,8 +310,14 @@
     "palavra": "tchau/adeus",
     "chave": "tchau/adeus",
     "aula": "Aula 01 — Saudação de LGA",
-    "segundos": [167, 171],
-    "segundosVistos": [167, 171],
+    "segundos": [
+      167,
+      171
+    ],
+    "segundosVistos": [
+      167,
+      171
+    ],
     "folha": ".mine/saudacao/palavra-tchau-adeus.png",
     "notacao": "abre alto onda",
     "oQueVisto": "mão direita aberta com palma virada para a frente ao lado da cabeça a acenar lateralmente",
@@ -224,8 +329,14 @@
     "palavra": "meu sinal",
     "chave": "meu sinal",
     "aula": "Aula 01 — Saudação de LGA",
-    "segundos": [174, 179],
-    "segundosVistos": [174, 179],
+    "segundos": [
+      174,
+      179
+    ],
+    "segundosVistos": [
+      174,
+      179
+    ],
     "folha": ".mine/saudacao/palavra-meu-sinal.png",
     "notacao": null,
     "oQueVisto": "mão no peito (meu) seguida de pinça de demonstração do sinal próprio de batismo",
@@ -237,8 +348,14 @@
     "palavra": "língua portuguesa",
     "chave": "lingua portuguesa",
     "aula": "Aula 01 — Saudação de LGA",
-    "segundos": [182, 187],
-    "segundosVistos": [182, 187],
+    "segundos": [
+      182,
+      187
+    ],
+    "segundosVistos": [
+      182,
+      187
+    ],
     "folha": ".mine/saudacao/palavra-lingua-portuguesa.png",
     "notacao": null,
     "oQueVisto": "configuração em 'L' a ondular na horizontal seguida de transição para o olho/rosto",

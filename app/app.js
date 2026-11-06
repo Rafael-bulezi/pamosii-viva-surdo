@@ -458,6 +458,10 @@ function montarSigner() {
 
 async function abrirSigner(texto) {
   if (!document.getElementById('sg-painel')) montarSigner();
+  const notaEl = $('#sg-painel .sg-nota');
+  if (notaEl) {
+    notaEl.innerHTML = 'Gestos de estudo inspirados na língua gestual internacional. <b>Não</b> são sinais de LGA validados por sinalizadores surdos.';
+  }
   const t = String(texto || '').replace(/\s+/g, ' ').trim() || SG.texto || SG_FRASE;
   SG.texto = t;
   SG.aberto = true;
@@ -532,11 +536,18 @@ function notacaoParaBeat(notacao, rotulo) {
   };
 }
 
-async function abrirSignerNotacao(notacao, rotulo) {
+async function abrirSignerNotacao(notacao, rotulo, aproximado) {
   if (!document.getElementById('sg-painel')) montarSigner();
   const b = notacaoParaBeat(notacao, rotulo);
   if (!b) return;
   const r = String(rotulo || '').trim();
+  const ehAprox = !!aproximado;
+  const notaEl = $('#sg-painel .sg-nota');
+  if (notaEl) {
+    notaEl.innerHTML = ehAprox
+      ? 'Aproximação baseada nas aulas do Viva surdo. <b>Não</b> são sinais de LGA validados por sinalizadores surdos.'
+      : 'Leitura nossa das aulas do Viva surdo. <b>Não</b> são sinais de LGA validados por sinalizadores surdos.';
+  }
   SG.texto = r;
   SG.aberto = true;
   SG.beats = [b, pausa()];
@@ -1162,9 +1173,19 @@ function cartoesLga() {
     const noDic = LGA_NO_DICIONARIO.has(e.chave);
     const pose = (window.SINAIS_LGA && window.SINAIS_LGA[e.chave]) || null;
     const temPose = !!(pose && pose.notacao);
+    const ehAprox = !!(pose && pose.aproximado);
+    const rotuloAria = ehAprox
+      ? `aproximação do sinal LGA de ${esc(e.palavra)}`
+      : `toca o sinal LGA de ${esc(e.palavra)}`;
+    const rotuloTitle = ehAprox
+      ? `Aproximação do sinal LGA de ${esc(e.palavra)}`
+      : `Toca o sinal LGA de ${esc(e.palavra)}`;
+    const crachaAprox = ehAprox
+      ? `<span class="lga-cracha-aprox" aria-hidden="true">aprox.</span>`
+      : '';
     const botaoPlay = temPose
-      ? `<button type="button" class="cartao-play-lga" data-lga-chave="${esc(e.chave)}"
-                 aria-label="toca o sinal LGA de ${esc(e.palavra)}" title="Toca o sinal LGA de ${esc(e.palavra)}">▶</button>`
+      ? `<button type="button" class="cartao-play-lga${ehAprox ? ' cartao-play-lga-aprox' : ''}" data-lga-chave="${esc(e.chave)}"
+                 aria-label="${rotuloAria}" title="${rotuloTitle}"><span class="play-ico" aria-hidden="true">▶</span>${crachaAprox}</button>`
       : '';
     const fig = temPose && typeof maoFigura === 'function'
       ? maoFigura(pose.notacao.replace(/^2:/, '').split(/\s+/)[0])
@@ -1321,7 +1342,7 @@ function ligarDicionario() {
       const pose = window.SINAIS_LGA && window.SINAIS_LGA[k];
       const entry = window.FONTE_LGA && window.FONTE_LGA[k];
       if (pose && pose.notacao) {
-        abrirSignerNotacao(pose.notacao, (entry && entry.palavra) || k);
+        abrirSignerNotacao(pose.notacao, (entry && entry.palavra) || k, !!pose.aproximado);
       }
     });
   }

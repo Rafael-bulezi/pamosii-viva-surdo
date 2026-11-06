@@ -438,8 +438,13 @@ if (!sinaisLga) {
   if (!/const botaoPlay = temPose\s*\?/.test(app)) {
     falhas.push('O selo de reprodução LGA aparece mesmo sem pose.');
   }
+  if (!/cartao-play-lga-aprox/.test(app)) falhas.push('app.js não distingue poses aproximadas no botão (cartao-play-lga-aprox).');
+  if (!/lga-cracha-aprox/.test(app)) falhas.push('app.js não mostra crachá visível aprox. para poses aproximadas.');
+  if (!/aproximação do sinal LGA de/.test(app)) falhas.push('app.js não altera aria-label para poses aproximadas.');
+  if (!/Leitura nossa das aulas do Viva surdo/.test(app)) falhas.push('app.js não atualiza nota do painel quando toca sinal LGA.');
 
-  nota('LGA 3D: ' + chavesLga3d.length + ' poses validadas contra as aulas do Viva surdo');
+  const aproxQtd = chavesLga3d.filter(k => sinaisLga[k].aproximado).length;
+  nota('LGA 3D: ' + chavesLga3d.length + ' poses validadas contra as aulas do Viva surdo (' + (chavesLga3d.length - aproxQtd) + ' diretas, ' + aproxQtd + ' aproximadas)');
 }
 
 
