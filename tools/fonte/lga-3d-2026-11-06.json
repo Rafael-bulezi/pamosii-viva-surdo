@@ -414,11 +414,11 @@
       25
     ],
     "folha": ".mine/numeros/palavra-3.png",
-    "notacao": "W peito parado",
-    "oQueVisto": "três dedos centrais (indicador, médio e anelar) estendidos verticalmente, polegar a segurar o mínimo dobrado",
-    "oQueAproximado": "nenhum; coincide exatamente com a forma W do rig",
+    "notacao": "tres peito parado",
+    "oQueVisto": "polegar claramente abduzido para fora com indicador e médio estendidos para cima, anelar e mínimo dobrados na palma (numeral 3 em LGA)",
+    "oQueAproximado": "nenhum; reproduzido com a forma medida 'tres' calibrada com polegar abduzido 82° e indicador+médio abertos",
     "veredicto": "pose",
-    "motivo": "três dedos erguidos em W claramente identificáveis em 25 fotogramas a 0.5s"
+    "motivo": "forma de mão 'tres' (polegar abduzido + indicador e médio estendidos) coincide com a execução do sinalizador em 25 fotogramas a 0.5s"
   },
   {
     "palavra": "4",
@@ -435,10 +435,10 @@
     "folha": ".mine/numeros/palavra-4.png",
     "notacao": "B peito parado",
     "aproximado": true,
-    "oQueVisto": "quatro dedos estendidos verticalmente e afastados (indicador, médio, anelar, mínimo), com polegar dobrado sobre a palma",
-    "oQueAproximado": "forma B do rig tem os quatro dedos estendidos verticalmente mas mais juntos do que o leque da aula",
+    "oQueVisto": "quatro dedos estendidos em leque com o polegar abduzido para fora / base da palma",
+    "oQueAproximado": "no rig usamos B: os 4 dedos ficam mais juntos em bloco e o polegar dobra sobre a palma em vez de ficar abduzido para fora",
     "veredicto": "aproximado",
-    "motivo": "quatro dedos estendidos verticais com polegar dobrado; aproximação ligeira no espaçamento interdigital"
+    "motivo": "o rig dobra o polegar sobre a palma e aproxima os dedos em B, enquanto na aula 03 o sinalizador afasta os 4 dedos em leque e mantém o polegar projetado para fora"
   },
   {
     "palavra": "5",

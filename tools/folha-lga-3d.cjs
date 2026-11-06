@@ -39,7 +39,7 @@ const CONFIG_LOTE = {
   '1b': {
     aula: 'Números',
     titulo: 'LGA 3D — Lote 1b: Aula 03 (Números)',
-    subtitulo: 'Avatar 3D Agatha (Three.js WebGL) · 6 poses (5 diretas, 1 aproximada) · 3 vistas por pose: busto, close-up frontal e 3/4 (35°) · viva-surdo',
+    subtitulo: 'Avatar 3D Agatha (Three.js WebGL) · 3 vistas por pose: busto, close-up frontal e 3/4 (35°) · viva-surdo',
     saida: path.join(RAIZ, 'tools', 'fonte', 'lga-3d', 'lote-1b-numeros.png'),
     modo: 'angulos',
   },
@@ -209,9 +209,17 @@ function scriptRenderizacao(filtroAula, titulo, subtitulo, modo) {
     g.fillStyle = '#4ade80';
     g.font = 'bold 22px system-ui, -apple-system, sans-serif';
     g.fillText(titulo + ' — ' + itens.length + ' Poses', 24, 30);
+    const nAprox = itens.filter(x => x.aproximado).length;
+    const nDiretas = itens.length - nAprox;
+    const descPoses = nAprox > 0
+      ? (itens.length + ' poses (' + nDiretas + ' diretas, ' + nAprox + ' aproximada' + (nAprox > 1 ? 's' : '') + ')')
+      : (itens.length + ' poses diretas');
+    const subFormatado = subtitulo.includes('poses')
+      ? subtitulo.replace(/\\d+ poses[^\\·]*/, descPoses + ' ')
+      : subtitulo.replace('Three.js WebGL) ·', 'Three.js WebGL) · ' + descPoses + ' ·');
     g.fillStyle = '#94a3b8';
     g.font = '13px system-ui, -apple-system, sans-serif';
-    g.fillText(subtitulo, 24, 52);
+    g.fillText(subFormatado, 24, 52);
 
     const tmp = document.createElement('canvas');
     const tg = tmp.getContext('2d');
@@ -268,13 +276,21 @@ function scriptRenderizacao(filtroAula, titulo, subtitulo, modo) {
               AVATAR.cam.lookAt(alvo.x, alvo.y, alvo.z);
               AVATAR.cam.updateProjectionMatrix();
             } else if (vista.tipo === 'perfil') {
-              // Câmara a 35° de três quartos do lado do polegar/indicador (-X) para revelar a pinça e profundidade
-              const ang = 35 * Math.PI / 180;
-              const dist = 0.50;
-              AVATAR.cam.fov = 30;
-              AVATAR.cam.position.set(alvo.x - Math.sin(ang) * dist, alvo.y + 0.02, alvo.z + Math.cos(ang) * dist);
-              AVATAR.cam.lookAt(alvo.x, alvo.y, alvo.z);
-              AVATAR.cam.updateProjectionMatrix();
+              if (item.chave === 'oito') {
+                // Para 'oito' (F), ângulo lateral-inferior a 30° revela o ponto exato de contacto polegar-indicador
+                AVATAR.cam.fov = 28;
+                AVATAR.cam.position.set(alvo.x - 0.22, alvo.y - 0.08, alvo.z + 0.24);
+                AVATAR.cam.lookAt(alvo.x, alvo.y, alvo.z);
+                AVATAR.cam.updateProjectionMatrix();
+              } else {
+                // Câmara a 35° de três quartos do lado do polegar/indicador (-X) para revelar abertura e profundidade
+                const ang = 35 * Math.PI / 180;
+                const dist = 0.50;
+                AVATAR.cam.fov = 30;
+                AVATAR.cam.position.set(alvo.x - Math.sin(ang) * dist, alvo.y + 0.02, alvo.z + Math.cos(ang) * dist);
+                AVATAR.cam.lookAt(alvo.x, alvo.y, alvo.z);
+                AVATAR.cam.updateProjectionMatrix();
+              }
             }
           } else {
             // Modo tempo (Lote 1a): início, meio, fim

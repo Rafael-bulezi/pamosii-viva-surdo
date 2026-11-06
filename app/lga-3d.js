@@ -64,7 +64,7 @@
       veSe: "mão direita com polegar e dedo mínimo estendidos (configuração em 'Y' / shaka), palma virada para o peito",
     },
     'três': {
-      notacao: 'W peito parado',
+      notacao: 'tres peito parado',
       aula: 'Aula 03 — Números',
       segundos: [13, 25],
       confianca: 'média',
