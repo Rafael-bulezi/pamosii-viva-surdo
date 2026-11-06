@@ -149,7 +149,7 @@ if (versoesHtml.length !== 1) falhas.push('index.html com mais do que uma versã
 if (versaoSW && versoesHtml[0] && versaoSW !== versoesHtml[0]) {
   falhas.push('Offline desactualizado: sw.js é ' + versaoSW + ' mas o index pede ' + versoesHtml[0] + '.');
 }
-for (const ficheiro of ['styles.css', 'referencias.js', 'dados.js', 'lga.js', 'maos.js', 'app.js']) {
+for (const ficheiro of ['styles.css', 'referencias.js', 'dados.js', 'lga.js', 'lga-3d.js', 'maos.js', 'app.js']) {
   if (!new RegExp("'\\./" + ficheiro.replace('.', '\\.') + "\\?v=' \\+ VERSAO").test(sw)) {
     falhas.push('sw.js não pré-guarda ' + ficheiro + ' na chave versionada (?v= + VERSAO).');
   }
@@ -391,6 +391,57 @@ if (!/fonte === 'lga'/.test(app)) falhas.push('O dicionário perdeu a aba LGA (#
 if (!/LGA_LISTA\.length/.test(app)) falhas.push('O título da aba LGA deixou de contar a partir dos dados.');
 if (!/cartao-lga/.test(app)) falhas.push('Os cartões da LGA desapareceram.');
 if (!/<script src="lga\.js\?v=/.test(html)) falhas.push('O index.html não carrega lga.js.');
+
+/* ------------------------------------ 9e. camada 3D da LGA (lga-3d.js) */
+const lga3dTexto = ler('lga-3d.js');
+const ctxLga3d = { console, window: {} };
+ctxLga3d.window = ctxLga3d;
+vm.createContext(ctxLga3d);
+vm.runInContext(lga3dTexto + '\n;globalThis.__lga3d = SINAIS_LGA;', ctxLga3d);
+const sinaisLga = ctxLga3d.__lga3d;
+if (!sinaisLga) {
+  falhas.push('lga-3d.js não expõe SINAIS_LGA.');
+} else {
+  const chavesLga3d = Object.keys(sinaisLga);
+  for (const [k, s] of Object.entries(sinaisLga)) {
+    if (!lga.FONTE_LGA[k]) {
+      falhas.push('lga-3d.js tem pose para chave inexistente em lga.js: ' + k);
+      continue;
+    }
+    const fonteRef = lga.FONTE_LGA[k];
+    if (s.aula !== fonteRef.aula) falhas.push('lga-3d.js [' + k + ']: aula diferente de lga.js');
+    if (JSON.stringify(s.segundos) !== JSON.stringify(fonteRef.segundos)) {
+      falhas.push('lga-3d.js [' + k + ']: segundos diferentes de lga.js');
+    }
+    if (s.confianca !== fonteRef.confianca) falhas.push('lga-3d.js [' + k + ']: confianca diferente de lga.js');
+    if (s.veSe !== fonteRef.veSe) falhas.push('lga-3d.js [' + k + ']: veSe diferente de lga.js');
+
+    if (!s.notacao) {
+      falhas.push('lga-3d.js [' + k + ']: entrada sem notacao');
+      continue;
+    }
+    let texto = s.notacao.trim();
+    if (texto.startsWith('2:')) texto = texto.slice(2).trim();
+    const partes = texto.split(/\s+/);
+    if (partes.length !== 3) {
+      falhas.push('lga-3d.js [' + k + ']: notação inválida (esperava forma lugar movimento): ' + s.notacao);
+      continue;
+    }
+    const [forma, local, mov] = partes;
+    if (!api.FORMAS_MAO[forma]) falhas.push('lga-3d.js [' + k + ']: forma de mão desconhecida: ' + forma);
+    if (!api.LOCAIS[local]) falhas.push('lga-3d.js [' + k + ']: local desconhecido: ' + local);
+    if (!api.MOVIMENTOS[mov]) falhas.push('lga-3d.js [' + k + ']: movimento desconhecido: ' + mov);
+  }
+
+  if (!/<script src="lga-3d\.js\?v=/.test(html)) falhas.push('O index.html não carrega lga-3d.js.');
+  if (!/cartao-play-lga/.test(app)) falhas.push('app.js não tem o selo de reprodução cartao-play-lga.');
+  if (!/const botaoPlay = temPose\s*\?/.test(app)) {
+    falhas.push('O selo de reprodução LGA aparece mesmo sem pose.');
+  }
+
+  nota('LGA 3D: ' + chavesLga3d.length + ' poses validadas contra as aulas do Viva surdo');
+}
+
 
 /* o glosador tem de continuar a ordenar como promete a nota do site */
 for (const frase of ['Amanhã eu vou à escola.', 'Eu não quero água.']) {

@@ -14,6 +14,7 @@ const FICHEIROS = [
   './referencias.js?v=' + VERSAO,
   './dados.js?v=' + VERSAO,
   './lga.js?v=' + VERSAO,
+  './lga-3d.js?v=' + VERSAO,
   './maos.js?v=' + VERSAO,
   './vendor/three.min.js?v=' + VERSAO,
   './vendor/GLTFLoader.js?v=' + VERSAO,

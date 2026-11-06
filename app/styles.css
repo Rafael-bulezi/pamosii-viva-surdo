@@ -522,7 +522,7 @@ textarea::placeholder, input[type="search"]::placeholder { color: var(--muted); 
   width: 100%; margin-bottom: 6px; padding: 6px 0;
   border-radius: 12px; background: var(--surface-2);
 }
-.cartao-play, .cartao-video {
+.cartao-play, .cartao-video, .cartao-play-lga {
   position: absolute; top: 6px; right: 6px;
   display: grid; place-items: center;
   width: 24px; height: 24px; border-radius: 50%;
@@ -532,11 +532,12 @@ textarea::placeholder, input[type="search"]::placeholder { color: var(--muted); 
   transition: transform .16s ease;
 }
 /* 2px de borda + 8 de padding + 6 de recuo da figura = o mesmo canto do selo */
-.cartao-video { top: 16px; right: 18px; z-index: 1; }
+.cartao-video, .cartao-play-lga { top: 16px; right: 18px; z-index: 1; border: none; cursor: pointer; }
 /* 24px de selo, 42px de alvo de toque */
-.cartao-video::after { content: ''; position: absolute; inset: -9px; border-radius: 50%; }
+.cartao-video::after, .cartao-play-lga::after { content: ''; position: absolute; inset: -9px; border-radius: 50%; }
 .cartao-item:hover .cartao-play { transform: scale(1.12); }
-.cartao-item:hover .cartao-video { transform: translateY(-3px) scale(1.12); }
+.cartao-item:hover .cartao-video, .cartao-item:hover .cartao-play-lga { transform: translateY(-3px) scale(1.12); }
+.cartao-play-lga:focus-visible { outline: 2px solid var(--accent, #1E88E5); outline-offset: 2px; }
 .cartao .mao-fig { width: 100%; max-width: 92px; height: auto; display: block; }
 .cartao b { font: 800 12.5px/1.2 var(--display); text-align: center; }
 .cartao small {

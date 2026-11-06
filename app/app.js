@@ -514,6 +514,76 @@ async function abrirSigner(texto) {
   }
 }
 
+function notacaoParaBeat(notacao, rotulo) {
+  let texto = String(notacao || '').trim(), duas = false;
+  if (texto.startsWith('2:')) { duas = true; texto = texto.slice(2).trim(); }
+  const [forma, local, mov] = texto.split(/\s+/);
+  if (!window.FORMAS_MAO || !window.FORMAS_MAO[forma] || !window.LOCAIS || !window.LOCAIS[local]) return null;
+  const [delta, giro] = (window.MOVIMENTOS && window.MOVIMENTOS[mov]) || [[0, 0, 0], [0, 0, 0]];
+  const L = window.LOCAIS[local];
+  const p = Array.isArray(L) ? L : L.p;
+  const base = Array.isArray(L) ? [0, 0, 0] : L.rot;
+  return {
+    tipo: 'sinal', rotulo: rotulo || '', forma, duas, reps: mov === 'repete' ? 2 : 1, local,
+    pos0: p.slice(), rot0: base.slice(),
+    pos1: [p[0] + delta[0], p[1] + delta[1], p[2] + delta[2]],
+    rot1: [base[0] + giro[0], base[1] + giro[1], base[2] + giro[2]],
+    dur: 760, palma: null, esq: null, amp: null, movimento: mov,
+  };
+}
+
+async function abrirSignerNotacao(notacao, rotulo) {
+  if (!document.getElementById('sg-painel')) montarSigner();
+  const b = notacaoParaBeat(notacao, rotulo);
+  if (!b) return;
+  const r = String(rotulo || '').trim();
+  SG.texto = r;
+  SG.aberto = true;
+  SG.beats = [b, pausa()];
+  SG.passos = [];
+  SG.poses = null;
+  SG.inicio = [];
+  SG.total = 0;
+  SG.t = 0;
+  SG.beat = -1;
+  pausar();
+  $('#sg-painel').hidden = false;
+  $('#sg-fab').setAttribute('aria-expanded', 'true');
+  atualizarFab();
+  $('#sg-frase').textContent = '«' + r + '»';
+  pintarChipsSigner();
+  const abrir = $('#sg-abrir');
+  if (abrir) abrir.hidden = true;
+  $('#sg-fechar').focus({ preventScroll: true });
+
+  const palco = $('#sg-palco');
+  if (!(window.AVATAR && window.SINAL3D)) {
+    palco.innerHTML = '<p class="sg-espera">O modelo 3D não carregou.</p>';
+    return;
+  }
+  try {
+    await AVATAR.init(palco);
+    if (!SG.aberto) { devolverAvatar(); return; }
+    const espera = palco.querySelector('.sg-espera');
+    if (espera) espera.remove();
+    AVATAR.enquadrar('busto', 1.16);
+    SG.passos = SINAL3D.sequencia(SG.beats);
+    let acc = 0;
+    SG.passos.forEach((p) => {
+      if (SG.inicio[p.beat] === undefined) SG.inicio[p.beat] = acc;
+      acc += p.dur;
+    });
+    SG.total = acc;
+    SG.poses = AVATAR.prepararPoses(SG.passos);
+    if (!SG.poses.length) throw new Error('sem passos');
+    if (A11Y.movimento || matchMedia('(prefers-reduced-motion: reduce)').matches) desenharSigner(0);
+    else tocarSigner();
+  } catch (err) {
+    palco.innerHTML = '<p class="sg-espera">O modelo 3D não carregou.</p>';
+  }
+}
+window.abrirSignerNotacao = abrirSignerNotacao;
+
 function devolverAvatar() {
   if (!(window.AVATAR && AVATAR.pronto)) return;
   AVATAR.pousar();
@@ -1090,16 +1160,26 @@ function cartoesLga() {
     const tempo = Math.floor(seg / 60) + ':' + String(seg % 60).padStart(2, '0');
     const url = 'https://www.youtube.com/watch?v=' + encodeURIComponent(e.video) + '&t=' + seg + 's';
     const noDic = LGA_NO_DICIONARIO.has(e.chave);
+    const pose = (window.SINAIS_LGA && window.SINAIS_LGA[e.chave]) || null;
+    const temPose = !!(pose && pose.notacao);
+    const botaoPlay = temPose
+      ? `<button type="button" class="cartao-play-lga" data-lga-chave="${esc(e.chave)}"
+                 aria-label="toca o sinal LGA de ${esc(e.palavra)}" title="Toca o sinal LGA de ${esc(e.palavra)}">▶</button>`
+      : '';
+    const fig = temPose && typeof maoFigura === 'function'
+      ? maoFigura(pose.notacao.replace(/^2:/, '').split(/\s+/)[0])
+      : '<span class="ref-marca">LGA</span>';
     return `
     <div class="cartao-item">
       <a class="cartao cartao-ref cartao-lga" data-conf="${esc(e.confianca)}" href="${url}"
          target="_blank" rel="noopener noreferrer"
          aria-label="${esc(e.palavra)} — ${esc(e.aula)}, ${tempo}, confiança ${esc(e.confianca)}. Abre a aula no YouTube.">
-        <span class="fig"><span class="ref-marca">LGA</span></span>
+        <span class="fig">${fig}</span>
         <b>${esc(e.palavra)}</b>
         <small>${esc(e.aula.replace(/ —.*$/, ''))} · ${tempo} · ${esc(e.confianca)}${noDic ? ' · no dicionário' : ''}</small>
         <small class="lga-ve">${esc(e.veSe)}</small>
       </a>
+      ${botaoPlay}
     </div>`;
   }).join('');
 }
@@ -1230,6 +1310,20 @@ function ligarDicionario() {
   const gradeL = $('#grade-lga'), buscaL = $('#busca-lga');
   if (buscaL && gradeL) {
     buscaL.addEventListener('input', () => { LGA_PESQUISA = buscaL.value; gradeL.innerHTML = cartoesLga(); });
+  }
+  if (gradeL) {
+    gradeL.addEventListener('click', (e) => {
+      const btn = e.target.closest('.cartao-play-lga');
+      if (!btn) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const k = btn.dataset.lgaChave;
+      const pose = window.SINAIS_LGA && window.SINAIS_LGA[k];
+      const entry = window.FONTE_LGA && window.FONTE_LGA[k];
+      if (pose && pose.notacao) {
+        abrirSignerNotacao(pose.notacao, (entry && entry.palavra) || k);
+      }
+    });
   }
   const aulasL = $('#aulas-lga');
   if (aulasL && gradeL) aulasL.addEventListener('click', (e) => {

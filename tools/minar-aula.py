@@ -142,7 +142,7 @@ def baixar(id_video, slug):
 
 
 def folha_palavra(quadros, indices, saida, rotulo):
-    """Três fotogramas seguidos, recortados no tronco, com o rótulo por cima."""
+    """Fotogramas segundo a segundo (pelo menos 1 por segundo), recortados no tronco, com segundos e rótulo."""
     imagens = []
     for s in indices:
         origem = os.path.join(quadros, "q%03d.png" % (s + 1))
@@ -155,13 +155,21 @@ def folha_palavra(quadros, indices, saida, rotulo):
     if not imagens:
         return None
     cabecalho = 34
+    colunas = min(len(imagens), 6)
+    linhas = math.ceil(len(imagens) / colunas)
     altura = max(im.height for _, im in imagens)
-    folha = Image.new("RGB", (len(imagens) * LARGURA_QUADRO, altura + cabecalho), (250, 250, 246))
+    folha = Image.new("RGB", (colunas * LARGURA_QUADRO, linhas * (altura + 24) + cabecalho), (250, 250, 246))
     caneta = ImageDraw.Draw(folha)
-    caneta.text((8, 8), "%s   segundos %s" % (rotulo, ", ".join(str(s) for s, _ in imagens)),
+    caneta.text((8, 8), "%s   segundos %s (%d fotogramas)" % (rotulo, ", ".join(str(s) for s, _ in imagens), len(imagens)),
                 fill=(20, 40, 36), font=fonte(22))
-    for k, (_, im) in enumerate(imagens):
-        folha.paste(im, (k * LARGURA_QUADRO, cabecalho))
+    tag_fonte = fonte(16)
+    for k, (s, im) in enumerate(imagens):
+        col = k % colunas
+        lin = k // colunas
+        x = col * LARGURA_QUADRO
+        y = cabecalho + lin * (altura + 24)
+        folha.paste(im, (x, y + 20))
+        caneta.text((x + 8, y + 2), "%ds" % s, fill=(50, 80, 70), font=tag_fonte)
     folha.save(saida)
     return folha.size
 
@@ -172,17 +180,14 @@ def recortes(slug, ficheiro_tempo):
     tempo = json.load(open(ficheiro_tempo, encoding="utf-8"))
     feitos = []
     for palavra, (inicio, fim) in tempo.items():
-        meio = (inicio + fim) // 2
-        indices = sorted({inicio, meio, meio + 1, fim})
-        if len(indices) > 3:
-            indices = [indices[0], indices[len(indices) // 2], indices[-1]]
+        indices = list(range(inicio, fim + 1))
         saida = os.path.join(pasta, "palavra-%s.png" % palavra)
         dimensao = folha_palavra(quadros, indices, saida, palavra)
         if dimensao is None:
             aviso("sem fotogramas para " + palavra)
             continue
         feitos.append(saida)
-        aviso("%s: %s -> %s" % (palavra, indices, saida))
+        aviso("%s: %s -> %s (%s)" % (palavra, indices, saida, dimensao))
     aviso("\n%d folhas por palavra em %s" % (len(feitos), pasta))
 
 
