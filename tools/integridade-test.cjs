@@ -149,7 +149,7 @@ if (versoesHtml.length !== 1) falhas.push('index.html com mais do que uma versã
 if (versaoSW && versoesHtml[0] && versaoSW !== versoesHtml[0]) {
   falhas.push('Offline desactualizado: sw.js é ' + versaoSW + ' mas o index pede ' + versoesHtml[0] + '.');
 }
-for (const ficheiro of ['styles.css', 'dados.js', 'maos.js', 'app.js']) {
+for (const ficheiro of ['styles.css', 'referencias.js', 'dados.js', 'lga.js', 'maos.js', 'app.js']) {
   if (!new RegExp("'\\./" + ficheiro.replace('.', '\\.') + "\\?v=' \\+ VERSAO").test(sw)) {
     falhas.push('sw.js não pré-guarda ' + ficheiro + ' na chave versionada (?v= + VERSAO).');
   }
@@ -310,6 +310,87 @@ nota('comparações: ' + comparadas + ' poses vistas fotograma a fotograma contr
 const comRef = Object.keys(api.REFERENCIAS_IS).length;
 const refComPose = Object.keys(api.REFERENCIAS_IS).filter(p => api.sinalNotacao(p)).length;
 nota('referências: ' + comRef + ' palavras ligadas ao léxico IS da Sématos (' + refComPose + ' já com pose 3D)');
+
+/* ------------------------------------ 9d. o inventário das aulas de LGA */
+/* lga.js é gerado de tools/fonte/aulas-lga/*.json; se um dos dois mudar sem o
+   outro, a app passa a mostrar evidência que já não existe. */
+const lgaTexto = ler('lga.js');
+const ctxLga = { console };
+ctxLga.window = ctxLga;
+vm.createContext(ctxLga);
+vm.runInContext(lgaTexto + '\n;globalThis.__lga = { FONTE_LGA, LGA_META };', ctxLga);
+const lga = ctxLga.__lga;
+if (!lga) falhas.push('lga.js não expõe FONTE_LGA/LGA_META.');
+
+const NUM_LGA = { 1: 'um', 2: 'dois', 3: 'três', 4: 'quatro', 5: 'cinco', 6: 'seis', 7: 'sete',
+  8: 'oito', 9: 'nove', 10: 'dez', 11: 'onze', 12: 'doze', 13: 'treze', 14: 'catorze', 15: 'quinze',
+  16: 'dezasseis', 17: 'dezassete', 18: 'dezoito', 19: 'dezanove', 20: 'vinte', 30: 'trinta',
+  40: 'quarenta', 50: 'cinquenta', 60: 'sessenta', 70: 'setenta', 80: 'oitenta', 90: 'noventa' };
+const chaveLga = (s) => {
+  const limpo = String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim()
+    .replace(/[?!.:;()"]/g, '').replace(/\s+/g, ' ').trim();
+  return NUM_LGA[String(s).trim()] || limpo;
+};
+
+const chavesLga = Object.keys(lga.FONTE_LGA);
+if (lga.LGA_META.entradas !== chavesLga.length) {
+  falhas.push('LGA_META.entradas (' + lga.LGA_META.entradas + ') não bate com as chaves de lga.js (' +
+    chavesLga.length + '). Correr tools/gerar-lga.py.');
+}
+const lgaMaus = [];
+for (const [k, e] of Object.entries(lga.FONTE_LGA)) {
+  if (!e.palavra || !e.aula) lgaMaus.push(k + ': sem palavra ou aula');
+  if (!/^[A-Za-z0-9_-]{6,}$/.test(e.video)) lgaMaus.push(k + ': id de vídeo inválido');
+  if (!Array.isArray(e.segundos) || !e.segundos.length || !e.segundos.every(n => Number.isInteger(n) && n >= 0)) {
+    lgaMaus.push(k + ': segundos inválidos');
+  }
+  if (!['alta', 'média', 'baixa'].includes(e.confianca)) lgaMaus.push(k + ': confiança «' + e.confianca + '»');
+  if (!e.veSe || e.veSe.length < 15) lgaMaus.push(k + ': sem descrição do que se vê');
+}
+if (lgaMaus.length) falhas.push('Entradas LGA inválidas:\n    - ' + lgaMaus.join('\n    - '));
+
+const pastaAulas = path.join(__dirname, 'fonte', 'aulas-lga');
+const fonteLga = [];
+let saltadasLga = 0;
+for (const f of fs.readdirSync(pastaAulas).filter(x => x.endsWith('.json'))) {
+  const d = JSON.parse(fs.readFileSync(path.join(pastaAulas, f), 'utf8'));
+  for (const p of d.palavras || []) {
+    if (String(p.palavra).startsWith('[')) { saltadasLga++; continue; }
+    fonteLga.push({ chave: chaveLga(p.palavra), aula: d.aula, veSe: p['ve-se'] || '' });
+  }
+}
+if (!fonteLga.length) falhas.push('tools/fonte/aulas-lga/ não tem palavras — a aba LGA ficaria vazia.');
+const semChave = [...new Set(fonteLga.map(p => p.chave))].filter(k => !lga.FONTE_LGA[k]);
+if (semChave.length) {
+  falhas.push('lga.js não tem palavras que os JSON das aulas têm (correr tools/gerar-lga.py): ' +
+    semChave.slice(0, 12).join(', '));
+}
+const inventadas = chavesLga.filter(k => !fonteLga.some(p => p.chave === k));
+if (inventadas.length) {
+  falhas.push('lga.js tem palavras que não estão em nenhuma aula: ' + inventadas.join(', '));
+}
+const desactualizadas = [];
+for (const [k, e] of Object.entries(lga.FONTE_LGA)) {
+  const daChave = fonteLga.filter(p => p.chave === k);
+  if (daChave.length && !daChave.some(p => p.veSe === e.veSe)) desactualizadas.push(k);
+}
+if (desactualizadas.length) {
+  falhas.push('lga.js desactualizado (a descrição já não está nas aulas): ' + desactualizadas.slice(0, 8).join(', ') +
+    ' — correr tools/gerar-lga.py.');
+}
+const chavesGlossario = new Set();
+for (const g of api.GLOSSARIO) for (const t of g.termos) chavesGlossario.add(chaveLga(t.palavra));
+const lgaNaApp = chavesLga.filter(k => chavesGlossario.has(k));
+nota('LGA: ' + chavesLga.length + ' palavras de ' + lga.LGA_META.aulas + ' aulas do ' + lga.LGA_META.nome +
+  ' (' + lgaNaApp.length + ' já no dicionário, ' + saltadasLga + ' entrada de fecho saltada)');
+
+/* as duas fontes ficam em abas separadas: o cartão IS não pode mostrar LGA */
+const fCartoes = (app.match(/function cartoes\(\) \{[\s\S]*?\n\}/) || [''])[0];
+if (/LGA/.test(fCartoes)) falhas.push('A aba International Sign passou a mostrar conteúdo LGA — as fontes têm de ficar separadas.');
+if (!/fonte === 'lga'/.test(app)) falhas.push('O dicionário perdeu a aba LGA (#/dicionario?fonte=lga).');
+if (!/LGA_LISTA\.length/.test(app)) falhas.push('O título da aba LGA deixou de contar a partir dos dados.');
+if (!/cartao-lga/.test(app)) falhas.push('Os cartões da LGA desapareceram.');
+if (!/<script src="lga\.js\?v=/.test(html)) falhas.push('O index.html não carrega lga.js.');
 
 /* o glosador tem de continuar a ordenar como promete a nota do site */
 for (const frase of ['Amanhã eu vou à escola.', 'Eu não quero água.']) {

@@ -6,7 +6,8 @@ procurar palavras num dicionário de sinais. Duas funções, duas páginas:
 | Rota | Função |
 | --- | --- |
 | `#/` | Colar texto, legendas (`.srt`/`.vtt`) ou um PDF e ver a glosa em sinais animados |
-| `#/dicionario` | Procurar uma palavra por tema e ver a forma da mão |
+| `#/dicionario` | Procurar uma palavra por tema e ver a forma da mão (aba International Sign) |
+| `#/dicionario?fonte=lga` | Inventário de estudo da LGA: 246 palavras das aulas em vídeo do Viva surdo, com minuto, confiança e link |
 
 Não é tradução automática. A glosa é uma **sequência de estudo**: artigos e
 preposições caem, o tempo vai à frente, o «não» vai ao fim. A ordem, o espaço de
@@ -27,10 +28,11 @@ acabados de editar). Para o testar: `http://127.0.0.1:8123/?sw=1`.
 
 ```
 app/
-  index.html            página única, carrega referências → dados → mãos → 3D → app
+  index.html            página única, carrega referências → dados → LGA → mãos → 3D → app
   styles.css            tokens, temas claro/escuro/alto contraste, telemóvel
   referencias.js        GERADO: o que o léxico International Sign documenta
   dados.js              glossário (19 temas, 298 palavras) + glosador
+  lga.js                GERADO: 246 palavras das aulas de LGA do Viva surdo
   maos.js               rig das mãos em SVG + notação dos sinais (191 sinais)
   avatar.js             sinalizadora 3D (three.js + GLB), câmara, poses
   sinal3d.js            notação → poses de ossos (âncoras em metros na malha)
@@ -209,7 +211,14 @@ A roupa é recolorida em tempo de execução por banda de matiz — o verde pass
 teal e a ganga azul a carvão, mantendo costuras e vincos da textura — e o busto
 fica mais apertado (folga 1.10 em vez de 1.18). O Pages foi republicado em vs117
 (commit `b18192e` da branch `gh-pages`) e o Vercel em
-<https://vivasurdo.vercel.app> serve a mesma versão. O
+<https://vivasurdo.vercel.app> serve a mesma versão. Em **vs118** o dicionário
+ganha duas abas de fonte: *International Sign* (a lista de sempre) e *LGA · Viva
+surdo*, gerada a partir de `tools/fonte/aulas-lga/*.json` por
+`python tools/gerar-lga.py` para `app/lga.js` — 246 palavras de 12 aulas em
+vídeo, cada cartão com aula, segundo, confiança e descrição, e um link direto
+para o momento da aula no YouTube. 80 destas palavras já existem no glossário;
+as restantes são inventário de estudo. As entradas de confiança baixa (12, do
+Diálogo 01) estão marcadas para revisão humana. O
 repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
 continua na versão anterior (18 rotas): a conta de publicação só tem leitura no
 repositório original, por isso as versões novas saem pelo fork. O slug com dois
@@ -219,7 +228,7 @@ Para publicar no Pages: copiar `app/` para a branch `gh-pages` **sem apagar o
 `.nojekyll`** que só existe nessa branch (um `rsync --delete` da pasta `app/`
 remove-o e o Jekyll volta a tentar processar os ficheiros), mudar `const VERSAO`
 em `app/sw.js` **e** todos os `?v=` em `app/index.html` para o mesmo valor
-(o local está em vs117: 9 ocorrências em `index.html`), correr
+(o local está em vs118: 10 ocorrências em `index.html`), correr
 `node tools/integridade-test.cjs` e `node tools/engine-test.cjs` e enviar a
 `gh-pages`. A Pages do fork pode precisar de um build manual
 (`POST /repos/Rafael-bulezi/pamosii-viva-surdo/pages/builds`).
@@ -245,3 +254,9 @@ rede — o `put` fica num try próprio e a resposta segue.
   apresenta sinais isolados e não frases assinadas: montar frases exigiria
   gramática IS validada, e não gestos inventados.
 - A soletração usa uma forma por letra e não distingue variantes regionais.
+- A aba LGA é um **inventário de estudo** das aulas do Viva surdo, não um
+  dicionário validado: cada cartão diz a aula, o segundo e a confiança da
+  leitura (alta/média/baixa); as 12 entradas de confiança baixa vêm do Diálogo
+  01, cuja sinalização aparece numa janela pequena que as folhas de contacto
+  não mostram — ficam para revisão humana. As descrições são leituras nossas
+  dos fotogramas e não substituem a validação por sinalizadores surdos.

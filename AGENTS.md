@@ -7,8 +7,13 @@ de mexer em seja o que for.
 
 SPA em JavaScript puro, sem build e sem `npm install`: `app/index.html` carrega
 scripts clássicos (`app.js`, `avatar.js`, `sinal3d.js`, `maos.js`, `dados.js`,
-`referencias.js`) e um three.js **r147** em `app/vendor/`. O apresentador 3D é
+`referencias.js`, `lga.js`) e um three.js **r147** em `app/vendor/`. O apresentador 3D é
 `app/assets/agatha-mpfb-rig.glb` (13,8 MB, 55 ossos com nomes VRM) — nunca apagar.
+
+`app/lga.js` é **gerado**: `python tools/gerar-lga.py` lê
+`tools/fonte/aulas-lga/*.json` (inventário minerado das aulas do Viva surdo) e
+escreve o ficheiro. Não editar à mão; o `integridade-test.cjs` compara os dois e
+chumba se divergirem.
 
 ## Comandos
 
@@ -18,7 +23,7 @@ node tools/engine-test.cjs        # 10 frases glosadas
 node tools/serve.cjs              # http://localhost:8123
 ```
 
-Publicar: mudar `const VERSAO` em `app/sw.js` **e** os 9 `?v=` em `app/index.html`
+Publicar: mudar `const VERSAO` em `app/sw.js` **e** os 10 `?v=` em `app/index.html`
 para o mesmo valor, correr os dois testes, depois `README.md` → secção
 Publicação. O service worker não guarda o GLB.
 
@@ -61,5 +66,7 @@ Publicação. O service worker não guarda o GLB.
 `README.md` (o que é a app e como se publica) e
 `tools/fonte/qc-personagem-2026-11-03.md` (medidas do pulso, do personagem, do
 palco vs117 e estado dos 191 sinais). `tools/fonte/avatares-candidatos-2026-11-04.md`
-é a lista de modelos 3D alternativos com preços e prova de ossos. Se mudares um
-número, um caminho ou uma versão, actualiza estes ficheiros todos.
+é a lista de modelos 3D alternativos com preços e prova de ossos.
+`tools/fonte/verificacao-aulas-lga-2026-11-06.md` é a verificação por artefactos
+do inventário LGA. Se mudares um número, um caminho ou uma versão, actualiza
+estes ficheiros todos.

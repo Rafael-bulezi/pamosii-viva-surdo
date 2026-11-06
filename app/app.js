@@ -1011,9 +1011,23 @@ function ligarSinalizar(params) {
 
 /* ---------------- vista: dicionário ---------------- */
 let PESQUISA = '', TEMA = '', ESTADO = '';
+let LGA_PESQUISA = '', LGA_AULA = '', LGA_CONF = '';
 
 const REFS = (typeof REFERENCIAS_IS !== 'undefined') ? REFERENCIAS_IS : {};
 const FONTE_IS = (typeof IS_FONTE !== 'undefined') ? IS_FONTE : { nome: 'Sématos', total: 0, colhido: '' };
+
+/* A LGA tem a sua própria aba: o que as aulas do Viva surdo mostram não se
+   mistura com o léxico International Sign da Sématos — são línguas diferentes
+   e a evidência de cada uma vale o que vale. */
+const LGA = (typeof FONTE_LGA !== 'undefined') ? FONTE_LGA : {};
+const META_LGA = (typeof LGA_META !== 'undefined') ? LGA_META : { nome: 'Viva surdo', aulas: 0, entradas: 0 };
+const chaveLga = (s) => norm(String(s)).replace(/[?!.:;()"]/g, '').replace(/\s+/g, ' ').trim();
+const LGA_LISTA = Object.values(LGA);
+const LGA_NO_DICIONARIO = new Set();
+GLOSSARIO.forEach(g => g.termos.forEach(t => {
+  const k = chaveLga(t.palavra);
+  if (LGA[k]) LGA_NO_DICIONARIO.add(k);
+}));
 
 function entradasDicionario() {
   const out = [];
@@ -1047,6 +1061,73 @@ const FILTROS_ESTADO = [
   ['pose', 'Com pose 3D'],
   ['sem', 'Sem referência'],
 ];
+
+/* ---------------- dicionário: aba LGA (aulas do Viva surdo) ---------------- */
+const LGA_CONFIANCAS = [['', 'Tudo'], ['alta', 'Confiança alta'], ['média', 'Média'], ['baixa', 'Baixa']];
+
+function abasFonte(fonte) {
+  const aba = (consulta, rotulo, on) => `<a class="aba-fonte${on ? ' on' : ''}" href="#/dicionario${consulta}"${on ? ' aria-current="page"' : ''}>${rotulo}</a>`;
+  return `<nav class="abas-fonte" aria-label="Fonte do dicionário">
+    ${aba('', 'International Sign', fonte === 'is')}
+    ${aba('?fonte=lga', 'LGA · ' + esc(META_LGA.nome), fonte === 'lga')}
+  </nav>`;
+}
+
+/* O abecedário abre a Aula 00 mas enterra o vocabulário: no dicionário fica no fim. */
+const ehLetraLga = (e) => /^letra-/.test(e.palavra);
+const LGA_ORDEM = LGA_LISTA.filter(e => !ehLetraLga(e)).concat(LGA_LISTA.filter(ehLetraLga));
+
+function cartoesLga() {
+  const q = norm(LGA_PESQUISA);
+  const lista = LGA_ORDEM.filter(e => {
+    if (LGA_AULA && e.aula !== LGA_AULA) return false;
+    if (LGA_CONF && e.confianca !== LGA_CONF) return false;
+    return !q || norm(e.palavra).includes(q) || norm(e.veSe).includes(q);
+  });
+  if (!lista.length) return '<p class="vazio">Nada encontrado.</p>';
+  return lista.map(e => {
+    const seg = (e.segundos && e.segundos.length) ? e.segundos[0] : 0;
+    const tempo = Math.floor(seg / 60) + ':' + String(seg % 60).padStart(2, '0');
+    const url = 'https://www.youtube.com/watch?v=' + encodeURIComponent(e.video) + '&t=' + seg + 's';
+    const noDic = LGA_NO_DICIONARIO.has(e.chave);
+    return `
+    <div class="cartao-item">
+      <a class="cartao cartao-ref cartao-lga" data-conf="${esc(e.confianca)}" href="${url}"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="${esc(e.palavra)} — ${esc(e.aula)}, ${tempo}, confiança ${esc(e.confianca)}. Abre a aula no YouTube.">
+        <span class="fig"><span class="ref-marca">LGA</span></span>
+        <b>${esc(e.palavra)}</b>
+        <small>${esc(e.aula.replace(/ —.*$/, ''))} · ${tempo} · ${esc(e.confianca)}${noDic ? ' · no dicionário' : ''}</small>
+        <small class="lga-ve">${esc(e.veSe)}</small>
+      </a>
+    </div>`;
+  }).join('');
+}
+
+function vistaDicionarioLga() {
+  const aulas = [...new Set(LGA_LISTA.map(e => e.aula))];
+  const conta = (c) => LGA_LISTA.filter(e => e.confianca === c).length;
+  const chipsAula = ['', ...aulas].map(a =>
+    `<button type="button" class="chip${a === LGA_AULA ? ' on' : ''}" data-aula="${esc(a)}">${esc(a.replace(/ —.*$/, '') || 'Tudo')}</button>`).join('');
+  const chipsConf = LGA_CONFIANCAS.map(([v, r]) =>
+    `<button type="button" class="chip chip-estado${LGA_CONF === v ? ' on' : ''}" data-conf="${v}">${r}</button>`).join('');
+  return `
+  <section class="entrada">
+    <p class="kicker">Dicionário · LGA</p>
+    <h1>${LGA_LISTA.length} palavras nas aulas de LGA do ${esc(META_LGA.nome)}.</h1>
+    <p class="sub">${META_LGA.aulas} aulas do Mini curso de LGA, lidas fotograma a fotograma a 540×360 no YouTube. ${LGA_NO_DICIONARIO.size} destas palavras já estão no dicionário; as restantes são o inventário das aulas. Confiança: ${conta('alta')} alta, ${conta('média')} média, ${conta('baixa')} baixa — as de confiança baixa estão marcadas para revisão humana.</p>
+  </section>
+  <section class="painel busca">
+    <label class="campo">
+      <span class="rotulo">Procurar na LGA</span>
+      <input id="busca-lga" type="search" value="${esc(LGA_PESQUISA)}" placeholder="Procurar palavra…" autocomplete="off">
+    </label>
+    <div class="chips" id="aulas-lga">${chipsAula}</div>
+    <div class="chips" id="conf-lga">${chipsConf}</div>
+  </section>
+  <section class="grade" id="grade-lga" aria-live="polite">${cartoesLga()}</section>
+  <p class="rodape-nota">Cada cartão abre a aula no segundo em que a palavra é sinalizada. As descrições são leitura de fotogramas do canal Viva surdo e não substituem um sinalizador surdo: nenhuma foi validada pela comunidade.</p>`;
+}
 
 function cartoes() {
   const q = norm(PESQUISA);
@@ -1095,10 +1176,12 @@ function cartoes() {
   }).join('');
 }
 
-function vistaDicionario() {
+function vistaDicionario(params) {
+  const fonte = (params && params.fonte === 'lga') ? 'lga' : 'is';
+  if (fonte === 'lga') return abasFonte(fonte) + vistaDicionarioLga();
   const chips = ['', ...TEMAS].map(t => `<button type="button" class="chip${t === TEMA ? ' on' : ''}" data-tema="${esc(t)}">${t || 'Tudo'}</button>`).join('');
   const estados = FILTROS_ESTADO.map(([v, r]) => `<button type="button" class="chip chip-estado${ESTADO === v ? ' on' : ''}" data-estado="${v}">${r}</button>`).join('');
-  return `
+  return abasFonte(fonte) + `
   <section class="entrada">
     <p class="kicker">Dicionário</p>
     <h1>${CONTAS.ref} palavras com sinal documentado em International Sign.</h1>
@@ -1118,26 +1201,51 @@ function vistaDicionario() {
 
 function ligarDicionario() {
   const grade = $('#grade'), busca = $('#busca');
-  busca.addEventListener('input', () => { PESQUISA = busca.value; grade.innerHTML = cartoes(); });
-  grade.addEventListener('click', (e) => {
-    const c = e.target.closest('[data-palavra]');
-    if (!c || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-    e.preventDefault();
-    abrirSigner(c.dataset.palavra);
-  });
-  $('#temas').addEventListener('click', (e) => {
+  if (busca && grade) {
+    busca.addEventListener('input', () => { PESQUISA = busca.value; grade.innerHTML = cartoes(); });
+    grade.addEventListener('click', (e) => {
+      const c = e.target.closest('[data-palavra]');
+      if (!c || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      abrirSigner(c.dataset.palavra);
+    });
+  }
+  const temas = $('#temas');
+  if (temas) temas.addEventListener('click', (e) => {
     const b = e.target.closest('[data-tema]');
     if (!b) return;
     TEMA = b.dataset.tema;
-    $$('.chip', $('#temas')).forEach(c => c.classList.toggle('on', c === b));
+    $$('.chip', temas).forEach(c => c.classList.toggle('on', c === b));
     grade.innerHTML = cartoes();
   });
-  $('#estados').addEventListener('click', (e) => {
+  const estados = $('#estados');
+  if (estados) estados.addEventListener('click', (e) => {
     const b = e.target.closest('[data-estado]');
     if (!b) return;
     ESTADO = b.dataset.estado;
-    $$('.chip', $('#estados')).forEach(c => c.classList.toggle('on', c === b));
+    $$('.chip', estados).forEach(c => c.classList.toggle('on', c === b));
     grade.innerHTML = cartoes();
+  });
+
+  const gradeL = $('#grade-lga'), buscaL = $('#busca-lga');
+  if (buscaL && gradeL) {
+    buscaL.addEventListener('input', () => { LGA_PESQUISA = buscaL.value; gradeL.innerHTML = cartoesLga(); });
+  }
+  const aulasL = $('#aulas-lga');
+  if (aulasL && gradeL) aulasL.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-aula]');
+    if (!b) return;
+    LGA_AULA = b.dataset.aula;
+    $$('.chip', aulasL).forEach(c => c.classList.toggle('on', c === b));
+    gradeL.innerHTML = cartoesLga();
+  });
+  const confL = $('#conf-lga');
+  if (confL && gradeL) confL.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-conf]');
+    if (!b) return;
+    LGA_CONF = b.dataset.conf;
+    $$('.chip', confL).forEach(c => c.classList.toggle('on', c === b));
+    gradeL.innerHTML = cartoesLga();
   });
 }
 
@@ -1153,7 +1261,7 @@ function render() {
   pausar();
   esconderSelecao();
   fecharSigner(true);
-  app.innerHTML = shell(view(), ativo);
+  app.innerHTML = shell(view(m ? m.params : {}), ativo);
   const live = document.getElementById('route-live');
   if (live) live.textContent = ativo === '/dicionario' ? 'Dicionário' : 'Sinalizar';
   if (ativo === '/dicionario') {
