@@ -1,0 +1,227 @@
+{
+  "aula": "Aula 12 — Casa (2ª parte)",
+  "video": "https://www.youtube.com/watch?v=7MNX--Xh0V8",
+  "fonte": "Viva surdo (canal oficial)",
+  "palavras": [
+    {
+      "palavra": "escadas",
+      "segundos": [2, 4],
+      "folha": ".mine/casa-2/palavra-escadas.png",
+      "ve-se": "mão direita com dedos indicador e médio invertidos para baixo (pernas) a subir no ar em movimentos curtos de degrau em degrau",
+      "forma-da-mao": "dois dedos estendidos para baixo ('V' invertido)",
+      "lugar": "espaço neutro à frente do peito",
+      "movimento": "subida em saltos/degraus sucessivos",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "elevador",
+      "segundos": [10, 12],
+      "folha": ".mine/casa-2/palavra-elevador.png",
+      "ve-se": "mão esquerda aberta na horizontal palma para cima (base); dedos indicador e médio da mão direita pousam na palma e ambas sobem juntas verticalmente",
+      "forma-da-mao": "esquerda aberta palma para cima; direita com dois dedos verticais sobre a base",
+      "lugar": "à frente do peito e sobe até à altura do queixo",
+      "movimento": "ascendente vertical contínuo das duas mãos em bloco",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "bacia",
+      "segundos": [17, 19],
+      "folha": ".mine/casa-2/palavra-bacia.png",
+      "ve-se": "ambas as mãos com dedos curvados desenham o contorno circular largo de uma bacia à frente do abdómen",
+      "forma-da-mao": "mãos curvadas / em concha",
+      "lugar": "à frente do abdómen",
+      "movimento": "circular simétrico de abertura definindo o rebordo circular",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "balde",
+      "segundos": [26, 28],
+      "folha": ".mine/casa-2/palavra-balde.png",
+      "ve-se": "mãos desenham contorno cilíndrico profundo e simulam segurar a pega/alça de um balde",
+      "forma-da-mao": "mãos curvadas / punhos a segurar asa",
+      "lugar": "à frente do abdómen",
+      "movimento": "delimitação vertical cilíndrica e pega",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "árvore",
+      "segundos": [33, 35],
+      "folha": ".mine/casa-2/palavra-arvore.png",
+      "ve-se": "antebraço direito erguido na vertical (tronco) com mão aberta e dedos afastados a oscilar levemente (copa da árvore); cotovelo apoiado pela mão esquerda",
+      "forma-da-mao": "direita aberta dedos bem afastados; esquerda apoia cotovelo",
+      "lugar": "à frente do ombro direito",
+      "movimento": "ligeira oscilação dos dedos da copa",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "beco",
+      "segundos": [43, 45],
+      "folha": ".mine/casa-2/palavra-beco.png",
+      "ve-se": "ambas as palmas abertas e paralelas viradas uma para a outra à frente do peito definindo uma passagem muito estreita (beco)",
+      "forma-da-mao": "ambas as mãos abertas verticais paralelas",
+      "lugar": "à frente do peito",
+      "movimento": "manter palmas paralelas a curta distância com ligeiro avanço frontal",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "arca",
+      "segundos": [50, 52],
+      "folha": ".mine/casa-2/palavra-arca.png",
+      "ve-se": "ambas as mãos em punho cerrado à frente do tronco puxam para cima como se abrissem a tampa pesada de uma arca horizontal",
+      "forma-da-mao": "ambos os punhos fechados virados para baixo",
+      "lugar": "à frente do peito / tronco",
+      "movimento": "ascendente com abertura da tampa",
+      "confianca": "alta",
+      "duvida": "arca congeladora / arca de guardar"
+    },
+    {
+      "palavra": "mesa",
+      "segundos": [59, 61],
+      "folha": ".mine/casa-2/palavra-mesa.png",
+      "ve-se": "ambas as mãos abertas com palmas para baixo partem do centro e deslizam lateralmente desenhando o tampo plano de uma mesa",
+      "forma-da-mao": "ambas as mãos abertas horizontais palma para baixo",
+      "lugar": "à frente do peito",
+      "movimento": "afastamento lateral horizontal plano",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "chave",
+      "segundos": [66, 68],
+      "folha": ".mine/casa-2/palavra-chave.png",
+      "ve-se": "mão direita em pinça com indicador dobrado e polegar faz movimento rotativo no ar simulando rodar a chave na fechadura",
+      "forma-da-mao": "pinça de chave (indicador fletido contra polegar)",
+      "lugar": "à frente do peito",
+      "movimento": "rotação do punho (girar chave)",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "carregador",
+      "segundos": [76, 78],
+      "folha": ".mine/casa-2/palavra-carregador.png",
+      "ve-se": "antebraço esquerdo erguido na diagonal; mão direita com indicador ou dois dedos estendidos toca na base/pulso esquerdo imitando ligar uma ficha à tomada",
+      "forma-da-mao": "esquerda inclinada com palma aberta; direita com indicador/dois dedos em pino de ficha",
+      "lugar": "à frente do peito",
+      "movimento": "inserção frontal de ficha na tomada",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "cama",
+      "segundos": [81, 83],
+      "folha": ".mine/casa-2/palavra-cama.png",
+      "ve-se": "ambas as mãos abertas com dedos virados para a frente definem a forma e os lados de uma cama",
+      "forma-da-mao": "mãos abertas com dedos estendidos para a frente",
+      "lugar": "à frente do tronco",
+      "movimento": "delimitação retangular para a frente",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "trancar",
+      "segundos": [86, 88],
+      "folha": ".mine/casa-2/palavra-trancar.png",
+      "ve-se": "ambas as mãos em punho viradas para baixo realizam um movimento firme para fora e rotação (fechar ferrolho/trinco)",
+      "forma-da-mao": "ambos os punhos fechados",
+      "lugar": "à frente do peito",
+      "movimento": "rotação e afastamento firme de fecho",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "fora",
+      "segundos": [93, 95],
+      "folha": ".mine/casa-2/palavra-fora.png",
+      "ve-se": "mão esquerda semicerrada forma limite; mão direita sai do interior da mão esquerda e projeta-se abertamente para fora",
+      "forma-da-mao": "esquerda em arco/limite; direita aberta projetando-se para o exterior",
+      "lugar": "à frente do peito",
+      "movimento": "saída rápida de dentro para fora",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "dentro",
+      "segundos": [102, 104],
+      "folha": ".mine/casa-2/palavra-dentro.png",
+      "ve-se": "mão esquerda forma uma concha/recipiente cilíndrico; mão direita entra com os dedos juntos para o seu interior",
+      "forma-da-mao": "esquerda em concha/anel; direita com dedos unidos em cúspide",
+      "lugar": "à frente do peito",
+      "movimento": "inserção da mão direita dentro do espaço da mão esquerda",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "longe",
+      "segundos": [111, 113],
+      "folha": ".mine/casa-2/palavra-longe.png",
+      "ve-se": "mão esquerda em 'Y' ou indicador junto ao queixo enquanto o braço direito estende-se longamente para a frente e cima na diagonal",
+      "forma-da-mao": "mão direita estendida com polegar e indicador em 'Y' apontando à distância",
+      "lugar": "da face para a diagonal superior distante",
+      "movimento": "alongamento pronunciado para a distância",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "perto",
+      "segundos": [121, 123],
+      "folha": ".mine/casa-2/palavra-perto.png",
+      "ve-se": "mão direita em punho com polegar estendido aponta ligeiramente para si no espaço próximo à frente do peito",
+      "forma-da-mao": "punho com polegar estendido",
+      "lugar": "espaço próximo em frente ao peito",
+      "movimento": "pequeno toque ou indicação próxima",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "esquerda",
+      "segundos": [126, 128],
+      "folha": ".mine/casa-2/palavra-esquerda.png",
+      "ve-se": "mãos abertas paralelas deslocam-se claramente orientadas para o lado esquerdo do corpo",
+      "forma-da-mao": "mãos abertas com dedos juntos verticais",
+      "lugar": "à frente e deslocam-se para o lado esquerdo",
+      "movimento": "direcional nítido para a esquerda",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "direita",
+      "segundos": [135, 137],
+      "folha": ".mine/casa-2/palavra-direita.png",
+      "ve-se": "mão direita aberta com palma lateral desloca-se com gesto nítido para o lado direito do corpo",
+      "forma-da-mao": "mão aberta, dedos estendidos",
+      "lugar": "lado direito do corpo",
+      "movimento": "direcional nítido para a direita",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "em cima",
+      "segundos": [140, 142],
+      "folha": ".mine/casa-2/palavra-em-cima.png",
+      "ve-se": "mão esquerda horizontal palma para baixo serve de plano de referência; mão direita sobe para um plano horizontal superior bem destacado",
+      "forma-da-mao": "ambas as mãos abertas horizontais palma para baixo",
+      "lugar": "mão direita acima da cabeça, esquerda no peito",
+      "movimento": "elevação da mão direita acima do plano de referência",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "em baixo",
+      "segundos": [151, 153],
+      "folha": ".mine/casa-2/palavra-em-baixo.png",
+      "ve-se": "mão esquerda horizontal palma para baixo serve de plano de referência; mão direita posiciona-se por baixo da mão esquerda",
+      "forma-da-mao": "ambas as mãos abertas horizontais",
+      "lugar": "mão direita sob a mão esquerda à altura do abdómen",
+      "movimento": "descendente da mão direita situando-se abaixo do plano",
+      "confianca": "alta",
+      "duvida": ""
+    }
+  ]
+}

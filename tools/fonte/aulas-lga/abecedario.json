@@ -1,0 +1,282 @@
+{
+  "aula": "Aula 00 — Abecedário em LGA",
+  "video": "https://www.youtube.com/watch?v=xBhXm0ubMS0",
+  "fonte": "Viva surdo (canal oficial)",
+  "palavras": [
+    {
+      "palavra": "letra-a",
+      "segundos": [3, 18],
+      "folha": ".mine/abecedario/palavra-letra-a.png",
+      "ve-se": "mão direita erguida à frente do ombro com dedos fletidos e polegar apoiado lateralmente",
+      "forma-da-mao": "punho semi-fechado com polegar estendido lateralmente (ou indicador em gancho inicial)",
+      "lugar": "espaço neutro à frente do ombro",
+      "movimento": "estático com ligeiro ajuste de orientação",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "letra-b",
+      "segundos": [20, 24],
+      "folha": ".mine/abecedario/palavra-letra-b.png",
+      "ve-se": "mão direita em punho fechado com o polegar estendido na vertical apontando para cima ('thumbs up')",
+      "forma-da-mao": "punho fechado, polegar erguido",
+      "lugar": "espaço neutro à frente do tronco",
+      "movimento": "estático",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "letra-c",
+      "segundos": [27, 30],
+      "folha": ".mine/abecedario/palavra-letra-c.png",
+      "ve-se": "mão direita arqueada com dedos unidos formando a letra 'C'",
+      "forma-da-mao": "configuração em 'C'",
+      "lugar": "espaço neutro à frente do ombro",
+      "movimento": "estático",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "letra-d",
+      "segundos": [31, 35],
+      "folha": ".mine/abecedario/palavra-letra-d.png",
+      "ve-se": "mão direita espalmada com palma virada para o peito pousada na diagonal",
+      "forma-da-mao": "palma aberta com dedos unidos",
+      "lugar": "peito / esterno diagonal",
+      "movimento": "apoio estático no peito",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "letra-e",
+      "segundos": [36, 46],
+      "folha": ".mine/abecedario/palavra-letra-e.png",
+      "ve-se": "mão direita fechada em punho com o dedo indicador dobrado em gancho vertical",
+      "forma-da-mao": "punho com indicador em gancho",
+      "lugar": "espaço neutro à frente do ombro",
+      "movimento": "estático",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "letra-f",
+      "segundos": [48, 62],
+      "folha": ".mine/abecedario/palavra-letra-f.png",
+      "ve-se": "mão direita com polegar e indicador unidos pelas pontas em círculo e os outros três dedos estendidos para cima ('F' internacional)",
+      "forma-da-mao": "círculo polegar-indicador, médio/anelar/mínimo estendidos",
+      "lugar": "espaço neutro à frente do ombro",
+      "movimento": "estático",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "letra-h",
+      "segundos": [65, 75],
+      "folha": ".mine/abecedario/palavra-letra-h.png",
+      "ve-se": "mão direita com dedos indicador e médio estendidos para cima unidos e polegar perpendicular aberto a 90 graus (letra 'G' foi omitida nesta aula de vídeo)",
+      "forma-da-mao": "indicador e médio verticais unidos, polegar aberto em esquadro",
+      "lugar": "espaço neutro à frente do ombro",
+      "movimento": "estático",
+      "confianca": "alta",
+      "duvida": "A letra 'G' foi saltada na montagem do vídeo da aula original pelo canal Viva Surdo."
+    },
+    {
+      "palavra": "letra-i",
+      "segundos": [77, 78],
+      "folha": ".mine/abecedario/palavra-letra-i.png",
+      "ve-se": "mão direita fechada em punho com o dedo mínimo (auricular) estendido verticalmente para cima",
+      "forma-da-mao": "dedo mindinho vertical erguido",
+      "lugar": "espaço neutro à frente do tronco",
+      "movimento": "estático",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "letra-j",
+      "segundos": [79, 90],
+      "folha": ".mine/abecedario/palavra-letra-j.png",
+      "ve-se": "mão direita espalmada virada para a frente, com os quatro dedos estendidos juntos e polegar encostado",
+      "forma-da-mao": "mão espalmada aberta (palma para a frente)",
+      "lugar": "espaço neutro à frente do ombro",
+      "movimento": "estático",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "letra-k",
+      "segundos": [91, 103],
+      "folha": ".mine/abecedario/palavra-letra-k.png",
+      "ve-se": "dedos indicador e médio estendidos em 'V' com o polegar posicionado entre eles apoiado no dedo médio ('K' internacional)",
+      "forma-da-mao": "configuração em 'K'",
+      "lugar": "espaço neutro à frente do tronco",
+      "movimento": "estático",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "letra-l",
+      "segundos": [105, 115],
+      "folha": ".mine/abecedario/palavra-letra-l.png",
+      "ve-se": "mão direita em formato de 'L', com indicador vertical erguido e polegar estendido lateralmente em ângulo reto",
+      "forma-da-mao": "configuração em 'L'",
+      "lugar": "espaço neutro à frente do ombro",
+      "movimento": "estático",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "letra-m",
+      "segundos": [116, 121],
+      "folha": ".mine/abecedario/palavra-letra-m.png",
+      "ve-se": "três dedos (indicador, médio, anelar) apontados para baixo em arco sobre o polegar escondido",
+      "forma-da-mao": "três dedos voltados para baixo ('M' datilológico)",
+      "lugar": "à frente do peito",
+      "movimento": "estático",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "letra-n",
+      "segundos": [122, 126],
+      "folha": ".mine/abecedario/palavra-letra-n.png",
+      "ve-se": "dois dedos (indicador e médio) apontados para baixo em arco com anelar e auricular recolhidos",
+      "forma-da-mao": "dois dedos voltados para baixo ('N' datilológico)",
+      "lugar": "à frente do peito",
+      "movimento": "estático",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "letra-o",
+      "segundos": [127, 131],
+      "folha": ".mine/abecedario/palavra-letra-o.png",
+      "ve-se": "dedos curvados tocando o polegar pela ponta formando um círculo fechado em 'O'",
+      "forma-da-mao": "círculo fechado em 'O'",
+      "lugar": "espaço neutro à frente do tronco",
+      "movimento": "estático",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "letra-p",
+      "segundos": [134, 145],
+      "folha": ".mine/abecedario/palavra-letra-p.png",
+      "ve-se": "mão em punho com polegar virado para baixo ou mão em pinça invertida apontando para o chão",
+      "forma-da-mao": "polegar orientado para baixo / pinça invertida",
+      "lugar": "à frente do tronco inferior",
+      "movimento": "estático",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "letra-q",
+      "segundos": [146, 153],
+      "folha": ".mine/abecedario/palavra-letra-q.png",
+      "ve-se": "mão direita em punho fechado com o polegar estendido apontando diretamente para baixo ('thumbs down')",
+      "forma-da-mao": "punho fechado, polegar para baixo",
+      "lugar": "espaço neutro à frente do peito",
+      "movimento": "estático",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "letra-r",
+      "segundos": [156, 168],
+      "folha": ".mine/abecedario/palavra-letra-r.png",
+      "ve-se": "dedos indicador e médio estendidos para cima cruzados um sobre o outro ('R' internacional)",
+      "forma-da-mao": "dedos cruzados (indicador sobre médio)",
+      "lugar": "espaço neutro à frente do ombro",
+      "movimento": "estático",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "letra-s",
+      "segundos": [171, 181],
+      "folha": ".mine/abecedario/palavra-letra-s.png",
+      "ve-se": "punho fechado com o polegar sobreposto à frente dos dedos fletidos",
+      "forma-da-mao": "punho fechado com polegar à frente",
+      "lugar": "espaço neutro à frente do ombro",
+      "movimento": "estático",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "letra-t",
+      "segundos": [183, 192],
+      "folha": ".mine/abecedario/palavra-letra-t.png",
+      "ve-se": "indicador erguido e polegar aberto lateralmente apontando para fora",
+      "forma-da-mao": "indicador vertical com polegar aberto perpendicular",
+      "lugar": "espaço neutro à frente do ombro",
+      "movimento": "estático",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "letra-u",
+      "segundos": [194, 197],
+      "folha": ".mine/abecedario/palavra-letra-u.png",
+      "ve-se": "dedos indicador e médio estendidos para cima juntos e paralelos com os outros recolhidos",
+      "forma-da-mao": "indicador e médio unidos na vertical",
+      "lugar": "espaço neutro à frente do peito",
+      "movimento": "estático",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "letra-v",
+      "segundos": [198, 202],
+      "folha": ".mine/abecedario/palavra-letra-v.png",
+      "ve-se": "dedos indicador e médio estendidos para cima separados formando um 'V'",
+      "forma-da-mao": "configuração em 'V'",
+      "lugar": "espaço neutro à frente do tronco",
+      "movimento": "estático",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "letra-w",
+      "segundos": [204, 207],
+      "folha": ".mine/abecedario/palavra-letra-w.png",
+      "ve-se": "três dedos (indicador, médio, anelar) estendidos para cima abertos formando a letra 'W'",
+      "forma-da-mao": "configuração em 'W' / 3 dedos abertos",
+      "lugar": "espaço neutro à frente do peito",
+      "movimento": "estático",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "letra-x",
+      "segundos": [209, 216],
+      "folha": ".mine/abecedario/palavra-letra-x.png",
+      "ve-se": "dedos indicador e médio cruzados à frente do tronco (variante de 'X' datilológico apresentada)",
+      "forma-da-mao": "dedos cruzados voltados para a frente",
+      "lugar": "espaço neutro à frente do peito",
+      "movimento": "estático",
+      "confianca": "média",
+      "duvida": "Forma mostrada coincide visualmente com dedos cruzados de 'R'; verificar se em LGA a variante de X tem orientação distinta ou gancho."
+    },
+    {
+      "palavra": "letra-y",
+      "segundos": [219, 225],
+      "folha": ".mine/abecedario/palavra-letra-y.png",
+      "ve-se": "mão em punho com polegar e auricular (mindinho) estendidos para fora ('Y' internacional / sinal de 'hang loose')",
+      "forma-da-mao": "configuração em 'Y'",
+      "lugar": "espaço neutro à frente do ombro",
+      "movimento": "estático",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "letra-z",
+      "segundos": [227, 234],
+      "folha": ".mine/abecedario/palavra-letra-z.png",
+      "ve-se": "dedo indicador direito estendido desenha no ar a trajetória do traço da letra 'Z'",
+      "forma-da-mao": "indicador estendido",
+      "lugar": "espaço neutro frontal",
+      "movimento": "trajetória em zigue-zague desenhando 'Z' no ar",
+      "confianca": "alta",
+      "duvida": ""
+    }
+  ]
+}

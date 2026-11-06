@@ -1,0 +1,260 @@
+{
+  "aula": "Aula 07 — Comida e Bebida (1ª parte)",
+  "video": "https://www.youtube.com/watch?v=pl0P1LmoW3Q",
+  "fonte": "Viva surdo (canal oficial)",
+  "palavras": [
+    {
+      "palavra": "banana",
+      "segundos": [22, 27],
+      "folha": ".mine/comida-1/palavra-banana.png",
+      "ve-se": "dedo indicador esquerdo vertical representa a banana; mão direita simula puxar as tiras da casca de cima para baixo",
+      "forma-da-mao": "esquerda indicador vertical; direita pinça a descascar",
+      "lugar": "espaço neutro à frente do peito",
+      "movimento": "descascar vertical descendente",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "mucua",
+      "segundos": [31, 37],
+      "folha": ".mine/comida-1/palavra-mucua.png",
+      "ve-se": "soletração em alfabeto manual (datilologia M-U-C-U-A)",
+      "forma-da-mao": "alfabeto manual (M, U, C, U, A)",
+      "lugar": "espaço neutro à frente do ombro",
+      "movimento": "sequência datilológica",
+      "confianca": "média",
+      "duvida": "Soletrado em datilologia (M-U-C-U-A); verificar se existe sinal icónico para o fruto do embondeiro noutras províncias."
+    },
+    {
+      "palavra": "laranja",
+      "segundos": [40, 44],
+      "folha": ".mine/comida-1/palavra-laranja.png",
+      "ve-se": "ambas as mãos em garra/concha unidas pelos dedos simulando espremer uma laranja com rotação oposta",
+      "forma-da-mao": "mãos em concha/garra frente a frente",
+      "lugar": "à frente do peito",
+      "movimento": "torção e compressão das mãos",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "maca",
+      "segundos": [52, 61],
+      "folha": ".mine/comida-1/palavra-maca.png",
+      "ve-se": "nó do dedo indicador ou punho toca a bochecha/mandíbula fazendo movimento de rotação (imitando morder maçã / maçã do rosto)",
+      "forma-da-mao": "indicador fletido / punho fechado",
+      "lugar": "bochecha / ângulo da mandíbula",
+      "movimento": "rotação suave contra a face",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "manga",
+      "segundos": [78, 85],
+      "folha": ".mine/comida-1/palavra-manga.png",
+      "ve-se": "mão espalmada com borda radial vertical posicionada em frente à boca aberta simulando roer uma fatia de manga",
+      "forma-da-mao": "palma aberta com dedos unidos",
+      "lugar": "junto aos lábios",
+      "movimento": "deslocamento lateral suave junto à boca aberta",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "abacaxi",
+      "segundos": [89, 95],
+      "folha": ".mine/comida-1/palavra-abacaxi.png",
+      "ve-se": "mão esquerda aberta palma para cima segura a base; mão direita em garra acima delineia a coroa e a casca espinhosa do ananás/abacaxi",
+      "forma-da-mao": "esquerda aberta de suporte; direita em garra",
+      "lugar": "à frente do peito",
+      "movimento": "delineação cilíndrica e espinhosa para cima",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "goiaba",
+      "segundos": [98, 107],
+      "folha": ".mine/comida-1/palavra-goiaba.png",
+      "ve-se": "soletração em alfabeto manual (datilologia G-O-I-A-B-A)",
+      "forma-da-mao": "alfabeto manual (G, O, I, A, B, A)",
+      "lugar": "espaço neutro à frente do ombro",
+      "movimento": "sequência datilológica",
+      "confianca": "média",
+      "duvida": "Soletrado em datilologia (G-O-I-A-B-A); sem sinal icónico apresentado."
+    },
+    {
+      "palavra": "abacate",
+      "segundos": [110, 120],
+      "folha": ".mine/comida-1/palavra-abacate.png",
+      "ve-se": "soletração em alfabeto manual (datilologia A-B-A-C-A-T-E)",
+      "forma-da-mao": "alfabeto manual (A, B, A, C, A, T, E)",
+      "lugar": "espaço neutro à frente do ombro",
+      "movimento": "sequência datilológica",
+      "confianca": "média",
+      "duvida": "Soletrado em datilologia (A-B-A-C-A-T-E); sem sinal icónico apresentado."
+    },
+    {
+      "palavra": "arroz",
+      "segundos": [124, 135],
+      "folha": ".mine/comida-1/palavra-arroz.png",
+      "ve-se": "mão esquerda aberta côncava para cima; pontas dos dedos da mão direita unidas recolhem grãos e soltam-nos sobre a palma esquerda",
+      "forma-da-mao": "esquerda côncava aberta; direita em pinça soltando grãos",
+      "lugar": "à frente do tronco",
+      "movimento": "recolha e dispersão fina sobre a palma",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "fuba-de-milho",
+      "segundos": [138, 140],
+      "folha": ".mine/comida-1/palavra-fuba-de-milho.png",
+      "ve-se": "mão direita em pinça fina esfrega os dedos dispersando fuba + mão em configuração 'F' perto dos olhos/boca (sinal de milho/amarelo)",
+      "forma-da-mao": "pinça a polvilhar seguida de configuração em 'F'",
+      "lugar": "frente ao tronco e face",
+      "movimento": "esfregar de dedos e apresentação de 'F'",
+      "confianca": "média",
+      "duvida": "Sinal composto (fuba + milho); verificar convenção regional para o componente milho."
+    },
+    {
+      "palavra": "fuba-de-milho-branco",
+      "segundos": [142, 144],
+      "folha": ".mine/comida-1/palavra-fuba-de-milho-branco.png",
+      "ve-se": "mão direita polvilha fuba seguida da mão espalmada deslizando no peito/clavícula (sinal de cor branca)",
+      "forma-da-mao": "pinça a polvilhar seguida de palma aberta no peito",
+      "lugar": "frente ao tronco e clavícula",
+      "movimento": "composto: polvilhar e toque no peito",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "fuba-de-bombo",
+      "segundos": [147, 150],
+      "folha": ".mine/comida-1/palavra-fuba-de-bombo.png",
+      "ve-se": "sinal de fuba seguido do sinal de bombó/mandioca (polegar para cima e indicador em arco a descascar a raiz)",
+      "forma-da-mao": "polegar vertical e indicador em arco descascando",
+      "lugar": "à frente do tronco",
+      "movimento": "composto: polvilhar e corte de bombó",
+      "confianca": "média",
+      "duvida": "Componente bombó merece validação por falante nativo para distinguir de mandioca fresca."
+    },
+    {
+      "palavra": "farinha-musseque",
+      "segundos": [153, 163],
+      "folha": ".mine/comida-1/palavra-farinha-musseque.png",
+      "ve-se": "soletração em alfabeto manual (datilologia F-A-R-I-N-H-A M-U-S-S-E-Q-U-E)",
+      "forma-da-mao": "alfabeto manual",
+      "lugar": "espaço neutro à frente do ombro",
+      "movimento": "sequência datilológica",
+      "confianca": "média",
+      "duvida": "Soletrado em datilologia (FARINHA MUSSEQUE); termo gastronómico tradicional de Luanda sem sinal gestual único."
+    },
+    {
+      "palavra": "trigo",
+      "segundos": [166, 180],
+      "folha": ".mine/comida-1/palavra-trigo.png",
+      "ve-se": "soletração em alfabeto manual (datilologia F-A-R-I-N-H-A D-E T-R-I-G-O)",
+      "forma-da-mao": "alfabeto manual",
+      "lugar": "espaço neutro à frente do ombro",
+      "movimento": "sequência datilológica",
+      "confianca": "média",
+      "duvida": "Soletrado em datilologia (FARINHA DE TRIGO); sem sinal icónico apresentado."
+    },
+    {
+      "palavra": "funge",
+      "segundos": [183, 189],
+      "folha": ".mine/comida-1/palavra-funge.png",
+      "ve-se": "mão esquerda em punho segura a panela; mão direita em punho vertical segurando colher de pau mexe com grande força circular batendo a massa contra a panela (sinal icónico e cultural de bater funge)",
+      "forma-da-mao": "ambos os punhos fechados firmes",
+      "lugar": "à frente do tronco / abdómen",
+      "movimento": "rotação vigorosa com batimento da colher na panela imaginária",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "sopa",
+      "segundos": [191, 193],
+      "folha": ".mine/comida-1/palavra-sopa.png",
+      "ve-se": "mão esquerda em concha côncava (prato/tigela); mão direita aberta leva líquido à boca aberta e sopra suavemente para arrefecer",
+      "forma-da-mao": "esquerda concha; direita colher/palma",
+      "lugar": "frente ao peito e junto à boca",
+      "movimento": "elevação da tigela à boca com sopro",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "massa-macarrao",
+      "segundos": [195, 199],
+      "folha": ".mine/comida-1/palavra-massa-macarrao.png",
+      "ve-se": "ambas as mãos em 'Y' (mindinho e polegar abertos) unidas pelas pontas que se afastam ondulando simulando os fios compridos de esparguete",
+      "forma-da-mao": "mãos simétricas em 'Y'",
+      "lugar": "à frente do peito",
+      "movimento": "separação horizontal com ondulação",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "feijao",
+      "segundos": [204, 214],
+      "folha": ".mine/comida-1/palavra-feijao.png",
+      "ve-se": "mão direita com polegar e indicador em pinça fechada mostrando a pequena dimensão do grão de feijão, com dedo mindinho da outra mão em apoio",
+      "forma-da-mao": "pinça pequena com indicador e polegar",
+      "lugar": "à frente do peito",
+      "movimento": "toque de pinça estático",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "cenoura",
+      "segundos": [219, 228],
+      "folha": ".mine/comida-1/palavra-cenoura.png",
+      "ve-se": "dedo indicador da mão direita toca os dentes incisivos frontais imitando o roer de cenoura",
+      "forma-da-mao": "indicador apontado",
+      "lugar": "dentes incisivos / lábio superior",
+      "movimento": "roçar/toque repetido nos dentes",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "cebola",
+      "segundos": [230, 235],
+      "folha": ".mine/comida-1/palavra-cebola.png",
+      "ve-se": "mãos unidas descascando camadas esféricas sucessivas, seguida da mão direita a cobrir os olhos imitando lacrimejar ao cortar cebola",
+      "forma-da-mao": "camadas curvas seguidas de palma nos olhos",
+      "lugar": "frente ao peito e olhos",
+      "movimento": "descasque em camadas e fricção/tapar de olhos",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "tomate",
+      "segundos": [237, 239],
+      "folha": ".mine/comida-1/palavra-tomate.png",
+      "ve-se": "polegar toca o queixo (sinal da cor vermelha) seguido das mãos em concha esférica delineando a forma arredondada do tomate",
+      "forma-da-mao": "polegar no queixo (vermelho) seguido de concha esférica",
+      "lugar": "queixo e espaço neutro frontal",
+      "movimento": "composto: cor vermelha + formato redondo",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "pimento",
+      "segundos": [241, 243],
+      "folha": ".mine/comida-1/palavra-pimento.png",
+      "ve-se": "mãos formam legume volumoso seguido de dedos indicador e médio em 'V' junto à cabeça/têmpora (ou sinal de picante/pimento)",
+      "forma-da-mao": "forma esférica seguida de dedos em 'V' junto à têmpora",
+      "lugar": "frente ao peito e têmpora",
+      "movimento": "composto",
+      "confianca": "média",
+      "duvida": "Segundo componente junto à têmpora requer validação com falante de LGA (indicação de ardência/picante vs variedade doce)."
+    },
+    {
+      "palavra": "repolho",
+      "segundos": [251, 253],
+      "folha": ".mine/comida-1/palavra-repolho.png",
+      "ve-se": "soletração em alfabeto manual (datilologia R-E-P-O-L-H-O)",
+      "forma-da-mao": "alfabeto manual (R, E, P, O, L, H, O)",
+      "lugar": "espaço neutro à frente do ombro",
+      "movimento": "sequência datilológica",
+      "confianca": "média",
+      "duvida": "Soletrado em datilologia (R-E-P-O-L-H-O); sem sinal gestual específico apresentado."
+    }
+  ]
+}

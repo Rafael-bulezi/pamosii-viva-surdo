@@ -1,0 +1,238 @@
+{
+  "aula": "Aula 13 — Tempos e Meses",
+  "video": "https://www.youtube.com/watch?v=7Tuc_i7QgNo",
+  "fonte": "Viva surdo (canal oficial)",
+  "palavras": [
+    {
+      "palavra": "tempo/hora",
+      "segundos": [2, 10],
+      "folha": ".mine/tempos-meses/palavra-tempo-hora.png",
+      "ve-se": "dedo indicador da mão direita aponta e bate no pulso esquerdo (local habitual do relógio)",
+      "forma-da-mao": "indicador estendido apontando para o pulso esquerdo",
+      "lugar": "dorso do pulso esquerdo",
+      "movimento": "toque repetido no pulso",
+      "confianca": "alta",
+      "duvida": "legenda cobre dois termos ('Tempo/hora')"
+    },
+    {
+      "palavra": "ontem",
+      "segundos": [13, 19],
+      "folha": ".mine/tempos-meses/palavra-ontem.png",
+      "ve-se": "dedo indicador da mão direita aponta para trás por cima do ombro direito",
+      "forma-da-mao": "indicador estendido apontando para trás",
+      "lugar": "por cima do ombro direito",
+      "movimento": "apontar para trás em direção ao passado",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "hoje/agora",
+      "segundos": [21, 26],
+      "folha": ".mine/tempos-meses/palavra-hoje-agora.png",
+      "ve-se": "ambas as mãos abertas com palmas voltadas para o corpo/cima descem firmemente à frente do peito",
+      "forma-da-mao": "ambas as mãos abertas, dedos estendidos",
+      "lugar": "espaço neutro à frente do peito",
+      "movimento": "descendente firme simultâneo",
+      "confianca": "alta",
+      "duvida": "legenda junta dois conceitos ('Hoje/agora')"
+    },
+    {
+      "palavra": "amanhã",
+      "segundos": [29, 34],
+      "folha": ".mine/tempos-meses/palavra-amanha.png",
+      "ve-se": "dedo indicador da mão direita toca na bochecha/queixo e projeta-se em arco para a frente",
+      "forma-da-mao": "indicador estendido",
+      "lugar": "da bochecha para o espaço frontal",
+      "movimento": "toque facial e projeção em arco para a frente",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "sempre",
+      "segundos": [37, 47],
+      "folha": ".mine/tempos-meses/palavra-sempre.png",
+      "ve-se": "dedos indicadores de ambas as mãos apontados em frente giram em círculos contínuos um em torno do outro",
+      "forma-da-mao": "ambos os indicadores estendidos",
+      "lugar": "à frente do peito",
+      "movimento": "rotação circular contínua dos dois indicadores",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "nunca",
+      "segundos": [50, 58],
+      "folha": ".mine/tempos-meses/palavra-nunca.png",
+      "ve-se": "mão direita aberta com palma para a frente desloca-se lateralmente em corte para a direita, ou fecha em pinça 'B'",
+      "forma-da-mao": "mão aberta palma para a frente",
+      "lugar": "à frente do peito e desloca-se para a direita",
+      "movimento": "varrimento lateral horizontal para fora",
+      "confianca": "média",
+      "duvida": "transição exata entre mão aberta e pinça no final do movimento"
+    },
+    {
+      "palavra": "atrasar/demorar",
+      "segundos": [61, 66],
+      "folha": ".mine/tempos-meses/palavra-atrasar-demorar.png",
+      "ve-se": "braço esquerdo horizontal em frente ao peito; dedo indicador da mão direita desloca-se para trás ao longo do antebraço esquerdo",
+      "forma-da-mao": "esquerda com palma para baixo; direita com indicador estendido",
+      "lugar": "antebraço esquerdo",
+      "movimento": "retrocesso do indicador sobre o braço (para trás)",
+      "confianca": "alta",
+      "duvida": "legenda cobre dois sinónimos ('Atrasar/demorar')"
+    },
+    {
+      "palavra": "esperar",
+      "segundos": [70, 82],
+      "folha": ".mine/tempos-meses/palavra-esperar.png",
+      "ve-se": "ambas as mãos abertas com palmas para cima em frente ao peito realizam ligeiro movimento ondulatório/dedilhar paciente",
+      "forma-da-mao": "ambas as mãos abertas palmas para cima",
+      "lugar": "à frente do peito",
+      "movimento": "ondulação suave dos dedos",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "mês",
+      "segundos": [86, 89],
+      "folha": ".mine/tempos-meses/palavra-mes.png",
+      "ve-se": "ambos os indicadores unidos horizontalmente afastam-se para os lados desenhando a linha/folha de calendário",
+      "forma-da-mao": "ambos os indicadores horizontais",
+      "lugar": "à frente do peito",
+      "movimento": "separação horizontal simétrica",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "janeiro",
+      "segundos": [92, 96],
+      "folha": ".mine/tempos-meses/palavra-janeiro.png",
+      "ve-se": "mão direita erguida junto à cabeça/testa desenha o traço da letra 'J' no ar",
+      "forma-da-mao": "dedo indicador ou mindinho desenhando 'J'",
+      "lugar": "altura da testa / têmpora direita",
+      "movimento": "traçado curvo de 'J'",
+      "confianca": "média",
+      "duvida": "em 360p confirmar se traça 'J' com o indicador ou com o dedo mínimo"
+    },
+    {
+      "palavra": "fevereiro",
+      "segundos": [97, 103],
+      "folha": ".mine/tempos-meses/palavra-fevereiro.png",
+      "ve-se": "mão direita aberta junto à têmpora/olho faz movimento oscilatório (alusão à máscara de carnaval)",
+      "forma-da-mao": "mão aberta ou configuração 'F'",
+      "lugar": "junto à têmpora/olho direito",
+      "movimento": "ligeiro balanço lateral junto à face",
+      "confianca": "média",
+      "duvida": "detalhe da configuração da mão (máscara de carnaval vs letra F)"
+    },
+    {
+      "palavra": "março",
+      "segundos": [105, 109],
+      "folha": ".mine/tempos-meses/palavra-marco.png",
+      "ve-se": "dedo indicador estendido aponta para a direita com pequenos impulsos",
+      "forma-da-mao": "indicador estendido para a lateral",
+      "lugar": "lado direito do tronco",
+      "movimento": "apontar lateral oscilante",
+      "confianca": "média",
+      "duvida": "verificar se mão faz configuração em 'M' ou se aponta número 3"
+    },
+    {
+      "palavra": "abril",
+      "segundos": [111, 116],
+      "folha": ".mine/tempos-meses/palavra-abril.png",
+      "ve-se": "mão direita com dedos fletidos ou polegar e indicador em pinça toca no queixo",
+      "forma-da-mao": "pinça ou dedos dobrados",
+      "lugar": "mento / queixo",
+      "movimento": "toque no queixo",
+      "confianca": "média",
+      "duvida": "configuração exata no queixo (remete para barba de Tiradentes/Páscoa)"
+    },
+    {
+      "palavra": "maio",
+      "segundos": [118, 123],
+      "folha": ".mine/tempos-meses/palavra-maio.png",
+      "ve-se": "dedo indicador ou polegar toca na boca/lábio inferior",
+      "forma-da-mao": "dedo indicador/polegar",
+      "lugar": "lábios",
+      "movimento": "toque labial",
+      "confianca": "média",
+      "duvida": "toque labial com dedo indicador ou mão em 'M'"
+    },
+    {
+      "palavra": "junho",
+      "segundos": [125, 129],
+      "folha": ".mine/tempos-meses/palavra-junho.png",
+      "ve-se": "mão direita junto ao peito faz movimento de gancho ou traçado de 'J'",
+      "forma-da-mao": "indicador curvado em gancho / 'J'",
+      "lugar": "à frente do peito",
+      "movimento": "pequeno movimento curvo",
+      "confianca": "média",
+      "duvida": "sinal de fogueira junina ou datilologia de Junho"
+    },
+    {
+      "palavra": "julho",
+      "segundos": [132, 136],
+      "folha": ".mine/tempos-meses/palavra-julho.png",
+      "ve-se": "mão direita faz a transição rápida das letras 'J' para 'L' no ar",
+      "forma-da-mao": "soletração biletal J-L",
+      "lugar": "à frente do peito",
+      "movimento": "desenho do 'J' abrindo imediatamente para 'L'",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "agosto",
+      "segundos": [139, 142],
+      "folha": ".mine/tempos-meses/palavra-agosto.png",
+      "ve-se": "dedo indicador da mão direita aponta horizontalmente para o lado esquerdo do peito",
+      "forma-da-mao": "indicador estendido na horizontal",
+      "lugar": "à frente do peito / clavícula",
+      "movimento": "apontar horizontal para a esquerda",
+      "confianca": "média",
+      "duvida": "alude à data histórica / feriado de Agosto"
+    },
+    {
+      "palavra": "setembro",
+      "segundos": [146, 150],
+      "folha": ".mine/tempos-meses/palavra-setembro.png",
+      "ve-se": "ambas as mãos em pinça 'F' (ou número 7) à altura dos ombros descem alternadamente simulando o passo de marchar/desfile da independência",
+      "forma-da-mao": "ambas as mãos em pinça / configuração de '7'",
+      "lugar": "à frente dos ombros e peito",
+      "movimento": "movimento alternado para a frente e para baixo de marcha militar",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "outubro",
+      "segundos": [154, 157],
+      "folha": ".mine/tempos-meses/palavra-outubro.png",
+      "ve-se": "mão direita em configuração da letra 'O' toca no lado direito do peito",
+      "forma-da-mao": "letra 'O' (todos os dedos unidos ao polegar)",
+      "lugar": "peito direito",
+      "movimento": "toque no peito",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "novembro",
+      "segundos": [160, 164],
+      "folha": ".mine/tempos-meses/palavra-novembro.png",
+      "ve-se": "mão direita em configuração da letra 'N' toca no lado direito do peito",
+      "forma-da-mao": "letra 'N' (indicador e médio voltados para baixo)",
+      "lugar": "peito direito",
+      "movimento": "toque no peito",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "dezembro",
+      "segundos": [168, 172],
+      "folha": ".mine/tempos-meses/palavra-dezembro.png",
+      "ve-se": "dedo indicador da mão direita desenha a letra 'D' no ar e as mãos abrem-se em gesto alusivo a festa/árvore de Natal",
+      "forma-da-mao": "indicador erguido ('D') seguido de palmas abertas",
+      "lugar": "à frente do peito",
+      "movimento": "traçado da letra 'D' e abertura",
+      "confianca": "média",
+      "duvida": "combinação de letra 'D' com alusão festiva natalícia"
+    }
+  ]
+}

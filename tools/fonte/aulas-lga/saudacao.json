@@ -1,0 +1,216 @@
+{
+  "aula": "Aula 01 — Saudação de LGA",
+  "video": "https://www.youtube.com/watch?v=XyGt-yaHJkA",
+  "fonte": "Viva surdo (canal oficial)",
+  "palavras": [
+    {
+      "palavra": "oi/olá",
+      "segundos": [2, 7],
+      "folha": ".mine/saudacao/palavra-oi-ola.png",
+      "ve-se": "mão direita aberta com palma voltada para a frente à altura da cabeça a acenar suavemente",
+      "forma-da-mao": "mão aberta, dedos estendidos juntos",
+      "lugar": "espaço neutro ao lado da cabeça",
+      "movimento": "aceno lateral de saudação",
+      "confianca": "alta",
+      "duvida": "legenda cobre 'Oi/Olá'"
+    },
+    {
+      "palavra": "bom/boa/bem",
+      "segundos": [10, 16],
+      "folha": ".mine/saudacao/palavra-bom-boa-bem.png",
+      "ve-se": "mão direita fecha em punho e projeta o polegar estendido para cima (sinal de positivo)",
+      "forma-da-mao": "punho cerrado com polegar vertical",
+      "lugar": "à frente do peito",
+      "movimento": "elevação firme do polegar",
+      "confianca": "alta",
+      "duvida": "legenda abrange 'Bom/Boa/Bem' no mesmo sinal"
+    },
+    {
+      "palavra": "bom dia",
+      "segundos": [19, 27],
+      "folha": ".mine/saudacao/palavra-bom-dia.png",
+      "ve-se": "sinal de 'bom' (polegar erguido) seguido do sinal de 'dia' (braço/mão sobe como o sol nascente ou letra 'D')",
+      "forma-da-mao": "composto: polegar vertical seguido de mão em 'D' / arco ascendente",
+      "lugar": "do peito ao espaço superior direito",
+      "movimento": "sequencial: positivo + arco ascendente de nascer do sol",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "boa tarde",
+      "segundos": [30, 38],
+      "folha": ".mine/saudacao/palavra-boa-tarde.png",
+      "ve-se": "sinal de 'boa' (polegar erguido) seguido do sinal de 'tarde' (mão aberta desce na lateral simulando o sol a baixar)",
+      "forma-da-mao": "composto: polegar erguido seguido de mão aberta na horizontal",
+      "lugar": "peito seguido de descida lateral direita",
+      "movimento": "sequencial: positivo + descida suave do sol da tarde",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "boa noite",
+      "segundos": [41, 51],
+      "folha": ".mine/saudacao/palavra-boa-noite.png",
+      "ve-se": "sinal de 'boa' (polegar erguido) seguido do sinal de 'noite' (mão direita aberta passa à frente dos olhos cobrindo a visão/anoitecer)",
+      "forma-da-mao": "composto: polegar erguido seguido de mão aberta palma para o rosto",
+      "lugar": "peito seguido de passagem à frente dos olhos",
+      "movimento": "sequencial: positivo + varrimento à frente dos olhos",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "meu nome",
+      "segundos": [54, 63],
+      "folha": ".mine/saudacao/palavra-meu-nome.png",
+      "ve-se": "mão direita aberta espalmada no peito (meu), seguida de ambos os indicadores a cruzar/bater em 'X' (nome)",
+      "forma-da-mao": "mão aberta no peito; depois ambos os indicadores estendidos em cruz",
+      "lugar": "peito e espaço frontal",
+      "movimento": "toque no peito seguido de batimento em 'X' dos indicadores",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "qual é o teu nome / teu nome",
+      "segundos": [66, 73],
+      "folha": ".mine/saudacao/palavra-qual-e-o-teu-nome.png",
+      "ve-se": "indicadores cruzados em 'X' (nome) seguidos de indicador estendido a apontar para a frente (teu / você)",
+      "forma-da-mao": "indicadores em 'X' seguido de indicador apontado frontal",
+      "lugar": "à frente do peito",
+      "movimento": "sinal de nome seguido de apontar em frente interrogativo",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "tudo bem",
+      "segundos": [75, 87],
+      "folha": ".mine/saudacao/palavra-tudo-bem.png",
+      "ve-se": "ambas as mãos abertas com palmas para cima que fecham em dois punhos com polegares verticais (duplo positivo) acompanhadas de sorriso",
+      "forma-da-mao": "mãos abertas que transitam para duplo polegar vertical",
+      "lugar": "à frente do peito",
+      "movimento": "abertura interrogativa/receptiva e projeção afirmativa de ambos os polegares",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "desculpa",
+      "segundos": [91, 98],
+      "folha": ".mine/saudacao/palavra-desculpa.png",
+      "ve-se": "mão esquerda aberta horizontal serve de base; mão direita em 'Y' ou dedos fletidos passa sobre ela com expressão facial contrita",
+      "forma-da-mao": "esquerda aberta; direita fletida passando sobre a palma",
+      "lugar": "à frente do peito",
+      "movimento": "passagem e contacto suave sobre a palma",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "obrigado/a",
+      "segundos": [102, 107],
+      "folha": ".mine/saudacao/palavra-obrigado-a.png",
+      "ve-se": "pontas dos dedos de ambas as mãos tocam nos lábios/queixo e projetam-se abertas para a frente com palmas para cima",
+      "forma-da-mao": "mãos abertas com dedos juntos que saem da boca",
+      "lugar": "da boca/queixo para o espaço frontal",
+      "movimento": "projeção frontal saindo dos lábios",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "de nada",
+      "segundos": [110, 120],
+      "folha": ".mine/saudacao/palavra-de-nada.png",
+      "ve-se": "ambos os punhos com polegares estendidos abrem-se em mãos espalmadas para a frente a balançar (não há de quê)",
+      "forma-da-mao": "polegares que abrem para palmas abertas para a frente",
+      "lugar": "à frente do peito",
+      "movimento": "abertura e oscilação lateral despreocupada",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "por favor",
+      "segundos": [123, 129],
+      "folha": ".mine/saudacao/palavra-por-favor.png",
+      "ve-se": "pontas dos dedos da mão direita tocam suavemente nos lábios/queixo e projetam-se suavemente para o interlocutor",
+      "forma-da-mao": "mão direita aberta vertical, dedos juntos",
+      "lugar": "da boca/queixo em direção ao interlocutor",
+      "movimento": "toque labial e ligeiro avanço suave",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "prazer em conhecer-te",
+      "segundos": [132, 141],
+      "folha": ".mine/saudacao/palavra-prazer-em-conhecer-te.png",
+      "ve-se": "mão direita espalmada no peito faz círculos suaves com expressão de satisfação (prazer), seguido de indicador a apontar para a frente (conhecer-te)",
+      "forma-da-mao": "mão aberta no peito seguida de indicador apontado",
+      "lugar": "peito seguido de espaço frontal",
+      "movimento": "fricção circular no peito e apontar frontal",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "surdo/a",
+      "segundos": [143, 147],
+      "folha": ".mine/saudacao/palavra-surdo-a.png",
+      "ve-se": "dedo indicador da mão direita toca junto ao ouvido direito e em seguida toca na boca",
+      "forma-da-mao": "indicador estendido, outros dedos recolhidos",
+      "lugar": "ouvido direito e depois boca",
+      "movimento": "toque duplo sequencial: ouvido + boca",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "ouvinte",
+      "segundos": [150, 154],
+      "folha": ".mine/saudacao/palavra-ouvinte.png",
+      "ve-se": "mão direita curvada em concha/arco junto ao ouvido direito (atenção auditiva / escuta)",
+      "forma-da-mao": "mão curvada em 'C' / concha auricular",
+      "lugar": "orelha/ouvido direito",
+      "movimento": "posicionamento junto ao ouvido",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "intérprete",
+      "segundos": [158, 164],
+      "folha": ".mine/saudacao/palavra-interprete.png",
+      "ve-se": "ambas as mãos em pinça 'F' (polegar e indicador em círculo) tocam-se e giram alternadamente uma em torno da outra",
+      "forma-da-mao": "ambas as mãos em pinça 'F'",
+      "lugar": "à frente do peito",
+      "movimento": "rotação alternada das duas mãos em contacto",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "tchau/adeus",
+      "segundos": [167, 171],
+      "folha": ".mine/saudacao/palavra-tchau-adeus.png",
+      "ve-se": "mão direita aberta com palma virada para a frente acena lateralmente em despedida",
+      "forma-da-mao": "mão aberta, dedos estendidos",
+      "lugar": "ao lado do rosto / ombro direito",
+      "movimento": "aceno lateral de despedida",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "meu sinal",
+      "segundos": [174, 179],
+      "folha": ".mine/saudacao/palavra-meu-sinal.png",
+      "ve-se": "mão no peito (meu) seguida de mão com polegar e indicador em pinça/gancho a destacar o sinal de batismo",
+      "forma-da-mao": "mão no peito seguida de pinça de sinal",
+      "lugar": "peito seguido de espaço facial/neutro",
+      "movimento": "toque no peito e demonstração do sinal próprio",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "língua portuguesa",
+      "segundos": [182, 187],
+      "folha": ".mine/saudacao/palavra-lingua-portuguesa.png",
+      "ve-se": "mão direita em 'L' desenha ondulação no ar (língua) e passa para a letra 'P' (Português)",
+      "forma-da-mao": "configuração 'L' que transita para 'P'",
+      "lugar": "à frente do peito",
+      "movimento": "ondulação horizontal seguida de rotação em 'P'",
+      "confianca": "alta",
+      "duvida": ""
+    }
+  ]
+}
