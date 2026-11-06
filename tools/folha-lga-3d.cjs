@@ -4,8 +4,10 @@
  * FOLHA-LGA-3D — Fotografa a personagem 3D Agatha no palco WebGL executando
  * os sinais LGA verificados das aulas do canal Viva surdo.
  *
- * Suporta --lote=1a (Saudação) ou --lote=1b (Números).
- * Captura 3 momentos de cada sinal (início, meio, fim) diretamente do canvas 3D.
+ * Para o Lote 1b (Números, sinais estáticos), captura 3 enquadramentos:
+ *   1. Busto Geral (postura, altura ao peito)
+ *   2. Close-up Frontal (recorte detalhado 2.5x da mão)
+ *   3. Três Quartos 35° (ângulo oblíquo que revela pinça polegar-indicador e profundidade)
  */
 const http = require('http');
 const fs = require('fs');
@@ -24,7 +26,7 @@ const LOTE = flag('lote', '1b');
 const RAIZ = path.resolve(__dirname, '..');
 const APP_DIR = path.join(RAIZ, 'app');
 const PORTA_HTTP = 8123;
-const PORTA_CDP = 9336;
+const PORTA_CDP = 9337;
 
 const CONFIG_LOTE = {
   '1a': {
@@ -32,18 +34,21 @@ const CONFIG_LOTE = {
     titulo: 'LGA 3D — Lote 1a: Aula 01 (Saudação)',
     subtitulo: 'Avatar 3D Agatha (Three.js WebGL) · 6 poses no palco WebGL (3 diretas, 3 aproximadas) · 3 instantes por sinal · viva-surdo',
     saida: path.join(RAIZ, 'tools', 'fonte', 'lga-3d', 'lote-1a-saudacao.png'),
+    modo: 'tempo',
   },
   '1b': {
     aula: 'Números',
     titulo: 'LGA 3D — Lote 1b: Aula 03 (Números)',
-    subtitulo: 'Avatar 3D Agatha (Three.js WebGL) · 6 poses no palco WebGL (5 diretas, 1 aproximada) · 3 instantes por sinal · viva-surdo',
+    subtitulo: 'Avatar 3D Agatha (Three.js WebGL) · 6 poses (5 diretas, 1 aproximada) · 3 vistas por pose: busto, close-up frontal e 3/4 (35°) · viva-surdo',
     saida: path.join(RAIZ, 'tools', 'fonte', 'lga-3d', 'lote-1b-numeros.png'),
+    modo: 'angulos',
   },
 }[LOTE] || {
   aula: 'Números',
   titulo: 'LGA 3D — Lote 1b: Aula 03 (Números)',
   subtitulo: 'Avatar 3D Agatha (Three.js WebGL) · poses no palco WebGL',
   saida: path.join(RAIZ, 'tools', 'fonte', 'lga-3d', 'lote-1b-numeros.png'),
+  modo: 'angulos',
 };
 
 const CHROME = [
@@ -144,13 +149,14 @@ async function obterAlvoCDP(porta) {
   throw new Error('Chrome não abriu a porta CDP ' + porta);
 }
 
-function scriptRenderizacao(filtroAula, titulo, subtitulo) {
+function scriptRenderizacao(filtroAula, titulo, subtitulo, modo) {
   return `(async () => {
     const SINAIS = window.SINAIS_LGA || {};
     const FONTE = window.FONTE_LGA || {};
     const filtro = ${JSON.stringify(filtroAula)};
     const titulo = ${JSON.stringify(titulo)};
     const subtitulo = ${JSON.stringify(subtitulo)};
+    const modo = ${JSON.stringify(modo)};
 
     const itens = Object.entries(SINAIS).map(([chave, d]) => {
       const fe = FONTE[chave] || {};
@@ -169,18 +175,20 @@ function scriptRenderizacao(filtroAula, titulo, subtitulo) {
     const palco = document.querySelector('#palco canvas');
     if (!palco) return { ok: 0, erro: 'Canvas 3D (#palco canvas) não encontrado' };
 
-    // Enquadra busto com folga 1.28 para braços e mãos estarem sempre no plano de visualização
-    if (window.AVATAR && AVATAR.enquadrar) {
-      AVATAR.enquadrar('busto', 1.28);
-    }
+    const VISTAS_ANGULOS = [
+      { id: 'busto',  tipo: 'busto',   label: 'busto geral' },
+      { id: 'close',  tipo: 'close',   label: 'close-up frontal' },
+      { id: 'perfil', tipo: 'perfil',  label: 'três quartos 35°' }
+    ];
 
-    const INSTANTES = [
+    const VISTAS_TEMPO = [
       { id: 'inicio', t: 0.0, label: 'início' },
       { id: 'meio',   t: 0.5, label: 'meio' },
       { id: 'fim',    t: 1.0, label: 'fim' }
     ];
 
-    const COLUNAS = INSTANTES.length;
+    const VISTAS = modo === 'angulos' ? VISTAS_ANGULOS : VISTAS_TEMPO;
+    const COLUNAS = VISTAS.length;
     const TW = 340, TH = 380, BANDA_TOPO = 28, BANDA_FUNDO = 28, CABECALHO = 68;
     const linhas = itens.length;
     const larguraTotal = COLUNAS * TW;
@@ -222,12 +230,60 @@ function scriptRenderizacao(filtroAula, titulo, subtitulo) {
 
       const yLinha = CABECALHO + i * (TH + BANDA_TOPO + BANDA_FUNDO);
 
-      for (let k = 0; k < INSTANTES.length; k++) {
-        const inst = INSTANTES[k];
+      for (let k = 0; k < VISTAS.length; k++) {
+        const vista = VISTAS[k];
         try {
-          const pose = SINAL3D.poseEm(beat, inst.t);
-          AVATAR.poseParaQuats(pose);
-          AVATAR.congelar();
+          if (modo === 'angulos') {
+            // Pose estática no peito
+            const pose = SINAL3D.poseEm(beat, 0.5);
+            AVATAR.poseParaQuats(pose);
+            AVATAR.congelar();
+
+            const vMao = new AVATAR.THREE.Vector3();
+            const vMid = new AVATAR.THREE.Vector3();
+            if (AVATAR.ossos['J_Bip_R_Hand']) {
+              AVATAR.ossos['J_Bip_R_Hand'].getWorldPosition(vMao);
+            } else {
+              vMao.set(-0.11, 1.27, 0.22);
+            }
+            if (AVATAR.ossos['J_Bip_R_Middle1']) {
+              AVATAR.ossos['J_Bip_R_Middle1'].getWorldPosition(vMid);
+            } else {
+              vMid.set(vMao.x, vMao.y + 0.08, vMao.z);
+            }
+
+            // Centro geométrico da mão (palma e dedos)
+            const alvo = new AVATAR.THREE.Vector3(
+              (vMao.x + vMid.x) * 0.5,
+              vMid.y + 0.01,
+              (vMao.z + vMid.z) * 0.5
+            );
+
+            if (vista.tipo === 'busto') {
+              AVATAR.enquadrar('busto', 1.25);
+            } else if (vista.tipo === 'close') {
+              // Close frontal centrado na mão (fov 30 a 0.50m)
+              AVATAR.cam.fov = 30;
+              AVATAR.cam.position.set(alvo.x, alvo.y, alvo.z + 0.50);
+              AVATAR.cam.lookAt(alvo.x, alvo.y, alvo.z);
+              AVATAR.cam.updateProjectionMatrix();
+            } else if (vista.tipo === 'perfil') {
+              // Câmara a 35° de três quartos do lado do polegar/indicador (-X) para revelar a pinça e profundidade
+              const ang = 35 * Math.PI / 180;
+              const dist = 0.50;
+              AVATAR.cam.fov = 30;
+              AVATAR.cam.position.set(alvo.x - Math.sin(ang) * dist, alvo.y + 0.02, alvo.z + Math.cos(ang) * dist);
+              AVATAR.cam.lookAt(alvo.x, alvo.y, alvo.z);
+              AVATAR.cam.updateProjectionMatrix();
+            }
+          } else {
+            // Modo tempo (Lote 1a): início, meio, fim
+            AVATAR.enquadrar('busto', 1.28);
+            const pose = SINAL3D.poseEm(beat, vista.t);
+            AVATAR.poseParaQuats(pose);
+            AVATAR.congelar();
+          }
+
           await espera2();
           await espera2();
 
@@ -244,7 +300,7 @@ function scriptRenderizacao(filtroAula, titulo, subtitulo) {
           g.fillStyle = '#101e19';
           g.fillRect(x + 2, y + 2, TW - 4, TH + BANDA_TOPO + BANDA_FUNDO - 4);
 
-          // Topo: chave, palavra, segundos e instante
+          // Topo: chave, palavra, segundos e rótulo da vista
           g.fillStyle = item.aproximado ? '#2e2613' : '#1a322a';
           g.fillRect(x + 3, y + 3, TW - 6, BANDA_TOPO);
 
@@ -256,16 +312,24 @@ function scriptRenderizacao(filtroAula, titulo, subtitulo) {
 
           g.fillStyle = item.aproximado ? '#fbbf24' : '#4ade80';
           g.font = 'bold 12px monospace';
-          const tagTexto = item.aproximado ? ('[aprox: ' + inst.label + ']') : ('[' + inst.label + ']');
+          const tagTexto = item.aproximado ? ('[aprox: ' + vista.label + ']') : ('[' + vista.label + ']');
           const wTag = g.measureText(tagTexto).width;
           g.fillText(tagTexto, x + TW - wTag - 8, y + 19);
 
-          // Recorte centrado amplo (84% da largura)
-          const fracLarg = 0.84;
-          const cx = Math.round(tmp.width * (0.5 - fracLarg / 2));
-          const cw = Math.round(tmp.width * fracLarg);
-          const cy = 0;
-          const ch = Math.round(tmp.height * 0.98);
+          // Enquadramento de recorte centrado:
+          let cx, cw, cy, ch;
+          if (modo === 'angulos' && (vista.tipo === 'close' || vista.tipo === 'perfil')) {
+            ch = Math.round(tmp.height * 0.90);
+            cw = Math.round(ch * (TW / TH));
+            cx = Math.round((tmp.width - cw) / 2);
+            cy = Math.round((tmp.height - ch) / 2);
+          } else {
+            const fracLarg = 0.84;
+            cx = Math.round(tmp.width * (0.5 - fracLarg / 2));
+            cw = Math.round(tmp.width * fracLarg);
+            cy = 0;
+            ch = Math.round(tmp.height * 0.98);
+          }
 
           g.drawImage(tmp, cx, cy, cw, ch, x + 3, y + BANDA_TOPO, TW - 6, TH);
 
@@ -285,7 +349,7 @@ function scriptRenderizacao(filtroAula, titulo, subtitulo) {
 
           ok++;
         } catch (e) {
-          falhas.push(item.chave + '/' + inst.id + ': ' + e.message);
+          falhas.push(item.chave + '/' + vista.id + ': ' + e.message);
         }
       }
     }
@@ -371,8 +435,8 @@ async function main() {
     }
     console.log('Personagem 3D Agatha pronta no palco WebGL!');
 
-    console.log(`A gerar folha de prova 3D para ${CONFIG_LOTE.titulo}...`);
-    const r = await avaliar(scriptRenderizacao(CONFIG_LOTE.aula, CONFIG_LOTE.titulo, CONFIG_LOTE.subtitulo));
+    console.log(`A gerar folha de prova 3D para ${CONFIG_LOTE.titulo} (modo: ${CONFIG_LOTE.modo})...`);
+    const r = await avaliar(scriptRenderizacao(CONFIG_LOTE.aula, CONFIG_LOTE.titulo, CONFIG_LOTE.subtitulo, CONFIG_LOTE.modo));
     if (!r.png) throw new Error('A folha voltou sem PNG: ' + (r.falhas || []).join(' | '));
 
     const buffer = Buffer.from(r.png.slice(r.png.indexOf(',') + 1), 'base64');
