@@ -1,0 +1,73 @@
+{
+  "aula": "Aula 10 — Verbos de LGA 2",
+  "video": "https://www.youtube.com/watch?v=Wp-qBtsw4uA",
+  "fonte": "Viva surdo (canal oficial)",
+  "palavras": [
+    {
+      "palavra": "verbos",
+      "segundos": [6, 9],
+      "folha": ".mine/verbos-2/palavra-verbos.png",
+      "ve-se": "mão direita em frente ao rosto passa de configuração em 'L' para configuração em 'V' virada para a frente",
+      "forma-da-mao": "'L' que passa a 'V'",
+      "lugar": "à frente do rosto / peito alto",
+      "movimento": "transição de 'L' para 'V' com ligeira projeção para a frente",
+      "confianca": "média",
+      "duvida": "legenda no quadro é o cabeçalho 'Verbos' (introdução do tema), mas o apresentador parece sinalizar 'verbo'"
+    },
+    {
+      "palavra": "comprar",
+      "segundos": [14, 20],
+      "folha": ".mine/verbos-2/palavra-comprar.png",
+      "ve-se": "mão esquerda aberta horizontalmente com a palma para cima; mão direita com indicador fletido em gancho desce da altura da têmpora e bate na palma esquerda",
+      "forma-da-mao": "esquerda aberta palma para cima; direita com indicador fletido/gancho",
+      "lugar": "da têmpora/orelha direita até à palma esquerda em frente ao peito",
+      "movimento": "descendente com batimento na palma",
+      "confianca": "alta",
+      "duvida": "legenda 'Comprar' visível em [14, 16], com a repetição e término do movimento a decorrer até ao segundo 20"
+    },
+    {
+      "palavra": "pagar",
+      "segundos": [25, 30],
+      "folha": ".mine/verbos-2/palavra-pagar.png",
+      "ve-se": "mão esquerda aberta palma para cima; mão direita com indicador ou pinça desliza da base da mão esquerda para a frente em direção aos dedos / interlocutor",
+      "forma-da-mao": "esquerda aberta horizontal palma para cima; direita com indicador/pinça",
+      "lugar": "sobre a palma da mão esquerda, em frente ao peito",
+      "movimento": "deslizar para a frente ao longo da palma para fora",
+      "confianca": "alta",
+      "duvida": "configuração exata dos dedos da mão direita (entre indicador isolado e pinça com polegar)"
+    },
+    {
+      "palavra": "querer",
+      "segundos": [34, 38],
+      "folha": ".mine/verbos-2/palavra-querer.png",
+      "ve-se": "ambas as mãos à frente do peito com as palmas voltadas para cima e dedos em garra que fecham enquanto puxam em direção ao corpo",
+      "forma-da-mao": "mãos em garra / dedos curvados que fecham",
+      "lugar": "espaço neutro à frente do peito",
+      "movimento": "puxar em direção ao corpo fletindo os dedos",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "pegar",
+      "segundos": [41, 45],
+      "folha": ".mine/verbos-2/palavra-pegar.png",
+      "ve-se": "antebraço esquerdo horizontal em frente ao peito com punho cerrado; mão direita agarra com força o pulso esquerdo por cima",
+      "forma-da-mao": "esquerda punho fechado virado para baixo; direita agarra/envolve o pulso",
+      "lugar": "à frente do peito",
+      "movimento": "mão direita agarra e aperta o pulso esquerdo",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "escolher",
+      "segundos": [47, 51],
+      "folha": ".mine/verbos-2/palavra-escolher.png",
+      "ve-se": "mão direita erguida à frente da face com polegar e indicador em pinça aberta que fecham repetidamente enquanto desloca ligeiramente a mão no ar",
+      "forma-da-mao": "polegar e indicador em pinça aberta que fecha em pinça",
+      "lugar": "espaço neutro à frente dos olhos / face",
+      "movimento": "fechar a pinça com ligeiro deslocamento lateral",
+      "confianca": "alta",
+      "duvida": ""
+    }
+  ]
+}

@@ -1,0 +1,249 @@
+{
+  "aula": "Aula 11 — Casa (1ª parte)",
+  "video": "https://www.youtube.com/watch?v=tzhRtS3zs78",
+  "fonte": "Viva surdo (canal oficial)",
+  "palavras": [
+    {
+      "palavra": "casa",
+      "segundos": [3, 5],
+      "folha": ".mine/casa-1/palavra-casa.png",
+      "ve-se": "ambas as mãos abertas com pontas dos dedos unidas acima da cabeça formando um telhado triangular",
+      "forma-da-mao": "mãos abertas, dedos juntos formando ângulo de telhado",
+      "lugar": "acima da testa / cabeça",
+      "movimento": "união simétrica das pontas dos dedos",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "cozinha",
+      "segundos": [13, 15],
+      "folha": ".mine/casa-1/palavra-cozinha.png",
+      "ve-se": "mão esquerda com punho/base e mão direita mexe circularmente com movimento de cozinhar/mexer panela",
+      "forma-da-mao": "esquerda aberta/punho; direita com colher imaginária",
+      "lugar": "à frente do peito",
+      "movimento": "circular contínuo de cozinhar",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "quarto",
+      "segundos": [21, 23],
+      "folha": ".mine/casa-1/palavra-quarto.png",
+      "ve-se": "ambas as palmas unidas pousadas de lado junto à bochecha com cabeça inclinada (sinal de dormir / quarto)",
+      "forma-da-mao": "palmas planas unidas",
+      "lugar": "bochecha / lado da face",
+      "movimento": "inclinação suave da cabeça sobre as mãos",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "wc",
+      "segundos": [27, 29],
+      "folha": ".mine/casa-1/palavra-wc.png",
+      "ve-se": "dedo indicador da mão direita aponta para o nariz ou toca junto ao septo nasal",
+      "forma-da-mao": "indicador estendido",
+      "lugar": "nariz / face",
+      "movimento": "toque/apontar junto ao nariz",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "sala de estar",
+      "segundos": [37, 39],
+      "folha": ".mine/casa-1/palavra-sala-de-estar.png",
+      "ve-se": "ambas as mãos em 'L' ou 'V' desenham a área / assento macio de sofá à frente do corpo",
+      "forma-da-mao": "mãos em 'L' / abertas viradas para cima",
+      "lugar": "à frente do peito / abdómen",
+      "movimento": "delimitação do espaço de descanso",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "sala de jantar",
+      "segundos": [55, 57],
+      "folha": ".mine/casa-1/palavra-sala-de-jantar.png",
+      "ve-se": "mãos desenham o tampo da mesa e em seguida levam as mãos juntas em garra/pinça em direção à boca (comer)",
+      "forma-da-mao": "mãos planas seguidas de cúspide de comer",
+      "lugar": "à frente do tronco e boca",
+      "movimento": "composto: delimitação da mesa + gesto de comer",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "chão",
+      "segundos": [63, 65],
+      "folha": ".mine/casa-1/palavra-chao.png",
+      "ve-se": "ambas as mãos abertas com palmas voltadas para baixo descem e estendem-se no plano inferior",
+      "forma-da-mao": "ambas as mãos abertas horizontais palma para baixo",
+      "lugar": "à altura do abdómen e deslocam-se para baixo",
+      "movimento": "descendente e nivelamento horizontal",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "porta",
+      "segundos": [68, 70],
+      "folha": ".mine/casa-1/palavra-porta.png",
+      "ve-se": "ambas as mãos abertas verticais com palmas para a frente aproximam-se até as palmas se unirem (fechar a porta)",
+      "forma-da-mao": "mãos abertas verticais",
+      "lugar": "à frente do peito",
+      "movimento": "fecho/junção simétrica das duas mãos no centro",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "janela",
+      "segundos": [77, 79],
+      "folha": ".mine/casa-1/palavra-janela.png",
+      "ve-se": "ambos os antebraços na horizontal cruzam-se e sobem/descem simulando abrir o caixilho de uma janela",
+      "forma-da-mao": "antebraços horizontais sobrepostos com punhos fechados",
+      "lugar": "à frente do peito",
+      "movimento": "abertura e fecho vertical de caixilho",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "lâmpada",
+      "segundos": [87, 89],
+      "folha": ".mine/casa-1/palavra-lampada.png",
+      "ve-se": "mão direita em cúspide/garra virada para baixo acima da cabeça abre os dedos irradiando luz",
+      "forma-da-mao": "cúspide que abre em dedos afastados",
+      "lugar": "acima da cabeça",
+      "movimento": "abertura súbita dos dedos para baixo (emissão de luz)",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "energia",
+      "segundos": [94, 96],
+      "folha": ".mine/casa-1/palavra-energia.png",
+      "ve-se": "ambos os indicadores estendidos para cima oscilam/vibram rapidamente (corrente elétrica)",
+      "forma-da-mao": "ambos os indicadores verticais",
+      "lugar": "à frente dos ombros",
+      "movimento": "vibração/oscilação rápida para cima",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "tomada",
+      "segundos": [100, 102],
+      "folha": ".mine/casa-1/palavra-tomada.png",
+      "ve-se": "mão esquerda vertical aberta palma para o lado (parede); mão direita com indicador e médio estendidos (ficha de 2 pinos) insere na palma esquerda",
+      "forma-da-mao": "esquerda aberta; direita com dois dedos estendidos em pinos",
+      "lugar": "à frente do peito",
+      "movimento": "encaixe frontal dos dois dedos contra a palma esquerda",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "geladeira",
+      "segundos": [107, 109],
+      "folha": ".mine/casa-1/palavra-geladeira.png",
+      "ve-se": "punho cerrado com dorso/nós a tremer junto ao queixo (sinal de frio) seguido de puxar a porta vertical do frigorífico",
+      "forma-da-mao": "punho fechado no queixo seguido de puxar asa/porta",
+      "lugar": "queixo seguido de espaço frontal",
+      "movimento": "tremor de frio + puxar porta",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "ac",
+      "segundos": [116, 118],
+      "folha": ".mine/casa-1/palavra-ac.png",
+      "ve-se": "ambas as mãos abertas ao lado da cabeça abanam ar fresco para o rosto, seguido de sinal de frio (punho no queixo)",
+      "forma-da-mao": "mãos a abanar ar fresco + punho no queixo",
+      "lugar": "laterais do rosto e queixo",
+      "movimento": "abanar ar descendente e tremor de frio",
+      "confianca": "alta",
+      "duvida": "legenda 'AC' (ar condicionado)"
+    },
+    {
+      "palavra": "fogão",
+      "segundos": [128, 130],
+      "folha": ".mine/casa-1/palavra-fogao.png",
+      "ve-se": "ambas as mãos sobem com dedos ondulando (chamas) e em seguida dedos simulam rodar os botões do queimador",
+      "forma-da-mao": "dedos em chama ondulantes + pinça de rodar botões",
+      "lugar": "à frente do peito / abdómen",
+      "movimento": "ondulação ascendente de chamas + rotação dos botões",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "colher",
+      "segundos": [135, 137],
+      "folha": ".mine/casa-1/palavra-colher.png",
+      "ve-se": "mão direita com dedos fletidos em concha simula segurar uma colher e leva à boca",
+      "forma-da-mao": "dedos em concha / colher",
+      "lugar": "à frente do peito até à boca",
+      "movimento": "concha que sobe em direção aos lábios",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "garfo",
+      "segundos": [142, 144],
+      "folha": ".mine/casa-1/palavra-garfo.png",
+      "ve-se": "mão direita com três dedos estendidos (dentes do garfo) espeta e leva em direção à boca",
+      "forma-da-mao": "três dedos estendidos rígidos",
+      "lugar": "à frente do peito até à boca",
+      "movimento": "espetar e elevar para a boca",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "faca",
+      "segundos": [149, 151],
+      "folha": ".mine/casa-1/palavra-faca.png",
+      "ve-se": "dedo indicador da mão direita serra/corta repetidamente sobre o indicador da mão esquerda",
+      "forma-da-mao": "ambos os indicadores estendidos",
+      "lugar": "à frente do peito",
+      "movimento": "fricção/corte retilíneo de vaivém sobre o outro indicador",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "prato",
+      "segundos": [154, 156],
+      "folha": ".mine/casa-1/palavra-prato.png",
+      "ve-se": "ambas as mãos abertas com dedos ligeiramente curvados desenham no ar a borda circular de um prato e sustentam a base",
+      "forma-da-mao": "mãos abertas curvadas em arco",
+      "lugar": "à frente do abdómen",
+      "movimento": "desenho circular simétrico",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "cadeiras",
+      "segundos": [163, 165],
+      "folha": ".mine/casa-1/palavra-cadeiras.png",
+      "ve-se": "sinal de sentar (dois dedos cavalgam sobre a outra mão) repetido com pequenos deslocamentos laterais (plural)",
+      "forma-da-mao": "dois dedos sobre a base horizontal",
+      "lugar": "à frente do peito",
+      "movimento": "repetição ritmada com deslocamento lateral",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "tv",
+      "segundos": [173, 175],
+      "folha": ".mine/casa-1/palavra-tv.png",
+      "ve-se": "soletração manual rápida da letra 'T' seguida da letra 'V' no ar",
+      "forma-da-mao": "datilologia T seguida de V",
+      "lugar": "à frente do peito",
+      "movimento": "transição nítida de 'T' para 'V'",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "comando",
+      "segundos": [180, 182],
+      "folha": ".mine/casa-1/palavra-comando.png",
+      "ve-se": "mão direita segura comando remoto imaginário virado para a frente e polegar prime repetidamente o botão",
+      "forma-da-mao": "mão em punho com polegar no topo a premir",
+      "lugar": "apontado para a frente na direção da televisão",
+      "movimento": "clique repetido do polegar",
+      "confianca": "alta",
+      "duvida": "comando da televisão / controle remoto"
+    }
+  ]
+}

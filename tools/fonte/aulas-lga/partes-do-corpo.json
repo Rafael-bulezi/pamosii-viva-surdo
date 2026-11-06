@@ -1,0 +1,106 @@
+{
+  "aula": "Aula 14 — As partes do corpo",
+  "video": "https://www.youtube.com/watch?v=fbsKSkuvXa4",
+  "fonte": "Viva surdo (canal oficial)",
+  "palavras": [
+    {
+      "palavra": "cabeça",
+      "segundos": [3, 5],
+      "folha": ".mine/partes-do-corpo/palavra-cabeca.png",
+      "ve-se": "mão direita aberta com dedos estendidos juntos, pontas dos dedos a tocar no lado direito superior da cabeça/fronte",
+      "forma-da-mao": "aberta / dedos juntos",
+      "lugar": "topo/lado direito da cabeça",
+      "movimento": "parado / ligeiro toque",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "braço",
+      "segundos": [8, 10],
+      "folha": ".mine/partes-do-corpo/palavra-braco.png",
+      "ve-se": "braço direito erguido com punho fechado e flexionado junto ao ombro (gesto de bíceps / músculo)",
+      "forma-da-mao": "punho fechado",
+      "lugar": "espaço lateral direito, altura do ombro",
+      "movimento": "flexão do braço mostrando o músculo",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "mão",
+      "segundos": [13, 15],
+      "folha": ".mine/partes-do-corpo/palavra-mao.png",
+      "ve-se": "mão direita aberta com os dedos bem espalmados e virados para cima; mão esquerda segura o pulso direito",
+      "forma-da-mao": "direita aberta com dedos bem afastados; esquerda segura o pulso",
+      "lugar": "à frente do peito",
+      "movimento": "mão direita estática ou ligeira rotação, pulso apoiado pela outra mão",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "pé",
+      "segundos": [19, 21],
+      "folha": ".mine/partes-do-corpo/palavra-pe.png",
+      "ve-se": "mão esquerda estendida na horizontal com a palma para baixo (base); mão direita curvada/em garra toca no dorso da mão esquerda",
+      "forma-da-mao": "esquerda aberta na horizontal palma para baixo; direita curvada",
+      "lugar": "à frente do abdómen",
+      "movimento": "mão direita toca/pousa sobre o dorso da mão esquerda",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "pescoço",
+      "segundos": [24, 26],
+      "folha": ".mine/partes-do-corpo/palavra-pescoco.png",
+      "ve-se": "mão direita com dedos flexionados/em gancho toca na lateral direita do pescoço",
+      "forma-da-mao": "dedos curvados / em gancho",
+      "lugar": "lateral direita do pescoço",
+      "movimento": "toque / ligeiro movimento na pele do pescoço",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "barriga",
+      "segundos": [28, 30],
+      "folha": ".mine/partes-do-corpo/palavra-barriga.png",
+      "ve-se": "ambas as mãos abertas com palmas voltadas para o corpo na zona do abdómen, tocando a barriga",
+      "forma-da-mao": "mãos abertas, dedos estendidos",
+      "lugar": "em frente à barriga / abdómen",
+      "movimento": "toque / afago na barriga",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "coração",
+      "segundos": [33, 35],
+      "folha": ".mine/partes-do-corpo/palavra-coracao.png",
+      "ve-se": "mão direita sobre o lado esquerdo do peito com dedos em garra a abrir e fechar imitando o bater do coração",
+      "forma-da-mao": "mão em garra / dedos curvados que pulsam",
+      "lugar": "lado esquerdo do peito",
+      "movimento": "pulsar (abrir e fechar simulando o batimento cardíaco)",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "olho",
+      "segundos": [39, 41],
+      "folha": ".mine/partes-do-corpo/palavra-olho.png",
+      "ve-se": "mão direita com dedo indicador estendido a apontar para a zona por baixo do olho direito",
+      "forma-da-mao": "indicador estendido, outros dedos fechados",
+      "lugar": "junto ao olho direito / maçã do rosto",
+      "movimento": "apontar / tocar junto ao olho",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "nariz",
+      "segundos": [44, 46],
+      "folha": ".mine/partes-do-corpo/palavra-nariz.png",
+      "ve-se": "mão direita com dedo indicador estendido a tocar ou apontar para a ponta do nariz",
+      "forma-da-mao": "indicador estendido, outros dedos fechados",
+      "lugar": "ponta do nariz",
+      "movimento": "toque na ponta do nariz",
+      "confianca": "alta",
+      "duvida": ""
+    }
+  ]
+}

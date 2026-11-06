@@ -1,0 +1,249 @@
+{
+  "aula": "Aula 08 — Comida e Bebida (2ª parte)",
+  "video": "https://www.youtube.com/watch?v=NxqSSU2LK-w",
+  "fonte": "Viva surdo (canal oficial)",
+  "palavras": [
+    {
+      "palavra": "frango",
+      "segundos": [3, 13],
+      "folha": ".mine/comida-2/palavra-frango.png",
+      "ve-se": "mão direita com indicador e polegar em bico/L colocada junto ao nariz/ponte nasal abrindo e fechando simulando o bico da ave",
+      "forma-da-mao": "indicador e polegar em bico / L junto ao nariz",
+      "lugar": "nariz / face",
+      "movimento": "abrir e fechar do bico",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "carne",
+      "segundos": [19, 27],
+      "folha": ".mine/comida-2/palavra-carne.png",
+      "ve-se": "mão direita com dedos fletidos puxando ligeiramente a pele do pescoço de lado",
+      "forma-da-mao": "dedos em garra suave ou pinça na pele do pescoço",
+      "lugar": "pescoço / lateral da traqueia",
+      "movimento": "puxar suave para fora",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "peixe",
+      "segundos": [35, 38],
+      "folha": ".mine/comida-2/palavra-peixe.png",
+      "ve-se": "ambas as mãos espalmadas viradas para baixo sobrepostas pelos punhos, ondulando simulando o nado e barbatanas do peixe",
+      "forma-da-mao": "palmas abertas viradas para baixo sobrepostas",
+      "lugar": "à frente do peito",
+      "movimento": "ondulação lateral contínua",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "ovo",
+      "segundos": [42, 46],
+      "folha": ".mine/comida-2/palavra-ovo.png",
+      "ve-se": "ambas as mãos em garra/concha unidas pelos nós dos dedos que se separam e viram para baixo, simulando quebrar um ovo na frigideira",
+      "forma-da-mao": "mãos em concha/garra viradas para baixo",
+      "lugar": "à frente do tronco",
+      "movimento": "separação brusca para fora e rotação para baixo",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "salada",
+      "segundos": [48, 53],
+      "folha": ".mine/comida-2/palavra-salada.png",
+      "ve-se": "soletração rápida em alfabeto manual (datilologia S-A-L-A-D-A)",
+      "forma-da-mao": "alfabeto manual (S, A, L, A, D, A)",
+      "lugar": "espaço neutro à frente do ombro direito",
+      "movimento": "sequência datilológica contínua",
+      "confianca": "média",
+      "duvida": "Soletrado em datilologia (S-A-L-A-D-A), sem sinal icónico próprio apresentado na aula."
+    },
+    {
+      "palavra": "vinagre",
+      "segundos": [56, 61],
+      "folha": ".mine/comida-2/palavra-vinagre.png",
+      "ve-se": "soletração em alfabeto manual (datilologia V-I-N-A-G-R-E)",
+      "forma-da-mao": "alfabeto manual (V, I, N, A, G, R, E)",
+      "lugar": "espaço neutro à frente do ombro",
+      "movimento": "sequência datilológica contínua",
+      "confianca": "média",
+      "duvida": "Soletrado em datilologia (V-I-N-A-G-R-E); sem sinal gestual específico apresentado."
+    },
+    {
+      "palavra": "pao",
+      "segundos": [64, 67],
+      "folha": ".mine/comida-2/palavra-pao.png",
+      "ve-se": "mão direita em concha fletida toca ou bate suavemente no lado da bochecha/mandíbula",
+      "forma-da-mao": "mão em concha com dedos juntos fletidos",
+      "lugar": "bochecha / lado da face",
+      "movimento": "toque repetido na bochecha",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "manteiga",
+      "segundos": [71, 76],
+      "folha": ".mine/comida-2/palavra-manteiga.png",
+      "ve-se": "mão esquerda aberta palma para cima como fatia; dedos indicador e médio da mão direita deslizam sobre a palma como faca a barrar manteiga",
+      "forma-da-mao": "esquerda aberta; direita com indicador e médio estendidos",
+      "lugar": "à frente do tronco",
+      "movimento": "deslizar contínuo da direita sobre a palma esquerda",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "leite",
+      "segundos": [79, 83],
+      "folha": ".mine/comida-2/palavra-leite.png",
+      "ve-se": "mão direita aberta ao lado da cabeça/orelha fecha sucessivamente em punho simulando ordenha com uma mão",
+      "forma-da-mao": "aberta para punho fechado (S)",
+      "lugar": "ao lado da cabeça / têmpora",
+      "movimento": "fechar repetido dos dedos em punho",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "cafe",
+      "segundos": [88, 91],
+      "folha": ".mine/comida-2/palavra-cafe.png",
+      "ve-se": "mão direita em configuração 'F' (indicador e polegar em círculo) desce suavemente sobre a palma estendida da mão esquerda (como chávena pousada no pires)",
+      "forma-da-mao": "direita em 'F' / pinça circular; esquerda aberta palma cima",
+      "lugar": "à frente do peito",
+      "movimento": "pousar da mão direita sobre a palma esquerda",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "agua",
+      "segundos": [94, 100],
+      "folha": ".mine/comida-2/palavra-agua.png",
+      "ve-se": "mão direita em 'L' com indicador erguido e polegar estendido; ponta do indicador toca repetidamente o queixo / lábio inferior",
+      "forma-da-mao": "configuração em 'L'",
+      "lugar": "queixo / lábio inferior",
+      "movimento": "toque repetido do indicador no queixo",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "cha",
+      "segundos": [103, 109],
+      "folha": ".mine/comida-2/palavra-cha.png",
+      "ve-se": "mão esquerda fechada em punho vertical formando chávena; mão direita em pinça (polegar e indicador segurando cordão da saqueta) mergulha repetidamente para cima e para baixo dentro da chávena",
+      "forma-da-mao": "esquerda punho; direita pinça fina",
+      "lugar": "à frente do peito",
+      "movimento": "vertical oscilante de infusão",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "queijo",
+      "segundos": [112, 116],
+      "folha": ".mine/comida-2/palavra-queijo.png",
+      "ve-se": "mão direita em concha/C invertida sobre o espaço frontal seguida de movimento plano de corte em cunha com a mão espalmada",
+      "forma-da-mao": "mão em C invertido seguida de mão espalmada diagonal",
+      "lugar": "à frente do tronco",
+      "movimento": "delineação circular e corte diagonal",
+      "confianca": "média",
+      "duvida": "Transição rápida entre forma côncava e corte oblíquo; confirmar convenção regional para fatia vs queijo redondo."
+    },
+    {
+      "palavra": "presunto",
+      "segundos": [119, 127],
+      "folha": ".mine/comida-2/palavra-presunto.png",
+      "ve-se": "soletração em alfabeto manual (datilologia P-R-E-S-U-N-T-O)",
+      "forma-da-mao": "alfabeto manual (P, R, E, S, U, N, T, O)",
+      "lugar": "espaço neutro à frente do ombro",
+      "movimento": "sequência datilológica",
+      "confianca": "média",
+      "duvida": "Soletrado em datilologia (P-R-E-S-U-N-T-O); sem sinal icónico próprio apresentado."
+    },
+    {
+      "palavra": "gelado",
+      "segundos": [130, 146],
+      "folha": ".mine/comida-2/palavra-gelado.png",
+      "ve-se": "mão direita em punho vertical simulando segurar o cone de gelado, aproximando-o da boca aberta e simulando o ato de lamber com a língua",
+      "forma-da-mao": "punho fechado vertical",
+      "lugar": "junto à boca aberta",
+      "movimento": "aproximação à boca com expressão facial mímica",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "sandes",
+      "segundos": [148, 153],
+      "folha": ".mine/comida-2/palavra-sandes.png",
+      "ve-se": "soletração em alfabeto manual (datilologia S-A-N-D-E-S)",
+      "forma-da-mao": "alfabeto manual (S, A, N, D, E, S)",
+      "lugar": "espaço neutro à frente do ombro",
+      "movimento": "sequência datilológica",
+      "confianca": "média",
+      "duvida": "Soletrado em datilologia (S-A-N-D-E-S); sem sinal gestual específico apresentado."
+    },
+    {
+      "palavra": "hamburguer",
+      "segundos": [156, 161],
+      "folha": ".mine/comida-2/palavra-hamburguer.png",
+      "ve-se": "ambas as mãos em concha ('C' amplo) viradas uma para a outra na horizontal frente ao peito, mostrando o formato volumoso do hambúrguer",
+      "forma-da-mao": "mãos em 'C' simétricas opostas",
+      "lugar": "à frente do peito",
+      "movimento": "aproximação e retenção da forma arredondada",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "banana-pao-com-ginguba",
+      "segundos": [163, 175],
+      "folha": ".mine/comida-2/palavra-banana-pao-com-ginguba.png",
+      "ve-se": "sinal composto: primeiro sinal de banana (indicador vertical descascado para baixo com a outra mão), seguido do sinal de ginguba (dedo tocando a boca/dentes simulando quebrar/mastigar o amendoim torrado)",
+      "forma-da-mao": "indicador e pinça para banana; indicador/polegar nos dentes para ginguba",
+      "lugar": "frente ao peito e junto à boca",
+      "movimento": "composto: descascar seguido de toque nos dentes",
+      "confianca": "média",
+      "duvida": "Prato cultural angolano (banana pão + ginguba); sinal composto cuja transição exata requer confirmação com glossário de culinária LGA."
+    },
+    {
+      "palavra": "bombo-com-ginguba",
+      "segundos": [178, 186],
+      "folha": ".mine/comida-2/palavra-bombo-com-ginguba.png",
+      "ve-se": "sinal composto: primeiro sinal de bombó/mandioca (indicador e polegar descascando/partindo a raiz de mandioca), seguido de toque na boca com nó dos dedos simulando triturar a ginguba",
+      "forma-da-mao": "polegar/indicador em arco seguido de nó dos dedos à boca",
+      "lugar": "espaço neutro e junto aos dentes/boca",
+      "movimento": "composto: corte/descasque e mastigação",
+      "confianca": "média",
+      "duvida": "Prato cultural angolano (bombó assado/fervido + ginguba); verificar estabilidade do primeiro morfema (bombó) face a variações provinciais."
+    },
+    {
+      "palavra": "pizza",
+      "segundos": [188, 191],
+      "folha": ".mine/comida-2/palavra-pizza.png",
+      "ve-se": "soletração em alfabeto manual (datilologia P-I-Z-Z-A, com o 'Z' repetido/arrastado)",
+      "forma-da-mao": "alfabeto manual (P, I, Z, A)",
+      "lugar": "espaço neutro à frente do ombro",
+      "movimento": "sequência datilológica rápida",
+      "confianca": "média",
+      "duvida": "Soletrado em datilologia (P-I-Z-Z-A); empréstimo dactilológico sem sinal icónico apresentado."
+    },
+    {
+      "palavra": "cachorro",
+      "segundos": [193, 198],
+      "folha": ".mine/comida-2/palavra-cachorro.png",
+      "ve-se": "ambas as palmas côncavas unidas pelas bordas exteriores/pulsos formando a calha do pão de cachorro-quente aberta para cima",
+      "forma-da-mao": "mãos em concha aberta viradas para cima unidas pela lateral",
+      "lugar": "à frente do peito",
+      "movimento": "formação estática da calha do pão",
+      "confianca": "alta",
+      "duvida": ""
+    },
+    {
+      "palavra": "pao-com-manteiga",
+      "segundos": [200, 203],
+      "folha": ".mine/comida-2/palavra-pao-com-manteiga.png",
+      "ve-se": "sinal composto direto: sinal de pão (mão em concha batendo no lado do queixo) seguido de imediato do sinal de manteiga (dois dedos direitos deslizando sobre a palma esquerda aberta)",
+      "forma-da-mao": "concha no queixo seguida de palma esquerda aberta e dedos indicadores/médio direitos a barrar",
+      "lugar": "queixo e espaço neutro frontal",
+      "movimento": "toque no queixo seguido de deslizamento contínuo sobre a palma",
+      "confianca": "alta",
+      "duvida": ""
+    }
+  ]
+}
