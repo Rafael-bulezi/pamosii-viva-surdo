@@ -555,6 +555,25 @@ textarea::placeholder, input[type="search"]::placeholder { color: var(--muted); 
 .chip-estado { border-style: dashed; }
 .chip-estado.on { border-style: solid; }
 
+/* Duas fontes, duas abas: a LGA não aparece no meio do International Sign.
+   O cartão da aula mostra a confiança da leitura; a cor diz o resto. */
+.abas-fonte { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 20px; }
+.aba-fonte {
+  padding: 10px 15px; border: 2px solid var(--line); border-radius: 12px;
+  background: var(--surface); color: var(--muted);
+  font: 800 10.5px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase;
+  text-decoration: none; box-shadow: 0 2px 0 var(--line-strong);
+}
+.aba-fonte:hover { color: var(--ink); border-color: var(--line-strong); }
+.aba-fonte.on { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.cartao-lga[data-conf="alta"] .ref-marca { color: var(--green-deep); border-color: var(--green-deep); }
+.cartao-lga[data-conf="média"] .ref-marca { color: var(--yellow-deep); border-color: var(--yellow-deep); }
+.cartao-lga[data-conf="baixa"] .ref-marca { color: var(--red-deep); border-color: var(--red-deep); }
+.cartao-lga .lga-ve {
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+  overflow: hidden; text-align: left; line-height: 1.35;
+}
+
 .vazio { color: var(--muted); font: 700 11px/1.4 var(--mono); letter-spacing: .05em; text-transform: uppercase; }
 
 .rodape-nota { margin-top: 22px; max-width: 64ch; font: 500 11.5px/1.6 var(--body); color: var(--muted); }
