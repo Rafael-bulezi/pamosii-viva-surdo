@@ -56,6 +56,49 @@
       confianca: 'alta',
       veSe: 'mão direita aberta com palma virada para a frente acena lateralmente em despedida',
     },
+    'dois': {
+      notacao: 'Y peito parado',
+      aula: 'Aula 03 — Números',
+      segundos: [8, 11],
+      confianca: 'média',
+      veSe: "mão direita com polegar e dedo mínimo estendidos (configuração em 'Y' / shaka), palma virada para o peito",
+    },
+    'três': {
+      notacao: 'W peito parado',
+      aula: 'Aula 03 — Números',
+      segundos: [13, 25],
+      confianca: 'média',
+      veSe: "três dedos centrais estendidos verticalmente (indicador, médio e anelar) ou configuração em 'W', polegar a segurar o mínimo",
+    },
+    'quatro': {
+      notacao: 'B peito parado',
+      aproximado: true,
+      aula: 'Aula 03 — Números',
+      segundos: [26, 37],
+      confianca: 'média',
+      veSe: 'quatro dedos estendidos e afastados (indicador, médio, anelar, mínimo), com o polegar dobrado sobre a palma',
+    },
+    'cinco': {
+      notacao: 'joinha peito parado',
+      aula: 'Aula 03 — Números',
+      segundos: [38, 45],
+      confianca: 'média',
+      veSe: 'punho fechado com o polegar estendido para cima',
+    },
+    'seis': {
+      notacao: 'aponta peito parado',
+      aula: 'Aula 03 — Números',
+      segundos: [46, 53],
+      confianca: 'média',
+      veSe: 'dedo indicador estendido para cima, palma virada para a frente, outros dedos recolhidos',
+    },
+    'oito': {
+      notacao: 'F peito parado',
+      aula: 'Aula 03 — Números',
+      segundos: [59, 74],
+      confianca: 'média',
+      veSe: "polegar e indicador unidos em círculo/pinça (configuração em 'F'), com os outros três dedos estendidos para cima",
+    },
   };
 
   global.SINAIS_LGA = SINAIS_LGA;

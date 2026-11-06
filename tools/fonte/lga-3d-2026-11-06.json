@@ -362,5 +362,519 @@
     "oQueAproximado": "nenhum (rejeitado por composto)",
     "veredicto": "sem pose",
     "motivo": "sinal composto sequencial (língua com ondulação em L + transição facial)"
+  },
+  {
+    "palavra": "1",
+    "chave": "um",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      3,
+      6
+    ],
+    "segundosVistos": [
+      3,
+      6
+    ],
+    "folha": ".mine/numeros/palavra-1.png",
+    "notacao": null,
+    "oQueVisto": "mão direita horizontal à frente do peito, palma voltada para o tronco, 4 dedos horizontais juntos e polegar vertical estendido para cima",
+    "oQueAproximado": "nenhum; forma específica de 4 dedos horizontais e polegar vertical não existente nas 32 formas",
+    "veredicto": "sem pose",
+    "motivo": "forma anatómica específica de mão horizontal com dedos fechados e polegar erguido não existente no rig"
+  },
+  {
+    "palavra": "2",
+    "chave": "dois",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      8,
+      11
+    ],
+    "segundosVistos": [
+      8,
+      11
+    ],
+    "folha": ".mine/numeros/palavra-2.png",
+    "notacao": "Y peito parado",
+    "oQueVisto": "mão direita com polegar e dedo mínimo estendidos (configuração Y / shaka), dedos centrais recolhidos, palma virada para o peito",
+    "oQueAproximado": "nenhum; coincide exatamente com a forma Y do rig",
+    "veredicto": "pose",
+    "motivo": "forma Y nítida em 7 fotogramas a 0.5s à frente do peito"
+  },
+  {
+    "palavra": "3",
+    "chave": "três",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      13,
+      25
+    ],
+    "segundosVistos": [
+      13,
+      25
+    ],
+    "folha": ".mine/numeros/palavra-3.png",
+    "notacao": "W peito parado",
+    "oQueVisto": "três dedos centrais (indicador, médio e anelar) estendidos verticalmente, polegar a segurar o mínimo dobrado",
+    "oQueAproximado": "nenhum; coincide exatamente com a forma W do rig",
+    "veredicto": "pose",
+    "motivo": "três dedos erguidos em W claramente identificáveis em 25 fotogramas a 0.5s"
+  },
+  {
+    "palavra": "4",
+    "chave": "quatro",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      26,
+      37
+    ],
+    "segundosVistos": [
+      26,
+      37
+    ],
+    "folha": ".mine/numeros/palavra-4.png",
+    "notacao": "B peito parado",
+    "aproximado": true,
+    "oQueVisto": "quatro dedos estendidos verticalmente e afastados (indicador, médio, anelar, mínimo), com polegar dobrado sobre a palma",
+    "oQueAproximado": "forma B do rig tem os quatro dedos estendidos verticalmente mas mais juntos do que o leque da aula",
+    "veredicto": "aproximado",
+    "motivo": "quatro dedos estendidos verticais com polegar dobrado; aproximação ligeira no espaçamento interdigital"
+  },
+  {
+    "palavra": "5",
+    "chave": "cinco",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      38,
+      45
+    ],
+    "segundosVistos": [
+      38,
+      45
+    ],
+    "folha": ".mine/numeros/palavra-5.png",
+    "notacao": "joinha peito parado",
+    "oQueVisto": "punho fechado com polegar estendido verticalmente para cima à frente do peito",
+    "oQueAproximado": "nenhum; forma medida joinha coincide exatamente",
+    "veredicto": "pose",
+    "motivo": "polegar estendido vertical em punho fechado evidente em 15 fotogramas a 0.5s"
+  },
+  {
+    "palavra": "6",
+    "chave": "seis",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      46,
+      53
+    ],
+    "segundosVistos": [
+      46,
+      53
+    ],
+    "folha": ".mine/numeros/palavra-6.png",
+    "notacao": "aponta peito parado",
+    "oQueVisto": "dedo indicador estendido para cima com palma virada para a frente, outros dedos recolhidos",
+    "oQueAproximado": "nenhum; forma aponta coincide exatamente",
+    "veredicto": "pose",
+    "motivo": "indicador único apontado verticalmente claro em 15 fotogramas a 0.5s"
+  },
+  {
+    "palavra": "7",
+    "chave": "sete",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      54,
+      58
+    ],
+    "segundosVistos": [
+      54,
+      58
+    ],
+    "folha": ".mine/numeros/palavra-7.png",
+    "notacao": null,
+    "oQueVisto": "mão aberta em plano horizontal à frente do peito com dedos juntos apontando para a esquerda e palma voltada para o corpo",
+    "oQueAproximado": "nenhum (rejeitado por exigir torção palmar horizontal)",
+    "veredicto": "sem pose",
+    "motivo": "orientação palmar horizontal voltada para o tronco não realizável sem forma/lugar dedicado"
+  },
+  {
+    "palavra": "8",
+    "chave": "oito",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      59,
+      74
+    ],
+    "segundosVistos": [
+      59,
+      74
+    ],
+    "folha": ".mine/numeros/palavra-8.png",
+    "notacao": "F peito parado",
+    "oQueVisto": "polegar e indicador unidos em anel/pinça circular com os restantes três dedos estendidos para cima (configuração F)",
+    "oQueAproximado": "nenhum; forma F coincide com a pinça e três dedos erguidos",
+    "veredicto": "pose",
+    "motivo": "anel indicador-polegar e 3 dedos erguidos nítidos em 31 fotogramas a 0.5s"
+  },
+  {
+    "palavra": "9",
+    "chave": "nove",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      75,
+      83
+    ],
+    "segundosVistos": [
+      75,
+      83
+    ],
+    "folha": ".mine/numeros/palavra-9.png",
+    "notacao": null,
+    "oQueVisto": "dedos fletidos em gancho/garra curvada virada para baixo",
+    "oQueAproximado": "nenhum (rejeitado por gancho invertido para baixo)",
+    "veredicto": "sem pose",
+    "motivo": "configuração em gancho voltado para baixo não coberta pelas orientações padrão do pulso"
+  },
+  {
+    "palavra": "10",
+    "chave": "dez",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      84,
+      90
+    ],
+    "segundosVistos": [
+      84,
+      90
+    ],
+    "folha": ".mine/numeros/palavra-10.png",
+    "notacao": null,
+    "oQueVisto": "sinal composto sequencial: mão na horizontal (1) seguido de círculo de dedos fechados (0)",
+    "oQueAproximado": "nenhum (rejeitado por ser composto sequencial)",
+    "veredicto": "sem pose",
+    "motivo": "sinal composto sequencial de dois dígitos (1 seguido de 0)"
+  },
+  {
+    "palavra": "11",
+    "chave": "onze",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      91,
+      96
+    ],
+    "segundosVistos": [
+      91,
+      96
+    ],
+    "folha": ".mine/numeros/palavra-11.png",
+    "notacao": null,
+    "oQueVisto": "mão em configuração de 1 (polegar vertical) com ligeiro movimento repetido para a frente",
+    "oQueAproximado": "nenhum (forma base de 1 não existe no rig)",
+    "veredicto": "sem pose",
+    "motivo": "depende da forma base de 1 e de pulsação repetida de dezena"
+  },
+  {
+    "palavra": "12",
+    "chave": "doze",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      97,
+      99
+    ],
+    "segundosVistos": [
+      97,
+      99
+    ],
+    "folha": ".mine/numeros/palavra-12.png",
+    "notacao": null,
+    "oQueVisto": "mão em configuração de 2 (Y) com impulso oscilante repetido para a frente",
+    "oQueAproximado": "nenhum (rejeitado por ser variante dinâmica de dezena)",
+    "veredicto": "sem pose",
+    "motivo": "sinal de dezena dinâmica com impulso oscilante de dois tempos"
+  },
+  {
+    "palavra": "13",
+    "chave": "treze",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      100,
+      102
+    ],
+    "segundosVistos": [
+      100,
+      102
+    ],
+    "folha": ".mine/numeros/palavra-13.png",
+    "notacao": null,
+    "oQueVisto": "três dedos erguidos com impulso oscilante para a frente",
+    "oQueAproximado": "nenhum (rejeitado por dezena dinâmica)",
+    "veredicto": "sem pose",
+    "motivo": "impulso oscilante repetido de dezena"
+  },
+  {
+    "palavra": "14",
+    "chave": "catorze",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      103,
+      104
+    ],
+    "segundosVistos": [
+      103,
+      104
+    ],
+    "folha": ".mine/numeros/palavra-14.png",
+    "notacao": null,
+    "oQueVisto": "quatro dedos erguidos com impulso oscilante para a frente",
+    "oQueAproximado": "nenhum (rejeitado por dezena dinâmica)",
+    "veredicto": "sem pose",
+    "motivo": "impulso oscilante repetido de dezena"
+  },
+  {
+    "palavra": "15",
+    "chave": "quinze",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      105,
+      107
+    ],
+    "segundosVistos": [
+      105,
+      107
+    ],
+    "folha": ".mine/numeros/palavra-15.png",
+    "notacao": null,
+    "oQueVisto": "polegar vertical (joinha) com impulso oscilante para a frente",
+    "oQueAproximado": "nenhum (rejeitado por dezena dinâmica)",
+    "veredicto": "sem pose",
+    "motivo": "impulso oscilante repetido de dezena"
+  },
+  {
+    "palavra": "16",
+    "chave": "dezasseis",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      108,
+      110
+    ],
+    "segundosVistos": [
+      108,
+      110
+    ],
+    "folha": ".mine/numeros/palavra-16.png",
+    "notacao": null,
+    "oQueVisto": "sinal composto sequencial: dez seguido de seis",
+    "oQueAproximado": "nenhum (rejeitado por ser composto sequencial)",
+    "veredicto": "sem pose",
+    "motivo": "sinal composto sequencial de dois sinais (10 seguido de 6)"
+  },
+  {
+    "palavra": "17",
+    "chave": "dezassete",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      111,
+      113
+    ],
+    "segundosVistos": [
+      111,
+      113
+    ],
+    "folha": ".mine/numeros/palavra-17.png",
+    "notacao": null,
+    "oQueVisto": "sinal composto sequencial: dez seguido de sete",
+    "oQueAproximado": "nenhum (rejeitado por ser composto sequencial)",
+    "veredicto": "sem pose",
+    "motivo": "sinal composto sequencial de dois sinais (10 seguido de 7)"
+  },
+  {
+    "palavra": "18",
+    "chave": "dezoito",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      114,
+      116
+    ],
+    "segundosVistos": [
+      114,
+      116
+    ],
+    "folha": ".mine/numeros/palavra-18.png",
+    "notacao": null,
+    "oQueVisto": "sinal composto sequencial: dez seguido de oito",
+    "oQueAproximado": "nenhum (rejeitado por ser composto sequencial)",
+    "veredicto": "sem pose",
+    "motivo": "sinal composto sequencial de dois sinais (10 seguido de 8)"
+  },
+  {
+    "palavra": "19",
+    "chave": "dezanove",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      117,
+      119
+    ],
+    "segundosVistos": [
+      117,
+      119
+    ],
+    "folha": ".mine/numeros/palavra-19.png",
+    "notacao": null,
+    "oQueVisto": "sinal composto sequencial: dez seguido de nove",
+    "oQueAproximado": "nenhum (rejeitado por ser composto sequencial)",
+    "veredicto": "sem pose",
+    "motivo": "sinal composto sequencial de dois sinais (10 seguido de 9)"
+  },
+  {
+    "palavra": "20",
+    "chave": "vinte",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      120,
+      122
+    ],
+    "segundosVistos": [
+      120,
+      122
+    ],
+    "folha": ".mine/numeros/palavra-20.png",
+    "notacao": null,
+    "oQueVisto": "sinal composto sequencial: dois (Y) seguido de zero (O)",
+    "oQueAproximado": "nenhum (rejeitado por ser composto sequencial)",
+    "veredicto": "sem pose",
+    "motivo": "sinal composto sequencial de dois dígitos (2 seguido de 0)"
+  },
+  {
+    "palavra": "30",
+    "chave": "trinta",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      123,
+      125
+    ],
+    "segundosVistos": [
+      123,
+      125
+    ],
+    "folha": ".mine/numeros/palavra-30.png",
+    "notacao": null,
+    "oQueVisto": "sinal composto sequencial: três (W) seguido de zero (O)",
+    "oQueAproximado": "nenhum (rejeitado por ser composto sequencial)",
+    "veredicto": "sem pose",
+    "motivo": "sinal composto sequencial de dois dígitos (3 seguido de 0)"
+  },
+  {
+    "palavra": "40",
+    "chave": "quarenta",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      126,
+      128
+    ],
+    "segundosVistos": [
+      126,
+      128
+    ],
+    "folha": ".mine/numeros/palavra-40.png",
+    "notacao": null,
+    "oQueVisto": "sinal composto sequencial: quatro seguido de zero (O)",
+    "oQueAproximado": "nenhum (rejeitado por ser composto sequencial)",
+    "veredicto": "sem pose",
+    "motivo": "sinal composto sequencial de dois dígitos (4 seguido de 0)"
+  },
+  {
+    "palavra": "50",
+    "chave": "cinquenta",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      129,
+      130
+    ],
+    "segundosVistos": [
+      129,
+      130
+    ],
+    "folha": ".mine/numeros/palavra-50.png",
+    "notacao": null,
+    "oQueVisto": "sinal composto sequencial: cinco (joinha) seguido de zero (O)",
+    "oQueAproximado": "nenhum (rejeitado por ser composto sequencial)",
+    "veredicto": "sem pose",
+    "motivo": "sinal composto sequencial de dois dígitos (5 seguido de 0)"
+  },
+  {
+    "palavra": "60",
+    "chave": "sessenta",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      131,
+      133
+    ],
+    "segundosVistos": [
+      131,
+      133
+    ],
+    "folha": ".mine/numeros/palavra-60.png",
+    "notacao": null,
+    "oQueVisto": "sinal composto sequencial: seis (indicador) seguido de zero (O)",
+    "oQueAproximado": "nenhum (rejeitado por ser composto sequencial)",
+    "veredicto": "sem pose",
+    "motivo": "sinal composto sequencial de dois dígitos (6 seguido de 0)"
+  },
+  {
+    "palavra": "70",
+    "chave": "setenta",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      134,
+      136
+    ],
+    "segundosVistos": [
+      134,
+      136
+    ],
+    "folha": ".mine/numeros/palavra-70.png",
+    "notacao": null,
+    "oQueVisto": "sinal composto sequencial: sete seguido de zero (O)",
+    "oQueAproximado": "nenhum (rejeitado por ser composto sequencial)",
+    "veredicto": "sem pose",
+    "motivo": "sinal composto sequencial de dois dígitos (7 seguido de 0)"
+  },
+  {
+    "palavra": "80",
+    "chave": "oitenta",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      137,
+      140
+    ],
+    "segundosVistos": [
+      137,
+      140
+    ],
+    "folha": ".mine/numeros/palavra-80.png",
+    "notacao": null,
+    "oQueVisto": "sinal composto sequencial: oito (F) seguido de zero (O)",
+    "oQueAproximado": "nenhum (rejeitado por ser composto sequencial)",
+    "veredicto": "sem pose",
+    "motivo": "sinal composto sequencial de dois dígitos (8 seguido de 0)"
+  },
+  {
+    "palavra": "90",
+    "chave": "noventa",
+    "aula": "Aula 03 — Números",
+    "segundos": [
+      141,
+      143
+    ],
+    "segundosVistos": [
+      141,
+      143
+    ],
+    "folha": ".mine/numeros/palavra-90.png",
+    "notacao": null,
+    "oQueVisto": "sinal composto sequencial: nove seguido de zero (O)",
+    "oQueAproximado": "nenhum (rejeitado por ser composto sequencial)",
+    "veredicto": "sem pose",
+    "motivo": "sinal composto sequencial de dois dígitos (9 seguido de 0)"
   }
 ]

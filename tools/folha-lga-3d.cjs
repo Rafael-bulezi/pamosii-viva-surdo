@@ -2,9 +2,9 @@
 'use strict';
 /*
  * FOLHA-LGA-3D — Fotografa a personagem 3D Agatha no palco WebGL executando
- * os sinais LGA verificados da Aula 01 do canal Viva surdo.
+ * os sinais LGA verificados das aulas do canal Viva surdo.
  *
- * Usa o Three.js e o rig glTF real (agatha-mpfb-rig.glb) via servidor local.
+ * Suporta --lote=1a (Saudação) ou --lote=1b (Números).
  * Captura 3 momentos de cada sinal (início, meio, fim) diretamente do canvas 3D.
  */
 const http = require('http');
@@ -14,11 +14,37 @@ const path = require('path');
 const { spawn } = require('child_process');
 const { frear } = require('./freno.cjs');
 
+const argv = process.argv.slice(2);
+const flag = (n, d) => {
+  const a = argv.find(x => x.startsWith('--' + n + '='));
+  return a ? a.slice(n.length + 3) : d;
+};
+
+const LOTE = flag('lote', '1b');
 const RAIZ = path.resolve(__dirname, '..');
 const APP_DIR = path.join(RAIZ, 'app');
 const PORTA_HTTP = 8123;
-const PORTA_CDP = 9335;
-const SAIDA_PNG = path.join(RAIZ, 'tools', 'fonte', 'lga-3d', 'lote-1a-saudacao.png');
+const PORTA_CDP = 9336;
+
+const CONFIG_LOTE = {
+  '1a': {
+    aula: 'Saudação',
+    titulo: 'LGA 3D — Lote 1a: Aula 01 (Saudação)',
+    subtitulo: 'Avatar 3D Agatha (Three.js WebGL) · 6 poses no palco WebGL (3 diretas, 3 aproximadas) · 3 instantes por sinal · viva-surdo',
+    saida: path.join(RAIZ, 'tools', 'fonte', 'lga-3d', 'lote-1a-saudacao.png'),
+  },
+  '1b': {
+    aula: 'Números',
+    titulo: 'LGA 3D — Lote 1b: Aula 03 (Números)',
+    subtitulo: 'Avatar 3D Agatha (Three.js WebGL) · 6 poses no palco WebGL (5 diretas, 1 aproximada) · 3 instantes por sinal · viva-surdo',
+    saida: path.join(RAIZ, 'tools', 'fonte', 'lga-3d', 'lote-1b-numeros.png'),
+  },
+}[LOTE] || {
+  aula: 'Números',
+  titulo: 'LGA 3D — Lote 1b: Aula 03 (Números)',
+  subtitulo: 'Avatar 3D Agatha (Three.js WebGL) · poses no palco WebGL',
+  saida: path.join(RAIZ, 'tools', 'fonte', 'lga-3d', 'lote-1b-numeros.png'),
+};
 
 const CHROME = [
   'C:/Program Files/Google/Chrome/Application/chrome.exe',
@@ -118,22 +144,32 @@ async function obterAlvoCDP(porta) {
   throw new Error('Chrome não abriu a porta CDP ' + porta);
 }
 
-function scriptRenderizacao() {
+function scriptRenderizacao(filtroAula, titulo, subtitulo) {
   return `(async () => {
     const SINAIS = window.SINAIS_LGA || {};
-    const itens = Object.entries(SINAIS).map(([chave, d]) => ({
-      chave,
-      notacao: d.notacao,
-      aula: d.aula,
-      segundos: d.segundos,
-    })).filter(x => !!x.notacao);
+    const FONTE = window.FONTE_LGA || {};
+    const filtro = ${JSON.stringify(filtroAula)};
+    const titulo = ${JSON.stringify(titulo)};
+    const subtitulo = ${JSON.stringify(subtitulo)};
 
-    if (!itens.length) return { ok: 0, erro: 'Nenhum sinal LGA com notação encontrado' };
+    const itens = Object.entries(SINAIS).map(([chave, d]) => {
+      const fe = FONTE[chave] || {};
+      return {
+        chave,
+        palavra: fe.palavra || chave,
+        notacao: d.notacao,
+        aproximado: !!d.aproximado,
+        aula: d.aula,
+        segundos: d.segundos,
+      };
+    }).filter(x => x.aula && x.aula.includes(filtro) && !!x.notacao);
+
+    if (!itens.length) return { ok: 0, erro: 'Nenhum sinal LGA com notação encontrado para ' + filtro };
 
     const palco = document.querySelector('#palco canvas');
     if (!palco) return { ok: 0, erro: 'Canvas 3D (#palco canvas) não encontrado' };
 
-    // Ajusta o enquadramento do avatar para afastar a câmara e apanhar braço inteiro e mãos elevadas
+    // Enquadra busto com folga 1.28 para braços e mãos estarem sempre no plano de visualização
     if (window.AVATAR && AVATAR.enquadrar) {
       AVATAR.enquadrar('busto', 1.28);
     }
@@ -144,7 +180,7 @@ function scriptRenderizacao() {
       { id: 'fim',    t: 1.0, label: 'fim' }
     ];
 
-    const COLUNAS = INSTANTES.length; // 3 colunas por linha (início, meio, fim)
+    const COLUNAS = INSTANTES.length;
     const TW = 340, TH = 380, BANDA_TOPO = 28, BANDA_FUNDO = 28, CABECALHO = 68;
     const linhas = itens.length;
     const larguraTotal = COLUNAS * TW;
@@ -155,7 +191,7 @@ function scriptRenderizacao() {
     folha.height = alturaTotal;
     const g = folha.getContext('2d');
 
-    // Fundo geral escuro
+    // Fundo geral
     g.fillStyle = '#0b1411';
     g.fillRect(0, 0, folha.width, folha.height);
 
@@ -164,10 +200,10 @@ function scriptRenderizacao() {
     g.fillRect(0, 0, folha.width, CABECALHO);
     g.fillStyle = '#4ade80';
     g.font = 'bold 22px system-ui, -apple-system, sans-serif';
-    g.fillText('LGA 3D — Lote 1a: Aula 01 (Saudação) — ' + itens.length + ' Poses', 24, 30);
+    g.fillText(titulo + ' — ' + itens.length + ' Poses', 24, 30);
     g.fillStyle = '#94a3b8';
     g.font = '13px system-ui, -apple-system, sans-serif';
-    g.fillText('Avatar 3D Agatha (Three.js WebGL) · 6 poses no palco WebGL (3 diretas, 3 aproximadas) · 3 instantes por sinal (início, meio, fim) · viva-surdo', 24, 52);
+    g.fillText(subtitulo, 24, 52);
 
     const tmp = document.createElement('canvas');
     const tg = tmp.getContext('2d');
@@ -189,7 +225,6 @@ function scriptRenderizacao() {
       for (let k = 0; k < INSTANTES.length; k++) {
         const inst = INSTANTES[k];
         try {
-          // Pose anatómica exata em função de t (0..1)
           const pose = SINAL3D.poseEm(beat, inst.t);
           AVATAR.poseParaQuats(pose);
           AVATAR.congelar();
@@ -205,26 +240,27 @@ function scriptRenderizacao() {
           const x = k * TW;
           const y = yLinha;
 
-          // Fundo da célula
+          // Célula
           g.fillStyle = '#101e19';
           g.fillRect(x + 2, y + 2, TW - 4, TH + BANDA_TOPO + BANDA_FUNDO - 4);
 
-          // Barra superior da célula (Chave, segundo da aula e instante)
-          g.fillStyle = '#1a322a';
+          // Topo: chave, palavra, segundos e instante
+          g.fillStyle = item.aproximado ? '#2e2613' : '#1a322a';
           g.fillRect(x + 3, y + 3, TW - 6, BANDA_TOPO);
 
           g.fillStyle = '#f8fafc';
           g.font = 'bold 13px system-ui, sans-serif';
           const segTexto = item.segundos ? (item.segundos[0] + 's->' + item.segundos[1] + 's') : '';
-          g.fillText(item.chave + ' · ' + segTexto, x + 8, y + 19);
+          const rotuloPalavra = item.palavra !== item.chave ? (item.palavra + ' (' + item.chave + ')') : item.chave;
+          g.fillText(rotuloPalavra + ' · ' + segTexto, x + 8, y + 19);
 
-          g.fillStyle = '#4ade80';
+          g.fillStyle = item.aproximado ? '#fbbf24' : '#4ade80';
           g.font = 'bold 12px monospace';
-          const instTxt = '[' + inst.label + ']';
-          const wInst = g.measureText(instTxt).width;
-          g.fillText(instTxt, x + TW - wInst - 8, y + 19);
+          const tagTexto = item.aproximado ? ('[aprox: ' + inst.label + ']') : ('[' + inst.label + ']');
+          const wTag = g.measureText(tagTexto).width;
+          g.fillText(tagTexto, x + TW - wTag - 8, y + 19);
 
-          // Recorte centrado amplo (84% da largura) para manter braços, mãos e cabeça sempre no enquadramento
+          // Recorte centrado amplo (84% da largura)
           const fracLarg = 0.84;
           const cx = Math.round(tmp.width * (0.5 - fracLarg / 2));
           const cw = Math.round(tmp.width * fracLarg);
@@ -233,11 +269,11 @@ function scriptRenderizacao() {
 
           g.drawImage(tmp, cx, cy, cw, ch, x + 3, y + BANDA_TOPO, TW - 6, TH);
 
-          // Barra inferior da célula (notação)
+          // Rodapé: notação e aula
           g.fillStyle = '#0d1814';
           g.fillRect(x + 3, y + BANDA_TOPO + TH, TW - 6, BANDA_FUNDO);
 
-          g.fillStyle = '#38bdf8';
+          g.fillStyle = item.aproximado ? '#fbbf24' : '#38bdf8';
           g.font = '12px monospace';
           g.fillText(item.notacao, x + 8, y + BANDA_TOPO + TH + 18);
 
@@ -268,7 +304,7 @@ function scriptRenderizacao() {
 }
 
 async function main() {
-  fs.mkdirSync(path.dirname(SAIDA_PNG), { recursive: true });
+  fs.mkdirSync(path.dirname(CONFIG_LOTE.saida), { recursive: true });
 
   let servidor = null;
   try {
@@ -335,14 +371,14 @@ async function main() {
     }
     console.log('Personagem 3D Agatha pronta no palco WebGL!');
 
-    console.log('A gerar folha de prova 3D para as 6 poses do Lote 1a (3 instantes cada)...');
-    const r = await avaliar(scriptRenderizacao());
+    console.log(`A gerar folha de prova 3D para ${CONFIG_LOTE.titulo}...`);
+    const r = await avaliar(scriptRenderizacao(CONFIG_LOTE.aula, CONFIG_LOTE.titulo, CONFIG_LOTE.subtitulo));
     if (!r.png) throw new Error('A folha voltou sem PNG: ' + (r.falhas || []).join(' | '));
 
     const buffer = Buffer.from(r.png.slice(r.png.indexOf(',') + 1), 'base64');
-    fs.writeFileSync(SAIDA_PNG, buffer);
+    fs.writeFileSync(CONFIG_LOTE.saida, buffer);
     console.log(`Prova 3D gerada com sucesso (${r.ok} quadros 3D WebGL, ${r.largura}x${r.altura}px, ${buffer.length} bytes):`);
-    console.log('  -> ' + SAIDA_PNG);
+    console.log('  -> ' + CONFIG_LOTE.saida);
 
     if (r.falhas && r.falhas.length) {
       console.log('Avisos/falhas:', r.falhas);
