@@ -99,6 +99,49 @@
       confianca: 'média',
       veSe: "polegar e indicador unidos em círculo/pinça (configuração em 'F'), com os outros três dedos estendidos para cima",
     },
+    'ver': {
+      notacao: 'aponta olho toque',
+      aula: 'Aula 06 — Verbos de LGA 1',
+      segundos: [15, 16],
+      confianca: 'alta',
+      veSe: 'dedo indicador da mão direita aponta para junto do olho e projeta-se ligeiramente para a frente',
+    },
+    'comer': {
+      notacao: 'curva boca repete',
+      aula: 'Aula 06 — Verbos de LGA 1',
+      segundos: [37, 40],
+      confianca: 'alta',
+      veSe: 'mão direita com dedos juntos em cúspide/pinça fecha repetidamente junto à boca',
+    },
+    'poder': {
+      notacao: '2:punho peito baixo',
+      aula: 'Aula 06 — Verbos de LGA 1',
+      segundos: [71, 74],
+      confianca: 'alta',
+      veSe: 'ambas as mãos em punho cerrado à altura dos ombros descem firmemente à frente do peito com movimento assertivo',
+    },
+    'falar': {
+      notacao: 'curva boca frente',
+      aproximado: true,
+      aula: 'Aula 06 — Verbos de LGA 1',
+      segundos: [97, 101],
+      confianca: 'alta',
+      veSe: 'mão direita aberta junto à boca fecha os 4 dedos contra o polegar (bico) repetidamente saindo da boca para a frente',
+    },
+    'ter': {
+      notacao: 'joinha peito toque',
+      aula: 'Aula 06 — Verbos de LGA 1',
+      segundos: [110, 112],
+      confianca: 'alta',
+      veSe: 'mão direita fechada em punho com o polegar estendido toca no peito com a ponta do polegar',
+    },
+    'amar': {
+      notacao: 'plano peito toque',
+      aula: 'Aula 06 — Verbos de LGA 1',
+      segundos: [136, 138],
+      confianca: 'alta',
+      veSe: 'mão direita aberta pousa suavemente sobre o lado esquerdo do peito (coração)',
+    },
   };
 
   global.SINAIS_LGA = SINAIS_LGA;

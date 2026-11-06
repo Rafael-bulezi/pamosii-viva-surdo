@@ -876,5 +876,519 @@
     "oQueAproximado": "nenhum (rejeitado por ser composto sequencial)",
     "veredicto": "sem pose",
     "motivo": "sinal composto sequencial de dois dígitos (9 seguido de 0)"
+  },
+  {
+    "palavra": "viver",
+    "chave": "viver",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      1,
+      4
+    ],
+    "segundosVistos": [
+      1,
+      4
+    ],
+    "folha": ".mine/verbos-1/palavra-viver.png",
+    "notacao": null,
+    "oQueVisto": "mão aberta com dedos afastados desce para a frente do peito e fecha os dedos centrais formando V que oscila",
+    "oQueAproximado": "nenhum (rejeitado por transição sequencial aberta->V)",
+    "veredicto": "sem pose",
+    "motivo": "transição morfológica sequencial de mão aberta para V com oscilação que o rig atómico de 1 beat não suporta"
+  },
+  {
+    "palavra": "andar",
+    "chave": "andar",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      6,
+      9
+    ],
+    "segundosVistos": [
+      6,
+      9
+    ],
+    "folha": ".mine/verbos-1/palavra-andar.png",
+    "notacao": null,
+    "oQueVisto": "dois dedos indicador e médio invertidos para baixo imitando pernas a caminhar alternadamente para a frente",
+    "oQueAproximado": "nenhum (rejeitado por mímica de pernas com dedos invertidos)",
+    "veredicto": "sem pose",
+    "motivo": "movimento digital alternado simulando passos de pernas viradas para baixo; o rig não tem animação de passos digitais invertidos"
+  },
+  {
+    "palavra": "correr",
+    "chave": "correr",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      10,
+      12
+    ],
+    "segundosVistos": [
+      10,
+      12
+    ],
+    "folha": ".mine/verbos-1/palavra-correr.png",
+    "notacao": null,
+    "oQueVisto": "ambos os braços flexionados junto ao tronco com punhos fechados em vaivém rápido alternado de corrida",
+    "oQueAproximado": "nenhum (rejeitado por vaivém alternado em contrafase)",
+    "veredicto": "sem pose",
+    "motivo": "braços em contrafase alternada de corrida (um avança enquanto outro recua); a notação 2: espelha os braços em fase"
+  },
+  {
+    "palavra": "ver",
+    "chave": "ver",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      15,
+      16
+    ],
+    "segundosVistos": [
+      15,
+      16
+    ],
+    "folha": ".mine/verbos-1/palavra-ver.png",
+    "notacao": "aponta olho toque",
+    "oQueVisto": "dedo indicador da mão direita aponta para junto do olho/maçã do rosto e toca ligeiramente",
+    "oQueAproximado": "nenhum; aponta olho toque coincide diretamente com o sinal",
+    "veredicto": "pose",
+    "motivo": "dedo indicador apontado junto ao olho com toque suave evidente em 3 fotogramas a 0.5s"
+  },
+  {
+    "palavra": "dormir",
+    "chave": "dormir",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      18,
+      24
+    ],
+    "segundosVistos": [
+      18,
+      24
+    ],
+    "folha": ".mine/verbos-1/palavra-dormir.png",
+    "notacao": null,
+    "oQueVisto": "ambas as palmas unidas em almofada pousadas na bochecha com cabeça inclinada, seguido de espreguiçamento",
+    "oQueAproximado": "nenhum (rejeitado por exigir inclinação de cabeça sobre palmas unidas)",
+    "veredicto": "sem pose",
+    "motivo": "exige contacto bilateral de palmas com inclinação lateral da cabeça apoiada na bochecha, sem suporte no rig"
+  },
+  {
+    "palavra": "acordar",
+    "chave": "acordar",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      26,
+      28
+    ],
+    "segundosVistos": [
+      26,
+      28
+    ],
+    "folha": ".mine/verbos-1/palavra-acordar.png",
+    "notacao": null,
+    "oQueVisto": "mãos saem da face e abrem-se para os lados do tronco com espreguiçamento",
+    "oQueAproximado": "nenhum (rejeitado por transição postural complexa de despertar)",
+    "veredicto": "sem pose",
+    "motivo": "postura corporal completa de despertar partindo da cabeça inclinada para os lados em espreguiçamento"
+  },
+  {
+    "palavra": "cozinhar",
+    "chave": "cozinhar",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      31,
+      34
+    ],
+    "segundosVistos": [
+      31,
+      34
+    ],
+    "folha": ".mine/verbos-1/palavra-cozinhar.png",
+    "notacao": null,
+    "oQueVisto": "mão esquerda aberta palma para cima (panela); mão direita com dedos juntos descreve círculos simulando colher",
+    "oQueAproximado": "nenhum (rejeitado por bimanual assimétrico)",
+    "veredicto": "sem pose",
+    "motivo": "sinal bimanual assimétrico onde a mão esquerda serve de recipiente passivo e a direita é o agente ativo circular"
+  },
+  {
+    "palavra": "comer",
+    "chave": "comer",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      37,
+      40
+    ],
+    "segundosVistos": [
+      37,
+      40
+    ],
+    "folha": ".mine/verbos-1/palavra-comer.png",
+    "notacao": "curva boca repete",
+    "oQueVisto": "mão direita com dedos juntos em cúspide/curva aproxima-se repetidamente da boca",
+    "oQueAproximado": "nenhum; forma curva boca repete coincide com o sinal da aula",
+    "veredicto": "pose",
+    "motivo": "movimento oscilatório de aproximação das pontas dos dedos à boca nítido em 7 fotogramas a 0.5s"
+  },
+  {
+    "palavra": "sentar",
+    "chave": "sentar",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      42,
+      45
+    ],
+    "segundosVistos": [
+      42,
+      45
+    ],
+    "folha": ".mine/verbos-1/palavra-sentar.png",
+    "notacao": null,
+    "oQueVisto": "mão esquerda com 2 dedos horizontais (banco); mão direita com 2 dedos fletidos pousa sobre eles a cavalo",
+    "oQueAproximado": "nenhum (rejeitado por contacto bimanual assimétrico e cavalgamento)",
+    "veredicto": "sem pose",
+    "motivo": "contacto de dedos fletidos da mão direita cavalgando sobre os dedos horizontais da mão esquerda passiva"
+  },
+  {
+    "palavra": "conversar",
+    "chave": "conversar",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      48,
+      50
+    ],
+    "segundosVistos": [
+      48,
+      50
+    ],
+    "folha": ".mine/verbos-1/palavra-conversar.png",
+    "notacao": null,
+    "oQueVisto": "dedos indicadores de ambas as mãos apontados horizontalmente um para o outro em vai-vem alternado",
+    "oQueAproximado": "nenhum (rejeitado por oposição horizontal de indicadores e contrafase)",
+    "veredicto": "sem pose",
+    "motivo": "indicadores apontados horizontalmente frente a frente em vaivém alternado; o rig orienta aponta para cima e espelha em fase"
+  },
+  {
+    "palavra": "levantar",
+    "chave": "levantar",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      52,
+      56
+    ],
+    "segundosVistos": [
+      52,
+      56
+    ],
+    "folha": ".mine/verbos-1/palavra-levantar.png",
+    "notacao": null,
+    "oQueVisto": "mão esquerda aberta palma para cima; mão direita com 2 dedos ergue-se a partir da palma",
+    "oQueAproximado": "nenhum (rejeitado por bimanual assimétrico)",
+    "veredicto": "sem pose",
+    "motivo": "sinal bimanual assimétrico com partida de contacto da palma esquerda e movimento ascendente"
+  },
+  {
+    "palavra": "conseguir/ganhar",
+    "chave": "conseguir/ganhar",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      59,
+      63
+    ],
+    "segundosVistos": [
+      59,
+      63
+    ],
+    "folha": ".mine/verbos-1/palavra-conseguir-ganhar.png",
+    "notacao": null,
+    "oQueVisto": "encontro dos dois polegares cruzados à frente do peito seguido de sinal em Y",
+    "oQueAproximado": "nenhum (rejeitado por sequência composta)",
+    "veredicto": "sem pose",
+    "motivo": "sinal composto sequencial com encontro de polegares e posterior gesto em Y"
+  },
+  {
+    "palavra": "perder",
+    "chave": "perder",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      66,
+      69
+    ],
+    "segundosVistos": [
+      66,
+      69
+    ],
+    "folha": ".mine/verbos-1/palavra-perder.png",
+    "notacao": null,
+    "oQueVisto": "ambas as mãos abertas com palmas para cima descem abrindo dedos e virando para fora",
+    "oQueAproximado": "nenhum (rejeitado por pronação e abertura digital composta)",
+    "veredicto": "sem pose",
+    "motivo": "movimento coordenado de pronação e afastamento descendente das palmas que não cabe num beat canónico"
+  },
+  {
+    "palavra": "poder",
+    "chave": "poder",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      71,
+      74
+    ],
+    "segundosVistos": [
+      71,
+      74
+    ],
+    "folha": ".mine/verbos-1/palavra-poder.png",
+    "notacao": "2:punho peito baixo",
+    "oQueVisto": "ambas as mãos em punho cerrado à altura dos ombros descem firmemente à frente do peito com movimento assertivo",
+    "oQueAproximado": "nenhum; 2:punho peito baixo reproduz exatamente a descida firme de ambos os punhos",
+    "veredicto": "pose",
+    "motivo": "descida paralela assertiva de ambos os punhos fechados no peito evidente em 7 fotogramas a 0.5s"
+  },
+  {
+    "palavra": "ajudar",
+    "chave": "ajudar",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      77,
+      81
+    ],
+    "segundosVistos": [
+      77,
+      81
+    ],
+    "folha": ".mine/verbos-1/palavra-ajudar.png",
+    "notacao": null,
+    "oQueVisto": "mão esquerda aberta palma para cima serve de suporte; mão direita com polegar erguido apoia-se sobre ela e ambas projetam-se à frente",
+    "oQueAproximado": "nenhum (rejeitado por bimanual assimétrico com apoio mecânico)",
+    "veredicto": "sem pose",
+    "motivo": "mão direita em joinha apoiada mecanicamente sobre a palma esquerda horizontal plana"
+  },
+  {
+    "palavra": "trabalhar",
+    "chave": "trabalhar",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      84,
+      88
+    ],
+    "segundosVistos": [
+      84,
+      88
+    ],
+    "folha": ".mine/verbos-1/palavra-trabalhar.png",
+    "notacao": null,
+    "oQueVisto": "ambos os punhos fechados batem um sobre o outro alternadamente em corte vertical",
+    "oQueAproximado": "nenhum (rejeitado por batimento recíproco assimétrico)",
+    "veredicto": "sem pose",
+    "motivo": "punho direito bate sobre o punho esquerdo que atua como base de corte; rig 2: não suporta sobreposição assimétrica"
+  },
+  {
+    "palavra": "estudar",
+    "chave": "estudar",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      91,
+      95
+    ],
+    "segundosVistos": [
+      91,
+      95
+    ],
+    "folha": ".mine/verbos-1/palavra-estudar.png",
+    "notacao": null,
+    "oQueVisto": "palma direita aberta bate repetidamente sobre a palma esquerda aberta em leitura de livro",
+    "oQueAproximado": "nenhum (rejeitado por aplauso/batimento palmar assimétrico)",
+    "veredicto": "sem pose",
+    "motivo": "batimento percussivo da palma direita sobre a palma esquerda imóvel orientada para cima"
+  },
+  {
+    "palavra": "falar",
+    "chave": "falar",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      97,
+      101
+    ],
+    "segundosVistos": [
+      97,
+      101
+    ],
+    "folha": ".mine/verbos-1/palavra-falar.png",
+    "notacao": "curva boca frente",
+    "aproximado": true,
+    "oQueVisto": "mão direita aberta junto à boca fecha os 4 dedos contra o polegar (bico de pato) repetidamente saindo da boca para a frente",
+    "oQueAproximado": "o rig reproduz a mão em curva a projetar-se da boca para a frente, mas sem a animação mecânica de bico abrindo e fechando repetidamente",
+    "veredicto": "aproximado",
+    "motivo": "projeção da mão curva a partir da boca corresponde à direção e localização do sinal; fecho repetido em bico aproximado"
+  },
+  {
+    "palavra": "aprender",
+    "chave": "aprender",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      103,
+      108
+    ],
+    "segundosVistos": [
+      103,
+      108
+    ],
+    "folha": ".mine/verbos-1/palavra-aprender.png",
+    "notacao": null,
+    "oQueVisto": "mão esquerda aberta palma para cima; mão direita em garra recolhe da palma e sobe tocando na testa",
+    "oQueAproximado": "nenhum (rejeitado por trajetória composta palma->testa)",
+    "veredicto": "sem pose",
+    "motivo": "trajetória multizona recolhendo informação da palma esquerda e transportando para contacto na testa"
+  },
+  {
+    "palavra": "ter",
+    "chave": "ter",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      110,
+      112
+    ],
+    "segundosVistos": [
+      110,
+      112
+    ],
+    "folha": ".mine/verbos-1/palavra-ter.png",
+    "notacao": "joinha peito toque",
+    "oQueVisto": "mão direita em punho com o polegar estendido para cima toca firmemente com o polegar no peito",
+    "oQueAproximado": "nenhum; joinha peito toque reproduz fielmente a mão com polegar vertical tocando o tórax",
+    "veredicto": "pose",
+    "motivo": "forma joinha com toque firme de polegar no tórax direito inequívoco em 5 fotogramas a 0.5s"
+  },
+  {
+    "palavra": "levar",
+    "chave": "levar",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      115,
+      117
+    ],
+    "segundosVistos": [
+      115,
+      117
+    ],
+    "folha": ".mine/verbos-1/palavra-levar.png",
+    "notacao": null,
+    "oQueVisto": "ambas as mãos abertas paralelas com palmas viradas para dentro deslocam-se juntas para a lateral direita",
+    "oQueAproximado": "nenhum (rejeitado por translação lateral conjugada não espelhada)",
+    "veredicto": "sem pose",
+    "motivo": "deslocamento paralelo em bloco para a direita; 2: espelha em sentidos opostos, violando a direção do sinal"
+  },
+  {
+    "palavra": "trazer",
+    "chave": "trazer",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      121,
+      123
+    ],
+    "segundosVistos": [
+      121,
+      123
+    ],
+    "folha": ".mine/verbos-1/palavra-trazer.png",
+    "notacao": null,
+    "oQueVisto": "ambos os braços cruzados no espaço neutro puxam em direção ao peito com sobreposição de pulsos",
+    "oQueAproximado": "nenhum (rejeitado por sobreposição e cruzamento de pulsos)",
+    "veredicto": "sem pose",
+    "motivo": "braços cruzados com um pulso sobreposto ao outro a puxar em direção ao tórax"
+  },
+  {
+    "palavra": "usar",
+    "chave": "usar",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      125,
+      130
+    ],
+    "segundosVistos": [
+      125,
+      130
+    ],
+    "folha": ".mine/verbos-1/palavra-usar.png",
+    "notacao": null,
+    "oQueVisto": "mão esquerda aberta palma para cima; mão direita em U faz círculos e toca sobre a palma esquerda",
+    "oQueAproximado": "nenhum (rejeitado por bimanual assimétrico com órbita sobre palma)",
+    "veredicto": "sem pose",
+    "motivo": "dedos em U orbitando e tocando a superfície da palma esquerda passiva"
+  },
+  {
+    "palavra": "pedir",
+    "chave": "pedir",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      132,
+      134
+    ],
+    "segundosVistos": [
+      132,
+      134
+    ],
+    "folha": ".mine/verbos-1/palavra-pedir.png",
+    "notacao": null,
+    "oQueVisto": "antebraço direito erguido verticalmente, mão esquerda segura e bate na base do antebraço direito em súplica",
+    "oQueAproximado": "nenhum (rejeitado por preensão assimétrica de antebraço)",
+    "veredicto": "sem pose",
+    "motivo": "uma mão agarra a base do antebraço da outra em postura de súplica assimétrica"
+  },
+  {
+    "palavra": "amar",
+    "chave": "amar",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      136,
+      138
+    ],
+    "segundosVistos": [
+      136,
+      138
+    ],
+    "folha": ".mine/verbos-1/palavra-amar.png",
+    "notacao": "plano peito toque",
+    "oQueVisto": "mão direita aberta com palma virada para o corpo pousa suavemente sobre o lado esquerdo do peito (coração)",
+    "oQueAproximado": "nenhum; plano peito toque coincide com o repouso da palma sobre o coração",
+    "veredicto": "pose",
+    "motivo": "palma direita estendida pousada sobre o coração evidente em 5 fotogramas a 0.5s"
+  },
+  {
+    "palavra": "orar",
+    "chave": "orar",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      140,
+      142
+    ],
+    "segundosVistos": [
+      140,
+      142
+    ],
+    "folha": ".mine/verbos-1/palavra-orar.png",
+    "notacao": null,
+    "oQueVisto": "mão direita com dedos juntos fletidos sobe junto à boca/nariz em oração sussurrada",
+    "oQueAproximado": "nenhum (rejeitado por postura mimética não diferenciável de segredo/sussurro)",
+    "veredicto": "sem pose",
+    "motivo": "configuração ambígua dos dedos fletidos junto aos lábios simulando prece silenciosa"
+  },
+  {
+    "palavra": "ler",
+    "chave": "ler",
+    "aula": "Aula 06 — Verbos de LGA 1",
+    "segundos": [
+      144,
+      147
+    ],
+    "segundosVistos": [
+      144,
+      147
+    ],
+    "folha": ".mine/verbos-1/palavra-ler.png",
+    "notacao": null,
+    "oQueVisto": "mão esquerda aberta palma para cima (livro); mão direita em V virado para baixo varre a palma da esquerda para a direita",
+    "oQueAproximado": "nenhum (rejeitado por bimanual assimétrico com varrimento ocular)",
+    "veredicto": "sem pose",
+    "motivo": "dois dedos em V invertido varrendo horizontalmente a superfície da palma esquerda passiva"
   }
 ]

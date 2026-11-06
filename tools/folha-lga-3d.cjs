@@ -43,6 +43,13 @@ const CONFIG_LOTE = {
     saida: path.join(RAIZ, 'tools', 'fonte', 'lga-3d', 'lote-1b-numeros.png'),
     modo: 'angulos',
   },
+  '2a': {
+    aula: 'Verbos de LGA 1',
+    titulo: 'LGA 3D — Lote 2a: Aula 06 (Verbos 1)',
+    subtitulo: 'Avatar 3D Agatha (Three.js WebGL) · 4 vistas por sinal: início, meio, fim e close-up · viva-surdo',
+    saida: path.join(RAIZ, 'tools', 'fonte', 'lga-3d', 'lote-2a-verbos1.png'),
+    modo: 'verbos',
+  },
 }[LOTE] || {
   aula: 'Números',
   titulo: 'LGA 3D — Lote 1b: Aula 03 (Números)',
@@ -182,12 +189,19 @@ function scriptRenderizacao(filtroAula, titulo, subtitulo, modo) {
     ];
 
     const VISTAS_TEMPO = [
-      { id: 'inicio', t: 0.0, label: 'início' },
-      { id: 'meio',   t: 0.5, label: 'meio' },
-      { id: 'fim',    t: 1.0, label: 'fim' }
+      { id: 'inicio', t: 0.0, tipo: 'tempo', label: 'início' },
+      { id: 'meio',   t: 0.5, tipo: 'tempo', label: 'meio' },
+      { id: 'fim',    t: 1.0, tipo: 'tempo', label: 'fim' }
     ];
 
-    const VISTAS = modo === 'angulos' ? VISTAS_ANGULOS : VISTAS_TEMPO;
+    const VISTAS_VERBOS = [
+      { id: 'inicio', t: 0.0, tipo: 'tempo', label: 'início' },
+      { id: 'meio',   t: 0.5, tipo: 'tempo', label: 'meio' },
+      { id: 'fim',    t: 1.0, tipo: 'tempo', label: 'fim' },
+      { id: 'close',  t: 0.8, tipo: 'close', label: 'close mão' }
+    ];
+
+    const VISTAS = modo === 'angulos' ? VISTAS_ANGULOS : (modo === 'verbos' ? VISTAS_VERBOS : VISTAS_TEMPO);
     const COLUNAS = VISTAS.length;
     const TW = 340, TH = 380, BANDA_TOPO = 28, BANDA_FUNDO = 28, CABECALHO = 68;
     const linhas = itens.length;
@@ -291,6 +305,44 @@ function scriptRenderizacao(filtroAula, titulo, subtitulo, modo) {
                 AVATAR.cam.lookAt(alvo.x, alvo.y, alvo.z);
                 AVATAR.cam.updateProjectionMatrix();
               }
+            }
+          } else if (modo === 'verbos') {
+            const pose = SINAL3D.poseEm(beat, vista.t);
+            AVATAR.poseParaQuats(pose);
+            AVATAR.congelar();
+
+            if (vista.tipo === 'tempo') {
+              AVATAR.enquadrar('busto', 1.25);
+            } else if (vista.tipo === 'close') {
+              const vMao = new AVATAR.THREE.Vector3();
+              const vMid = new AVATAR.THREE.Vector3();
+              if (AVATAR.ossos['J_Bip_R_Hand']) {
+                AVATAR.ossos['J_Bip_R_Hand'].getWorldPosition(vMao);
+              } else {
+                vMao.set(-0.11, 1.27, 0.22);
+              }
+              if (AVATAR.ossos['J_Bip_R_Middle1']) {
+                AVATAR.ossos['J_Bip_R_Middle1'].getWorldPosition(vMid);
+              } else {
+                vMid.set(vMao.x, vMao.y + 0.08, vMao.z);
+              }
+
+              const eBimanual = item.notacao.startsWith('2:');
+              if (eBimanual) {
+                AVATAR.cam.fov = 32;
+                AVATAR.cam.position.set(0, vMid.y - 0.02, vMid.z + 0.65);
+                AVATAR.cam.lookAt(0, vMid.y - 0.02, vMid.z);
+              } else {
+                const alvo = new AVATAR.THREE.Vector3(
+                  (vMao.x + vMid.x) * 0.5,
+                  vMid.y + 0.01,
+                  (vMao.z + vMid.z) * 0.5
+                );
+                AVATAR.cam.fov = 30;
+                AVATAR.cam.position.set(alvo.x, alvo.y, alvo.z + 0.50);
+                AVATAR.cam.lookAt(alvo.x, alvo.y, alvo.z);
+              }
+              AVATAR.cam.updateProjectionMatrix();
             }
           } else {
             // Modo tempo (Lote 1a): início, meio, fim
