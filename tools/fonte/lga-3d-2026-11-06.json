@@ -1025,9 +1025,9 @@
     "folha": ".mine/verbos-1/palavra-comer.png",
     "notacao": "curva boca repete",
     "oQueVisto": "mão direita com dedos juntos em cúspide/curva aproxima-se repetidamente da boca",
-    "oQueAproximado": "nenhum; forma curva boca repete coincide com o sinal da aula",
-    "veredicto": "pose",
-    "motivo": "movimento oscilatório de aproximação das pontas dos dedos à boca nítido em 7 fotogramas a 0.5s"
+    "oQueAproximado": "amplitude medida de 0.054 m entre início e fim da trajetória da mão junto à boca no movimento repetido do rig",
+    "veredicto": "aproximado",
+    "motivo": "fecho repetido em cúspide na boca nítido nos fotogramas, mas rig tem amplitude de deslocamento de 5.4 cm"
   },
   {
     "palavra": "sentar",
@@ -1827,5 +1827,423 @@
     "oQueAproximado": "nenhum (rejeitado por soletração datilológica pura)",
     "veredicto": "sem pose",
     "motivo": "soletração em alfabeto manual R-E-P-O-L-H-O sem sinal gestual específico apresentado"
+  },
+  {
+    "palavra": "frango",
+    "chave": "frango",
+    "aula": "Aula 08 — Comida e Bebida (2ª parte)",
+    "segundos": [
+      3,
+      13
+    ],
+    "segundosVistos": [
+      3,
+      13
+    ],
+    "folha": ".mine/comida-2/palavra-frango.png",
+    "notacao": null,
+    "oQueVisto": "mão direita com indicador e polegar em bico/L colocada junto ao nariz/ponte nasal abrindo e fechando simulando o bico da ave",
+    "oQueAproximado": "nenhum (rejeitado por ausência de localização 'nariz' no rig e necessidade de contacto dinâmico em bico)",
+    "veredicto": "sem pose",
+    "motivo": "bico abre e fecha junto ao nariz; o rig não tem localização 'nariz' no vocabulário e o movimento requer contacto fino de bico"
+  },
+  {
+    "palavra": "carne",
+    "chave": "carne",
+    "aula": "Aula 08 — Comida e Bebida (2ª parte)",
+    "segundos": [
+      19,
+      27
+    ],
+    "segundosVistos": [
+      19,
+      27
+    ],
+    "folha": ".mine/comida-2/palavra-carne.png",
+    "notacao": null,
+    "oQueVisto": "mão direita com dedos fletidos puxando ligeiramente a pele do pescoço de lado",
+    "oQueAproximado": "nenhum (rejeitado por preensão elástica de pele no pescoço)",
+    "veredicto": "sem pose",
+    "motivo": "puxar suave da pele da traqueia; o modelo 3D não possui deformação física de pele superficial no pescoço"
+  },
+  {
+    "palavra": "peixe",
+    "chave": "peixe",
+    "aula": "Aula 08 — Comida e Bebida (2ª parte)",
+    "segundos": [
+      35,
+      38
+    ],
+    "segundosVistos": [
+      35,
+      38
+    ],
+    "folha": ".mine/comida-2/palavra-peixe.png",
+    "notacao": null,
+    "oQueVisto": "ambas as mãos espalmadas viradas para baixo sobrepostas pelos punhos, ondulando simulando o nado e barbatanas do peixe",
+    "oQueAproximado": "nenhum (rejeitado por sobreposição e entrelaçamento de pulsos)",
+    "veredicto": "sem pose",
+    "motivo": "palmas sobrepostas pelos punhos em ondulação contínua; o modelo bimanual do rig não permite sobreposição articular de pulsos"
+  },
+  {
+    "palavra": "ovo",
+    "chave": "ovo",
+    "aula": "Aula 08 — Comida e Bebida (2ª parte)",
+    "segundos": [
+      42,
+      46
+    ],
+    "segundosVistos": [
+      42,
+      46
+    ],
+    "folha": ".mine/comida-2/palavra-ovo.png",
+    "notacao": null,
+    "oQueVisto": "ambas as mãos em garra/concha unidas pelos nós dos dedos que se separam e viram para baixo, simulando quebrar um ovo na frigideira",
+    "oQueAproximado": "nenhum (rejeitado por separação brusca com inversão rápida de palmas)",
+    "veredicto": "sem pose",
+    "motivo": "separação brusca dos nós com rotação para baixo; excede a sincronização bimanual do modelo de um beat"
+  },
+  {
+    "palavra": "salada",
+    "chave": "salada",
+    "aula": "Aula 08 — Comida e Bebida (2ª parte)",
+    "segundos": [
+      48,
+      53
+    ],
+    "segundosVistos": [
+      48,
+      53
+    ],
+    "folha": ".mine/comida-2/palavra-salada.png",
+    "notacao": null,
+    "oQueVisto": "soletração rápida em alfabeto manual (datilologia S-A-L-A-D-A)",
+    "oQueAproximado": "nenhum (rejeitado por soletração datilológica pura)",
+    "veredicto": "sem pose",
+    "motivo": "soletração em alfabeto manual S-A-L-A-D-A sem sinal icónico apresentado na aula"
+  },
+  {
+    "palavra": "vinagre",
+    "chave": "vinagre",
+    "aula": "Aula 08 — Comida e Bebida (2ª parte)",
+    "segundos": [
+      56,
+      61
+    ],
+    "segundosVistos": [
+      56,
+      61
+    ],
+    "folha": ".mine/comida-2/palavra-vinagre.png",
+    "notacao": null,
+    "oQueVisto": "soletração em alfabeto manual (datilologia V-I-N-A-G-R-E)",
+    "oQueAproximado": "nenhum (rejeitado por soletração datilológica pura)",
+    "veredicto": "sem pose",
+    "motivo": "soletração em alfabeto manual V-I-N-A-G-R-E sem sinal gestual específico apresentado"
+  },
+  {
+    "palavra": "pao",
+    "chave": "pao",
+    "aula": "Aula 08 — Comida e Bebida (2ª parte)",
+    "segundos": [
+      64,
+      67
+    ],
+    "segundosVistos": [
+      64,
+      67
+    ],
+    "folha": ".mine/comida-2/palavra-pao.png",
+    "notacao": "curva queixo toque",
+    "oQueVisto": "mão direita em concha fletida toca ou bate suavemente no lado da bochecha/mandíbula",
+    "oQueAproximado": "toque na face lateral/mandíbula é posicionado no queixo pelo rig 3D",
+    "veredicto": "aproximado",
+    "motivo": "mão em concha fletida batendo na face inferior/mandíbula comprovada em 7 fotogramas a 0.5s"
+  },
+  {
+    "palavra": "manteiga",
+    "chave": "manteiga",
+    "aula": "Aula 08 — Comida e Bebida (2ª parte)",
+    "segundos": [
+      71,
+      76
+    ],
+    "segundosVistos": [
+      71,
+      76
+    ],
+    "folha": ".mine/comida-2/palavra-manteiga.png",
+    "notacao": "H mao varre",
+    "oQueVisto": "mão esquerda aberta palma para cima como fatia; dedos indicador e médio da mão direita deslizam sobre a palma como faca a barrar manteiga",
+    "oQueAproximado": "nenhum; H mao varre reproduz os dois dedos estendidos a deslizar sobre a palma da mão parceira",
+    "veredicto": "pose",
+    "motivo": "deslize contínuo de dois dedos sobre a palma aberta esquerda evidente nos fotogramas q0143-q0153 a 0.5s"
+  },
+  {
+    "palavra": "leite",
+    "chave": "leite",
+    "aula": "Aula 08 — Comida e Bebida (2ª parte)",
+    "segundos": [
+      79,
+      83
+    ],
+    "segundosVistos": [
+      79,
+      83
+    ],
+    "folha": ".mine/comida-2/palavra-leite.png",
+    "notacao": "punho orelha repete",
+    "oQueVisto": "mão direita aberta ao lado da cabeça/orelha fecha sucessivamente em punho simulando ordenha com uma mão",
+    "oQueAproximado": "nenhum; punho orelha repete reproduz o fecho repetido da mão ao lado da cabeça/orelha",
+    "veredicto": "pose",
+    "motivo": "fecho sucessivo da mão em punho junto à têmpora/orelha nítido nos fotogramas q0159-q0167 a 0.5s"
+  },
+  {
+    "palavra": "cafe",
+    "chave": "cafe",
+    "aula": "Aula 08 — Comida e Bebida (2ª parte)",
+    "segundos": [
+      88,
+      91
+    ],
+    "segundosVistos": [
+      88,
+      91
+    ],
+    "folha": ".mine/comida-2/palavra-cafe.png",
+    "notacao": "F mao toque",
+    "oQueVisto": "mão direita em configuração 'F' (indicador e polegar em círculo) desce suavemente sobre a palma estendida da mão esquerda (como chávena pousada no pires)",
+    "oQueAproximado": "forma F no rig mantém intervalo medido de 2.97 cm entre as pontas dos dedos e a palma passiva",
+    "veredicto": "aproximado",
+    "motivo": "chávena em F pousada na palma esquerda nítida nos fotogramas q0177-q0183 a 0.5s"
+  },
+  {
+    "palavra": "agua",
+    "chave": "agua",
+    "aula": "Aula 08 — Comida e Bebida (2ª parte)",
+    "segundos": [
+      94,
+      100
+    ],
+    "segundosVistos": [
+      94,
+      100
+    ],
+    "folha": ".mine/comida-2/palavra-agua.png",
+    "notacao": "L queixo repete",
+    "oQueVisto": "mão direita em 'L' com indicador erguido e polegar estendido; ponta do indicador toca repetidamente o queixo / lábio inferior",
+    "oQueAproximado": "nenhum; L queixo repete reproduz fielmente a configuração em L e o toque repetido no queixo",
+    "veredicto": "pose",
+    "motivo": "toque repetido da configuração em L no queixo nítido e inequívoco em 13 fotogramas a 0.5s"
+  },
+  {
+    "palavra": "cha",
+    "chave": "cha",
+    "aula": "Aula 08 — Comida e Bebida (2ª parte)",
+    "segundos": [
+      103,
+      109
+    ],
+    "segundosVistos": [
+      103,
+      109
+    ],
+    "folha": ".mine/comida-2/palavra-cha.png",
+    "notacao": null,
+    "oQueVisto": "mão esquerda fechada em punho vertical formando chávena; mão direita em pinça mergulha repetidamente para cima e para baixo dentro da chávena",
+    "oQueAproximado": "nenhum (rejeitado por bimanual assimétrico com inserção de pinça em punho oco)",
+    "veredicto": "sem pose",
+    "motivo": "imersão repetida de saqueta segurada em pinça dentro do punho esquerdo oco; excede cinemática de oclusão do rig"
+  },
+  {
+    "palavra": "queijo",
+    "chave": "queijo",
+    "aula": "Aula 08 — Comida e Bebida (2ª parte)",
+    "segundos": [
+      112,
+      116
+    ],
+    "segundosVistos": [
+      112,
+      116
+    ],
+    "folha": ".mine/comida-2/palavra-queijo.png",
+    "notacao": null,
+    "oQueVisto": "mão direita em concha/C invertida sobre o espaço frontal seguida de movimento plano de corte em cunha com a mão espalmada",
+    "oQueAproximado": "nenhum (rejeitado por transição rápida côncava-para-corte oblíquo)",
+    "veredicto": "sem pose",
+    "motivo": "transição rápida entre forma côncava e corte oblíquo sob dúvida regional entre fatia e queijo redondo"
+  },
+  {
+    "palavra": "presunto",
+    "chave": "presunto",
+    "aula": "Aula 08 — Comida e Bebida (2ª parte)",
+    "segundos": [
+      119,
+      127
+    ],
+    "segundosVistos": [
+      119,
+      127
+    ],
+    "folha": ".mine/comida-2/palavra-presunto.png",
+    "notacao": null,
+    "oQueVisto": "soletração em alfabeto manual (datilologia P-R-E-S-U-N-T-O)",
+    "oQueAproximado": "nenhum (rejeitado por soletração datilológica pura)",
+    "veredicto": "sem pose",
+    "motivo": "soletração em alfabeto manual P-R-E-S-U-N-T-O sem sinal icónico próprio apresentado na aula"
+  },
+  {
+    "palavra": "gelado",
+    "chave": "gelado",
+    "aula": "Aula 08 — Comida e Bebida (2ª parte)",
+    "segundos": [
+      130,
+      146
+    ],
+    "segundosVistos": [
+      130,
+      146
+    ],
+    "folha": ".mine/comida-2/palavra-gelado.png",
+    "notacao": "punho boca repete",
+    "oQueVisto": "mão direita em punho vertical simulando segurar o cone de gelado, aproximando-o da boca aberta e simulando o ato de lamber com a língua",
+    "oQueAproximado": "a mão em punho aproxima-se repetidamente da boca, mas o rig não possui mímica lingual de lamber",
+    "veredicto": "aproximado",
+    "motivo": "aproximação repetida do punho à boca simulando cone de gelado comprovada em 33 fotogramas a 0.5s"
+  },
+  {
+    "palavra": "sandes",
+    "chave": "sandes",
+    "aula": "Aula 08 — Comida e Bebida (2ª parte)",
+    "segundos": [
+      148,
+      153
+    ],
+    "segundosVistos": [
+      148,
+      153
+    ],
+    "folha": ".mine/comida-2/palavra-sandes.png",
+    "notacao": null,
+    "oQueVisto": "soletração em alfabeto manual (datilologia S-A-N-D-E-S)",
+    "oQueAproximado": "nenhum (rejeitado por soletração datilológica pura)",
+    "veredicto": "sem pose",
+    "motivo": "soletração em alfabeto manual S-A-N-D-E-S sem sinal gestual específico apresentado"
+  },
+  {
+    "palavra": "hamburguer",
+    "chave": "hamburguer",
+    "aula": "Aula 08 — Comida e Bebida (2ª parte)",
+    "segundos": [
+      156,
+      161
+    ],
+    "segundosVistos": [
+      156,
+      161
+    ],
+    "folha": ".mine/comida-2/palavra-hamburguer.png",
+    "notacao": "2:C peito parado",
+    "oQueVisto": "ambas as mãos em concha ('C' amplo) viradas uma para a outra na horizontal frente ao peito, mostrando o formato volumoso do hambúrguer",
+    "oQueAproximado": "nenhum; 2:C peito parado reproduz a preensão volumosa bimanual arredondada à frente do peito",
+    "veredicto": "pose",
+    "motivo": "conformação bimanual em C amplo horizontal à frente do peito nítida nos fotogramas q0313-q0323 a 0.5s"
+  },
+  {
+    "palavra": "banana-pao-com-ginguba",
+    "chave": "banana-pao-com-ginguba",
+    "aula": "Aula 08 — Comida e Bebida (2ª parte)",
+    "segundos": [
+      163,
+      175
+    ],
+    "segundosVistos": [
+      163,
+      175
+    ],
+    "folha": ".mine/comida-2/palavra-banana-pao-com-ginguba.png",
+    "notacao": null,
+    "oQueVisto": "sinal composto: primeiro sinal de banana (indicador vertical descascado para baixo), seguido do sinal de ginguba (toque na boca/dentes quebrando amendoim)",
+    "oQueAproximado": "nenhum (rejeitado por sinal composto cultural com múltiplos morfemas)",
+    "veredicto": "sem pose",
+    "motivo": "prato cultural angolano composto por dois sinais distintos em sequência que excedem um beat único"
+  },
+  {
+    "palavra": "bombo-com-ginguba",
+    "chave": "bombo-com-ginguba",
+    "aula": "Aula 08 — Comida e Bebida (2ª parte)",
+    "segundos": [
+      178,
+      186
+    ],
+    "segundosVistos": [
+      178,
+      186
+    ],
+    "folha": ".mine/comida-2/palavra-bombo-com-ginguba.png",
+    "notacao": null,
+    "oQueVisto": "sinal composto: primeiro sinal de bombó/mandioca (descascando a raiz), seguido de toque na boca com nó dos dedos simulando triturar ginguba",
+    "oQueAproximado": "nenhum (rejeitado por sinal composto de morfologia múltipla)",
+    "veredicto": "sem pose",
+    "motivo": "prato cultural com corte de bombó seguido de mastigação de ginguba; não redutível a beat simples"
+  },
+  {
+    "palavra": "pizza",
+    "chave": "pizza",
+    "aula": "Aula 08 — Comida e Bebida (2ª parte)",
+    "segundos": [
+      188,
+      191
+    ],
+    "segundosVistos": [
+      188,
+      191
+    ],
+    "folha": ".mine/comida-2/palavra-pizza.png",
+    "notacao": null,
+    "oQueVisto": "soletração em alfabeto manual (datilologia P-I-Z-Z-A, com o 'Z' repetido/arrastado)",
+    "oQueAproximado": "nenhum (rejeitado por empréstimo datilológico puro)",
+    "veredicto": "sem pose",
+    "motivo": "empréstimo dactilológico rápido P-I-Z-Z-A sem sinal icónico apresentado"
+  },
+  {
+    "palavra": "cachorro",
+    "chave": "cachorro",
+    "aula": "Aula 08 — Comida e Bebida (2ª parte)",
+    "segundos": [
+      193,
+      198
+    ],
+    "segundosVistos": [
+      193,
+      198
+    ],
+    "folha": ".mine/comida-2/palavra-cachorro.png",
+    "notacao": null,
+    "oQueVisto": "ambas as palmas côncavas unidas pelas bordas exteriores/pulsos formando a calha do pão de cachorro-quente aberta para cima",
+    "oQueAproximado": "nenhum (rejeitado por acoplamento de bordas laterais com palmas supinadas)",
+    "veredicto": "sem pose",
+    "motivo": "junção lateral de palmas côncavas viradas para cima em calha; excede a cinemática de rotação de punhos simétricos do rig"
+  },
+  {
+    "palavra": "pao-com-manteiga",
+    "chave": "pao-com-manteiga",
+    "aula": "Aula 08 — Comida e Bebida (2ª parte)",
+    "segundos": [
+      200,
+      203
+    ],
+    "segundosVistos": [
+      200,
+      203
+    ],
+    "folha": ".mine/comida-2/palavra-pao-com-manteiga.png",
+    "notacao": null,
+    "oQueVisto": "sinal composto direto: sinal de pão (concha batendo no queixo) seguido de imediato do sinal de manteiga (dois dedos deslizando sobre a palma)",
+    "oQueAproximado": "nenhum (rejeitado por composição sequencial de dois sinais distintos)",
+    "veredicto": "sem pose",
+    "motivo": "composto sequencial direto de dois sinais (pão + manteiga) executados consecutivamente"
   }
 ]
