@@ -1,6 +1,6 @@
 {
-  "name": "Agatha Viva Surdo — Língua Gestual Angolana",
-  "short_name": "Agatha",
+  "name": "Viva Surdo — Língua Gestual Angolana",
+  "short_name": "Viva Surdo",
   "description": "Glosa de estudo em Língua Gestual Angolana: cola texto, legendas ou um PDF e vê os sinais, com dicionário de palavras.",
   "lang": "pt-AO",
   "dir": "ltr",
@@ -9,8 +9,8 @@
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],
   "orientation": "any",
-  "background_color": "#FFFDF7",
-  "theme_color": "#10342F",
+  "background_color": "#F4F7FC",
+  "theme_color": "#1C4F9C",
   "categories": ["education", "accessibility"],
   "icons": [
     { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
