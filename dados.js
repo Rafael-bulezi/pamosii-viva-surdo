@@ -9,6 +9,10 @@
    ============================================================================ */
 'use strict';
 
+/* A sinalizadora 3D. O nome é provisório e vive aqui, fora da interface: pode
+   mudar sem tocar no texto dos botões. */
+const SINALIZADOR = { nome: 'Agatha', papel: 'sinalizadora 3D' };
+
 const GLOSSARIO = [
   { tema: 'Saudações', termos: ['olá', 'bom dia', 'boa tarde', 'boa noite', 'tchau', 'obrigado', 'obrigada', 'como está?', 'bom', 'mau', 'por favor', 'desculpa', 'sim', 'não'] },
   { tema: 'Diálogos', termos: ['conversa', 'perguntar', 'responder', 'falar em LGA'] },

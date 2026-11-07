@@ -345,7 +345,7 @@ function montarSelecao() {
   document.addEventListener('keyup', () => setTimeout(atualizarSelecao, 0));
 }
 
-/* ---------------- painel da sinalizadora (Agatha signer) ---------------- */
+/* ---------------- painel da sinalizadora 3D ---------------- */
 const SG_FRASE = 'Bom dia! Onde fica a escola? Amanhã eu vou com a minha família.';
 const SG = {
   aberto: false, texto: '', beats: [], passos: [], poses: null, inicio: [], total: 0,
@@ -400,7 +400,7 @@ function montarSigner() {
   fab.className = 'sg-fab';
   fab.setAttribute('aria-expanded', 'false');
   fab.setAttribute('aria-controls', 'sg-painel');
-  fab.innerHTML = '<img src="assets/logo-mark.svg" alt="" width="18" height="18"><span>Agatha signer</span>';
+  fab.innerHTML = '<img src="assets/logo-mark.png" alt="" width="22" height="22"><span>Sinalizador 3D</span>';
 
   const painel = document.createElement('div');
   painel.id = 'sg-painel';
@@ -410,7 +410,7 @@ function montarSigner() {
   painel.hidden = true;
   painel.innerHTML = `
     <div class="sg-topo">
-      <p class="sg-titulo" id="sg-titulo">Agatha · sinalizador</p>
+      <p class="sg-titulo" id="sg-titulo">${SINALIZADOR.nome} · ${SINALIZADOR.papel}</p>
       <button class="sg-fechar" id="sg-fechar" type="button" aria-label="Fechar a sinalizadora">×</button>
     </div>
     <p class="sg-frase" id="sg-frase"></p>
@@ -717,7 +717,7 @@ const ARTE = {
   texto: `<svg viewBox="0 0 320 150" fill="none" aria-hidden="true">
       <rect x="24" y="22" width="164" height="106" rx="15" fill="var(--surface)" stroke="currentColor" stroke-opacity=".4" stroke-width="3"/>
       <rect x="38" y="42" width="86" height="9" rx="4.5" fill="currentColor" fill-opacity=".38"/>
-      <rect x="36" y="60" width="140" height="22" rx="8" fill="var(--green)" fill-opacity=".22"/>
+      <rect x="36" y="60" width="140" height="22" rx="8" fill="var(--brand)" fill-opacity=".22"/>
       <rect x="38" y="66" width="124" height="9" rx="4.5" fill="currentColor" fill-opacity=".85"/>
       <rect x="38" y="92" width="70" height="9" rx="4.5" fill="currentColor" fill-opacity=".38"/>
       <g stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(212 30)">
@@ -761,9 +761,9 @@ function shell(conteudo, ativo) {
   return `
     <header class="topo">
       <div class="topo-ini">
-        <a class="marca" href="#/" aria-label="Agatha, início">
-          <img src="assets/logo-mark.svg" alt="" width="20" height="20">
-          <span>Agatha</span>
+        <a class="marca" href="#/" aria-label="Viva Surdo, início">
+          <img src="assets/logo-mark.png" alt="" width="24" height="24">
+          <span>Viva Surdo</span>
         </a>
       </div>
       <nav class="nav" aria-label="Principal">${itens}</nav>
@@ -771,7 +771,10 @@ function shell(conteudo, ativo) {
     </header>
     <main id="conteudo" tabindex="-1">${conteudo}</main>
     <footer class="rodape">
-      <p>Protótipo da Viva Surdo. As associações palavra-sinal estão <b>por validar</b> por sinalizadores surdos.</p>
+      <div class="rodape-linha">
+        <img class="rodape-marca" src="assets/logo-emblem.png" alt="" width="41" height="34">
+        <p>Protótipo da Viva Surdo. As associações palavra-sinal estão <b>por validar</b> por sinalizadores surdos.</p>
+      </div>
     </footer>`;
 }
 

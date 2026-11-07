@@ -1,10 +1,10 @@
-/* Agatha — service worker (funcionar sem rede)
+/* Viva Surdo — service worker (funcionar sem rede)
 
    Guarda neste aparelho: a página, o estilo, o glossário e o rig das mãos.
    Não guarda: o vídeo que a pessoa abre (fica no aparelho dela e não sai de lá).
    Ao publicar, o `?v=` do index.html e o VERSAO abaixo mudam juntos. */
 
-const VERSAO = 'vs118';
+const VERSAO = 'vs119';
 const CASULO = 'casulo-' + VERSAO;
 
 const FICHEIROS = [
@@ -21,7 +21,8 @@ const FICHEIROS = [
   './sinal3d.js?v=' + VERSAO,
   './app.js?v=' + VERSAO,
   './manifest.webmanifest',
-  './assets/logo-mark.svg',
+  './assets/logo-mark.png',
+  './assets/logo-emblem.png',
   './assets/icon-192.png',
   './assets/icon-512.png',
   './assets/icon-maskable-512.png',
