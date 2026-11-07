@@ -1090,11 +1090,41 @@ const FILTROS_ESTADO = [
 /* ---------------- dicionário: aba LGA (aulas do Viva surdo) ---------------- */
 const LGA_CONFIANCAS = [['', 'Tudo'], ['alta', 'Confiança alta'], ['média', 'Média'], ['baixa', 'Baixa']];
 
-function abasFonte(fonte) {
-  const aba = (consulta, rotulo, on) => `<a class="aba-fonte${on ? ' on' : ''}" href="#/dicionario${consulta}"${on ? ' aria-current="page"' : ''}>${rotulo}</a>`;
-  return `<nav class="abas-fonte" aria-label="Fonte do dicionário">
-    ${aba('', 'International Sign', fonte === 'is')}
-    ${aba('?fonte=lga', 'LGA · ' + esc(META_LGA.nome), fonte === 'lga')}
+/* A entrada do dicionário são duas fontes e só duas: primeiro escolhe-se a
+   língua, depois vê-se o vocabulário dela. Misturar as duas numa lista foi o
+   que tornou os cartões ilegíveis. */
+function vistaFontes() {
+  return `
+  <section class="entrada">
+    <p class="kicker">Dicionário</p>
+    <h1>Duas fontes, dois vocabulários.</h1>
+    <p class="sub">Escolhe a língua e vês só os sinais dela: as ${LGA_LISTA.length} palavras lidas nas aulas de LGA do ${esc(META_LGA.nome)}, ou as ${CONTAS.ref} referências International Sign do léxico da ${esc(FONTE_IS.nome)}.</p>
+  </section>
+  <section class="fontes">
+    <a class="fonte-card lga" href="#/dicionario?fonte=lga">
+      <span class="fonte-art">${maoFigura('abre', true)}</span>
+      <span class="fonte-nome">LGA · ${esc(META_LGA.nome)}</span>
+      <span class="fonte-desc">${LGA_LISTA.length} palavras lidas fotograma a fotograma nas aulas. ${LGA_COM_POSE} já abrem no palco 3D da Agatha.</span>
+      <span class="fonte-nums">${META_LGA.aulas} aulas · ${LGA_CONFIANCAS.length - 1} níveis de confiança</span>
+      <span class="fonte-seta">Ver a LGA →</span>
+    </a>
+    <a class="fonte-card is" href="#/dicionario?fonte=is">
+      <span class="fonte-art"><span class="fonte-is">IS</span></span>
+      <span class="fonte-nome">International Sign</span>
+      <span class="fonte-desc">${CONTAS.ref} sinais documentados no léxico da Sématos, com o vídeo de cada sinal. ${CONTAS.pose} têm pose no palco 3D.</span>
+      <span class="fonte-nums">${FONTE_IS.total} sinais na fonte · ${CONTAS.comparado} comparações</span>
+      <span class="fonte-seta">Ver o International Sign →</span>
+    </a>
+  </section>`;
+}
+
+function migalhas(fonte) {
+  const outra = fonte === 'lga'
+    ? ['?fonte=is', 'International Sign']
+    : ['?fonte=lga', 'LGA · ' + META_LGA.nome];
+  return `<nav class="migalhas" aria-label="Fonte do dicionário">
+    <a class="voltar" href="#/dicionario">← Fontes</a>
+    <a class="trocar" href="#/dicionario${outra[0]}">${esc(outra[1])} →</a>
   </nav>`;
 }
 
@@ -1129,7 +1159,11 @@ function cartoesLga() {
     const url = 'https://www.youtube.com/watch?v=' + encodeURIComponent(e.video) + '&t=' + seg + 's';
     const noDic = LGA_NO_DICIONARIO.has(e.chave);
     const pose = poseLga(e.chave);
-    const fig = pose ? maoFigura(pose.forma) : '<span class="ref-marca">LGA</span>';
+    const aulaCurta = e.aula.replace(/ —.*$/, '');
+    const fig = pose
+      ? maoFigura(pose.forma, true)
+      : `<span class="fig-play" aria-hidden="true">▶</span>
+         <span class="fig-rodape" aria-hidden="true"><span class="fig-fonte-nome">${esc(aulaCurta)}</span><span class="fig-tempo">${tempo}</span></span>`;
     const selo = pose
       ? `<span class="selo-3d"${pose.aproximado ? ' data-aprox="1"' : ''}>${pose.aproximado ? '3D ≈' : '3D'}</span>`
       : '';
@@ -1142,13 +1176,13 @@ function cartoesLga() {
       : '';
     return `
     <div class="cartao-item">
-      <a class="cartao${pose ? '' : ' cartao-ref'} cartao-lga" data-conf="${esc(e.confianca)}"
+      <a class="cartao cartao-lga" data-conf="${esc(e.confianca)}"
          href="${pose ? '#/dicionario?fonte=lga' : url}"
          ${pose ? `data-lga-palavra="${esc(e.chave)}" data-lga-rotulo="${esc(e.palavra)}"` : 'target="_blank" rel="noopener noreferrer"'}
-         aria-label="${rotulo}">
-        <span class="fig">${fig}${selo}</span>
+         title="${esc(e.veSe)}" aria-label="${rotulo}">
+        <span class="fig${pose ? '' : ' fig-fonte'}">${fig}${selo}</span>
         <b>${esc(e.palavra)}</b>
-        <small>${esc(e.aula.replace(/ —.*$/, ''))} · ${tempo} · ${esc(e.confianca)}${noDic ? ' · no dicionário' : ''}</small>
+        <span class="meta"><span class="ponto"></span>${pose ? esc(aulaCurta) + ' · ' : ''}confiança ${esc(e.confianca)}${noDic ? '<span class="meta-selo">no dicionário</span>' : ''}</span>
         <small class="lga-ve">${esc(e.veSe)}</small>
       </a>
       ${video}
@@ -1205,23 +1239,26 @@ function cartoes() {
     const aria = e.ref
       ? `${esc(e.palavra)} — sinal International Sign documentado (${esc(e.ref.glossa)})`
       : `${esc(e.palavra)} — gesto de estudo, sem referência`;
+    const selo = temPose ? '<span class="selo-3d">3D</span>' : '';
     /* O selo verde é o vídeo da fonte, não a personagem. No cartão com pose ele
        não pode ficar dentro do <a> do cartão (link dentro de link é inválido),
        por isso é um irmão ancorado ao canto superior direito da figura. No
-       cartão que só tem referência, o cartão inteiro já é o vídeo. Sem
-       referência não há vídeo, e o cartão não inventa um selo. */
-    const selo = !temPose && e.ref ? '<span class="cartao-play" aria-hidden="true">▶</span>' : '';
+       cartão que só tem referência, a figura inteira já abre o vídeo. */
     const video = temPose && e.ref
       ? `<a class="cartao-video" href="${esc(e.ref.url)}" target="_blank" rel="noopener noreferrer"
            title="Vídeo de referência (Sématos)" aria-label="Ver o vídeo de referência de ${esc(e.palavra)} na Sématos">▶</a>`
       : '';
+    const fig = temPose
+      ? maoFigura(e.notacao.forma, true)
+      : `<span class="fig-play" aria-hidden="true">▶</span>
+         <span class="fig-rodape" aria-hidden="true"><span class="fig-fonte-nome">Sématos</span></span>`;
     return `
     <div class="cartao-item">
-      <a class="cartao${temPose ? '' : ' cartao-ref'}" href="${href}"${externo}
+      <a class="cartao" href="${href}"${externo}
          ${temPose ? `data-palavra="${esc(e.palavra)}"` : ''} aria-label="${aria}">
-        <span class="fig">${temPose ? maoFigura(e.notacao.forma) : '<span class="ref-marca">IS</span>'}${selo}</span>
+        <span class="fig${temPose ? '' : ' fig-fonte'}">${fig}${selo}</span>
         <b>${esc(e.palavra)}</b>
-        <small>${detalhe}${esc(nota)}</small>
+        <span class="meta">${detalhe}${esc(nota)}</span>
       </a>
       ${video}
     </div>`;
@@ -1229,13 +1266,14 @@ function cartoes() {
 }
 
 function vistaDicionario(params) {
-  const fonte = (params && params.fonte === 'lga') ? 'lga' : 'is';
-  if (fonte === 'lga') return abasFonte(fonte) + vistaDicionarioLga();
+  const fonte = (params && (params.fonte === 'lga' || params.fonte === 'is')) ? params.fonte : '';
+  if (!fonte) return vistaFontes();
+  if (fonte === 'lga') return migalhas(fonte) + vistaDicionarioLga();
   const chips = ['', ...TEMAS].map(t => `<button type="button" class="chip${t === TEMA ? ' on' : ''}" data-tema="${esc(t)}">${t || 'Tudo'}</button>`).join('');
   const estados = FILTROS_ESTADO.map(([v, r]) => `<button type="button" class="chip chip-estado${ESTADO === v ? ' on' : ''}" data-estado="${v}">${r}</button>`).join('');
-  return abasFonte(fonte) + `
+  return migalhas(fonte) + `
   <section class="entrada">
-    <p class="kicker">Dicionário</p>
+    <p class="kicker">Dicionário · International Sign</p>
     <h1>${CONTAS.ref} palavras com sinal documentado em International Sign.</h1>
     <p class="sub">As ${CONTAS.ref} referências vêm do léxico International Sign da ${FONTE_IS.nome} (${FONTE_IS.total} sinais, colhido a ${FONTE_IS.colhido}) e ligam ao vídeo de cada sinal. ${CONTAS.pose} têm pose no palco 3D — ${CONTAS.soRef} ainda só existem na fonte, ${CONTAS.soPose} são gestos nossos sem correspondência IS. ${CONTAS.comparado} poses já foram comparadas fotograma a fotograma com o vídeo.</p>
   </section>
