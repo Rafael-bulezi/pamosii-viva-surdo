@@ -675,11 +675,11 @@
    171
   ],
   "confianca": "alta",
-  "veSe": "mão direita aberta com palma virada para a frente acena lateralmente em despedida",
-  "forma": "mão aberta, dedos estendidos",
-  "lugar": "ao lado do rosto / ombro direito",
-  "movimento": "aceno lateral de despedida",
-  "duvida": ""
+  "veSe": "a mesma mão aberta de «oi/olá», à altura da cara, palma para a frente, a acenar de lado a lado",
+  "forma": "mão aberta, dedos afastados",
+  "lugar": "à altura da cara, ao lado da cabeça",
+  "movimento": "aceno lateral, duas a três vezes (o mesmo de «oi/olá»)",
+  "duvida": "a aula usa o mesmo aceno para chegar e para despedir"
  },
  "meu sinal": {
   "palavra": "meu sinal",

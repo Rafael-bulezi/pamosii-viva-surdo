@@ -61,11 +61,12 @@
       veSe: 'mão direita curvada em concha/arco junto ao ouvido direito (atenção auditiva / escuta)',
     },
     'tchau/adeus': {
-      notacao: 'abre alto onda',
+      notacao: 'abre rosto aceno',
+      dur: 1700,
       aula: 'Aula 01 — Saudação de LGA',
       segundos: [167, 171],
       confianca: 'alta',
-      veSe: 'mão direita aberta com palma virada para a frente acena lateralmente em despedida',
+      veSe: 'o mesmo aceno de «oi/olá»: mão aberta à altura da cara, palma para a frente, de lado a lado',
     },
     'dois': {
       notacao: 'Y peito parado',
