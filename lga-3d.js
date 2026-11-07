@@ -5,6 +5,8 @@
    segundo a segundo dos fotogramas das aulas do canal Viva surdo.
    Cada entrada associa a chave normalizada da palavra à sua notação (forma,
    lugar, movimento) e replica aula, segundos, confiança e veSe de lga.js.
+   `notacao` aceita uma string ou uma lista de strings: um compasso por passo,
+   para os sinais compostos (`bom dia` = polegar erguido + mão que sobe).
    Esta camada NUNCA altera SINAIS, o glossário nem os dados de International Sign.
    ============================================================================ */
 (function (global) {
@@ -12,11 +14,20 @@
 
   const SINAIS_LGA = {
     'oi/ola': {
-      notacao: 'abre alto onda',
+      notacao: 'abre rosto aceno',
+      /* o aceno tem duas idas e voltas: a 760 ms cada passo a mão tremia */
+      dur: 1700,
       aula: 'Aula 01 — Saudação de LGA',
       segundos: [2, 7],
       confianca: 'alta',
-      veSe: 'mão direita aberta com palma voltada para a frente à altura da cabeça a acenar suavemente',
+      veSe: 'mão direita aberta com os dedos afastados, palma para a frente à altura da cara, acena de lado a lado',
+    },
+    'bom dia': {
+      notacao: ['joinha peito parado', 'plano queixo nasce'],
+      aula: 'Aula 01 — Saudação de LGA',
+      segundos: [19, 27],
+      confianca: 'alta',
+      veSe: 'polegar erguido à frente do peito; depois a mão plana sobe do queixo ao lado da cara com a palma virada para si (o sol a nascer)',
     },
     'bom/boa/bem': {
       notacao: 'joinha peito frente',

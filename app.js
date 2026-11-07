@@ -431,7 +431,7 @@ function montarSigner() {
 
   fab.addEventListener('click', () => {
     if (SG.aberto) fecharSigner();
-    else if (SG.poseLga) abrirSignerNotacao(SG.poseLga.notacao, SG.poseLga.rotulo, SG.poseLga.aproximado);
+    else if (SG.poseLga) abrirSignerNotacao(SG.poseLga.notacao, SG.poseLga.rotulo, SG.poseLga.aproximado, SG.poseLga.dur);
     else abrirSigner(SG.texto || SG_FRASE);
   });
   $('#sg-fechar').addEventListener('click', () => fecharSigner());
@@ -464,18 +464,26 @@ async function abrirSigner(texto) {
   return abrirSignerBeats(t, analisarEmBeats(t).beats, {});
 }
 
-/* Uma pose só, vinda da notação da LGA: o painel mostra a mão em repouso entre
-   repetições em vez de glosar a palavra por regras que não são da LGA. */
-async function abrirSignerNotacao(notacao, rotulo, aproximado) {
-  const n = window.sinalDeNotacao ? sinalDeNotacao(notacao, {}) : null;
-  if (!n) return false;
-  SG.poseLga = { notacao, rotulo, aproximado: !!aproximado };
-  const beat = {
-    tipo: 'sinal', rotulo: rotulo || '', forma: n.forma, duas: n.duas, reps: n.reps, local: n.local,
-    pos0: n.inicio.pos, rot0: n.inicio.rot, pos1: n.fim.pos, rot1: n.fim.rot, dur: 760,
-    palma: n.palma, esq: n.esq, amp: n.amp, movimento: n.movimento,
-  };
-  await abrirSignerBeats(rotulo || '', [beat, pausa()], { notacao: true, aproximado: !!aproximado });
+/* Uma pose (ou uma lista de passos, nos sinais compostos) vinda da notação da
+   LGA: o painel mostra a mão em repouso entre repetições em vez de glosar a
+   palavra por regras que não são da LGA. */
+async function abrirSignerNotacao(notacao, rotulo, aproximado, dur) {
+  const partes = (Array.isArray(notacao) ? notacao : [notacao]).map(t => String(t).trim()).filter(Boolean);
+  const beats = [];
+  for (const parte of partes) {
+    const n = window.sinalDeNotacao ? sinalDeNotacao(parte, {}) : null;
+    if (!n) continue;
+    beats.push({
+      tipo: 'sinal', rotulo: rotulo || '', forma: n.forma, duas: n.duas, reps: n.reps, local: n.local,
+      pos0: n.inicio.pos, rot0: n.inicio.rot, pos1: n.fim.pos, rot1: n.fim.rot,
+      dur: (Array.isArray(dur) ? dur[beats.length] : dur) || 760,
+      palma: n.palma, esq: n.esq, amp: n.amp, movimento: n.movimento,
+      chip: beats.length === 0,
+    });
+  }
+  if (!beats.length) return false;
+  SG.poseLga = { notacao: partes, rotulo, aproximado: !!aproximado, dur: dur || null };
+  await abrirSignerBeats(rotulo || '', [...beats, pausa()], { notacao: true, aproximado: !!aproximado });
   return true;
 }
 
@@ -567,7 +575,7 @@ function fecharSigner(silencioso) {
 function pintarChipsSigner() {
   const caixa = $('#sg-chips');
   if (!caixa) return;
-  caixa.innerHTML = SG.beats.map((b, i) => (!b.rotulo || b.tipo === 'pausa') ? ''
+  caixa.innerHTML = SG.beats.map((b, i) => (!b.rotulo || b.tipo === 'pausa' || b.chip === false) ? ''
     : `<button type="button" class="sg-chip${b.tipo === 'letra' ? ' sg-letra' : ''}" data-beat="${i}">${esc(b.rotulo)}</button>`).join('');
   SG.beat = -1;
 }
@@ -1134,13 +1142,21 @@ const LGA_ORDEM = LGA_LISTA.filter(e => !ehLetraLga(e)).concat(LGA_LISTA.filter(
 
 /* A camada 3D (lga-3d.js) cobre só as palavras já lidas no quadro. Sem pose, o
    cartão abre o vídeo: pôr a Agatha a fazer um gesto que ninguém comparou com a
-   aula seria dizer que sabemos o que não sabemos. */
+   aula seria dizer que sabemos o que não sabemos. `notacao` pode ser uma lista:
+   um compasso por passo dos sinais compostos (`bom dia` = polegar + mão que sobe). */
+function notacoesLga(p) {
+  if (!p || !p.notacao) return [];
+  return (Array.isArray(p.notacao) ? p.notacao : [p.notacao]).map(t => String(t).trim()).filter(Boolean);
+}
+
 function poseLga(chave) {
   const p = window.SINAIS_LGA && window.SINAIS_LGA[chave];
-  if (!p || !p.notacao) return null;
-  const [forma, local, movimento] = String(p.notacao).replace(/^2:/, '').split(/\s+/);
-  if (!window.FORMAS_MAO || !FORMAS_MAO[forma] || !window.LOCAIS || !LOCAIS[local]) return null;
-  return { forma, local, movimento, notacao: p.notacao, aproximado: !!p.aproximado };
+  const partes = notacoesLga(p);
+  if (!partes.length || !window.FORMAS_MAO || !window.LOCAIS) return null;
+  const campos = partes.map(t => String(t).replace(/^2:/, '').split(/\s+/));
+  if (campos.some(([forma, local]) => !FORMAS_MAO[forma] || !LOCAIS[local])) return null;
+  const [forma, local, movimento] = campos[0];
+  return { forma, local, movimento, notacao: partes, aproximado: !!p.aproximado, dur: p.dur };
 }
 
 const LGA_COM_POSE = LGA_LISTA.filter(e => poseLga(e.chave)).length;
@@ -1327,7 +1343,7 @@ function ligarDicionario() {
     const pose = poseLga(c.dataset.lgaPalavra);
     if (!pose) return;
     e.preventDefault();
-    abrirSignerNotacao(pose.notacao, c.dataset.lgaRotulo, pose.aproximado);
+    abrirSignerNotacao(pose.notacao, c.dataset.lgaRotulo, pose.aproximado, pose.dur);
   });
   const aulasL = $('#aulas-lga');
   if (aulasL && gradeL) aulasL.addEventListener('click', (e) => {
