@@ -4,7 +4,7 @@
    Não guarda: o vídeo que a pessoa abre (fica no aparelho dela e não sai de lá).
    Ao publicar, o `?v=` do index.html e o VERSAO abaixo mudam juntos. */
 
-const VERSAO = 'vs119';
+const VERSAO = 'vs120';
 const CASULO = 'casulo-' + VERSAO;
 
 const FICHEIROS = [
@@ -21,6 +21,7 @@ const FICHEIROS = [
   './sinal3d.js?v=' + VERSAO,
   './app.js?v=' + VERSAO,
   './manifest.webmanifest',
+  './favicon.ico',
   './assets/logo-mark.png',
   './assets/logo-emblem.png',
   './assets/icon-192.png',
