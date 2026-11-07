@@ -1390,5 +1390,442 @@
     "oQueAproximado": "nenhum (rejeitado por bimanual assimétrico com varrimento ocular)",
     "veredicto": "sem pose",
     "motivo": "dois dedos em V invertido varrendo horizontalmente a superfície da palma esquerda passiva"
+  },
+  {
+    "palavra": "banana",
+    "chave": "banana",
+    "aula": "Aula 07 — Comida e Bebida (1ª parte)",
+    "segundos": [
+      22,
+      27
+    ],
+    "segundosVistos": [
+      22,
+      27
+    ],
+    "folha": ".mine/comida-1/palavra-banana.png",
+    "notacao": null,
+    "oQueVisto": "dedo indicador esquerdo vertical representa a banana; mão direita simula puxar as tiras da casca de cima para baixo",
+    "oQueAproximado": "nenhum (rejeitado por bimanual assimétrico de descasque ao longo de dedo vertical)",
+    "veredicto": "sem pose",
+    "motivo": "mão esquerda passiva em indicador vertical e mão direita descascando tiras em torno do dedo; excede cinemática do rig"
+  },
+  {
+    "palavra": "mucua",
+    "chave": "mucua",
+    "aula": "Aula 07 — Comida e Bebida (1ª parte)",
+    "segundos": [
+      31,
+      37
+    ],
+    "segundosVistos": [
+      31,
+      37
+    ],
+    "folha": ".mine/comida-1/palavra-mucua.png",
+    "notacao": null,
+    "oQueVisto": "soletração em alfabeto manual (datilologia M-U-C-U-A)",
+    "oQueAproximado": "nenhum (rejeitado por soletração datilológica pura)",
+    "veredicto": "sem pose",
+    "motivo": "soletração em alfabeto manual M-U-C-U-A sem sinal icónico autónomo"
+  },
+  {
+    "palavra": "laranja",
+    "chave": "laranja",
+    "aula": "Aula 07 — Comida e Bebida (1ª parte)",
+    "segundos": [
+      40,
+      44
+    ],
+    "segundosVistos": [
+      40,
+      44
+    ],
+    "folha": ".mine/comida-1/palavra-laranja.png",
+    "notacao": "2:garra peito torce",
+    "oQueVisto": "ambas as mãos em garra/concha unidas pelos dedos simulando espremer uma laranja com rotação oposta à frente do peito",
+    "oQueAproximado": "nenhum; 2:garra peito torce reproduz a compressão e rotação de ambas as mãos em garra no peito",
+    "veredicto": "pose",
+    "motivo": "torção bimanual em garra à frente do peito nítida nos fotogramas q0081-q0089 a 0.5s"
+  },
+  {
+    "palavra": "maca",
+    "chave": "maca",
+    "aula": "Aula 07 — Comida e Bebida (1ª parte)",
+    "segundos": [
+      52,
+      61
+    ],
+    "segundosVistos": [
+      52,
+      61
+    ],
+    "folha": ".mine/comida-1/palavra-maca.png",
+    "notacao": "X queixo torce",
+    "oQueVisto": "nó do dedo indicador fletido toca a bochecha/mandíbula fazendo movimento suave de rotação (imitando morder maçã)",
+    "oQueAproximado": "contacto na bochecha/mandíbula no vídeo é posicionado no queixo pelo rig 3D",
+    "veredicto": "aproximado",
+    "motivo": "indicador fletido em X com rotação no ângulo da mandíbula/queixo comprovado em 19 fotogramas a 0.5s"
+  },
+  {
+    "palavra": "manga",
+    "chave": "manga",
+    "aula": "Aula 07 — Comida e Bebida (1ª parte)",
+    "segundos": [
+      78,
+      85
+    ],
+    "segundosVistos": [
+      78,
+      85
+    ],
+    "folha": ".mine/comida-1/palavra-manga.png",
+    "notacao": "plano boca varre",
+    "oQueVisto": "mão espalmada com borda radial vertical posicionada em frente à boca aberta simulando roer uma fatia de manga em varrimento lateral",
+    "oQueAproximado": "nenhum; plano boca varre reproduz o deslocamento lateral da mão espalmada junto aos lábios",
+    "veredicto": "pose",
+    "motivo": "palma vertical deslizando lateralmente em frente à boca evidente nos fotogramas q0157-q0171 a 0.5s"
+  },
+  {
+    "palavra": "abacaxi",
+    "chave": "abacaxi",
+    "aula": "Aula 07 — Comida e Bebida (1ª parte)",
+    "segundos": [
+      89,
+      95
+    ],
+    "segundosVistos": [
+      89,
+      95
+    ],
+    "folha": ".mine/comida-1/palavra-abacaxi.png",
+    "notacao": null,
+    "oQueVisto": "mão esquerda aberta palma para cima segura a base; mão direita em garra acima delineia a coroa e casca espinhosa do ananás",
+    "oQueAproximado": "nenhum (rejeitado por bimanual composto com delineação cónica/espinhosa)",
+    "veredicto": "sem pose",
+    "motivo": "mão esquerda suportando a base e mão direita delineando a coroa espinhosa para cima em sinal composto"
+  },
+  {
+    "palavra": "goiaba",
+    "chave": "goiaba",
+    "aula": "Aula 07 — Comida e Bebida (1ª parte)",
+    "segundos": [
+      98,
+      107
+    ],
+    "segundosVistos": [
+      98,
+      107
+    ],
+    "folha": ".mine/comida-1/palavra-goiaba.png",
+    "notacao": null,
+    "oQueVisto": "soletração em alfabeto manual (datilologia G-O-I-A-B-A)",
+    "oQueAproximado": "nenhum (rejeitado por soletração datilológica pura)",
+    "veredicto": "sem pose",
+    "motivo": "soletração em alfabeto manual G-O-I-A-B-A sem sinal icónico apresentado"
+  },
+  {
+    "palavra": "abacate",
+    "chave": "abacate",
+    "aula": "Aula 07 — Comida e Bebida (1ª parte)",
+    "segundos": [
+      110,
+      120
+    ],
+    "segundosVistos": [
+      110,
+      120
+    ],
+    "folha": ".mine/comida-1/palavra-abacate.png",
+    "notacao": null,
+    "oQueVisto": "soletração em alfabeto manual (datilologia A-B-A-C-A-T-E)",
+    "oQueAproximado": "nenhum (rejeitado por soletração datilológica pura)",
+    "veredicto": "sem pose",
+    "motivo": "soletração em alfabeto manual A-B-A-C-A-T-E sem sinal icónico autónomo"
+  },
+  {
+    "palavra": "arroz",
+    "chave": "arroz",
+    "aula": "Aula 07 — Comida e Bebida (1ª parte)",
+    "segundos": [
+      124,
+      135
+    ],
+    "segundosVistos": [
+      124,
+      135
+    ],
+    "folha": ".mine/comida-1/palavra-arroz.png",
+    "notacao": null,
+    "oQueVisto": "mão esquerda aberta côncava para cima; pontas dos dedos da mão direita unidas recolhem grãos e soltam-nos sobre a palma esquerda",
+    "oQueAproximado": "nenhum (rejeitado por gesto bimanual fino de dispersão de grãos sobre palma côncava)",
+    "veredicto": "sem pose",
+    "motivo": "recolha e dispersão fina de grãos da pinça sobre a palma côncava oposta; excede contacto fino do rig"
+  },
+  {
+    "palavra": "fuba-de-milho",
+    "chave": "fuba-de-milho",
+    "aula": "Aula 07 — Comida e Bebida (1ª parte)",
+    "segundos": [
+      138,
+      140
+    ],
+    "segundosVistos": [
+      138,
+      140
+    ],
+    "folha": ".mine/comida-1/palavra-fuba-de-milho.png",
+    "notacao": null,
+    "oQueVisto": "mão direita em pinça fina esfrega os dedos dispersando fuba + mão em configuração F perto dos olhos/boca (milho/amarelo)",
+    "oQueAproximado": "nenhum (rejeitado por sinal composto sequencial com polvilhar e apresentação de F)",
+    "veredicto": "sem pose",
+    "motivo": "sinal composto sequencial (polvilhar de dedos seguido de forma F na face) que excede um beat único"
+  },
+  {
+    "palavra": "fuba-de-milho-branco",
+    "chave": "fuba-de-milho-branco",
+    "aula": "Aula 07 — Comida e Bebida (1ª parte)",
+    "segundos": [
+      142,
+      144
+    ],
+    "segundosVistos": [
+      142,
+      144
+    ],
+    "folha": ".mine/comida-1/palavra-fuba-de-milho-branco.png",
+    "notacao": null,
+    "oQueVisto": "mão direita polvilha fuba seguida da mão espalmada deslizando no peito/clavícula (sinal de cor branca)",
+    "oQueAproximado": "nenhum (rejeitado por sinal composto de dois segmentos sequenciais)",
+    "veredicto": "sem pose",
+    "motivo": "composto sequencial com polvilhar de fuba seguido de deslize da cor branca no peito"
+  },
+  {
+    "palavra": "fuba-de-bombo",
+    "chave": "fuba-de-bombo",
+    "aula": "Aula 07 — Comida e Bebida (1ª parte)",
+    "segundos": [
+      147,
+      150
+    ],
+    "segundosVistos": [
+      147,
+      150
+    ],
+    "folha": ".mine/comida-1/palavra-fuba-de-bombo.png",
+    "notacao": null,
+    "oQueVisto": "sinal de fuba seguido do sinal de bombó/mandioca (polegar para cima e indicador em arco a descascar a raiz)",
+    "oQueAproximado": "nenhum (rejeitado por sinal composto com descasque de bombó sob dúvida nativa)",
+    "veredicto": "sem pose",
+    "motivo": "sinal composto com corte de bombó que necessita validação nativa para distinguir de mandioca fresca"
+  },
+  {
+    "palavra": "farinha-musseque",
+    "chave": "farinha-musseque",
+    "aula": "Aula 07 — Comida e Bebida (1ª parte)",
+    "segundos": [
+      153,
+      163
+    ],
+    "segundosVistos": [
+      153,
+      163
+    ],
+    "folha": ".mine/comida-1/palavra-farinha-musseque.png",
+    "notacao": null,
+    "oQueVisto": "soletração em alfabeto manual (datilologia F-A-R-I-N-H-A M-U-S-S-E-Q-U-E)",
+    "oQueAproximado": "nenhum (rejeitado por soletração datilológica completa)",
+    "veredicto": "sem pose",
+    "motivo": "termo gastronómico tradicional de Luanda soletrado em datilologia sem sinal gestual único"
+  },
+  {
+    "palavra": "trigo",
+    "chave": "trigo",
+    "aula": "Aula 07 — Comida e Bebida (1ª parte)",
+    "segundos": [
+      166,
+      180
+    ],
+    "segundosVistos": [
+      166,
+      180
+    ],
+    "folha": ".mine/comida-1/palavra-trigo.png",
+    "notacao": null,
+    "oQueVisto": "soletração em alfabeto manual (datilologia F-A-R-I-N-H-A D-E T-R-I-G-O)",
+    "oQueAproximado": "nenhum (rejeitado por soletração datilológica completa)",
+    "veredicto": "sem pose",
+    "motivo": "soletração datilológica completa de FARINHA DE TRIGO sem sinal autónomo"
+  },
+  {
+    "palavra": "funge",
+    "chave": "funge",
+    "aula": "Aula 07 — Comida e Bebida (1ª parte)",
+    "segundos": [
+      183,
+      189
+    ],
+    "segundosVistos": [
+      183,
+      189
+    ],
+    "folha": ".mine/comida-1/palavra-funge.png",
+    "notacao": "punho barriga circulo",
+    "oQueVisto": "mão esquerda em punho segura a panela; mão direita em punho vertical segurando colher de pau mexe com grande força circular batendo a massa contra a panela",
+    "oQueAproximado": "a mão direita executa a rotação vigorosa na barriga, mas o modelo de beat único não inclui o punho esquerdo a imobilizar a panela",
+    "veredicto": "aproximado",
+    "motivo": "rotação vigorosa do punho direito na barriga simulando mexer funge comprovada em 13 fotogramas a 0.5s"
+  },
+  {
+    "palavra": "sopa",
+    "chave": "sopa",
+    "aula": "Aula 07 — Comida e Bebida (1ª parte)",
+    "segundos": [
+      191,
+      193
+    ],
+    "segundosVistos": [
+      191,
+      193
+    ],
+    "folha": ".mine/comida-1/palavra-sopa.png",
+    "notacao": null,
+    "oQueVisto": "mão esquerda em concha côncava (prato/tigela); mão direita aberta leva líquido à boca aberta e sopra suavemente para arrefecer",
+    "oQueAproximado": "nenhum (rejeitado por gesto bimanual com elevação de tigela e sopro labial simultâneo)",
+    "veredicto": "sem pose",
+    "motivo": "elevação bimanual de tigela combinada com sopro labial; impossível articular sopro facial no rig atual"
+  },
+  {
+    "palavra": "massa-macarrao",
+    "chave": "massa-macarrao",
+    "aula": "Aula 07 — Comida e Bebida (1ª parte)",
+    "segundos": [
+      195,
+      199
+    ],
+    "segundosVistos": [
+      195,
+      199
+    ],
+    "folha": ".mine/comida-1/palavra-massa-macarrao.png",
+    "notacao": "2:Y peito onda",
+    "oQueVisto": "ambas as mãos em 'Y' (mindinho e polegar abertos) unidas pelas pontas que se afastam ondulando simulando os fios compridos de esparguete",
+    "oQueAproximado": "as mãos executam a ondulação em 'Y' à frente do peito, mas sem o contacto inicial ponta-com-ponta do início do gesto no vídeo",
+    "veredicto": "aproximado",
+    "motivo": "ondulação simétrica em Y à frente do peito nítida nos fotogramas q0391-q0399 a 0.5s"
+  },
+  {
+    "palavra": "feijao",
+    "chave": "feijao",
+    "aula": "Aula 07 — Comida e Bebida (1ª parte)",
+    "segundos": [
+      204,
+      214
+    ],
+    "segundosVistos": [
+      204,
+      214
+    ],
+    "folha": ".mine/comida-1/palavra-feijao.png",
+    "notacao": null,
+    "oQueVisto": "mão direita com polegar e indicador em pinça fechada mostrando a pequena dimensão do grão de feijão, com dedo mindinho da outra mão em apoio",
+    "oQueAproximado": "nenhum (rejeitado por pinça fina com apoio assimétrico do dedo mindinho da outra mão)",
+    "veredicto": "sem pose",
+    "motivo": "pinça mínima indicador-polegar associada a apoio assimétrico do dedo mindinho oposto"
+  },
+  {
+    "palavra": "cenoura",
+    "chave": "cenoura",
+    "aula": "Aula 07 — Comida e Bebida (1ª parte)",
+    "segundos": [
+      219,
+      228
+    ],
+    "segundosVistos": [
+      219,
+      228
+    ],
+    "folha": ".mine/comida-1/palavra-cenoura.png",
+    "notacao": "aponta boca repete",
+    "oQueVisto": "dedo indicador da mão direita toca repetidamente os dentes incisivos frontais imitando o roer de cenoura",
+    "oQueAproximado": "nenhum; aponta boca repete reproduz o toque repetido do indicador junto aos dentes/lábios",
+    "veredicto": "pose",
+    "motivo": "toque repetido do dedo indicador na boca nítido em 19 fotogramas a 0.5s"
+  },
+  {
+    "palavra": "cebola",
+    "chave": "cebola",
+    "aula": "Aula 07 — Comida e Bebida (1ª parte)",
+    "segundos": [
+      230,
+      235
+    ],
+    "segundosVistos": [
+      230,
+      235
+    ],
+    "folha": ".mine/comida-1/palavra-cebola.png",
+    "notacao": null,
+    "oQueVisto": "mãos unidas descascando camadas esféricas sucessivas, seguida da mão direita a cobrir os olhos imitando lacrimejar ao cortar cebola",
+    "oQueAproximado": "nenhum (rejeitado por sinal composto narrativo de descasque esférico e olhos a lacrimejar)",
+    "veredicto": "sem pose",
+    "motivo": "narrativa gestual em duas partes (descascar camadas + fricção de olhos com lágrimas)"
+  },
+  {
+    "palavra": "tomate",
+    "chave": "tomate",
+    "aula": "Aula 07 — Comida e Bebida (1ª parte)",
+    "segundos": [
+      237,
+      239
+    ],
+    "segundosVistos": [
+      237,
+      239
+    ],
+    "folha": ".mine/comida-1/palavra-tomate.png",
+    "notacao": null,
+    "oQueVisto": "polegar toca o queixo (sinal da cor vermelha) seguido das mãos em concha esférica delineando a forma arredondada do tomate",
+    "oQueAproximado": "nenhum (rejeitado por sinal composto de cor vermelha no queixo e delimitação esférica bimanual)",
+    "veredicto": "sem pose",
+    "motivo": "sinal composto por toque de cor vermelha no queixo seguido de esfericidade bimanual"
+  },
+  {
+    "palavra": "pimento",
+    "chave": "pimento",
+    "aula": "Aula 07 — Comida e Bebida (1ª parte)",
+    "segundos": [
+      241,
+      243
+    ],
+    "segundosVistos": [
+      241,
+      243
+    ],
+    "folha": ".mine/comida-1/palavra-pimento.png",
+    "notacao": null,
+    "oQueVisto": "mãos formam legume volumoso seguido de dedos indicador e médio em 'V' junto à cabeça/têmpora (ou sinal de picante/pimento)",
+    "oQueAproximado": "nenhum (rejeitado por composto sequencial com segundo componente na têmpora sob dúvida)",
+    "veredicto": "sem pose",
+    "motivo": "composto volumétrico seguido de gesto na têmpora carecendo de confirmação com falante nativo de LGA"
+  },
+  {
+    "palavra": "repolho",
+    "chave": "repolho",
+    "aula": "Aula 07 — Comida e Bebida (1ª parte)",
+    "segundos": [
+      251,
+      253
+    ],
+    "segundosVistos": [
+      251,
+      253
+    ],
+    "folha": ".mine/comida-1/palavra-repolho.png",
+    "notacao": null,
+    "oQueVisto": "soletração em alfabeto manual (datilologia R-E-P-O-L-H-O)",
+    "oQueAproximado": "nenhum (rejeitado por soletração datilológica pura)",
+    "veredicto": "sem pose",
+    "motivo": "soletração em alfabeto manual R-E-P-O-L-H-O sem sinal gestual específico apresentado"
   }
 ]

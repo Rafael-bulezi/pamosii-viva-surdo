@@ -143,6 +143,51 @@
       confianca: 'alta',
       veSe: 'mão direita aberta pousa suavemente sobre o lado esquerdo do peito (coração)',
     },
+    'laranja': {
+      notacao: '2:garra peito torce',
+      aula: 'Aula 07 — Comida e Bebida (1ª parte)',
+      segundos: [40, 44],
+      confianca: 'alta',
+      veSe: 'ambas as mãos em garra/concha unidas pelos dedos simulando espremer uma laranja com rotação oposta',
+    },
+    'maca': {
+      notacao: 'X queixo torce',
+      aproximado: true,
+      aula: 'Aula 07 — Comida e Bebida (1ª parte)',
+      segundos: [52, 61],
+      confianca: 'alta',
+      veSe: 'nó do dedo indicador ou punho toca a bochecha/mandíbula fazendo movimento de rotação (imitando morder maçã / maçã do rosto)',
+    },
+    'manga': {
+      notacao: 'plano boca varre',
+      aula: 'Aula 07 — Comida e Bebida (1ª parte)',
+      segundos: [78, 85],
+      confianca: 'alta',
+      veSe: 'mão espalmada com borda radial vertical posicionada em frente à boca aberta simulando roer uma fatia de manga',
+    },
+    'funge': {
+      notacao: 'punho barriga circulo',
+      aproximado: true,
+      aula: 'Aula 07 — Comida e Bebida (1ª parte)',
+      segundos: [183, 189],
+      confianca: 'alta',
+      veSe: 'mão esquerda em punho segura a panela; mão direita em punho vertical segurando colher de pau mexe com grande força circular batendo a massa contra a panela (sinal icónico e cultural de bater funge)',
+    },
+    'massa-macarrao': {
+      notacao: '2:Y peito onda',
+      aproximado: true,
+      aula: 'Aula 07 — Comida e Bebida (1ª parte)',
+      segundos: [195, 199],
+      confianca: 'alta',
+      veSe: "ambas as mãos em 'Y' (mindinho e polegar abertos) unidas pelas pontas que se afastam ondulando simulando os fios compridos de esparguete",
+    },
+    'cenoura': {
+      notacao: 'aponta boca repete',
+      aula: 'Aula 07 — Comida e Bebida (1ª parte)',
+      segundos: [219, 228],
+      confianca: 'alta',
+      veSe: 'dedo indicador da mão direita toca os dentes incisivos frontais imitando o roer de cenoura',
+    },
   };
 
   global.SINAIS_LGA = SINAIS_LGA;
