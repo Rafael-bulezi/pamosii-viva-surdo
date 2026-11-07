@@ -223,7 +223,10 @@ surdo*, gerada a partir de `tools/fonte/aulas-lga/*.json` por
 vídeo, cada cartão com aula, segundo, confiança e descrição, e um link direto
 para o momento da aula no YouTube. 80 destas palavras já existem no glossário;
 as restantes são inventário de estudo. As entradas de confiança baixa (12, do
-Diálogo 01) estão marcadas para revisão humana. O
+Diálogo 01) estão marcadas para revisão humana. Em **vs119** a marca passa a ser
+a oficial: o disco com a orelha no cabeçalho e no botão flutuante, o emblema no
+rodapé, ícones novos, tema em azul-real `#1C4F9C` (também no estúdio do palco) e
+o nome da sinalizadora em `dados.js`, fora do texto dos botões. O
 repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
 continua na versão anterior (18 rotas): a conta de publicação só tem leitura no
 repositório original, por isso as versões novas saem pelo fork. O slug com dois
@@ -233,7 +236,7 @@ Para publicar no Pages: copiar `app/` para a branch `gh-pages` **sem apagar o
 `.nojekyll`** que só existe nessa branch (um `rsync --delete` da pasta `app/`
 remove-o e o Jekyll volta a tentar processar os ficheiros), mudar `const VERSAO`
 em `app/sw.js` **e** todos os `?v=` em `app/index.html` para o mesmo valor
-(o local está em vs118: 10 ocorrências em `index.html`), correr
+(o local está em vs119: 10 ocorrências em `index.html`), correr
 `node tools/integridade-test.cjs` e `node tools/engine-test.cjs` e enviar a
 `gh-pages`. A Pages do fork pode precisar de um build manual
 (`POST /repos/Rafael-bulezi/pamosii-viva-surdo/pages/builds`).
