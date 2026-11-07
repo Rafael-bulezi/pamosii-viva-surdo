@@ -272,7 +272,9 @@ for (const g of api.IS_TEMAS) {
 }
 
 /* uma palavra sem notação não pode aparecer como se a personagem soubesse o sinal */
-if (!/cartao-ref/.test(app)) falhas.push('O dicionário perdeu o cartão de referência sem pose (cartao-ref).');
+if (!/fig-fonte/.test(app)) falhas.push('O dicionário perdeu a figura dos cartões sem pose (fig-fonte).');
+/* a miniatura diz o que abre: aula e segundo ficam na faixa, não só no title */
+if (!/fig-rodape/.test(app) || !/fig-tempo/.test(app)) falhas.push('Os cartões sem pose perderam a faixa de miniatura (aula e segundo).');
 if (!/target="_blank" rel="noopener/.test(app)) falhas.push('Os cartões de referência deixaram de abrir a fonte em aba própria com rel=noopener.');
 /* o cartão com pose abre a personagem; o vídeo da fonte é um link à parte */
 if (!/class="cartao-video" href="\$\{esc\(e\.ref\.url\)\}"/.test(app)) {
@@ -387,7 +389,12 @@ nota('LGA: ' + chavesLga.length + ' palavras de ' + lga.LGA_META.aulas + ' aulas
 /* as duas fontes ficam em abas separadas: o cartão IS não pode mostrar LGA */
 const fCartoes = (app.match(/function cartoes\(\) \{[\s\S]*?\n\}/) || [''])[0];
 if (/LGA/.test(fCartoes)) falhas.push('A aba International Sign passou a mostrar conteúdo LGA — as fontes têm de ficar separadas.');
-if (!/fonte === 'lga'/.test(app)) falhas.push('O dicionário perdeu a aba LGA (#/dicionario?fonte=lga).');
+if (!/fonte === 'lga'/.test(app)) falhas.push('O dicionário perdeu a fonte LGA (#/dicionario?fonte=lga).');
+if (!/function vistaFontes\(/.test(app) || !/href="#\/dicionario\?fonte=is"/.test(app)) falhas.push('O dicionário perdeu a porta de entrada com as duas fontes.');
+/* a porta mostra duas fontes e nenhuma lista: quem escolhe vê só a língua escolhida */
+const fFontes = (app.match(/function vistaFontes\(\) \{[\s\S]*?\n\}/) || [''])[0];
+if ((fFontes.match(/class="fonte-card/g) || []).length !== 2) falhas.push('A porta do dicionário deixou de ter exatamente dois cartões de fonte.');
+if (!/function migalhas\(/.test(app)) falhas.push('O dicionário perdeu as migalhas (voltar às fontes / trocar de língua).');
 if (!/LGA_LISTA\.length/.test(app)) falhas.push('O título da aba LGA deixou de contar a partir dos dados.');
 if (!/cartao-lga/.test(app)) falhas.push('Os cartões da LGA desapareceram.');
 if (!/<script src="lga\.js\?v=/.test(html)) falhas.push('O index.html não carrega lga.js.');

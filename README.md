@@ -237,7 +237,16 @@ e abrem a Agatha no palco em vez de saltarem para o YouTube (o ▶ ao lado
 continua a abrir a aula no segundo certo; o selo fica à esquerda para não ficar
 debaixo do ▶); as restantes palavras continuam a abrir o vídeo. O favorito ganha um **círculo branco** por trás do disco (a marca
 azul-real desaparecia na barra de separadores escura), regerado a 16/32/48/64 px.
-O
+Em **vs123** o dicionário abre numa **porta com duas fontes** — um cartão azul
+para a LGA, um branco para o International Sign, cada um com as contagens reais
+— e só depois entra na lista da língua escolhida (`#/dicionario?fonte=lga` ou
+`?fonte=is`); as migalhas «← Fontes» e o atalho para a outra língua ficam sempre
+no topo. Os cartões foram refeitos: a mão da pose passa a desenhar-se sem fundo
+sobre um painel com gradiente, os cartões sem pose passam a miniatura de vídeo
+(▶ ao centro, aula e segundo na faixa de baixo, em vez de uma caixa vazia), a
+confiança passa a `confiança alta/média/baixa` com o ponto colorido, e o selo
+`3D` fica à esquerda para o ▶ não o tapar. O
+
 repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
 continua na versão anterior (18 rotas): a conta de publicação só tem leitura no
 repositório original, por isso as versões novas saem pelo fork. O slug com dois
@@ -247,7 +256,7 @@ Para publicar no Pages: copiar `app/` para a branch `gh-pages` **sem apagar o
 `.nojekyll`** que só existe nessa branch (um `rsync --delete` da pasta `app/`
 remove-o e o Jekyll volta a tentar processar os ficheiros), mudar `const VERSAO`
 em `app/sw.js` **e** todos os `?v=` em `app/index.html` para o mesmo valor
-(o local está em vs122: 13 ocorrências em `index.html`, incluindo ícone e
+(o local está em vs123: 13 ocorrências em `index.html`, incluindo ícone e
 folhas de estilo), correr
 `node tools/integridade-test.cjs` e `node tools/engine-test.cjs` e enviar a
 `gh-pages`. A Pages do fork pode precisar de um build manual

@@ -987,11 +987,11 @@ function maoCena(poses, rotulo) {
 const MAO_CORPO = PALCO_DEFS + palcoPresente('Em repouso');
 
 /* Miniatura de uma só mão (dicionário) — usa vista local sem corromper MAO_VISTA global */
-function maoFigura(forma) {
+function maoFigura(forma, semFundo) {
   const vistaFig = { cx: 160, cy: 262, esc: 360 };
   const pecas = maoTransformar(maoPecas(forma, false), { forma, pos: [0, 0, 0], rot: [0, 0, 0] }, 'D');
   const { sombra, d } = maoDesenhar(pecas, vistaFig);
-  const fundo = `<rect width="320" height="320" rx="26" fill="#F7F2E7"/>`;
+  const fundo = semFundo ? '' : `<rect width="320" height="320" rx="26" fill="#F7F2E7"/>`;
   return `<svg class="mao-fig" viewBox="${MAO_VB_FIG}" aria-hidden="true" focusable="false">${fundo}${sombra}${d}</svg>`;
 }
 
