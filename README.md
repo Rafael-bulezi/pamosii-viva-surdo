@@ -230,12 +230,12 @@ rodapé, ícones novos, tema em azul-real `#1C4F9C` (também no estúdio do palc
 o nome da sinalizadora em `dados.js`, fora do texto dos botões. Em **vs120** o
 favorito passa a ser `app/favicon.ico` (disco com a orelha em 16/32/48/64 px),
 referenciado com `?v=` para o browser não reutilizar o ícone antigo que tinha em
-cache. Em **vs121** a camada 3D da LGA chega à página: `lga-3d.js` traz a pose já
+cache. Em **vs122** a camada 3D da LGA chega à página: `lga-3d.js` traz a pose já
 lida no quadro para 18 palavras (7 marcadas `≈` porque são aproximação
 declarada), os cartões da aba LGA mostram a mão da pose com um selo `3D`/`3D ≈`
 e abrem a Agatha no palco em vez de saltarem para o YouTube (o ▶ ao lado
-continua a abrir a aula no segundo certo); as restantes palavras continuam a
-abrir o vídeo. O favorito ganha um **círculo branco** por trás do disco (a marca
+continua a abrir a aula no segundo certo; o selo fica à esquerda para não ficar
+debaixo do ▶); as restantes palavras continuam a abrir o vídeo. O favorito ganha um **círculo branco** por trás do disco (a marca
 azul-real desaparecia na barra de separadores escura), regerado a 16/32/48/64 px.
 O
 repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
@@ -247,7 +247,7 @@ Para publicar no Pages: copiar `app/` para a branch `gh-pages` **sem apagar o
 `.nojekyll`** que só existe nessa branch (um `rsync --delete` da pasta `app/`
 remove-o e o Jekyll volta a tentar processar os ficheiros), mudar `const VERSAO`
 em `app/sw.js` **e** todos os `?v=` em `app/index.html` para o mesmo valor
-(o local está em vs121: 13 ocorrências em `index.html`, incluindo ícone e
+(o local está em vs122: 13 ocorrências em `index.html`, incluindo ícone e
 folhas de estilo), correr
 `node tools/integridade-test.cjs` e `node tools/engine-test.cjs` e enviar a
 `gh-pages`. A Pages do fork pode precisar de um build manual

@@ -1126,7 +1126,14 @@ const SINAIS = {
 function sinalNotacao(chave) {
   const bruto = SINAIS[chave];
   if (!bruto) return null;
-  let texto = bruto, duas = false;
+  return sinalDeNotacao(bruto, AJUSTES[chave] || {});
+}
+
+/* 'forma local movimento' → geometria do beat; serve quem traz a notação de fora
+   da tabela SINAIS (as poses da LGA) sem inventar uma entrada no glossário */
+function sinalDeNotacao(bruto, aj) {
+  let texto = String(bruto || '');
+  let duas = false;
   if (texto.startsWith('2:')) { duas = true; texto = texto.slice(2); }
   const [forma, local, mov] = texto.split(/\s+/);
   if (!FORMAS_MAO[forma] || !LOCAIS[local]) return null;
@@ -1134,7 +1141,7 @@ function sinalNotacao(chave) {
   const L = LOCAIS[local];
   const p = Array.isArray(L) ? L : L.p;
   const base = Array.isArray(L) ? [0, 0, 0] : L.rot;
-  const aj = AJUSTES[chave] || {};
+  const ajuste = aj || {};
   return {
     forma, duas, movimento: mov, local, reps: mov === 'repete' ? 2 : 1,
     inicio: { forma, pos: p.slice(), rot: base.slice() },
@@ -1143,9 +1150,9 @@ function sinalNotacao(chave) {
       pos: [p[0] + delta[0], p[1] + delta[1], p[2] + delta[2]],
       rot: [base[0] + giro[0], base[1] + giro[1], base[2] + giro[2]],
     },
-    palma: aj.palma || null,
-    esq: aj.esq ? notacaoParcial(aj.esq) : null,
-    amp: aj.amp || null,
+    palma: ajuste.palma || null,
+    esq: ajuste.esq ? notacaoParcial(ajuste.esq) : null,
+    amp: ajuste.amp || null,
   };
 }
 
@@ -1197,14 +1204,14 @@ function maoMisturar(a, b, t) {
 if (typeof window !== 'undefined') {
   Object.assign(window, {
     FORMAS_MAO, LOCAIS, MOVIMENTOS, SINAIS, AJUSTES,
-    sinalNotacao, maoFigura, maoCena, maoMisturar, formaMisturar,
+    sinalNotacao, sinalDeNotacao, maoFigura, maoCena, maoMisturar, formaMisturar,
     MAO_CORPO, MAO_VISTA,
   });
 }
 if (typeof globalThis !== 'undefined') {
   Object.assign(globalThis, {
     FORMAS_MAO, LOCAIS, MOVIMENTOS, SINAIS,
-    sinalNotacao, maoFigura, maoCena, maoMisturar, formaMisturar,
+    sinalNotacao, sinalDeNotacao, maoFigura, maoCena, maoMisturar, formaMisturar,
     MAO_CORPO, MAO_VISTA,
   });
 }

@@ -424,6 +424,8 @@ if (!sinaisLga3d) {
 if (!/<script src="lga-3d\.js\?v=/.test(html)) falhas.push('O index.html não carrega lga-3d.js.');
 if (!/lga-3d\.js\?v=/.test(sw)) falhas.push('O casulo offline não guarda lga-3d.js.');
 if (!/poseLga\(e\.chave\)/.test(app)) falhas.push('Os cartões da LGA deixaram de usar a pose 3D quando existe.');
+if (!/function abrirSignerNotacao\(/.test(app)) falhas.push('app.js não tem abrirSignerNotacao: os cartões 3D não abrem a pose.');
+if (!/sinalDeNotacao\(notacao, \{\}\)/.test(app)) falhas.push('abrirSignerNotacao não usa sinalDeNotacao: a pose 3D ficava sem geometria.');
 
 /* o glosador tem de continuar a ordenar como promete a nota do site */
 for (const frase of ['Amanhã eu vou à escola.', 'Eu não quero água.']) {
