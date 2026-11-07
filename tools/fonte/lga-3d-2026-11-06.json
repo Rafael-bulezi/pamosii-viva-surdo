@@ -512,9 +512,9 @@
     "folha": ".mine/numeros/palavra-8.png",
     "notacao": "F peito parado",
     "oQueVisto": "polegar e indicador unidos em anel/pinça circular com os restantes três dedos estendidos para cima (configuração F)",
-    "oQueAproximado": "nenhum; forma F coincide com a pinça e três dedos erguidos",
-    "veredicto": "pose",
-    "motivo": "anel indicador-polegar e 3 dedos erguidos nítidos em 31 fotogramas a 0.5s"
+    "oQueAproximado": "o rig deixa um intervalo medido de 0.0297 m (~3 cm) entre as pontas de J_Bip_R_Thumb3 e J_Bip_R_Index3 na forma F, em vez de contacto perfeito",
+    "veredicto": "aproximado",
+    "motivo": "anel indicador-polegar nítido nos fotogramas, mas rig 3D tem intervalo de 2.97 cm entre pontas do polegar e indicador"
   },
   {
     "palavra": "9",
@@ -1137,11 +1137,11 @@
       74
     ],
     "folha": ".mine/verbos-1/palavra-poder.png",
-    "notacao": "2:punho peito baixo",
-    "oQueVisto": "ambas as mãos em punho cerrado à altura dos ombros descem firmemente à frente do peito com movimento assertivo",
-    "oQueAproximado": "nenhum; 2:punho peito baixo reproduz exatamente a descida firme de ambos os punhos",
+    "notacao": "2:punho ombro baixo",
+    "oQueVisto": "ambas as mãos em punho cerrado à altura dos ombros (~1.43m) descem firmemente à frente do peito (~1.32m) com movimento assertivo",
+    "oQueAproximado": "nenhum; 2:punho ombro baixo reproduz exatamente o início nos ombros e a descida firme",
     "veredicto": "pose",
-    "motivo": "descida paralela assertiva de ambos os punhos fechados no peito evidente em 7 fotogramas a 0.5s"
+    "motivo": "início à altura dos ombros e descida firme comprovados nos fotogramas q0145-q0149"
   },
   {
     "palavra": "ajudar",

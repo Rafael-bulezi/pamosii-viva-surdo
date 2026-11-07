@@ -98,6 +98,7 @@
       segundos: [59, 74],
       confianca: 'média',
       veSe: "polegar e indicador unidos em círculo/pinça (configuração em 'F'), com os outros três dedos estendidos para cima",
+      aproximado: true,
     },
     'ver': {
       notacao: 'aponta olho toque',
@@ -114,7 +115,7 @@
       veSe: 'mão direita com dedos juntos em cúspide/pinça fecha repetidamente junto à boca',
     },
     'poder': {
-      notacao: '2:punho peito baixo',
+      notacao: '2:punho ombro baixo',
       aula: 'Aula 06 — Verbos de LGA 1',
       segundos: [71, 74],
       confianca: 'alta',
