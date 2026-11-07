@@ -64,6 +64,13 @@ const CONFIG_LOTE = {
     saida: path.join(RAIZ, 'tools', 'fonte', 'lga-3d', 'lote-2c-comida2.png'),
     modo: 'verbos',
   },
+  '3a': {
+    aula: 'Casa (1ª parte)',
+    titulo: 'LGA 3D — Lote 3a: Aula 11 (Casa 1)',
+    subtitulo: 'Avatar 3D Agatha (Three.js WebGL) · 4 vistas por sinal: início, meio, fim e close-up · viva-surdo',
+    saida: path.join(RAIZ, 'tools', 'fonte', 'lga-3d', 'lote-3a-casa1.png'),
+    modo: 'verbos',
+  },
 }[LOTE] || {
   aula: 'Números',
   titulo: 'LGA 3D — Lote 1b: Aula 03 (Números)',

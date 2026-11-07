@@ -2245,5 +2245,423 @@
     "oQueAproximado": "nenhum (rejeitado por composição sequencial de dois sinais distintos)",
     "veredicto": "sem pose",
     "motivo": "composto sequencial direto de dois sinais (pão + manteiga) executados consecutivamente"
+  },
+  {
+    "palavra": "casa",
+    "chave": "casa",
+    "aula": "Aula 11 — Casa (1ª parte)",
+    "segundos": [
+      3,
+      5
+    ],
+    "segundosVistos": [
+      3,
+      5
+    ],
+    "folha": ".mine/casa-1/palavra-casa.png",
+    "notacao": "2:plano alto bate",
+    "oQueVisto": "ambas as mãos abertas com pontas dos dedos unidas acima da cabeça formando um telhado triangular",
+    "oQueAproximado": "nenhum; 2:plano alto bate reproduz a união simétrica das pontas dos dedos acima da cabeça",
+    "veredicto": "pose",
+    "motivo": "telhado triangular bimanual acima da cabeça evidente nos fotogramas q0007-q0011 a 0.5s"
+  },
+  {
+    "palavra": "cozinha",
+    "chave": "cozinha",
+    "aula": "Aula 11 — Casa (1ª parte)",
+    "segundos": [
+      13,
+      15
+    ],
+    "segundosVistos": [
+      13,
+      15
+    ],
+    "folha": ".mine/casa-1/palavra-cozinha.png",
+    "notacao": null,
+    "oQueVisto": "mão esquerda com punho/base e mão direita mexe circularmente com movimento de cozinhar/mexer panela",
+    "oQueAproximado": "nenhum (rejeitado por bimanual assimétrico com contenção de panela)",
+    "veredicto": "sem pose",
+    "motivo": "mão esquerda imobilizando a panela enquanto a direita mexe com colher imaginária; excede o modelo de beat simples"
+  },
+  {
+    "palavra": "quarto",
+    "chave": "quarto",
+    "aula": "Aula 11 — Casa (1ª parte)",
+    "segundos": [
+      21,
+      23
+    ],
+    "segundosVistos": [
+      21,
+      23
+    ],
+    "folha": ".mine/casa-1/palavra-quarto.png",
+    "notacao": null,
+    "oQueVisto": "ambas as palmas unidas pousadas de lado junto à bochecha com cabeça inclinada (sinal de dormir / quarto)",
+    "oQueAproximado": "nenhum (rejeitado por inclinação lateral cervical e sobreposição bimanual unilateral na face)",
+    "veredicto": "sem pose",
+    "motivo": "sinal de dormir com flexão lateral cervical e palmas unidas de lado na bochecha; o rig não tem cinemática cervical lateral"
+  },
+  {
+    "palavra": "wc",
+    "chave": "wc",
+    "aula": "Aula 11 — Casa (1ª parte)",
+    "segundos": [
+      27,
+      29
+    ],
+    "segundosVistos": [
+      27,
+      29
+    ],
+    "folha": ".mine/casa-1/palavra-wc.png",
+    "notacao": null,
+    "oQueVisto": "dedo indicador da mão direita aponta para o nariz ou toca junto ao septo nasal",
+    "oQueAproximado": "nenhum (rejeitado por ausência de localização 'nariz' no rig)",
+    "veredicto": "sem pose",
+    "motivo": "toque no septo nasal; o vocabulário de lugares do apresentador não inclui 'nariz' no modelo anatómico"
+  },
+  {
+    "palavra": "sala de estar",
+    "chave": "sala de estar",
+    "aula": "Aula 11 — Casa (1ª parte)",
+    "segundos": [
+      37,
+      39
+    ],
+    "segundosVistos": [
+      37,
+      39
+    ],
+    "folha": ".mine/casa-1/palavra-sala-de-estar.png",
+    "notacao": null,
+    "oQueVisto": "ambas as mãos em 'L' ou 'V' desenham a área / assento macio de sofá à frente do corpo",
+    "oQueAproximado": "nenhum (rejeitado por delimitação descritiva complexa de área de repouso)",
+    "veredicto": "sem pose",
+    "motivo": "delimitação descritiva volumétrica de sofá com transição morfológica que excede um beat único"
+  },
+  {
+    "palavra": "sala de jantar",
+    "chave": "sala de jantar",
+    "aula": "Aula 11 — Casa (1ª parte)",
+    "segundos": [
+      55,
+      57
+    ],
+    "segundosVistos": [
+      55,
+      57
+    ],
+    "folha": ".mine/casa-1/palavra-sala-de-jantar.png",
+    "notacao": null,
+    "oQueVisto": "mãos desenham o tampo da mesa e em seguida levam as mãos juntas em garra/pinça em direção à boca (comer)",
+    "oQueAproximado": "nenhum (rejeitado por composto sequencial: mesa + comer)",
+    "veredicto": "sem pose",
+    "motivo": "sinal composto sequencial (delimitação plana de mesa seguida do sinal de comer na boca)"
+  },
+  {
+    "palavra": "chão",
+    "chave": "chao",
+    "aula": "Aula 11 — Casa (1ª parte)",
+    "segundos": [
+      63,
+      65
+    ],
+    "segundosVistos": [
+      63,
+      65
+    ],
+    "folha": ".mine/casa-1/palavra-chao.png",
+    "notacao": "2:plano baixo varre",
+    "oQueVisto": "ambas as mãos abertas com palmas voltadas para baixo descem e estendem-se no plano inferior",
+    "oQueAproximado": "nenhum; 2:plano baixo varre reproduz o nivelamento horizontal bimanual no plano inferior",
+    "veredicto": "pose",
+    "motivo": "descida e nivelamento horizontal bimanual palma para baixo comprovados nos fotogramas q0127-q0131 a 0.5s"
+  },
+  {
+    "palavra": "porta",
+    "chave": "porta",
+    "aula": "Aula 11 — Casa (1ª parte)",
+    "segundos": [
+      68,
+      70
+    ],
+    "segundosVistos": [
+      68,
+      70
+    ],
+    "folha": ".mine/casa-1/palavra-porta.png",
+    "notacao": "2:plano frente bate",
+    "oQueVisto": "ambas as mãos abertas verticais com palmas para a frente aproximam-se até as palmas se unirem (fechar a porta)",
+    "oQueAproximado": "nenhum; 2:plano frente bate reproduz a aproximação das palmas verticais no centro à frente do peito",
+    "veredicto": "pose",
+    "motivo": "junção das palmas verticais no plano frontal evidente nos fotogramas q0137-q0141 a 0.5s"
+  },
+  {
+    "palavra": "janela",
+    "chave": "janela",
+    "aula": "Aula 11 — Casa (1ª parte)",
+    "segundos": [
+      77,
+      79
+    ],
+    "segundosVistos": [
+      77,
+      79
+    ],
+    "folha": ".mine/casa-1/palavra-janela.png",
+    "notacao": null,
+    "oQueVisto": "ambos os antebraços na horizontal cruzam-se e sobem/descem simulando abrir o caixilho de uma janela",
+    "oQueAproximado": "nenhum (rejeitado por colisão de antebraços horizontais cruzados)",
+    "veredicto": "sem pose",
+    "motivo": "antebraços horizontais cruzados sobrepostos em caixilho; a cinemática de braços do rig colide nesta postura"
+  },
+  {
+    "palavra": "lâmpada",
+    "chave": "lampada",
+    "aula": "Aula 11 — Casa (1ª parte)",
+    "segundos": [
+      87,
+      89
+    ],
+    "segundosVistos": [
+      87,
+      89
+    ],
+    "folha": ".mine/casa-1/palavra-lampada.png",
+    "notacao": "curva alto abre",
+    "oQueVisto": "mão direita em cúspide/garra virada para baixo acima da cabeça abre os dedos irradiando luz",
+    "oQueAproximado": "nenhum; curva alto abre reproduz a abertura súbita dos dedos da cúspide para baixo acima da cabeça",
+    "veredicto": "pose",
+    "motivo": "irradiação de luz a partir de cúspide invertida no alto nítida nos fotogramas q0175-q0179 a 0.5s"
+  },
+  {
+    "palavra": "energia",
+    "chave": "energia",
+    "aula": "Aula 11 — Casa (1ª parte)",
+    "segundos": [
+      94,
+      96
+    ],
+    "segundosVistos": [
+      94,
+      96
+    ],
+    "folha": ".mine/casa-1/palavra-energia.png",
+    "notacao": null,
+    "oQueVisto": "ambos os indicadores estendidos para cima oscilam/vibram rapidamente (corrente elétrica)",
+    "oQueAproximado": "nenhum (rejeitado por oscilação vibratória de alta frequência)",
+    "veredicto": "sem pose",
+    "motivo": "vibração rápida contínua de ambos os indicadores verticais; o modelo de interpolação não suporta vibração de alta frequência"
+  },
+  {
+    "palavra": "tomada",
+    "chave": "tomada",
+    "aula": "Aula 11 — Casa (1ª parte)",
+    "segundos": [
+      100,
+      102
+    ],
+    "segundosVistos": [
+      100,
+      102
+    ],
+    "folha": ".mine/casa-1/palavra-tomada.png",
+    "notacao": null,
+    "oQueVisto": "mão esquerda vertical aberta palma para o lado (parede); mão direita com indicador e médio estendidos insere na palma esquerda",
+    "oQueAproximado": "nenhum (rejeitado por inserção bimanual com encaixe de pinos em fenda)",
+    "veredicto": "sem pose",
+    "motivo": "encaixe de precisão de dois dedos direitos contra a face vertical da palma esquerda passiva"
+  },
+  {
+    "palavra": "geladeira",
+    "chave": "geladeira",
+    "aula": "Aula 11 — Casa (1ª parte)",
+    "segundos": [
+      107,
+      109
+    ],
+    "segundosVistos": [
+      107,
+      109
+    ],
+    "folha": ".mine/casa-1/palavra-geladeira.png",
+    "notacao": null,
+    "oQueVisto": "punho cerrado com dorso/nós a tremer junto ao queixo (frio) seguido de puxar a porta vertical do frigorífico",
+    "oQueAproximado": "nenhum (rejeitado por composto sequencial de frio e abertura de porta)",
+    "veredicto": "sem pose",
+    "motivo": "sinal composto por tremor de frio no queixo seguido de tração frontal da porta"
+  },
+  {
+    "palavra": "ac",
+    "chave": "ac",
+    "aula": "Aula 11 — Casa (1ª parte)",
+    "segundos": [
+      116,
+      118
+    ],
+    "segundosVistos": [
+      116,
+      118
+    ],
+    "folha": ".mine/casa-1/palavra-ac.png",
+    "notacao": null,
+    "oQueVisto": "ambas as mãos abertas ao lado da cabeça abanam ar fresco para o rosto, seguido de sinal de frio (punho no queixo)",
+    "oQueAproximado": "nenhum (rejeitado por composto sequencial com abano facial e punho no queixo)",
+    "veredicto": "sem pose",
+    "motivo": "composto sequencial com abanar de ar fresco seguido de tremor de frio no queixo"
+  },
+  {
+    "palavra": "fogão",
+    "chave": "fogao",
+    "aula": "Aula 11 — Casa (1ª parte)",
+    "segundos": [
+      128,
+      130
+    ],
+    "segundosVistos": [
+      128,
+      130
+    ],
+    "folha": ".mine/casa-1/palavra-fogao.png",
+    "notacao": null,
+    "oQueVisto": "ambas as mãos sobem com dedos ondulando (chamas) e em seguida dedos simulam rodar os botões do queimador",
+    "oQueAproximado": "nenhum (rejeitado por composto sequencial de chamas e rotação de botões)",
+    "veredicto": "sem pose",
+    "motivo": "composto de ondulação ascendente de chamas seguido de pinça a rodar botões de fogão"
+  },
+  {
+    "palavra": "colher",
+    "chave": "colher",
+    "aula": "Aula 11 — Casa (1ª parte)",
+    "segundos": [
+      135,
+      137
+    ],
+    "segundosVistos": [
+      135,
+      137
+    ],
+    "folha": ".mine/casa-1/palavra-colher.png",
+    "notacao": "curva boca toque",
+    "oQueVisto": "mão direita com dedos fletidos em concha simula segurar uma colher e leva à boca",
+    "oQueAproximado": "nenhum; curva boca toque reproduz a aproximação da concha da colher à boca",
+    "veredicto": "pose",
+    "motivo": "mão em concha fletida subindo à boca comprovada nos fotogramas q0271-q0275 a 0.5s"
+  },
+  {
+    "palavra": "garfo",
+    "chave": "garfo",
+    "aula": "Aula 11 — Casa (1ª parte)",
+    "segundos": [
+      142,
+      144
+    ],
+    "segundosVistos": [
+      142,
+      144
+    ],
+    "folha": ".mine/casa-1/palavra-garfo.png",
+    "notacao": "tres boca toque",
+    "oQueVisto": "mão direita com três dedos estendidos (dentes do garfo) espeta e leva em direção à boca",
+    "oQueAproximado": "nenhum; tres boca toque reproduz os 3 dentes do garfo estendidos a tocar na boca",
+    "veredicto": "pose",
+    "motivo": "três dedos rígidos estendidos subindo em direção à boca nítidos nos fotogramas q0285-q0289 a 0.5s"
+  },
+  {
+    "palavra": "faca",
+    "chave": "faca",
+    "aula": "Aula 11 — Casa (1ª parte)",
+    "segundos": [
+      149,
+      151
+    ],
+    "segundosVistos": [
+      149,
+      151
+    ],
+    "folha": ".mine/casa-1/palavra-faca.png",
+    "notacao": null,
+    "oQueVisto": "dedo indicador da mão direita serra/corta repetidamente sobre o indicador da mão esquerda",
+    "oQueAproximado": "nenhum (rejeitado por fricção e cruzamento dinâmico entre dedos indicadores)",
+    "veredicto": "sem pose",
+    "motivo": "fricção retilínea em serra de um indicador sobre o outro indicador em ângulo recto; excede contacto fino do rig"
+  },
+  {
+    "palavra": "prato",
+    "chave": "prato",
+    "aula": "Aula 11 — Casa (1ª parte)",
+    "segundos": [
+      154,
+      156
+    ],
+    "segundosVistos": [
+      154,
+      156
+    ],
+    "folha": ".mine/casa-1/palavra-prato.png",
+    "notacao": "2:curva barriga circulo",
+    "oQueVisto": "ambas as mãos abertas com dedos ligeiramente curvados desenham no ar a borda circular de um prato e sustentam a base",
+    "oQueAproximado": "as mãos executam a rotação circular bimanual na barriga, aproximando a delimitação do perímetro circular do prato",
+    "veredicto": "aproximado",
+    "motivo": "desenho circular bimanual de prato na altura do abdómen comprovado nos fotogramas q0309-q0313 a 0.5s"
+  },
+  {
+    "palavra": "cadeiras",
+    "chave": "cadeiras",
+    "aula": "Aula 11 — Casa (1ª parte)",
+    "segundos": [
+      163,
+      165
+    ],
+    "segundosVistos": [
+      163,
+      165
+    ],
+    "folha": ".mine/casa-1/palavra-cadeiras.png",
+    "notacao": null,
+    "oQueVisto": "sinal de sentar (dois dedos cavalgam sobre a outra mão) repetido com pequenos deslocamentos laterais (plural)",
+    "oQueAproximado": "nenhum (rejeitado por bimanual assimétrico com cavalgamento e passo lateral)",
+    "veredicto": "sem pose",
+    "motivo": "dois dedos cavalgando sobre a base da mão oposta com saltos laterais sucessivos de pluralidade"
+  },
+  {
+    "palavra": "tv",
+    "chave": "tv",
+    "aula": "Aula 11 — Casa (1ª parte)",
+    "segundos": [
+      173,
+      175
+    ],
+    "segundosVistos": [
+      173,
+      175
+    ],
+    "folha": ".mine/casa-1/palavra-tv.png",
+    "notacao": null,
+    "oQueVisto": "soletração manual rápida da letra 'T' seguida da letra 'V' no ar",
+    "oQueAproximado": "nenhum (rejeitado por soletração datilológica de sigla T-V)",
+    "veredicto": "sem pose",
+    "motivo": "soletração manual em datilologia rápida das letras T e V sem sinal icónico apresentado"
+  },
+  {
+    "palavra": "comando",
+    "chave": "comando",
+    "aula": "Aula 11 — Casa (1ª parte)",
+    "segundos": [
+      180,
+      182
+    ],
+    "segundosVistos": [
+      180,
+      182
+    ],
+    "folha": ".mine/casa-1/palavra-comando.png",
+    "notacao": "punho frente repete",
+    "oQueVisto": "mão direita segura comando remoto imaginário virado para a frente e polegar prime repetidamente o botão",
+    "oQueAproximado": "a mão projeta-se em punho para o plano frontal, simulando o apontar do comando, mas sem o clique isolado do polegar",
+    "veredicto": "aproximado",
+    "motivo": "apontar firme de comando para a frente com impulsos repetidos comprovado nos fotogramas q0361-q0365 a 0.5s"
   }
 ]
