@@ -1,7 +1,12 @@
-# Agatha — texto em, sinais out
+# Viva Surdo — texto em, sinais out
 
 Protótipo da **Viva Surdo** para ver uma frase em Língua Gestual Angolana (LGA) e
 procurar palavras num dicionário de sinais. Duas funções, duas páginas:
+
+A marca oficial está em `app/assets/logo-viva-surdo.png`; a interface usa o emblema
+(`logo-emblem.png`) e o disco com a orelha (`logo-mark.png`). A primeira sinalizadora
+3D chama-se **Agatha** — nome provisório, guardado em `dados.js` (`SINALIZADOR`),
+nunca escrito no texto dos botões.
 
 | Rota | Função |
 | --- | --- |

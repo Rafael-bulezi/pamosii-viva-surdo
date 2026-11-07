@@ -1,5 +1,5 @@
 /* ============================================================================
-   MAOS — o rig anatómico de mãos do Agatha Signer (SVG puro, sem bibliotecas)
+   MAOS — o rig anatómico de mãos da sinalizadora Agatha (SVG puro, sem bibliotecas)
    ----------------------------------------------------------------------------
    Modelo 3D articulado projectado em 2D SVG com:
    - Arco metacárpico transversal e oblíquo, eminências tenar e hipotenar,
