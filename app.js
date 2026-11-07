@@ -350,7 +350,7 @@ const SG_FRASE = 'Bom dia! Onde fica a escola? Amanhã eu vou com a minha famíl
 const SG = {
   aberto: false, texto: '', beats: [], passos: [], poses: null, inicio: [], total: 0,
   t: 0, beat: -1, tocando: false, raf: 0, last: 0, vel: 1, repetir: true,
-  pillVisivel: false, palcoAVista: false, editorAVista: false,
+  pillVisivel: false, palcoAVista: false, editorAVista: false, poseLga: null,
 };
 
 /* o botão flutuante sai da frente da bolha de seleção, do transporte do palco
@@ -430,7 +430,9 @@ function montarSigner() {
   document.body.append(painel, fab);
 
   fab.addEventListener('click', () => {
-    if (SG.aberto) fecharSigner(); else abrirSigner(SG.texto || SG_FRASE);
+    if (SG.aberto) fecharSigner();
+    else if (SG.poseLga) abrirSignerNotacao(SG.poseLga.notacao, SG.poseLga.rotulo, SG.poseLga.aproximado);
+    else abrirSigner(SG.texto || SG_FRASE);
   });
   $('#sg-fechar').addEventListener('click', () => fecharSigner());
   $('#sg-play').addEventListener('click', () => { if (SG.tocando) pausarSigner(); else tocarSigner(); });
@@ -457,11 +459,31 @@ function montarSigner() {
 }
 
 async function abrirSigner(texto) {
-  if (!document.getElementById('sg-painel')) montarSigner();
   const t = String(texto || '').replace(/\s+/g, ' ').trim() || SG.texto || SG_FRASE;
+  SG.poseLga = null;
+  return abrirSignerBeats(t, analisarEmBeats(t).beats, {});
+}
+
+/* Uma pose só, vinda da notação da LGA: o painel mostra a mão em repouso entre
+   repetições em vez de glosar a palavra por regras que não são da LGA. */
+async function abrirSignerNotacao(notacao, rotulo, aproximado) {
+  const n = window.sinalDeNotacao ? sinalDeNotacao(notacao, {}) : null;
+  if (!n) return false;
+  SG.poseLga = { notacao, rotulo, aproximado: !!aproximado };
+  const beat = {
+    tipo: 'sinal', rotulo: rotulo || '', forma: n.forma, duas: n.duas, reps: n.reps, local: n.local,
+    pos0: n.inicio.pos, rot0: n.inicio.rot, pos1: n.fim.pos, rot1: n.fim.rot, dur: 760,
+    palma: n.palma, esq: n.esq, amp: n.amp, movimento: n.movimento,
+  };
+  await abrirSignerBeats(rotulo || '', [beat, pausa()], { notacao: true, aproximado: !!aproximado });
+  return true;
+}
+
+async function abrirSignerBeats(t, beats, opcoes) {
+  if (!document.getElementById('sg-painel')) montarSigner();
   SG.texto = t;
   SG.aberto = true;
-  SG.beats = analisarEmBeats(t).beats;
+  SG.beats = beats;
   SG.passos = [];
   SG.poses = null;
   SG.inicio = [];
@@ -472,12 +494,12 @@ async function abrirSigner(texto) {
   $('#sg-painel').hidden = false;
   $('#sg-fab').setAttribute('aria-expanded', 'true');
   atualizarFab();
-  $('#sg-frase').textContent = '«' + t + '»';
+  $('#sg-frase').textContent = '«' + t + '»' + (opcoes.aproximado ? ' · aproximação à aula' : '');
   pintarChipsSigner();
   const abrir = $('#sg-abrir');
   if (abrir) {
     const rota = (location.hash || '').replace(/^#/, '').split('?')[0] || '/';
-    abrir.hidden = rota !== '/dicionario';
+    abrir.hidden = opcoes.notacao || rota !== '/dicionario';
     abrir.href = '#/?s=' + encodeURIComponent(t);
   }
   $('#sg-fechar').focus({ preventScroll: true });
