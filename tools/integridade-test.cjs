@@ -392,6 +392,39 @@ if (!/LGA_LISTA\.length/.test(app)) falhas.push('O título da aba LGA deixou de 
 if (!/cartao-lga/.test(app)) falhas.push('Os cartões da LGA desapareceram.');
 if (!/<script src="lga\.js\?v=/.test(html)) falhas.push('O index.html não carrega lga.js.');
 
+/* 9e. a camada 3D da LGA: só palavras da fonte e notação que o rig desenha.
+   A pose vive noutro ficheiro, por isso é aqui que se impede que ela invente
+   uma palavra, troque o segundo da aula ou peça uma forma de mão inexistente. */
+vm.runInContext(ler('lga-3d.js'), ctx);
+const sinaisLga3d = ctx.SINAIS_LGA;
+if (!sinaisLga3d) {
+  falhas.push('lga-3d.js não expõe SINAIS_LGA.');
+} else {
+  const maus = [];
+  for (const [k, e] of Object.entries(sinaisLga3d)) {
+    const fonte = lga.FONTE_LGA[k];
+    if (!fonte) { maus.push(k + ' (não existe em lga.js)'); continue; }
+    const tokens = String(e.notacao || '').replace(/^2:/, '').split(/\s+/);
+    if (tokens.length !== 3) { maus.push(k + ' (esperava forma local movimento: «' + e.notacao + '»)'); continue; }
+    const [forma, local, mov] = tokens;
+    if (!api.FORMAS_MAO[forma]) maus.push(k + ' (forma «' + forma + '» desconhecida)');
+    if (!api.LOCAIS[local]) maus.push(k + ' (local «' + local + '» desconhecido)');
+    if (!api.MOVIMENTOS[mov]) maus.push(k + ' (movimento «' + mov + '» desconhecido)');
+    if (e.aula !== fonte.aula) maus.push(k + ' (aula «' + e.aula + '» ≠ fonte «' + fonte.aula + '»)');
+    if (String(e.segundos) !== String(fonte.segundos)) maus.push(k + ' (segundos ' + e.segundos + ' ≠ fonte ' + fonte.segundos + ')');
+    if (e.confianca !== fonte.confianca) maus.push(k + ' (confiança «' + e.confianca + '» ≠ fonte «' + fonte.confianca + '»)');
+    if (!e.veSe) maus.push(k + ' (sem veSe)');
+  }
+  if (maus.length) falhas.push('Poses LGA em contradição com a fonte ou com o rig:\n    - ' + maus.join('\n    - '));
+  const total3d = Object.keys(sinaisLga3d).length;
+  const aprox3d = Object.values(sinaisLga3d).filter(e => e.aproximado).length;
+  nota('LGA 3D: ' + total3d + ' poses (' + aprox3d + ' aproximadas) — ' +
+    Math.round(100 * total3d / chavesLga.length) + '% das palavras');
+}
+if (!/<script src="lga-3d\.js\?v=/.test(html)) falhas.push('O index.html não carrega lga-3d.js.');
+if (!/lga-3d\.js\?v=/.test(sw)) falhas.push('O casulo offline não guarda lga-3d.js.');
+if (!/poseLga\(e\.chave\)/.test(app)) falhas.push('Os cartões da LGA deixaram de usar a pose 3D quando existe.');
+
 /* o glosador tem de continuar a ordenar como promete a nota do site */
 for (const frase of ['Amanhã eu vou à escola.', 'Eu não quero água.']) {
   const resolvido = api.analisarTexto(frase, { soletrar: true });

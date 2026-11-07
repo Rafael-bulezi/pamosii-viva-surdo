@@ -38,6 +38,7 @@ app/
   referencias.js        GERADO: o que o léxico International Sign documenta
   dados.js              glossário (19 temas, 298 palavras) + glosador
   lga.js                GERADO: 246 palavras das aulas de LGA do Viva surdo
+  lga-3d.js             poses 3D das palavras da LGA já lidas no quadro (18)
   maos.js               rig das mãos em SVG + notação dos sinais (191 sinais)
   avatar.js             sinalizadora 3D (three.js + GLB), câmara, poses
   sinal3d.js            notação → poses de ossos (âncoras em metros na malha)
@@ -229,7 +230,14 @@ rodapé, ícones novos, tema em azul-real `#1C4F9C` (também no estúdio do palc
 o nome da sinalizadora em `dados.js`, fora do texto dos botões. Em **vs120** o
 favorito passa a ser `app/favicon.ico` (disco com a orelha em 16/32/48/64 px),
 referenciado com `?v=` para o browser não reutilizar o ícone antigo que tinha em
-cache. O
+cache. Em **vs121** a camada 3D da LGA chega à página: `lga-3d.js` traz a pose já
+lida no quadro para 18 palavras (7 marcadas `≈` porque são aproximação
+declarada), os cartões da aba LGA mostram a mão da pose com um selo `3D`/`3D ≈`
+e abrem a Agatha no palco em vez de saltarem para o YouTube (o ▶ ao lado
+continua a abrir a aula no segundo certo); as restantes palavras continuam a
+abrir o vídeo. O favorito ganha um **círculo branco** por trás do disco (a marca
+azul-real desaparecia na barra de separadores escura), regerado a 16/32/48/64 px.
+O
 repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
 continua na versão anterior (18 rotas): a conta de publicação só tem leitura no
 repositório original, por isso as versões novas saem pelo fork. O slug com dois
@@ -239,7 +247,8 @@ Para publicar no Pages: copiar `app/` para a branch `gh-pages` **sem apagar o
 `.nojekyll`** que só existe nessa branch (um `rsync --delete` da pasta `app/`
 remove-o e o Jekyll volta a tentar processar os ficheiros), mudar `const VERSAO`
 em `app/sw.js` **e** todos os `?v=` em `app/index.html` para o mesmo valor
-(o local está em vs120: 12 ocorrências em `index.html`), correr
+(o local está em vs121: 13 ocorrências em `index.html`, incluindo ícone e
+folhas de estilo), correr
 `node tools/integridade-test.cjs` e `node tools/engine-test.cjs` e enviar a
 `gh-pages`. A Pages do fork pode precisar de um build manual
 (`POST /repos/Rafael-bulezi/pamosii-viva-surdo/pages/builds`).
@@ -270,4 +279,6 @@ rede — o `put` fica num try próprio e a resposta segue.
   leitura (alta/média/baixa); as 12 entradas de confiança baixa vêm do Diálogo
   01, cuja sinalização aparece numa janela pequena que as folhas de contacto
   não mostram — ficam para revisão humana. As descrições são leituras nossas
-  dos fotogramas e não substituem a validação por sinalizadores surdos.
+  dos fotogramas e não substituem a validação por sinalizadores surdos; o mesmo
+  vale para as 18 poses da Agatha, e as 7 com selo `3D ≈` dizem-se aproximação
+  na própria página.

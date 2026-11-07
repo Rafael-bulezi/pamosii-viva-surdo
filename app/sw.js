@@ -4,7 +4,7 @@
    Não guarda: o vídeo que a pessoa abre (fica no aparelho dela e não sai de lá).
    Ao publicar, o `?v=` do index.html e o VERSAO abaixo mudam juntos. */
 
-const VERSAO = 'vs120';
+const VERSAO = 'vs121';
 const CASULO = 'casulo-' + VERSAO;
 
 const FICHEIROS = [
@@ -14,6 +14,7 @@ const FICHEIROS = [
   './referencias.js?v=' + VERSAO,
   './dados.js?v=' + VERSAO,
   './lga.js?v=' + VERSAO,
+  './lga-3d.js?v=' + VERSAO,
   './maos.js?v=' + VERSAO,
   './vendor/three.min.js?v=' + VERSAO,
   './vendor/GLTFLoader.js?v=' + VERSAO,

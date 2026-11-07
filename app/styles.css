@@ -559,6 +559,15 @@ textarea::placeholder, input[type="search"]::placeholder { color: var(--muted); 
   border: 2px dashed var(--line-strong); border-radius: 12px;
   font: 800 18px/1 var(--mono); color: var(--muted);
 }
+/* O selo diz que o cartão abre no palco 3D; o ≈ marca as poses que são
+   aproximação declarada, para não passarem por leitura fechada do quadro. */
+.selo-3d {
+  position: absolute; top: 6px; right: 6px;
+  padding: 3px 7px; border-radius: 999px;
+  background: var(--brand); color: var(--brand-ink);
+  font: 800 9.5px/1 var(--mono); letter-spacing: .06em;
+}
+.selo-3d[data-aprox="1"] { background: var(--yellow); color: var(--orange-ink); }
 .chip-estado { border-style: dashed; }
 .chip-estado.on { border-style: solid; }
 

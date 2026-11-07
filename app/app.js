@@ -1080,6 +1080,19 @@ function abasFonte(fonte) {
 const ehLetraLga = (e) => /^letra-/.test(e.palavra);
 const LGA_ORDEM = LGA_LISTA.filter(e => !ehLetraLga(e)).concat(LGA_LISTA.filter(ehLetraLga));
 
+/* A camada 3D (lga-3d.js) cobre só as palavras já lidas no quadro. Sem pose, o
+   cartão abre o vídeo: pôr a Agatha a fazer um gesto que ninguém comparou com a
+   aula seria dizer que sabemos o que não sabemos. */
+function poseLga(chave) {
+  const p = window.SINAIS_LGA && window.SINAIS_LGA[chave];
+  if (!p || !p.notacao) return null;
+  const [forma, local, movimento] = String(p.notacao).replace(/^2:/, '').split(/\s+/);
+  if (!window.FORMAS_MAO || !FORMAS_MAO[forma] || !window.LOCAIS || !LOCAIS[local]) return null;
+  return { forma, local, movimento, notacao: p.notacao, aproximado: !!p.aproximado };
+}
+
+const LGA_COM_POSE = LGA_LISTA.filter(e => poseLga(e.chave)).length;
+
 function cartoesLga() {
   const q = norm(LGA_PESQUISA);
   const lista = LGA_ORDEM.filter(e => {
@@ -1093,16 +1106,30 @@ function cartoesLga() {
     const tempo = Math.floor(seg / 60) + ':' + String(seg % 60).padStart(2, '0');
     const url = 'https://www.youtube.com/watch?v=' + encodeURIComponent(e.video) + '&t=' + seg + 's';
     const noDic = LGA_NO_DICIONARIO.has(e.chave);
+    const pose = poseLga(e.chave);
+    const fig = pose ? maoFigura(pose.forma) : '<span class="ref-marca">LGA</span>';
+    const selo = pose
+      ? `<span class="selo-3d"${pose.aproximado ? ' data-aprox="1"' : ''}>${pose.aproximado ? '3D ≈' : '3D'}</span>`
+      : '';
+    const rotulo = pose
+      ? `${esc(e.palavra)} — pose 3D da Agatha${pose.aproximado ? ' (aproximação)' : ''}, ${esc(e.aula)}. Abre no palco 3D.`
+      : `${esc(e.palavra)} — ${esc(e.aula)}, ${tempo}, confiança ${esc(e.confianca)}. Abre a aula no YouTube.`;
+    const video = pose
+      ? `<a class="cartao-video" href="${url}" target="_blank" rel="noopener noreferrer"
+           title="Ver na aula de origem" aria-label="Ver ${esc(e.palavra)} na aula do Viva surdo no YouTube">▶</a>`
+      : '';
     return `
     <div class="cartao-item">
-      <a class="cartao cartao-ref cartao-lga" data-conf="${esc(e.confianca)}" href="${url}"
-         target="_blank" rel="noopener noreferrer"
-         aria-label="${esc(e.palavra)} — ${esc(e.aula)}, ${tempo}, confiança ${esc(e.confianca)}. Abre a aula no YouTube.">
-        <span class="fig"><span class="ref-marca">LGA</span></span>
+      <a class="cartao${pose ? '' : ' cartao-ref'} cartao-lga" data-conf="${esc(e.confianca)}"
+         href="${pose ? '#/dicionario?fonte=lga' : url}"
+         ${pose ? `data-lga-palavra="${esc(e.chave)}" data-lga-rotulo="${esc(e.palavra)}"` : 'target="_blank" rel="noopener noreferrer"'}
+         aria-label="${rotulo}">
+        <span class="fig">${fig}${selo}</span>
         <b>${esc(e.palavra)}</b>
         <small>${esc(e.aula.replace(/ —.*$/, ''))} · ${tempo} · ${esc(e.confianca)}${noDic ? ' · no dicionário' : ''}</small>
         <small class="lga-ve">${esc(e.veSe)}</small>
       </a>
+      ${video}
     </div>`;
   }).join('');
 }
@@ -1118,7 +1145,7 @@ function vistaDicionarioLga() {
   <section class="entrada">
     <p class="kicker">Dicionário · LGA</p>
     <h1>${LGA_LISTA.length} palavras nas aulas de LGA do ${esc(META_LGA.nome)}.</h1>
-    <p class="sub">${META_LGA.aulas} aulas do Mini curso de LGA, lidas fotograma a fotograma a 540×360 no YouTube. ${LGA_NO_DICIONARIO.size} destas palavras já estão no dicionário; as restantes são o inventário das aulas. Confiança: ${conta('alta')} alta, ${conta('média')} média, ${conta('baixa')} baixa — as de confiança baixa estão marcadas para revisão humana.</p>
+    <p class="sub">${META_LGA.aulas} aulas do Mini curso de LGA, lidas fotograma a fotograma a 540×360 no YouTube. ${LGA_NO_DICIONARIO.size} destas palavras já estão no dicionário; ${LGA_COM_POSE} já abrem no palco 3D da Agatha e as restantes abrem a aula no segundo certo. Confiança: ${conta('alta')} alta, ${conta('média')} média, ${conta('baixa')} baixa — as de confiança baixa estão marcadas para revisão humana.</p>
   </section>
   <section class="painel busca">
     <label class="campo">
@@ -1129,7 +1156,7 @@ function vistaDicionarioLga() {
     <div class="chips" id="conf-lga">${chipsConf}</div>
   </section>
   <section class="grade" id="grade-lga" aria-live="polite">${cartoesLga()}</section>
-  <p class="rodape-nota">Cada cartão abre a aula no segundo em que a palavra é sinalizada. As descrições são leitura de fotogramas do canal Viva surdo e não substituem um sinalizador surdo: nenhuma foi validada pela comunidade.</p>`;
+  <p class="rodape-nota">Os cartões com selo 3D abrem no palco da Agatha; o ≈ marca as poses que são aproximação declarada. Os restantes abrem a aula no segundo em que a palavra é sinalizada. As descrições são leitura de fotogramas do canal Viva surdo e não substituem um sinalizador surdo: nenhuma foi validada pela comunidade.</p>`;
 }
 
 function cartoes() {
@@ -1234,6 +1261,14 @@ function ligarDicionario() {
   if (buscaL && gradeL) {
     buscaL.addEventListener('input', () => { LGA_PESQUISA = buscaL.value; gradeL.innerHTML = cartoesLga(); });
   }
+  if (gradeL) gradeL.addEventListener('click', (e) => {
+    const c = e.target.closest('[data-lga-palavra]');
+    if (!c || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const pose = poseLga(c.dataset.lgaPalavra);
+    if (!pose) return;
+    e.preventDefault();
+    abrirSignerNotacao(pose.notacao, c.dataset.lgaRotulo, pose.aproximado);
+  });
   const aulasL = $('#aulas-lga');
   if (aulasL && gradeL) aulasL.addEventListener('click', (e) => {
     const b = e.target.closest('[data-aula]');
