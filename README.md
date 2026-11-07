@@ -38,7 +38,7 @@ app/
   referencias.js        GERADO: o que o léxico International Sign documenta
   dados.js              glossário (19 temas, 298 palavras) + glosador
   lga.js                GERADO: 246 palavras das aulas de LGA do Viva surdo
-  lga-3d.js             poses 3D das palavras da LGA já lidas no quadro (18)
+  lga-3d.js             poses 3D das palavras da LGA já lidas no quadro (19)
   maos.js               rig das mãos em SVG + notação dos sinais (191 sinais)
   avatar.js             sinalizadora 3D (three.js + GLB), câmara, poses
   sinal3d.js            notação → poses de ossos (âncoras em metros na malha)
@@ -245,7 +245,15 @@ no topo. Os cartões foram refeitos: a mão da pose passa a desenhar-se sem fund
 sobre um painel com gradiente, os cartões sem pose passam a miniatura de vídeo
 (▶ ao centro, aula e segundo na faixa de baixo, em vez de uma caixa vazia), a
 confiança passa a `confiança alta/média/baixa` com o ponto colorido, e o selo
-`3D` fica à esquerda para o ▶ não o tapar. O
+`3D` fica à esquerda para o ▶ não o tapar. Em **vs124** as duas saudações da
+Aula 01 são refeitas contra os quadros: `oi/olá` desce do alto da cabeça para ao
+lado da cara (local novo `rosto`, punho a 1,43 m) e o aceno passa a ser um
+movimento próprio (`aceno`): a mão desloca-se ~15 cm de lado, com o antebraço a
+acompanhar, em vez de rodar só o pulso; vai e volta duas vezes, a 1,7 s.
+`bom dia` é composto e passa a tocar em dois compassos — polegar erguido ao
+peito e depois mão plana que sobe do queixo ao lado da cara —, por isso
+`notacao` na camada 3D aceita agora uma lista de passos (o cartão mostra o
+primeiro e o painel toca ambos, com um só chip). O
 
 repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
 continua na versão anterior (18 rotas): a conta de publicação só tem leitura no
@@ -256,7 +264,7 @@ Para publicar no Pages: copiar `app/` para a branch `gh-pages` **sem apagar o
 `.nojekyll`** que só existe nessa branch (um `rsync --delete` da pasta `app/`
 remove-o e o Jekyll volta a tentar processar os ficheiros), mudar `const VERSAO`
 em `app/sw.js` **e** todos os `?v=` em `app/index.html` para o mesmo valor
-(o local está em vs123: 13 ocorrências em `index.html`, incluindo ícone e
+(o local está em vs124: 13 ocorrências em `index.html`, incluindo ícone e
 folhas de estilo), correr
 `node tools/integridade-test.cjs` e `node tools/engine-test.cjs` e enviar a
 `gh-pages`. A Pages do fork pode precisar de um build manual

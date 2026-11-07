@@ -411,12 +411,18 @@ if (!sinaisLga3d) {
   for (const [k, e] of Object.entries(sinaisLga3d)) {
     const fonte = lga.FONTE_LGA[k];
     if (!fonte) { maus.push(k + ' (não existe em lga.js)'); continue; }
-    const tokens = String(e.notacao || '').replace(/^2:/, '').split(/\s+/);
-    if (tokens.length !== 3) { maus.push(k + ' (esperava forma local movimento: «' + e.notacao + '»)'); continue; }
-    const [forma, local, mov] = tokens;
-    if (!api.FORMAS_MAO[forma]) maus.push(k + ' (forma «' + forma + '» desconhecida)');
-    if (!api.LOCAIS[local]) maus.push(k + ' (local «' + local + '» desconhecido)');
-    if (!api.MOVIMENTOS[mov]) maus.push(k + ' (movimento «' + mov + '» desconhecido)');
+    /* `notacao` pode ser uma lista: um compasso por passo dos sinais compostos */
+    const passos = (Array.isArray(e.notacao) ? e.notacao : [e.notacao]).map(t => String(t || '').trim()).filter(Boolean);
+    if (!passos.length) { maus.push(k + ' (sem notação)'); continue; }
+    passos.forEach((passo, i) => {
+      const tokens = passo.replace(/^2:/, '').split(/\s+/);
+      const onde = passos.length > 1 ? ' passo ' + (i + 1) : '';
+      if (tokens.length !== 3) { maus.push(k + onde + ' (esperava forma local movimento: «' + passo + '»)'); return; }
+      const [forma, local, mov] = tokens;
+      if (!api.FORMAS_MAO[forma]) maus.push(k + onde + ' (forma «' + forma + '» desconhecida)');
+      if (!api.LOCAIS[local]) maus.push(k + onde + ' (local «' + local + '» desconhecido)');
+      if (!api.MOVIMENTOS[mov]) maus.push(k + onde + ' (movimento «' + mov + '» desconhecido)');
+    });
     if (e.aula !== fonte.aula) maus.push(k + ' (aula «' + e.aula + '» ≠ fonte «' + fonte.aula + '»)');
     if (String(e.segundos) !== String(fonte.segundos)) maus.push(k + ' (segundos ' + e.segundos + ' ≠ fonte ' + fonte.segundos + ')');
     if (e.confianca !== fonte.confianca) maus.push(k + ' (confiança «' + e.confianca + '» ≠ fonte «' + fonte.confianca + '»)');
@@ -432,7 +438,7 @@ if (!/<script src="lga-3d\.js\?v=/.test(html)) falhas.push('O index.html não ca
 if (!/lga-3d\.js\?v=/.test(sw)) falhas.push('O casulo offline não guarda lga-3d.js.');
 if (!/poseLga\(e\.chave\)/.test(app)) falhas.push('Os cartões da LGA deixaram de usar a pose 3D quando existe.');
 if (!/function abrirSignerNotacao\(/.test(app)) falhas.push('app.js não tem abrirSignerNotacao: os cartões 3D não abrem a pose.');
-if (!/sinalDeNotacao\(notacao, \{\}\)/.test(app)) falhas.push('abrirSignerNotacao não usa sinalDeNotacao: a pose 3D ficava sem geometria.');
+if (!/sinalDeNotacao\([A-Za-z_$][\w$]*, \{\}\)/.test(app)) falhas.push('abrirSignerNotacao não usa sinalDeNotacao: a pose 3D ficava sem geometria.');
 
 /* o glosador tem de continuar a ordenar como promete a nota do site */
 for (const frase of ['Amanhã eu vou à escola.', 'Eu não quero água.']) {

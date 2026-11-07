@@ -1009,6 +1009,9 @@ const LOCAIS = {
   alto:    { p: [-1.26, 2.62, 0.50], rot: [0, 0, -6] },
   testa:   { p: [-0.89, 2.62, 0.62], rot: [10, 16, -26] },
   olho:    { p: [-0.86, 2.30, 0.64], rot: [12, 16, -24] },
+  /* ao lado da cara, à altura da boca: a saudação da Aula 01 fica aí, não acima
+     da cabeça (medido nos quadros: punho ~1,43 m, pontas dos dedos ao nível dos olhos) */
+  rosto:   { p: [-0.92, 2.36, 0.62], rot: [10, 16, -24] },
   queixo:  { p: [-0.74, 1.70, 0.68], rot: [18, 18, -22] },
   boca:    { p: [-0.80, 1.86, 0.66], rot: [16, 18, -24] },
   orelha:  { p: [-1.12, 2.28, 0.38], rot: [0, -16, 10] },
@@ -1041,6 +1044,12 @@ const MOVIMENTOS = {
   varre:   [[0.34, 0, 0.06], [0, -16, -10]],
   bate:    [[0, -0.14, 0.06], [10, 0, 0]],
   repete:  [[0, -0.12, 0.08], [8, 0, 0]],
+  /* aceno de lado a lado: o `onda` anda 2 cm e lê-se como um tremor; aqui o
+     pulso desloca-se ~15 cm para fora e a mão fica quase direita, para o
+     antebraço acompanhar o aceno em vez de torcer só o pulso */
+  aceno:   [[-0.55, 0.02, 0], [0, 0, 12]],
+  /* sobe do queixo ao lado da cara, a mão a abrir para fora como o sol a nascer */
+  nasce:   [[-0.55, 1.10, 0.02], [-14, 0, 0]],
 };
 
 /* Ajustes por sinal que os três campos não exprimem. A chave é a palavra; os
@@ -1143,7 +1152,7 @@ function sinalDeNotacao(bruto, aj) {
   const base = Array.isArray(L) ? [0, 0, 0] : L.rot;
   const ajuste = aj || {};
   return {
-    forma, duas, movimento: mov, local, reps: mov === 'repete' ? 2 : 1,
+    forma, duas, movimento: mov, local, reps: mov === 'repete' || mov === 'aceno' ? 2 : 1,
     inicio: { forma, pos: p.slice(), rot: base.slice() },
     fim: {
       forma,

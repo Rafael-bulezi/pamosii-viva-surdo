@@ -15,12 +15,12 @@
   const AMPL = {
     parado: 0, frente: 0.55, tras: 0.45, cima: 0.60, baixo: 0.58, onda: 0.50,
     arco: 0.70, circulo: 0.70, toque: 0.40, abre: 0.60, torce: 0.50, varre: 0.75,
-    bate: 0.40, repete: 0.40,
+    bate: 0.40, repete: 0.40, aceno: 0.50, nasce: 0.50,
   };
   const ESC_PADRAO = 0.50;
   /* À frente da cara o mesmo deslocamento atravessa a cabeça: os lugares do
      rosto andam a pouco mais de metade. */
-  const CABECA = { testa: 1, olho: 1, boca: 1, queixo: 1, orelha: 1, pescoco: 1, telhado: 1 };
+  const CABECA = { testa: 1, olho: 1, boca: 1, queixo: 1, orelha: 1, pescoco: 1, telhado: 1, rosto: 1 };
   const ESC_MOV = 0.55;
   const lerp = (a, b, t) => a + (b - a) * t;
   /* rotação de um vector por ângulos XYZ em graus (mesma convenção do pulso) */
@@ -67,6 +67,8 @@
       alto:    { mao: [-0.42, topo - 0.20, 0.20], rot: [0, 0, 0], palma: [0, 0, 1] },
       testa:   { mao: [-0.11, 1.460, 0.17], rot: [-50, 0, 0], palma: [0, 0, -1] },
       olho:    { mao: [-0.11, 1.428, 0.17], rot: [-50, 0, 0], palma: [0, 0, -1] },
+      /* ao lado da cara, palma para a frente: o aceno de saudação */
+      rosto:   { mao: [-0.24, 1.430, 0.22], rot: [0, 0, 0], palma: [0, 0, 1] },
       boca:    { mao: [-0.10, 1.355, 0.17], rot: [-50, 0, 0], palma: [0, 0, -1] },
       queixo:  { mao: [-0.10, 1.310, 0.17], rot: [-50, 0, 0], palma: [0, 0.35, -1] },
       orelha:  { mao: [-0.21, 1.560, 0.04], rot: [0, -6, 0], palma: [0, 0, -1] },
