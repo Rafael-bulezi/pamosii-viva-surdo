@@ -253,7 +253,10 @@ acompanhar, em vez de rodar só o pulso; vai e volta duas vezes, a 1,7 s.
 `bom dia` é composto e passa a tocar em dois compassos — polegar erguido ao
 peito e depois mão plana que sobe do queixo ao lado da cara —, por isso
 `notacao` na camada 3D aceita agora uma lista de passos (o cartão mostra o
-primeiro e o painel toca ambos, com um só chip). O
+primeiro e o painel toca ambos, com um só chip). Em **vs125** `tchau/adeus` deixa
+de ser um aceno no alto com o pulso a rodar e passa a ser o **mesmo sinal** de
+`oi/olá` — mesma forma, mesmo lugar à altura da cara, mesmo movimento, mesma
+duração; a aula usa o mesmo aceno para chegar e para sair. O
 
 repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
 continua na versão anterior (18 rotas): a conta de publicação só tem leitura no
@@ -264,7 +267,7 @@ Para publicar no Pages: copiar `app/` para a branch `gh-pages` **sem apagar o
 `.nojekyll`** que só existe nessa branch (um `rsync --delete` da pasta `app/`
 remove-o e o Jekyll volta a tentar processar os ficheiros), mudar `const VERSAO`
 em `app/sw.js` **e** todos os `?v=` em `app/index.html` para o mesmo valor
-(o local está em vs124: 13 ocorrências em `index.html`, incluindo ícone e
+(o local está em vs125: 13 ocorrências em `index.html`, incluindo ícone e
 folhas de estilo), correr
 `node tools/integridade-test.cjs` e `node tools/engine-test.cjs` e enviar a
 `gh-pages`. A Pages do fork pode precisar de um build manual
