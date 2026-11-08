@@ -22,6 +22,7 @@ const referencias = ler('referencias.js');
 const html = ler('index.html');
 const css = ler('styles.css');
 const sw = ler('sw.js');
+const aoVivo = ler('aoVivo.js');
 const manifest = JSON.parse(ler('manifest.webmanifest'));
 
 const falhas = [];
@@ -149,7 +150,7 @@ if (versoesHtml.length !== 1) falhas.push('index.html com mais do que uma versã
 if (versaoSW && versoesHtml[0] && versaoSW !== versoesHtml[0]) {
   falhas.push('Offline desactualizado: sw.js é ' + versaoSW + ' mas o index pede ' + versoesHtml[0] + '.');
 }
-for (const ficheiro of ['styles.css', 'referencias.js', 'dados.js', 'lga.js', 'maos.js', 'app.js']) {
+for (const ficheiro of ['styles.css', 'referencias.js', 'dados.js', 'lga.js', 'maos.js', 'aoVivo.js', 'app.js']) {
   if (!new RegExp("'\\./" + ficheiro.replace('.', '\\.') + "\\?v=' \\+ VERSAO").test(sw)) {
     falhas.push('sw.js não pré-guarda ' + ficheiro + ' na chave versionada (?v= + VERSAO).');
   }
@@ -164,7 +165,17 @@ for (const f of iframesHTML) if (!/title=/.test(f)) falhas.push('iframe sem tít
 const imgs = [...app.matchAll(/<img\b[^>]*>/gi)].map(m => m[0]);
 for (const i of imgs) if (!/\balt=/.test(i)) falhas.push('<img> sem alt: ' + i.slice(0, 80));
 if (/<(?:video|audio)\b[^>]*autoplay/i.test(app)) falhas.push('Há <video>/<audio> com autoplay — proibido.');
-if (!/<video\b[^>]*controls/.test(app)) falhas.push('O vídeo de legendas perdeu os controlos.');
+/* a página inicial são três cartões e uma caixa de texto por cima; o editor e o
+   palco antigos ficaram de fora */
+if (!/id="caixa-texto"/.test(app) || !/id="txt"/.test(app)) {
+  falhas.push('A caixa de texto da página inicial desapareceu.');
+}
+if (!/data-modo="ao-vivo"/.test(app)) {
+  falhas.push('O cartão «Traduzir ao vivo» desapareceu da página inicial.');
+}
+if (/id="palco"/.test(app) || /class="demo"/.test(app) || /id="fita"/.test(app)) {
+  falhas.push('A página inicial voltou a ter palco, demonstração ou fita por baixo dos cartões.');
+}
 if (!/prefers-reduced-motion/.test(css)) falhas.push('O CSS deixou de respeitar prefers-reduced-motion.');
 if (!/prefers-reduced-motion/.test(app)) falhas.push('O JS deixou de parar a animação quando o sistema pede menos movimento.');
 if (!/:focus-visible/.test(css)) falhas.push('O CSS deixou de ter foco visível (:focus-visible).');
@@ -185,7 +196,6 @@ else if (!(ordem[0] < ordem[1] && ordem[1] < ordem[2] && ordem[2] < ordem[3])) {
 if (!/function maoCena/.test(maos) || !/function maoPecas/.test(maos) || !/function formaMisturar/.test(maos)) {
   falhas.push('maos.js perdeu o rig (maoCena / maoPecas / formaMisturar): as mãos deixariam de se transformar.');
 }
-if (!/maoCena\(/.test(app)) falhas.push('app.js deixou de usar o rig das mãos.');
 if (!/maoFigura\(/.test(app)) falhas.push('O dicionário deixou de desenhar a forma de cada sinal.');
 if (/<img[^>]+(?:mao|hand|sinal|sign)[^>]*>/i.test(app + html)) {
   falhas.push('Há uma imagem a fingir de mão/sinal — o rig tem de ser desenhado, não colado.');
@@ -459,18 +469,57 @@ for (const lema of ['vou', 'foi', 'vai']) {
 
 /* --------------------------------------------------------------- 10. privacidade */
 const semComApp = semComentarios(app);
-if (/navigator\.sendBeacon|XMLHttpRequest|method:\s*['"]POST/.test(semComApp)) {
-  falhas.push('O site passou a enviar dados para fora (sendBeacon/XHR/POST).');
+if (/navigator\.sendBeacon|XMLHttpRequest/.test(semComApp)) {
+  falhas.push('O site passou a enviar dados por sendBeacon/XHR — só a frase do modo ao vivo sai, e por fetch para api/sinais.');
 }
-if (/\bfetch\(/.test(semComApp)) falhas.push('O site passou a fazer fetch — os ficheiros lidos deviam ficar no aparelho.');
+const chamadas = [...semComApp.matchAll(/\bfetch\(\s*(['"`])([^'"`]+)\1/g)].map(m => m[2]);
+const estranhas = chamadas.filter(u => u !== 'api/sinais');
+if (estranhas.length) falhas.push('O site faz fetch para fora do endpoint de sinais: ' + estranhas.join(', '));
+if (!estranhas.length && !/method: 'POST'/.test(semComApp)) {
+  falhas.push('O modo ao vivo deixou de pedir a lista de sinais (fetch api/sinais + POST).');
+}
 if (/getUserMedia|MediaRecorder|AudioContext/.test(semComApp)) {
-  falhas.push('O site passou a captar áudio/microfone.');
+  falhas.push('app.js passou a captar áudio por conta própria; a captura é do SpeechRecognition em aoVivo.js.');
+}
+if (!/SpeechRecognition/.test(semComentarios(aoVivo))) {
+  falhas.push('aoVivo.js perdeu o reconhecimento de fala.');
+}
+if (/\bfetch\(/.test(semComentarios(aoVivo)) || /sendBeacon|XMLHttpRequest/.test(semComentarios(aoVivo))) {
+  falhas.push('aoVivo.js faz rede por conta própria; a frase tem de sair por app.js → api/sinais.');
 }
 const chavesLocal = [...semComApp.matchAll(/localStorage\.(?:get|set|remove)Item\('([^']+)'/g)].map(m => m[1]);
 for (const c of new Set(chavesLocal)) {
   if (c !== 'vs.a11y') falhas.push('O site guarda algo além das opções de acessibilidade: ' + c);
 }
 if (!/DecompressionStream/.test(app)) falhas.push('A leitura de PDF deixou de ser local (sem DecompressionStream).');
+
+/* ------------------------------------------- 10b. função da lista de sinais */
+const fnPath = path.join(RAIZ, 'api', 'sinais.js');
+const listaPath = path.join(RAIZ, 'api', 'sinais-lista.json');
+if (!fs.existsSync(fnPath) || !fs.existsSync(listaPath)) {
+  falhas.push('Falta api/sinais.js ou api/sinais-lista.json (a função que escolhe os sinais).');
+} else {
+  const fn = fs.readFileSync(fnPath, 'utf8');
+  if (/sk-or-[A-Za-z0-9-]{10,}/.test(fn)) falhas.push('Há uma chave do OpenRouter escrita no código da função.');
+  if (!/process\.env\.OPENROUTER_API_KEY/.test(fn)) falhas.push('api/sinais.js deixou de ler a chave do ambiente (OPENROUTER_API_KEY).');
+  if (!/openrouter\.ai/.test(fn)) falhas.push('api/sinais.js deixou de falar com o OpenRouter.');
+  if (!/temperature: 0/.test(fn)) falhas.push('api/sinais.js deixou de fixar a temperatura a 0: a resposta varia entre pedidos.');
+  const lista = JSON.parse(fs.readFileSync(listaPath, 'utf8'));
+  const esperado = new Map();
+  for (const grupo of api.GLOSSARIO) {
+    for (const termo of grupo.termos) {
+      const palavra = String(termo.palavra).toLowerCase().trim();
+      if (!esperado.has(palavra) && api.sinalNotacao(palavra)) esperado.set(palavra, grupo.tema);
+    }
+  }
+  if (lista.total !== esperado.size || lista.palavras.length !== esperado.size) {
+    falhas.push('api/sinais-lista.json está fora de sincronia: tem ' + lista.palavras.length +
+      ' palavras, o léxico tem ' + esperado.size + '. Corre node tools/gerar-sinais-llm.cjs.');
+  }
+  const fora = lista.palavras.filter(p => !esperado.has(p.palavra) || esperado.get(p.palavra) !== p.tema);
+  if (fora.length) falhas.push('Palavras do retrato fora do léxico ou com o tema errado: ' + fora.slice(0, 6).map(p => p.palavra).join(', '));
+  nota('modo ao vivo: ' + lista.palavras.length + ' sinais no retrato do modelo');
+}
 
 /* ---------------------------------------------------------------- 11. manifesto */
 if (!manifest.name || !manifest.short_name) falhas.push('manifest sem name/short_name.');

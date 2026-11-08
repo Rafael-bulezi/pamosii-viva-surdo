@@ -10,7 +10,7 @@ nunca escrito no texto dos botões.
 
 | Rota | Função |
 | --- | --- |
-| `#/` | Colar texto, legendas (`.srt`/`.vtt`) ou um PDF e ver a glosa em sinais animados |
+| `#/` | Três modos: caixa de texto (escrever ou carregar ficheiro), **traduzir ao vivo** pelo microfone, ou o dicionário |
 | `#/dicionario` | Procurar uma palavra por tema e ver a forma da mão (aba International Sign) |
 | `#/dicionario?fonte=lga` | Inventário de estudo da LGA: 246 palavras das aulas em vídeo do Viva surdo, com minuto, confiança e link |
 
@@ -42,7 +42,10 @@ app/
   maos.js               rig das mãos em SVG + notação dos sinais (191 sinais)
   avatar.js             sinalizadora 3D (three.js + GLB), câmara, poses
   sinal3d.js            notação → poses de ossos (âncoras em metros na malha)
-  app.js                duas vistas, leitor (SRT/VTT), PDF local, acessibilidade
+  app.js                duas vistas, caixa de texto (SRT/VTT/PDF), acessibilidade
+  aoVivo.js             reconhecimento de fala (pt-PT) do modo ao vivo
+  api/sinais.js         função da Vercel: frase → sinais do léxico (OpenRouter)
+  api/sinais-lista.json GERADO: os 179 sinais que a app sabe desenhar, por tema
   sw.js                 casulo offline (VERSAO = ?v= do index)
   manifest.webmanifest  instalação e atalhos
   assets/               marca, ícones e agatha-mpfb-rig.glb (o modelo)
@@ -79,24 +82,34 @@ lista de modelos alternativos, com preços e prova de ossos de dedos, está em
 
 ## Entradas
 
-- **Texto** colado.
-- **Ficheiro** `.txt`.
-- **Legendas** `.srt` / `.vtt`; com um vídeo aberto, os sinais seguem o tempo
-  das falas.
-- **PDF** com camada de texto, lido no próprio browser
-  (`DecompressionStream`, sem bibliotecas). PDF digitalizado não tem texto — a
-  página di-lo em vez de inventar.
+A página inicial tem três cartões e nada por baixo deles: o texto abre numa
+**caixa** sobre a própria página (duas abas: escrever, carregar ficheiro), o
+microfone liga o modo ao vivo, e o terceiro cartão é o dicionário.
 
-O texto colado, os ficheiros e o vídeo ficam no aparelho: não há microfone,
-`sendBeacon` nem POST, e o único `localStorage` é `vs.a11y` (opções de
-acessibilidade). A rede só serve os ficheiros estáticos do próprio site,
-incluindo o modelo 3D.
+- **Texto** escrito na caixa; `Ctrl + Enter` sinaliza.
+- **Ficheiro** `.txt`, **legendas** `.srt` / `.vtt` (só o texto das falas) ou
+  **PDF** com camada de texto, lido no próprio browser
+  (`DecompressionStream`, sem bibliotecas). PDF digitalizado não tem texto — a
+  caixa di-lo em vez de inventar.
+- **Ao vivo** — o Chrome transcreve a fala (`webkitSpeechRecognition`, pt-PT) e
+  cada frase fechada segue para `POST api/sinais`; um modelo escolhe até oito
+  palavras **do léxico que a app sabe desenhar** e o painel enfileira os sinais.
+  Sem chave configurada, sem rede ou se o modelo falhar, o motor de regras
+  glosa a mesma frase e o painel mostra a pastilha `modo simples`.
+
+No modo de texto e de ficheiro nada sai do aparelho. No modo ao vivo a frase (e
+só a frase — nunca o áudio) vai para `api/sinais` e daí para o modelo; o painel
+di-lo numa linha no rodapé e o «i» repete-o. O único `localStorage` continua a
+ser `vs.a11y`. A chave do modelo vive **só** em `OPENROUTER_API_KEY`, no
+servidor: não há chave no repositório nem no browser.
 
 ## Testes
 
 ```bash
 node tools/integridade-test.cjs   # claims, privacidade, versão do casulo, notação, acessibilidade
 node tools/engine-test.cjs        # glosa de 7 frases + lemas e plurais
+node tools/sinais-test.cjs        # contrato de api/sinais: estados, filtro, limite por IP, retrato
+node tools/gerar-sinais-llm.cjs   # reescreve app/api/sinais-lista.json a partir do léxico
 ```
 
 O teste de integridade avalia `dados.js` + `maos.js` num `vm` e falha se um
@@ -140,7 +153,8 @@ substituiu — não são usados por esta app.
 A interface não pode afirmar o que o código não faz:
 
 - não é tradução automática nem tradutor português ↔ LGA;
-- não reconhece sinais por câmara, nem voz, nem microfone;
+- não reconhece sinais por câmara; no modo ao vivo ouve voz, mas só para
+  escolher palavras do léxico, nunca para ler gestos;
 - nenhum sinal está «validado pela comunidade surda»;
 - não se usa «pessoas normais»;
 - não se inventam preços, depoimentos, mentores ou contagens;
@@ -288,6 +302,27 @@ azul-escuro sobre azul-escuro. O objectivo seguinte — a sinalizadora acompanha
 uma pessoa a falar em tempo real (fala → glosa → sinal) — **ainda não está
 implementado**: o painel toca uma glosa preparada.
 
+Em **vs130** a página inicial passa a ter **três cartões e nada por baixo**: o
+editor, a fita, o leitor de vídeo e o botão flutuante saem (o `#/` deixa de ter
+um leitor de legendas com vídeo). `Texto` abre uma **caixa** por cima da página,
+com duas abas — escrever (contador de palavras, exemplo, `Ctrl + Enter`) e
+carregar ficheiro (`.txt`, `.srt`, `.vtt`, `.pdf`) —, e `Traduzir ao vivo` é o
+novo segundo cartão. O painel da sinalizadora encolhe de 560 para **430 px** e
+o palco azul passa a levar **89% da altura do painel** (673 de 756 px num ecrã
+1440×900; 745 de 828 px em 390×844, medido em Chrome headless com o avatar
+carregado): a nota legal muda-se para o «i» do topo, a frase fica numa linha e
+a glosa e o transporte assentam sobre um véu no fundo do próprio palco. O modo
+**ao vivo** deixa de ser promessa: `app/aoVivo.js` reconhece fala em pt-PT
+(volta a arrancar quando o Chrome fecha o reconhecedor por silêncio), cada frase
+fechada faz `POST api/sinais`, e a função da Vercel (`app/api/sinais.js`) pede
+ao modelo até oito palavras **da lista de 179 que a app sabe desenhar** — a
+mesma lista vai no prompt e filtra a resposta, por isso uma resposta inventada
+não produz um sinal inexistente. Sem `OPENROUTER_API_KEY`, sem rede ou com o
+modelo em baixo responde 503/502 e o cliente glosa com o motor de regras,
+mostrando `modo simples`. O `sinais.js` guarda os 20 pedidos por minuto e IP,
+limita a frase a 300 caracteres, usa `temperature: 0` e nunca deixa a chave
+sair no corpo do pedido (`tools/sinais-test.cjs`, 35 verificações).
+
 Em **vs128–vs129** a espera do modelo deixa de ser muda: o GLTFLoader recebe um
 `progresso` e os palcos escrevem `A preparar a sinalizadora… 37%`. O ficheiro
 tem 13,8 MB e numa ligação lenta desce a 47–57 KB/s (243 s vindo do Pages, 294 s
@@ -306,11 +341,18 @@ Para publicar no Pages: copiar `app/` para a branch `gh-pages` **sem apagar o
 `.nojekyll`** que só existe nessa branch (um `rsync --delete` da pasta `app/`
 remove-o e o Jekyll volta a tentar processar os ficheiros), mudar `const VERSAO`
 em `app/sw.js` **e** todos os `?v=` em `app/index.html` para o mesmo valor
-(o local está em vs129: 13 ocorrências em `index.html`, incluindo ícone e
+(o local está em vs130: 14 ocorrências em `index.html`, incluindo ícone e
 folhas de estilo), correr
-`node tools/integridade-test.cjs` e `node tools/engine-test.cjs` e enviar a
-`gh-pages`. A Pages do fork pode precisar de um build manual
-(`POST /repos/Rafael-bulezi/pamosii-viva-surdo/pages/builds`).
+`node tools/integridade-test.cjs`, `node tools/engine-test.cjs` e
+`node tools/sinais-test.cjs` e enviar a `gh-pages`. A Pages do fork pode
+precisar de um build manual (`POST /repos/Rafael-bulezi/pamosii-viva-surdo/pages/builds`).
+
+O Pages só serve ficheiros estáticos: o modo ao vivo funciona lá a cair sempre
+no motor de regras. A função vive no Vercel, que tem a raiz do projecto em
+`app/` (por isso `app/api/sinais.js`); publica-se com
+`npx --yes vercel deploy --prod --yes` a partir de `app/`. A chave
+`OPENROUTER_API_KEY` é variável de ambiente do projecto Vercel — sem ela a
+função responde 503 e a app diz `modo simples`.
 
 O service worker guarda a página e os scripts, mas **não** guarda o GLB de
 13 MB. Uma escrita de cache falhada nunca pode substituir uma resposta boa da
