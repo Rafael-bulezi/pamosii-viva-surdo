@@ -179,7 +179,7 @@
         montarModelo(g.scene);
         requestAnimationFrame(quadro);
         ok(API);
-      }, (e) => { if (aoProgresso && e.total) aoProgresso(e.loaded / e.total); }, falha);
+      }, (e) => { if (aoProgresso) aoProgresso(e.loaded, e.total); }, falha);
     });
     return carregando;
   }

@@ -1030,9 +1030,14 @@ function vistaSinalizar() {
 }
 
 /* O GLB tem 13 MB: numa ligação lenta a espera passa dos quatro minutos.
-   Uma percentagem prova que está a andar, em vez de parecer pendurado. */
-function espera3d(pct) {
-  const txt = 'A preparar a sinalizadora… ' + Math.max(1, Math.round(pct * 100)) + '%';
+   Uma percentagem prova que está a andar, em vez de parecer pendurado. O
+   Vercel serve o ficheiro com Brotli e sem Content-Length, por isso aí o
+   total é 0 e a espera conta os MB que já chegaram. */
+function espera3d(carregados, total) {
+  const quanto = total
+    ? Math.max(1, Math.round((carregados / total) * 100)) + '%'
+    : (carregados / 1048576).toFixed(1).replace('.', ',') + ' MB';
+  const txt = 'A preparar a sinalizadora… ' + quanto;
   document.querySelectorAll('.palco-espera, .sg-espera').forEach((e) => {
     if (/^A preparar/.test(e.textContent)) e.textContent = txt;
   });

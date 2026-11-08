@@ -288,13 +288,14 @@ azul-escuro sobre azul-escuro. O objectivo seguinte — a sinalizadora acompanha
 uma pessoa a falar em tempo real (fala → glosa → sinal) — **ainda não está
 implementado**: o painel toca uma glosa preparada.
 
-Em **vs128** a espera do modelo deixa de ser muda: o GLTFLoader recebe um
-`progresso` e os palcos escrevem `A preparar a sinalizadora… 37%`. Medido nesta
-ligação, o GLB de 13,8 MB leva **243 s** a descer do Pages e **294 s** do Vercel
-(57 e 47 KB/s), por isso «A preparar…» sem número lia-se como avaria; numa
-ligação rápida a percentagem passa e desaparece. A percentagem só é escrita nos
-palcos que ainda dizem «A preparar…», para não sobrepor «O modelo 3D não
-carregou» nem «Sem sinais para esta frase».
+Em **vs128–vs129** a espera do modelo deixa de ser muda: o GLTFLoader recebe um
+`progresso` e os palcos escrevem `A preparar a sinalizadora… 37%`. O ficheiro
+tem 13,8 MB e numa ligação lenta desce a 47–57 KB/s (243 s vindo do Pages, 294 s
+do Vercel), por isso «A preparar…» sem número lia-se como avaria. O Pages manda
+`Content-Length` e mostra a percentagem; o Vercel serve o GLB com Brotli e **sem**
+`Content-Length`, aí o total é 0 e a espera conta `… 2,4 MB` em vez de inventar
+uma percentagem. A escrita só acontece nos palcos que ainda dizem «A preparar…»,
+para não sobrepor «O modelo 3D não carregou» nem «Sem sinais para esta frase».
 
 O repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
 continua na versão anterior (18 rotas): a conta de publicação só tem leitura no
@@ -305,7 +306,7 @@ Para publicar no Pages: copiar `app/` para a branch `gh-pages` **sem apagar o
 `.nojekyll`** que só existe nessa branch (um `rsync --delete` da pasta `app/`
 remove-o e o Jekyll volta a tentar processar os ficheiros), mudar `const VERSAO`
 em `app/sw.js` **e** todos os `?v=` em `app/index.html` para o mesmo valor
-(o local está em vs128: 13 ocorrências em `index.html`, incluindo ícone e
+(o local está em vs129: 13 ocorrências em `index.html`, incluindo ícone e
 folhas de estilo), correr
 `node tools/integridade-test.cjs` e `node tools/engine-test.cjs` e enviar a
 `gh-pages`. A Pages do fork pode precisar de um build manual
