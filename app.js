@@ -572,7 +572,7 @@ async function abrirSignerBeats(t, beats, opcoes) {
     return;
   }
   try {
-    await AVATAR.init(palco);
+    await AVATAR.init(palco, { progresso: espera3d });
     /* fechado enquanto o modelo carregava: o canvas volta para o palco da página */
     if (!SG.aberto) { devolverAvatar(); return; }
     const espera = palco.querySelector('.sg-espera');
@@ -1029,6 +1029,15 @@ function vistaSinalizar() {
   </details>`;
 }
 
+/* O GLB tem 13 MB: numa ligação lenta a espera passa dos quatro minutos.
+   Uma percentagem prova que está a andar, em vez de parecer pendurado. */
+function espera3d(pct) {
+  const txt = 'A preparar a sinalizadora… ' + Math.max(1, Math.round(pct * 100)) + '%';
+  document.querySelectorAll('.palco-espera, .sg-espera').forEach((e) => {
+    if (/^A preparar/.test(e.textContent)) e.textContent = txt;
+  });
+}
+
 function ligarSinalizar(params) {
   EL.palco = $('#palco');
   EL.agora = $('#agora');
@@ -1041,7 +1050,7 @@ function ligarSinalizar(params) {
   if (window.AVATAR && window.SINAL3D) {
     P.carregando3d = true;
     EL.palco.innerHTML = '<p class="palco-espera">A preparar a sinalizadora…</p>';
-    AVATAR.init(EL.palco).then(() => {
+    AVATAR.init(EL.palco, { progresso: espera3d }).then(() => {
       P.avatarOn = true;
       P.carregando3d = false;
       const espera = EL.palco.querySelector('.palco-espera');
