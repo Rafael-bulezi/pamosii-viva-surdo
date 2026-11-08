@@ -12,6 +12,8 @@
 
   let renderer, cena, cam, modelo;
   let ossos = {}, malhas = [], pronto = false;
+  /* quem estiver à espera do GLB no ecrã recebe o progresso (o ficheiro tem 13 MB) */
+  let aoProgresso = null;
   let relogio = 0, ultimo = performance.now();
   let repousoOssos = null, poseBase = null;
   let piscar = 0, proximoPiscar = 2.4;
@@ -107,6 +109,7 @@
     }
 
     const o = opcoes || {};
+    if (o.progresso) aoProgresso = o.progresso;
     /* O modo-folha lê o canvas com drawImage; sem preservar o buffer, a
        composição limpa o desenho e a cópia saía preta. Na app fica desligado:
        só custa uma cópia por frame. */
@@ -176,7 +179,7 @@
         montarModelo(g.scene);
         requestAnimationFrame(quadro);
         ok(API);
-      }, undefined, falha);
+      }, (e) => { if (aoProgresso && e.total) aoProgresso(e.loaded / e.total); }, falha);
     });
     return carregando;
   }
