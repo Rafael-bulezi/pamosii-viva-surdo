@@ -178,6 +178,15 @@ function recalcularPoses() {
 
 let ULTIMO_BEAT = -1;
 
+/* Os transportes ficam apagados quando não há nada para percorrer: um botão
+   que não faz nada é pior do que um botão que se vê desligado. */
+function atualizarTransporte() {
+  const n = P.beats.length;
+  if (EL.play) EL.play.disabled = !n;
+  if (EL.prev) EL.prev.disabled = !n || P.i <= 0;
+  if (EL.next) EL.next.disabled = !n || P.i >= n - 1;
+}
+
 function desenhar() {
   if (!EL.palco || SG.aberto) return;
   const b = P.beats[P.i];
@@ -196,13 +205,16 @@ function desenhar() {
     const { cena, rotulo: r } = cenaEm(P.i, P.t);
     EL.palco.innerHTML = maoCena(cena, r ? 'Sinal ' + r : 'Sinalizador em repouso');
   }
-  if (EL.agora) EL.agora.textContent = rotulo || 'Em repouso';
+  if (EL.agora) EL.agora.textContent = rotulo || (P.beats.length ? 'Em repouso' : 'Sem sinais ainda');
   if (P.i !== ULTIMO_BEAT) { ULTIMO_BEAT = P.i; marcarFita(); }
+  atualizarTransporte();
 }
 
 function pintarFita() {
   if (!EL.fita) return;
-  EL.fita.innerHTML = P.fita.map(b => `<button type="button" class="fita-item fita-${b.tipo}" data-beat="${b.i}">${esc(b.rotulo)}</button>`).join('');
+  EL.fita.innerHTML = P.fita.length
+    ? P.fita.map(b => `<button type="button" class="fita-item fita-${b.tipo}" data-beat="${b.i}">${esc(b.rotulo)}</button>`).join('')
+    : '<p class="fita-vazia">A glosa aparece aqui — escreve uma frase e carrega em «Ver sinais».</p>';
   ULTIMO_BEAT = -1;
 }
 
@@ -430,9 +442,12 @@ function montarSigner() {
   document.body.append(painel, fab);
 
   fab.addEventListener('click', () => {
-    if (SG.aberto) fecharSigner();
-    else if (SG.poseLga) abrirSignerNotacao(SG.poseLga.notacao, SG.poseLga.rotulo, SG.poseLga.aproximado, SG.poseLga.dur);
-    else abrirSigner(SG.texto || SG_FRASE);
+    if (SG.aberto) { fecharSigner(); return; }
+    if (SG.poseLga) { abrirSignerNotacao(SG.poseLga.notacao, SG.poseLga.rotulo, SG.poseLga.aproximado, SG.poseLga.dur); return; }
+    /* o que está escrito no editor manda sobre a frase da última demonstração */
+    const txt = document.getElementById('txt');
+    const escrito = txt && txt.value.trim();
+    abrirSigner(escrito || SG.texto || SG_FRASE);
   });
   $('#sg-fechar').addEventListener('click', () => fecharSigner());
   $('#sg-play').addEventListener('click', () => { if (SG.tocando) pausarSigner(); else tocarSigner(); });
@@ -742,47 +757,95 @@ const matchRoute = (hash) => {
 
 const NAV = [['/', 'Sinalizar'], ['/dicionario', 'Dicionário']];
 
-/* Ilustrações dos cartões da entrada: traço, não fotografia. */
+/* Ilustrações dos cartões. Tudo a `currentColor` e a opacidades: a mesma arte
+   serve o tema claro, o escuro e o contraste alto sem cores cravadas. */
+const MAO_ARTE = (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})" fill="currentColor">
+  <rect x="-27" y="2" width="54" height="52" rx="16"/>
+  <rect x="-25" y="-26" width="12" height="38" rx="6"/>
+  <rect x="-9.5" y="-36" width="12" height="48" rx="6"/>
+  <rect x="6" y="-32" width="12" height="44" rx="6"/>
+  <rect x="21" y="-20" width="11" height="32" rx="5.5"/>
+  <rect x="-39" y="6" width="13" height="30" rx="6.5" transform="rotate(-24 -32.5 21)"/>
+  <rect x="-7" y="50" width="22" height="16" rx="8"/>
+</g>`;
+
 const ARTE = {
-  texto: `<svg viewBox="0 0 320 150" fill="none" aria-hidden="true">
-      <rect x="24" y="22" width="164" height="106" rx="15" fill="var(--surface)" stroke="currentColor" stroke-opacity=".4" stroke-width="3"/>
-      <rect x="38" y="42" width="86" height="9" rx="4.5" fill="currentColor" fill-opacity=".38"/>
-      <rect x="36" y="60" width="140" height="22" rx="8" fill="var(--brand)" fill-opacity=".22"/>
-      <rect x="38" y="66" width="124" height="9" rx="4.5" fill="currentColor" fill-opacity=".85"/>
-      <rect x="38" y="92" width="70" height="9" rx="4.5" fill="currentColor" fill-opacity=".38"/>
-      <g stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(212 30)">
-        <rect x="16" y="50" width="52" height="42" rx="16"/>
-        <path d="M25 50V32a6.5 6.5 0 0 1 13 0v18"/>
-        <path d="M38 50V25a6.5 6.5 0 0 1 13 0v25"/>
-        <path d="M51 50V31a6.5 6.5 0 0 1 13 0v19"/>
-        <path d="M64 54V45a6.5 6.5 0 0 1 13 0v9"/>
-        <path d="M16 64c-7 0-11 5-11 10s4 9 11 9"/>
+  /* Um editor com a linha que está a ser sinalizada, e a mão a acompanhar. */
+  texto: `<svg viewBox="0 0 320 186" fill="none" aria-hidden="true">
+      <g transform="rotate(-3 118 92)">
+        <rect x="26" y="26" width="180" height="122" rx="15" fill="currentColor" fill-opacity=".14"/>
+        <rect x="26" y="26" width="180" height="122" rx="15" stroke="currentColor" stroke-opacity=".5" stroke-width="2.5"/>
+        <rect x="26" y="26" width="180" height="25" rx="12.5" fill="currentColor" fill-opacity=".13"/>
+        <circle cx="42" cy="38.5" r="3.4" fill="currentColor" fill-opacity=".85"/>
+        <circle cx="54" cy="38.5" r="3.4" fill="currentColor" fill-opacity=".85"/>
+        <circle cx="66" cy="38.5" r="3.4" fill="currentColor" fill-opacity=".85"/>
+        <rect x="42" y="68" width="92" height="8" rx="4" fill="currentColor" fill-opacity=".45"/>
+        <rect x="42" y="86" width="132" height="16" rx="8" fill="currentColor" fill-opacity=".2"/>
+        <rect x="44" y="90" width="106" height="8" rx="4" fill="currentColor"/>
+        <rect x="154" y="88" width="3" height="12" fill="currentColor"/>
+        <rect x="42" y="114" width="76" height="8" rx="4" fill="currentColor" fill-opacity=".45"/>
+        <rect x="42" y="130" width="50" height="8" rx="4" fill="currentColor" fill-opacity=".28"/>
       </g>
+      ${MAO_ARTE(246, 102, 0.9)}
     </svg>`,
-  legendas: `<svg viewBox="0 0 320 150" fill="none" aria-hidden="true">
-      <rect x="22" y="30" width="276" height="92" rx="16" fill="var(--surface)" stroke="currentColor" stroke-opacity=".4" stroke-width="3"/>
-      <g fill="currentColor" fill-opacity=".24">
-        <rect x="38" y="40" width="12" height="8" rx="2"/><rect x="60" y="40" width="12" height="8" rx="2"/><rect x="82" y="40" width="12" height="8" rx="2"/>
-        <rect x="38" y="102" width="12" height="8" rx="2"/><rect x="60" y="102" width="12" height="8" rx="2"/><rect x="82" y="102" width="12" height="8" rx="2"/>
-        <rect x="226" y="40" width="12" height="8" rx="2"/><rect x="248" y="40" width="12" height="8" rx="2"/><rect x="270" y="40" width="12" height="8" rx="2"/>
-        <rect x="226" y="102" width="12" height="8" rx="2"/><rect x="248" y="102" width="12" height="8" rx="2"/><rect x="270" y="102" width="12" height="8" rx="2"/>
+  /* Um fotograma com legenda e a barra do tempo: o que o ficheiro traz. */
+  legendas: `<svg viewBox="0 0 320 186" fill="none" aria-hidden="true">
+      <rect x="20" y="22" width="280" height="118" rx="16" fill="currentColor" fill-opacity=".13"/>
+      <rect x="20" y="22" width="280" height="118" rx="16" stroke="currentColor" stroke-opacity=".5" stroke-width="2.5"/>
+      <circle cx="124" cy="72" r="26" fill="currentColor" fill-opacity=".16" stroke="currentColor" stroke-opacity=".6" stroke-width="2.5"/>
+      <path d="M117 59l20 13-20 13z" fill="currentColor"/>
+      <rect x="36" y="106" width="148" height="10" rx="5" fill="currentColor" fill-opacity=".9"/>
+      <rect x="192" y="106" width="76" height="10" rx="5" fill="currentColor" fill-opacity=".4"/>
+      <rect x="36" y="122" width="100" height="10" rx="5" fill="currentColor" fill-opacity=".4"/>
+      <g transform="translate(36 158)">
+        <rect width="248" height="8" rx="4" fill="currentColor" fill-opacity=".22"/>
+        <rect width="152" height="8" rx="4" fill="currentColor" fill-opacity=".85"/>
+        <circle cx="152" cy="4" r="7.5" fill="currentColor"/>
       </g>
-      <rect x="104" y="58" width="112" height="36" rx="10" fill="currentColor" fill-opacity=".1"/>
-      <rect x="116" y="66" width="88" height="8" rx="4" fill="currentColor" fill-opacity=".7"/>
-      <rect x="128" y="80" width="64" height="8" rx="4" fill="currentColor" fill-opacity=".4"/>
+      ${MAO_ARTE(272, 118, 0.78)}
     </svg>`,
-  dicionario: `<svg viewBox="0 0 320 150" fill="none" aria-hidden="true">
-      <rect x="34" y="20" width="150" height="110" rx="16" fill="var(--surface)" stroke="currentColor" stroke-opacity=".4" stroke-width="3"/>
-      <g stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" transform="translate(56 36)">
-        <rect x="14" y="40" width="48" height="38" rx="14"/>
-        <path d="M23 40V22a6 6 0 0 1 12 0v18"/>
-        <path d="M35 40V16a6 6 0 0 1 12 0v24"/>
-        <path d="M47 40V23a6 6 0 0 1 12 0v17"/>
-        <path d="M59 44v-8a6 6 0 0 1 12 0v8"/>
-        <path d="M14 54c-6 0-10 5-10 9s4 9 10 9"/>
+  /* Duas fichas de dicionário, uma à frente com a mão, e a lupa por cima. */
+  dicionario: `<svg viewBox="0 0 320 186" fill="none" aria-hidden="true">
+      <g transform="rotate(-5 88 100)">
+        <rect x="28" y="46" width="118" height="106" rx="13" fill="currentColor" fill-opacity=".1" stroke="currentColor" stroke-opacity=".35" stroke-width="2"/>
+        <rect x="40" y="58" width="54" height="44" rx="9" fill="currentColor" fill-opacity=".16"/>
+        <rect x="42" y="114" width="70" height="8" rx="4" fill="currentColor" fill-opacity=".4"/>
+        <rect x="42" y="128" width="46" height="7" rx="3.5" fill="currentColor" fill-opacity=".25"/>
       </g>
-      <circle cx="214" cy="96" r="34" fill="var(--yellow)" fill-opacity=".35" stroke="currentColor" stroke-width="4"/>
-      <path d="M238 120l24 24" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+      <g transform="rotate(3 176 96)">
+        <rect x="106" y="34" width="130" height="112" rx="13" fill="currentColor" fill-opacity=".18"/>
+        <rect x="106" y="34" width="130" height="112" rx="13" stroke="currentColor" stroke-opacity=".6" stroke-width="2.5"/>
+        <rect x="118" y="46" width="62" height="54" rx="9" fill="currentColor" fill-opacity=".2"/>
+        ${MAO_ARTE(149, 84, 0.34)}
+        <rect x="120" y="112" width="78" height="9" rx="4.5" fill="currentColor" fill-opacity=".8"/>
+        <rect x="120" y="128" width="52" height="7" rx="3.5" fill="currentColor" fill-opacity=".45"/>
+      </g>
+      <circle cx="252" cy="132" r="26" fill="currentColor" fill-opacity=".14" stroke="currentColor" stroke-width="6"/>
+      <path d="M271 151l17 17" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+    </svg>`,
+  /* Cartão da fonte LGA: uma aula em vídeo com a mão a sinalizar. */
+  fonteLga: `<svg viewBox="0 0 320 186" fill="none" aria-hidden="true">
+      <rect x="16" y="18" width="288" height="150" rx="18" fill="currentColor" fill-opacity=".09" stroke="currentColor" stroke-opacity=".32" stroke-width="2"/>
+      <rect x="32" y="34" width="46" height="7" rx="3.5" fill="currentColor" fill-opacity=".55"/>
+      <rect x="86" y="34" width="26" height="7" rx="3.5" fill="currentColor" fill-opacity=".3"/>
+      <circle cx="118" cy="86" r="30" fill="currentColor" fill-opacity=".18" stroke="currentColor" stroke-opacity=".55" stroke-width="2.5"/>
+      <path d="M110 71l23 15-23 15z" fill="currentColor"/>
+      <rect x="32" y="128" width="256" height="10" rx="5" fill="currentColor" fill-opacity=".22"/>
+      <rect x="32" y="128" width="96" height="10" rx="5" fill="currentColor" fill-opacity=".9"/>
+      <circle cx="128" cy="133" r="8" fill="currentColor"/>
+      <rect x="32" y="148" width="64" height="7" rx="3.5" fill="currentColor" fill-opacity=".4"/>
+      ${MAO_ARTE(240, 92, 0.78)}
+    </svg>`,
+  /* Cartão da fonte IS: o globo do léxico, o play e a mão. */
+  fonteIs: `<svg viewBox="0 0 320 186" fill="none" aria-hidden="true">
+      <circle cx="112" cy="93" r="58" fill="currentColor" fill-opacity=".1" stroke="currentColor" stroke-opacity=".8" stroke-width="3.5"/>
+      <ellipse cx="112" cy="93" rx="26" ry="58" stroke="currentColor" stroke-opacity=".55" stroke-width="2.5"/>
+      <path d="M84 44c14 30 14 68 0 98M140 44c-14 30-14 68 0 98" stroke="currentColor" stroke-opacity=".42" stroke-width="2.5"/>
+      <path d="M54 93h116" stroke="currentColor" stroke-opacity=".55" stroke-width="2.5"/>
+      <path d="M63 63h98M63 123h98" stroke="currentColor" stroke-opacity=".4" stroke-width="2.5"/>
+      <circle cx="170" cy="134" r="27" fill="currentColor"/>
+      <path d="M162 121l20 13-20 13z" fill="var(--surface)"/>
+      ${MAO_ARTE(246, 90, 0.8)}
     </svg>`,
 };
 
@@ -819,24 +882,48 @@ function vistaSinalizar() {
 
   <section class="modo-grid" aria-label="Começar">
     <button class="modo-card texto" type="button" data-modo="texto">
-      <span class="mode-art">${ARTE.texto}</span>
+      <span class="mode-art">
+        <span class="mode-num" aria-hidden="true">01</span>
+        <span class="mode-eyebrow">Escreve</span>
+        ${ARTE.texto}
+      </span>
       <span class="mode-copy">
-        <span class="mode-head"><span class="mode-name">Texto</span><span class="mode-go" aria-hidden="true">→</span></span>
-        <span class="mode-sub">Cola aqui e vê sinal a sinal.</span>
+        <span class="mode-name">Texto</span>
+        <span class="mode-sub">Cola uma frase e vê a glosa em sinais, gesto a gesto.</span>
+        <span class="mode-foot">
+          <span class="mode-cta">Ir para o editor</span>
+          <span class="mode-go" aria-hidden="true">↓</span>
+        </span>
       </span>
     </button>
     <button class="modo-card legendas" type="button" data-modo="legendas">
-      <span class="mode-art">${ARTE.legendas}</span>
+      <span class="mode-art">
+        <span class="mode-num" aria-hidden="true">02</span>
+        <span class="mode-eyebrow">Abre .srt · .vtt</span>
+        ${ARTE.legendas}
+      </span>
       <span class="mode-copy">
-        <span class="mode-head"><span class="mode-name">Legendas</span><span class="mode-go" aria-hidden="true">→</span></span>
-        <span class="mode-sub">Abre um .srt ou .vtt e um vídeo.</span>
+        <span class="mode-name">Legendas</span>
+        <span class="mode-sub">Carrega um ficheiro com tempos e um vídeo para sincronizar.</span>
+        <span class="mode-foot">
+          <span class="mode-cta">Escolher ficheiro</span>
+          <span class="mode-go" aria-hidden="true">↑</span>
+        </span>
       </span>
     </button>
     <a class="modo-card dicionario" href="#/dicionario">
-      <span class="mode-art">${ARTE.dicionario}</span>
+      <span class="mode-art">
+        <span class="mode-num" aria-hidden="true">03</span>
+        <span class="mode-eyebrow">${LGA_LISTA.length} LGA · ${CONTAS.ref} IS</span>
+        ${ARTE.dicionario}
+      </span>
       <span class="mode-copy">
-        <span class="mode-head"><span class="mode-name">Dicionário</span><span class="mode-go" aria-hidden="true">→</span></span>
-        <span class="mode-sub">${CONTAS.ref} palavras com sinal International Sign documentado.</span>
+        <span class="mode-name">Dicionário</span>
+        <span class="mode-sub">Duas línguas, cada palavra com o sinal, a aula e o vídeo de origem.</span>
+        <span class="mode-foot">
+          <span class="mode-cta">Abrir o dicionário</span>
+          <span class="mode-go" aria-hidden="true">→</span>
+        </span>
       </span>
     </a>
   </section>
@@ -858,7 +945,7 @@ function vistaSinalizar() {
     <textarea id="txt" rows="3" placeholder="Escreve ou cola aqui…" spellcheck="false"></textarea>
     <div class="acoes">
       <button class="bt primario" id="bt-ver" type="button">Ver sinais</button>
-      <label class="bt" for="fich">Ficheiro</label>
+      <button class="bt" id="bt-fich" type="button">Ficheiro</button>
       <input id="fich" type="file" accept=".txt,.srt,.vtt,.pdf,text/plain,application/pdf" hidden>
       <button class="bt" id="bt-exemplo" type="button">Exemplo</button>
     </div>
@@ -889,7 +976,7 @@ function vistaSinalizar() {
 
   <section class="vcx" id="vcx" hidden>
     <div class="vcx-topo">
-      <label class="bt" for="vid">Abrir vídeo</label>
+      <button class="bt" id="bt-vid" type="button">Abrir vídeo</button>
       <input id="vid" type="file" accept="video/*" hidden>
       <span class="mini">Os sinais seguem o tempo das legendas.</span>
     </div>
@@ -906,6 +993,8 @@ function ligarSinalizar(params) {
   EL.palco = $('#palco');
   EL.agora = $('#agora');
   EL.play = $('#bt-play');
+  EL.prev = $('#bt-prev');
+  EL.next = $('#bt-next');
   EL.fita = $('#fita');
   EL.contas = $('#contas');
   vigiarPalco();
@@ -942,16 +1031,28 @@ function ligarSinalizar(params) {
 
   $$('.modo-card[data-modo]').forEach((c) => c.addEventListener('click', () => {
     if (c.dataset.modo === 'legendas') { $('#fich').click(); return; }
-    txt.focus();
     const alvo = $('.painel.editor');
-    if (alvo) alvo.scrollIntoView({ block: 'center', behavior: reduzido() ? 'auto' : 'smooth' });
+    txt.focus();
+    if (!alvo) return;
+    /* o foco sozinho é invisível ao longe: o painel pisca para onde olhar */
+    alvo.classList.remove('a-piscar');
+    void alvo.offsetWidth;
+    alvo.classList.add('a-piscar');
+    setTimeout(() => alvo.classList.remove('a-piscar'), 1400);
+    alvo.scrollIntoView({ block: 'center', behavior: reduzido() ? 'auto' : 'smooth' });
   }));
 
   const aplicar = (texto) => {
     txt.value = texto;
     contar(texto);
     preparar(texto);
-    if (!P.beats.length) { aviso('Escreve alguma coisa para ver sinais.'); return; }
+    if (!P.beats.length) {
+      aviso(String(texto).trim()
+        ? 'Nenhuma palavra desta frase tem sinal na glosa. Tenta «Bom dia» ou usa o dicionário.'
+        : 'Escreve alguma coisa para ver sinais.');
+      txt.focus();
+      return;
+    }
     aviso('');
     if (reduzido()) pausar(); else tocar();
     const palco = $('#palco-sec');
@@ -979,6 +1080,7 @@ function ligarSinalizar(params) {
   });
 
   const fich = $('#fich');
+  $('#bt-fich').addEventListener('click', () => fich.click());
   fich.addEventListener('change', async () => {
     const f = fich.files && fich.files[0];
     fich.value = '';
@@ -1008,6 +1110,7 @@ function ligarSinalizar(params) {
   });
 
   const vid = $('#vid-el');
+  $('#bt-vid').addEventListener('click', () => $('#vid').click());
   $('#vid').addEventListener('change', (e) => {
     const f = e.target.files && e.target.files[0];
     if (!f) return;
@@ -1110,18 +1213,38 @@ function vistaFontes() {
   </section>
   <section class="fontes">
     <a class="fonte-card lga" href="#/dicionario?fonte=lga">
-      <span class="fonte-art">${maoFigura('abre', true)}</span>
-      <span class="fonte-nome">LGA · ${esc(META_LGA.nome)}</span>
-      <span class="fonte-desc">${LGA_LISTA.length} palavras lidas fotograma a fotograma nas aulas. ${LGA_COM_POSE} já abrem no palco 3D da Agatha.</span>
-      <span class="fonte-nums">${META_LGA.aulas} aulas · ${LGA_CONFIANCAS.length - 1} níveis de confiança</span>
-      <span class="fonte-seta">Ver a LGA →</span>
+      <span class="fonte-art">
+        <span class="fonte-num" aria-hidden="true">${LGA_LISTA.length}</span>
+        <span class="fonte-eyebrow">Aulas em vídeo</span>
+        ${ARTE.fonteLga}
+      </span>
+      <span class="fonte-copy">
+        <span class="fonte-nome">LGA · ${esc(META_LGA.nome)}</span>
+        <span class="fonte-desc">Palavras lidas fotograma a fotograma nas aulas. ${LGA_COM_POSE} já abrem no palco 3D da Agatha.</span>
+        <span class="fonte-chips">
+          <span>${LGA_LISTA.length} palavras</span>
+          <span>${META_LGA.aulas} aulas</span>
+          <span>${LGA_COM_POSE} em 3D</span>
+        </span>
+        <span class="fonte-seta">Ver a LGA <b aria-hidden="true">→</b></span>
+      </span>
     </a>
     <a class="fonte-card is" href="#/dicionario?fonte=is">
-      <span class="fonte-art"><span class="fonte-is">IS</span></span>
-      <span class="fonte-nome">International Sign</span>
-      <span class="fonte-desc">${CONTAS.ref} sinais documentados no léxico da Sématos, com o vídeo de cada sinal. ${CONTAS.pose} têm pose no palco 3D.</span>
-      <span class="fonte-nums">${FONTE_IS.total} sinais na fonte · ${CONTAS.comparado} comparações</span>
-      <span class="fonte-seta">Ver o International Sign →</span>
+      <span class="fonte-art">
+        <span class="fonte-num" aria-hidden="true">${CONTAS.ref}</span>
+        <span class="fonte-eyebrow">${esc(FONTE_IS.nome)}</span>
+        ${ARTE.fonteIs}
+      </span>
+      <span class="fonte-copy">
+        <span class="fonte-nome">International Sign</span>
+        <span class="fonte-desc">Sinais documentados no léxico da ${esc(FONTE_IS.nome)}, com o vídeo de cada um. ${CONTAS.comparado} já foram comparados fotograma a fotograma.</span>
+        <span class="fonte-chips">
+          <span>${CONTAS.ref} sinais IS</span>
+          <span>${FONTE_IS.total} no léxico</span>
+          <span>${CONTAS.comparado} comparados</span>
+        </span>
+        <span class="fonte-seta">Ver o International Sign <b aria-hidden="true">→</b></span>
+      </span>
     </a>
   </section>`;
 }
@@ -1387,6 +1510,16 @@ function render() {
   else ligarSinalizar(m ? m.params : {});
   atualizarFab();
   montarA11y();
+  /* carregar no separador onde já estamos não muda o hash: leva ao topo e
+     limpa os filtros do dicionário, em vez de não fazer nada */
+  $$('.nav .nav-a, .marca').forEach(a => a.addEventListener('click', (e) => {
+    if (a.getAttribute('href') !== location.hash) return;
+    e.preventDefault();
+    PESQUISA = TEMA = ESTADO = '';
+    LGA_PESQUISA = LGA_AULA = LGA_CONF = '';
+    render();
+    window.scrollTo(0, 0);
+  }));
 }
 
 window.addEventListener('hashchange', render);

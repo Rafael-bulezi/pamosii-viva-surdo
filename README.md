@@ -256,9 +256,25 @@ peito e depois mão plana que sobe do queixo ao lado da cara —, por isso
 primeiro e o painel toca ambos, com um só chip). Em **vs125** `tchau/adeus` deixa
 de ser um aceno no alto com o pulso a rodar e passa a ser o **mesmo sinal** de
 `oi/olá` — mesma forma, mesmo lugar à altura da cara, mesmo movimento, mesma
-duração; a aula usa o mesmo aceno para chegar e para sair. O
-
-repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
+duração; a aula usa o mesmo aceno para chegar e para sair. Em **vs126** os
+cartões deixam de ser caixas brancas com três linhas: cada modo passa a ser um
+pequeno cartaz com campo de cor (azul-real, ciano, amarelo), uma ilustração
+desenhada a `currentColor` — o editor com a mão, o fotograma com legendas e
+tempo, duas fichas de dicionário com a lupa —, o número do modo em marca de
+água, a etiqueta do gesto e a acção escrita por baixo; nos cartões de fonte do
+dicionário o International Sign ganha globo, play e mão (era uma caixa vazia) e
+as pastilhas dizem `202 sinais IS · 439 no léxico · 83 comparados`. Os três
+temas servem-se das mesmas variáveis (`--card-*`), com pastilhas de acção
+cheias no escuro e preto sobre acento no contraste alto. A auditoria de
+controlos obrigou a mais: `Ficheiro` e `Abrir vídeo` passam a `<button>` (eram
+`<label>`, sem foco por teclado); os transportes ficam desligados sem glosa e
+`‹`/`›` desligam nos extremos; a fita vazia explica-se («a glosa aparece aqui»);
+o cartão `Texto` acende o painel do editor em vez de só lhe dar foco; `Ver
+sinais` com palavras sem sinal diz que nenhuma tem sinal (antes pedia para
+escrever algo com texto já escrito); a bolha flutuante usa o texto do editor; e
+carregar no separador onde já estamos volta ao topo e limpa os filtros do
+dicionário. `docs/AUDITORIA-BOTOES.md` guarda a tabela controlo a controlo.
+O repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
 continua na versão anterior (18 rotas): a conta de publicação só tem leitura no
 repositório original, por isso as versões novas saem pelo fork. O slug com dois
 erres (`pamosii-viva-surado`) devolve 404; o slug vivo é `pamosii-viva-surdo`.
@@ -267,7 +283,7 @@ Para publicar no Pages: copiar `app/` para a branch `gh-pages` **sem apagar o
 `.nojekyll`** que só existe nessa branch (um `rsync --delete` da pasta `app/`
 remove-o e o Jekyll volta a tentar processar os ficheiros), mudar `const VERSAO`
 em `app/sw.js` **e** todos os `?v=` em `app/index.html` para o mesmo valor
-(o local está em vs125: 13 ocorrências em `index.html`, incluindo ícone e
+(o local está em vs126: 13 ocorrências em `index.html`, incluindo ícone e
 folhas de estilo), correr
 `node tools/integridade-test.cjs` e `node tools/engine-test.cjs` e enviar a
 `gh-pages`. A Pages do fork pode precisar de um build manual
