@@ -274,6 +274,20 @@ sinais` com palavras sem sinal diz que nenhuma tem sinal (antes pedia para
 escrever algo com texto já escrito); a bolha flutuante usa o texto do editor; e
 carregar no separador onde já estamos volta ao topo e limpa os filtros do
 dicionário. `docs/AUDITORIA-BOTOES.md` guarda a tabela controlo a controlo.
+
+Em **vs127** o painel da sinalizadora passa a ocupar **80% da altura do ecrã**
+(560 px de largura), e o palco cresce com ele: o mesmo enquadramento mostra a
+figura cerca de 40% mais alta do que na janela de 340 px, e a folga da câmara
+desce de 1,16 para 1,06 para o rosto e as mãos lerem melhor sem cortar os
+braços. O canto superior ganha um botão de **ecrã inteiro**; onde a API não
+existe (Safari iOS) a mesma acção usa a classe `.cheio`, que ocupa o viewport, e
+`Esc` fecha o painel quando não há fullscreen nativo. A nota de estudo ganha um
+**«i»**: ao passar o rato, focar ou tocar abre a explicação de que são gestos de
+estudo e não tradução de LGA. No escuro, o `Repetir` ligado deixa de ficar
+azul-escuro sobre azul-escuro. O objectivo seguinte — a sinalizadora acompanhar
+uma pessoa a falar em tempo real (fala → glosa → sinal) — **ainda não está
+implementado**: o painel toca uma glosa preparada.
+
 O repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
 continua na versão anterior (18 rotas): a conta de publicação só tem leitura no
 repositório original, por isso as versões novas saem pelo fork. O slug com dois
@@ -283,7 +297,7 @@ Para publicar no Pages: copiar `app/` para a branch `gh-pages` **sem apagar o
 `.nojekyll`** que só existe nessa branch (um `rsync --delete` da pasta `app/`
 remove-o e o Jekyll volta a tentar processar os ficheiros), mudar `const VERSAO`
 em `app/sw.js` **e** todos os `?v=` em `app/index.html` para o mesmo valor
-(o local está em vs126: 13 ocorrências em `index.html`, incluindo ícone e
+(o local está em vs127: 13 ocorrências em `index.html`, incluindo ícone e
 folhas de estilo), correr
 `node tools/integridade-test.cjs` e `node tools/engine-test.cjs` e enviar a
 `gh-pages`. A Pages do fork pode precisar de um build manual

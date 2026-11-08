@@ -10,8 +10,8 @@ o estado da aplicação foi lido antes e depois do clique. O que conta como prov
 scroll. Um clique que não muda nada observável é tratado como falha, não como
 sucesso.
 
-Resultado: **49 controlos distintos auditados; 49 com efeito medido**. Nenhum
-botão morto ficou por explicar.
+Resultado: **49 controlos distintos auditados; 49 com efeito medido** (51 em
+vs127, com o ecrã inteiro e o «i»). Nenhum botão morto ficou por explicar.
 
 ## Navegação e acessibilidade
 
@@ -80,6 +80,17 @@ glosa e prev/next nos extremos.
 | confiança alta (LGA) | filtrar | 246 → 173 |
 | busca «água» (LGA) | procurar | 246 → 1 |
 | cartão de pose (LGA) | abrir no painel | painel aberto com «oi/olá» |
+
+## vs127 — painel maior e dois controlos novos
+
+O painel passou a 80% da altura do ecrã (720 px em 1280×900), o palco de 340
+para 471 px e a câmara de 1,16 para 1,06 de folga: a figura fica cerca de 40%
+mais alta do que antes.
+
+| Controlo | Intenção | Efeito medido |
+|---|---|---|
+| `#sg-cheio` | ecrã inteiro | painel 1280×900, palco 1244×659, canvas 1240×655 (buffer igual ao CSS); `aria-pressed` true; `Esc`/fechar repõe `aria-pressed` false, remove `.cheio` e esconde o painel. Sem a API (Safari iOS, headless) a classe `.cheio` faz o mesmo. |
+| `#sg-info` | explicar a nota de estudo | `aria-expanded` false → true e a caixa de texto fica visível acima da nota; hover e foco fazem o mesmo por CSS. |
 
 ## O que estava errado e foi corrigido
 
