@@ -403,6 +403,16 @@ function casaSigner() {
   return casa;
 }
 
+function marcarCheio() {
+  const p = document.getElementById('sg-painel');
+  const b = document.getElementById('sg-cheio');
+  if (!p || !b) return;
+  const on = document.fullscreenElement === p || p.classList.contains('cheio');
+  b.classList.toggle('on', on);
+  b.setAttribute('aria-pressed', String(on));
+  b.setAttribute('aria-label', on ? 'Sair do ecrã inteiro' : 'Ecrã inteiro');
+}
+
 function montarSigner() {
   if (document.getElementById('sg-painel')) return;
 
@@ -423,7 +433,12 @@ function montarSigner() {
   painel.innerHTML = `
     <div class="sg-topo">
       <p class="sg-titulo" id="sg-titulo">${SINALIZADOR.nome} · ${SINALIZADOR.papel}</p>
-      <button class="sg-fechar" id="sg-fechar" type="button" aria-label="Fechar a sinalizadora">×</button>
+      <div class="sg-btns">
+        <button class="sg-fechar" id="sg-cheio" type="button" aria-label="Ecrã inteiro" aria-pressed="false">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg>
+        </button>
+        <button class="sg-fechar" id="sg-fechar" type="button" aria-label="Fechar a sinalizadora">×</button>
+      </div>
     </div>
     <p class="sg-frase" id="sg-frase"></p>
     <div class="sg-palco" id="sg-palco"><p class="sg-espera">A preparar a sinalizadora…</p></div>
@@ -438,7 +453,11 @@ function montarSigner() {
     </div>
     <div class="sg-chips" id="sg-chips" aria-label="Glosa"></div>
     <a class="sg-abrir" id="sg-abrir" href="#/" hidden>Abrir em Sinalizar →</a>
-    <p class="sg-nota">Gestos de estudo inspirados na língua gestual internacional. <b>Não</b> são sinais de LGA validados por sinalizadores surdos.</p>`;
+    <p class="sg-nota">
+      <span>Gestos de estudo inspirados na língua gestual internacional. <b>Não</b> são sinais de LGA validados por sinalizadores surdos.</span>
+      <button type="button" class="sg-info" id="sg-info" aria-label="Sobre estes gestos" aria-expanded="false">i</button>
+      <span class="sg-info-txt" id="sg-info-txt" role="tooltip">A sinalizadora mostra gestos de estudo para acompanhar o texto, inspirados na língua gestual internacional. Não é tradução de LGA: a LGA tem gramática e sinais próprios, e esta versão ainda não foi validada por sinalizadores surdos.</span>
+    </p>`;
   document.body.append(painel, fab);
 
   fab.addEventListener('click', () => {
@@ -450,6 +469,22 @@ function montarSigner() {
     abrirSigner(escrito || SG.texto || SG_FRASE);
   });
   $('#sg-fechar').addEventListener('click', () => fecharSigner());
+  const info = $('#sg-info');
+  info.addEventListener('click', () => {
+    const on = info.getAttribute('aria-expanded') === 'true';
+    info.setAttribute('aria-expanded', String(!on));
+  });
+  $('#sg-cheio').addEventListener('click', async () => {
+    const p = $('#sg-painel');
+    try {
+      if (document.fullscreenElement) await document.exitFullscreen();
+      else await p.requestFullscreen();
+    } catch (err) {
+      p.classList.toggle('cheio');
+    }
+    marcarCheio();
+  });
+  document.addEventListener('fullscreenchange', marcarCheio);
   $('#sg-play').addEventListener('click', () => { if (SG.tocando) pausarSigner(); else tocarSigner(); });
   $('#sg-rep').addEventListener('click', (e) => {
     SG.repetir = !SG.repetir;
@@ -469,7 +504,7 @@ function montarSigner() {
     if (!SG.tocando) tocarSigner();
   });
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && SG.aberto) fecharSigner();
+    if (e.key === 'Escape' && SG.aberto && !document.fullscreenElement) fecharSigner();
   });
 }
 
@@ -542,7 +577,9 @@ async function abrirSignerBeats(t, beats, opcoes) {
     if (!SG.aberto) { devolverAvatar(); return; }
     const espera = palco.querySelector('.sg-espera');
     if (espera) espera.remove();
-    AVATAR.enquadrar('busto', 1.16);
+    /* o painel já é largo e alto; 1,06 aproxima o suficiente para o rosto e as
+       mãos lerem bem sem cortar os braços nos sinais abertos */
+    AVATAR.enquadrar('busto', 1.06);
     SG.passos = SINAL3D.sequencia(SG.beats);
     let acc = 0;
     SG.passos.forEach((p) => {
@@ -570,6 +607,9 @@ function devolverAvatar() {
 function fecharSigner(silencioso) {
   const painel = document.getElementById('sg-painel');
   if (!painel || painel.hidden) return;
+  if (document.fullscreenElement === painel) document.exitFullscreen().catch(() => {});
+  painel.classList.remove('cheio');
+  marcarCheio();
   painel.hidden = true;
   SG.aberto = false;
   SG.tocando = false;
