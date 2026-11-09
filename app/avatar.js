@@ -12,6 +12,8 @@
 
   let renderer, cena, cam, modelo;
   let ossos = {}, malhas = [], pronto = false;
+  /* quem estiver à espera do GLB no ecrã recebe o progresso (o ficheiro tem 13 MB) */
+  let aoProgresso = null;
   let relogio = 0, ultimo = performance.now();
   let repousoOssos = null, poseBase = null;
   let piscar = 0, proximoPiscar = 2.4;
@@ -107,6 +109,7 @@
     }
 
     const o = opcoes || {};
+    if (o.progresso) aoProgresso = o.progresso;
     /* O modo-folha lê o canvas com drawImage; sem preservar o buffer, a
        composição limpa o desenho e a cópia saía preta. Na app fica desligado:
        só custa uma cópia por frame. */
@@ -176,7 +179,7 @@
         montarModelo(g.scene);
         requestAnimationFrame(quadro);
         ok(API);
-      }, undefined, falha);
+      }, (e) => { if (aoProgresso) aoProgresso(e.loaded, e.total); }, falha);
     });
     return carregando;
   }
@@ -800,6 +803,15 @@
       cam.fov = 30;
       cam.position.set(0.7, h * 0.55, h * 2.0);
       alvo.set(0, h * 0.5, 0);
+    } else if (tipo === 'joelhos') {
+      /* painel de 100dvh: nesta malha o joelho fica a 0,515 m e o cabelo acaba
+         a ~1,79 m. O quadro cobre 2,03 m (até 1,98 m) e põe o joelho a 72% da
+         altura do palco. A faixa de chips e botões tem 126 px fixos, por isso o
+         palco baixo perde uma fatia maior dela: 13% a 1080p, 21% a 720p — o
+         joelho fica acima da faixa nos dois. */
+      cam.fov = 34;
+      cam.position.set(0.26, h * 0.536, h * 1.853);
+      alvo.set(0, h * 0.536, 0);
     } else {
       /* plano de sinalização: das mãos em repouso (~0,80 m) a acima da cabeça
          (~1,96 m); enquadrar só a cabeça aos ombros cortava os dedos caídos.

@@ -23,7 +23,7 @@ node tools/engine-test.cjs        # 10 frases glosadas
 node tools/serve.cjs              # http://localhost:8123
 ```
 
-Publicar: mudar `const VERSAO` em `app/sw.js` **e** os 10 `?v=` em `app/index.html`
+Publicar: mudar `const VERSAO` em `app/sw.js` **e** os 14 `?v=` em `app/index.html`
 para o mesmo valor, correr os dois testes, depois `README.md` → secção
 Publicação. O service worker não guarda o GLB.
 

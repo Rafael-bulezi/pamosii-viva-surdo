@@ -1,0 +1,722 @@
+{
+ "fonte": "dados.js + maos.js",
+ "total": 179,
+ "palavras": [
+  {
+   "palavra": "acordar",
+   "tema": "Verbos"
+  },
+  {
+   "palavra": "açúcar",
+   "tema": "Comida"
+  },
+  {
+   "palavra": "agora",
+   "tema": "Tempo"
+  },
+  {
+   "palavra": "água",
+   "tema": "Comida"
+  },
+  {
+   "palavra": "ajudar",
+   "tema": "Verbos"
+  },
+  {
+   "palavra": "ali",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "aluno",
+   "tema": "Escola"
+  },
+  {
+   "palavra": "amanhã",
+   "tema": "Tempo"
+  },
+  {
+   "palavra": "amarelo",
+   "tema": "Cores"
+  },
+  {
+   "palavra": "amiga",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "amigo",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "andar",
+   "tema": "Verbos"
+  },
+  {
+   "palavra": "ano",
+   "tema": "Tempo"
+  },
+  {
+   "palavra": "aqui",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "arroz",
+   "tema": "Comida"
+  },
+  {
+   "palavra": "até amanhã",
+   "tema": "Frases"
+  },
+  {
+   "palavra": "autocarro",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "avó",
+   "tema": "Casa"
+  },
+  {
+   "palavra": "avô",
+   "tema": "Casa"
+  },
+  {
+   "palavra": "azul",
+   "tema": "Cores"
+  },
+  {
+   "palavra": "barriga",
+   "tema": "Corpo"
+  },
+  {
+   "palavra": "beber",
+   "tema": "Verbos"
+  },
+  {
+   "palavra": "bebida",
+   "tema": "Comida"
+  },
+  {
+   "palavra": "boa noite",
+   "tema": "Saudações"
+  },
+  {
+   "palavra": "boa tarde",
+   "tema": "Saudações"
+  },
+  {
+   "palavra": "boca",
+   "tema": "Corpo"
+  },
+  {
+   "palavra": "bom",
+   "tema": "Saudações"
+  },
+  {
+   "palavra": "bom dia",
+   "tema": "Saudações"
+  },
+  {
+   "palavra": "bonito",
+   "tema": "Adjetivos"
+  },
+  {
+   "palavra": "borracha",
+   "tema": "Escola"
+  },
+  {
+   "palavra": "braço",
+   "tema": "Corpo"
+  },
+  {
+   "palavra": "branco",
+   "tema": "Cores"
+  },
+  {
+   "palavra": "brincar",
+   "tema": "Verbos"
+  },
+  {
+   "palavra": "cabeça",
+   "tema": "Corpo"
+  },
+  {
+   "palavra": "cabelo",
+   "tema": "Corpo"
+  },
+  {
+   "palavra": "cadeira",
+   "tema": "Casa"
+  },
+  {
+   "palavra": "caderno",
+   "tema": "Escola"
+  },
+  {
+   "palavra": "café",
+   "tema": "Comida"
+  },
+  {
+   "palavra": "cama",
+   "tema": "Casa"
+  },
+  {
+   "palavra": "caneta",
+   "tema": "Escola"
+  },
+  {
+   "palavra": "cansado",
+   "tema": "Adjetivos"
+  },
+  {
+   "palavra": "carne",
+   "tema": "Comida"
+  },
+  {
+   "palavra": "cartão",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "carteira",
+   "tema": "Escola"
+  },
+  {
+   "palavra": "casa",
+   "tema": "Casa"
+  },
+  {
+   "palavra": "casa de banho",
+   "tema": "Casa"
+  },
+  {
+   "palavra": "castanho",
+   "tema": "Cores"
+  },
+  {
+   "palavra": "cedo",
+   "tema": "Tempo"
+  },
+  {
+   "palavra": "chamo-me",
+   "tema": "Frases"
+  },
+  {
+   "palavra": "chão",
+   "tema": "Casa"
+  },
+  {
+   "palavra": "chegar",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "cinza",
+   "tema": "Cores"
+  },
+  {
+   "palavra": "comer",
+   "tema": "Verbos"
+  },
+  {
+   "palavra": "comida",
+   "tema": "Comida"
+  },
+  {
+   "palavra": "como está?",
+   "tema": "Saudações"
+  },
+  {
+   "palavra": "como te chamas",
+   "tema": "Frases"
+  },
+  {
+   "palavra": "comprar",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "computador",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "conversa",
+   "tema": "Diálogos"
+  },
+  {
+   "palavra": "cores",
+   "tema": "Cores"
+  },
+  {
+   "palavra": "correr",
+   "tema": "Verbos"
+  },
+  {
+   "palavra": "cozinha",
+   "tema": "Casa"
+  },
+  {
+   "palavra": "dança",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "dar",
+   "tema": "Verbos"
+  },
+  {
+   "palavra": "dedo",
+   "tema": "Corpo"
+  },
+  {
+   "palavra": "dente",
+   "tema": "Corpo"
+  },
+  {
+   "palavra": "depois",
+   "tema": "Tempo"
+  },
+  {
+   "palavra": "desculpa",
+   "tema": "Saudações"
+  },
+  {
+   "palavra": "devagar",
+   "tema": "Tempo"
+  },
+  {
+   "palavra": "dever",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "dia",
+   "tema": "Tempo"
+  },
+  {
+   "palavra": "dinheiro",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "doente",
+   "tema": "Adjetivos"
+  },
+  {
+   "palavra": "dormir",
+   "tema": "Verbos"
+  },
+  {
+   "palavra": "escola",
+   "tema": "Escola"
+  },
+  {
+   "palavra": "escrever",
+   "tema": "Verbos"
+  },
+  {
+   "palavra": "esperar",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "estudar",
+   "tema": "Verbos"
+  },
+  {
+   "palavra": "falar em lga",
+   "tema": "Diálogos"
+  },
+  {
+   "palavra": "família",
+   "tema": "Casa"
+  },
+  {
+   "palavra": "faminta",
+   "tema": "Comida"
+  },
+  {
+   "palavra": "fazer",
+   "tema": "Verbos"
+  },
+  {
+   "palavra": "feijão",
+   "tema": "Comida"
+  },
+  {
+   "palavra": "feliz",
+   "tema": "Adjetivos"
+  },
+  {
+   "palavra": "filha",
+   "tema": "Casa"
+  },
+  {
+   "palavra": "filho",
+   "tema": "Casa"
+  },
+  {
+   "palavra": "frio",
+   "tema": "Adjetivos"
+  },
+  {
+   "palavra": "fruta",
+   "tema": "Comida"
+  },
+  {
+   "palavra": "futebol",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "gostar",
+   "tema": "Verbos"
+  },
+  {
+   "palavra": "grande",
+   "tema": "Adjetivos"
+  },
+  {
+   "palavra": "hoje",
+   "tema": "Tempo"
+  },
+  {
+   "palavra": "hora",
+   "tema": "Tempo"
+  },
+  {
+   "palavra": "hospital",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "igreja",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "ir",
+   "tema": "Verbos"
+  },
+  {
+   "palavra": "irmã",
+   "tema": "Casa"
+  },
+  {
+   "palavra": "irmão",
+   "tema": "Casa"
+  },
+  {
+   "palavra": "janela",
+   "tema": "Casa"
+  },
+  {
+   "palavra": "lápis",
+   "tema": "Escola"
+  },
+  {
+   "palavra": "laranja",
+   "tema": "Cores"
+  },
+  {
+   "palavra": "legumes",
+   "tema": "Comida"
+  },
+  {
+   "palavra": "leite",
+   "tema": "Comida"
+  },
+  {
+   "palavra": "lento",
+   "tema": "Adjetivos"
+  },
+  {
+   "palavra": "ler",
+   "tema": "Verbos"
+  },
+  {
+   "palavra": "lição",
+   "tema": "Escola"
+  },
+  {
+   "palavra": "livro",
+   "tema": "Escola"
+  },
+  {
+   "palavra": "mãe",
+   "tema": "Casa"
+  },
+  {
+   "palavra": "mão",
+   "tema": "Corpo"
+  },
+  {
+   "palavra": "mau",
+   "tema": "Saudações"
+  },
+  {
+   "palavra": "médico",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "mercado",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "mês",
+   "tema": "Tempo"
+  },
+  {
+   "palavra": "mesa",
+   "tema": "Casa"
+  },
+  {
+   "palavra": "mochila",
+   "tema": "Escola"
+  },
+  {
+   "palavra": "muito",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "muito bem",
+   "tema": "Frases"
+  },
+  {
+   "palavra": "música",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "não",
+   "tema": "Saudações"
+  },
+  {
+   "palavra": "não entendo",
+   "tema": "Frases"
+  },
+  {
+   "palavra": "nariz",
+   "tema": "Corpo"
+  },
+  {
+   "palavra": "novo",
+   "tema": "Adjetivos"
+  },
+  {
+   "palavra": "nunca",
+   "tema": "Tempo"
+  },
+  {
+   "palavra": "obrigada",
+   "tema": "Saudações"
+  },
+  {
+   "palavra": "obrigado",
+   "tema": "Saudações"
+  },
+  {
+   "palavra": "olá",
+   "tema": "Saudações"
+  },
+  {
+   "palavra": "óleo",
+   "tema": "Comida"
+  },
+  {
+   "palavra": "olho",
+   "tema": "Corpo"
+  },
+  {
+   "palavra": "ombro",
+   "tema": "Corpo"
+  },
+  {
+   "palavra": "onde fica",
+   "tema": "Frases"
+  },
+  {
+   "palavra": "ontem",
+   "tema": "Tempo"
+  },
+  {
+   "palavra": "orelha",
+   "tema": "Corpo"
+  },
+  {
+   "palavra": "pagar",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "pai",
+   "tema": "Casa"
+  },
+  {
+   "palavra": "pão",
+   "tema": "Comida"
+  },
+  {
+   "palavra": "pé",
+   "tema": "Corpo"
+  },
+  {
+   "palavra": "peixe",
+   "tema": "Comida"
+  },
+  {
+   "palavra": "pequeno",
+   "tema": "Adjetivos"
+  },
+  {
+   "palavra": "perguntar",
+   "tema": "Diálogos"
+  },
+  {
+   "palavra": "perna",
+   "tema": "Corpo"
+  },
+  {
+   "palavra": "poder",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "por favor",
+   "tema": "Saudações"
+  },
+  {
+   "palavra": "porta",
+   "tema": "Casa"
+  },
+  {
+   "palavra": "pouco",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "precisar",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "preto",
+   "tema": "Cores"
+  },
+  {
+   "palavra": "professor",
+   "tema": "Escola"
+  },
+  {
+   "palavra": "quanto custa",
+   "tema": "Frases"
+  },
+  {
+   "palavra": "quarto",
+   "tema": "Casa"
+  },
+  {
+   "palavra": "quente",
+   "tema": "Adjetivos"
+  },
+  {
+   "palavra": "querer",
+   "tema": "Verbos"
+  },
+  {
+   "palavra": "rápido",
+   "tema": "Adjetivos"
+  },
+  {
+   "palavra": "recreio",
+   "tema": "Escola"
+  },
+  {
+   "palavra": "repete por favor",
+   "tema": "Frases"
+  },
+  {
+   "palavra": "responder",
+   "tema": "Diálogos"
+  },
+  {
+   "palavra": "rosa",
+   "tema": "Cores"
+  },
+  {
+   "palavra": "roupa",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "roxo",
+   "tema": "Cores"
+  },
+  {
+   "palavra": "sal",
+   "tema": "Comida"
+  },
+  {
+   "palavra": "sala",
+   "tema": "Casa"
+  },
+  {
+   "palavra": "sapato",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "saudável",
+   "tema": "Adjetivos"
+  },
+  {
+   "palavra": "sede",
+   "tema": "Comida"
+  },
+  {
+   "palavra": "semana",
+   "tema": "Tempo"
+  },
+  {
+   "palavra": "sempre",
+   "tema": "Tempo"
+  },
+  {
+   "palavra": "sim",
+   "tema": "Saudações"
+  },
+  {
+   "palavra": "tarde",
+   "tema": "Tempo"
+  },
+  {
+   "palavra": "tchau",
+   "tema": "Saudações"
+  },
+  {
+   "palavra": "telefone",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "ter",
+   "tema": "Verbos"
+  },
+  {
+   "palavra": "teto",
+   "tema": "Casa"
+  },
+  {
+   "palavra": "trabalhar",
+   "tema": "Verbos"
+  },
+  {
+   "palavra": "triste",
+   "tema": "Adjetivos"
+  },
+  {
+   "palavra": "velho",
+   "tema": "Adjetivos"
+  },
+  {
+   "palavra": "vender",
+   "tema": "Dia a dia"
+  },
+  {
+   "palavra": "ver",
+   "tema": "Verbos"
+  },
+  {
+   "palavra": "verde",
+   "tema": "Cores"
+  },
+  {
+   "palavra": "vermelho",
+   "tema": "Cores"
+  },
+  {
+   "palavra": "vir",
+   "tema": "Verbos"
+  }
+ ]
+}

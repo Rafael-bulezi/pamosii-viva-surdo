@@ -10,7 +10,7 @@ nunca escrito no texto dos botões.
 
 | Rota | Função |
 | --- | --- |
-| `#/` | Colar texto, legendas (`.srt`/`.vtt`) ou um PDF e ver a glosa em sinais animados |
+| `#/` | Três modos: caixa de texto (escrever ou carregar ficheiro), **traduzir ao vivo** pelo microfone, ou o dicionário |
 | `#/dicionario` | Procurar uma palavra por tema e ver a forma da mão (aba International Sign) |
 | `#/dicionario?fonte=lga` | Inventário de estudo da LGA: 246 palavras das aulas em vídeo do Viva surdo, com minuto, confiança e link |
 
@@ -38,10 +38,14 @@ app/
   referencias.js        GERADO: o que o léxico International Sign documenta
   dados.js              glossário (19 temas, 298 palavras) + glosador
   lga.js                GERADO: 246 palavras das aulas de LGA do Viva surdo
+  lga-3d.js             poses 3D das palavras da LGA já lidas no quadro (19)
   maos.js               rig das mãos em SVG + notação dos sinais (191 sinais)
   avatar.js             sinalizadora 3D (three.js + GLB), câmara, poses
   sinal3d.js            notação → poses de ossos (âncoras em metros na malha)
-  app.js                duas vistas, leitor (SRT/VTT), PDF local, acessibilidade
+  app.js                duas vistas, caixa de texto (SRT/VTT/PDF), acessibilidade
+  aoVivo.js             reconhecimento de fala (pt-PT) do modo ao vivo
+  api/sinais.js         função da Vercel: frase → sinais do léxico (OpenRouter)
+  api/sinais-lista.json GERADO: os 179 sinais que a app sabe desenhar, por tema
   sw.js                 casulo offline (VERSAO = ?v= do index)
   manifest.webmanifest  instalação e atalhos
   assets/               marca, ícones e agatha-mpfb-rig.glb (o modelo)
@@ -78,24 +82,34 @@ lista de modelos alternativos, com preços e prova de ossos de dedos, está em
 
 ## Entradas
 
-- **Texto** colado.
-- **Ficheiro** `.txt`.
-- **Legendas** `.srt` / `.vtt`; com um vídeo aberto, os sinais seguem o tempo
-  das falas.
-- **PDF** com camada de texto, lido no próprio browser
-  (`DecompressionStream`, sem bibliotecas). PDF digitalizado não tem texto — a
-  página di-lo em vez de inventar.
+A página inicial tem três cartões e nada por baixo deles: o texto abre numa
+**caixa** sobre a própria página (duas abas: escrever, carregar ficheiro), o
+microfone liga o modo ao vivo, e o terceiro cartão é o dicionário.
 
-O texto colado, os ficheiros e o vídeo ficam no aparelho: não há microfone,
-`sendBeacon` nem POST, e o único `localStorage` é `vs.a11y` (opções de
-acessibilidade). A rede só serve os ficheiros estáticos do próprio site,
-incluindo o modelo 3D.
+- **Texto** escrito na caixa; `Ctrl + Enter` sinaliza.
+- **Ficheiro** `.txt`, **legendas** `.srt` / `.vtt` (só o texto das falas) ou
+  **PDF** com camada de texto, lido no próprio browser
+  (`DecompressionStream`, sem bibliotecas). PDF digitalizado não tem texto — a
+  caixa di-lo em vez de inventar.
+- **Ao vivo** — o Chrome transcreve a fala (`webkitSpeechRecognition`, pt-PT) e
+  cada frase fechada segue para `POST api/sinais`; um modelo escolhe até oito
+  palavras **do léxico que a app sabe desenhar** e o painel enfileira os sinais.
+  Sem chave configurada, sem rede ou se o modelo falhar, o motor de regras
+  glosa a mesma frase e o painel mostra a pastilha `modo simples`.
+
+No modo de texto e de ficheiro nada sai do aparelho. No modo ao vivo a frase (e
+só a frase — nunca o áudio) vai para `api/sinais` e daí para o modelo; o painel
+di-lo numa linha no rodapé e o «i» repete-o. O único `localStorage` continua a
+ser `vs.a11y`. A chave do modelo vive **só** em `OPENROUTER_API_KEY`, no
+servidor: não há chave no repositório nem no browser.
 
 ## Testes
 
 ```bash
 node tools/integridade-test.cjs   # claims, privacidade, versão do casulo, notação, acessibilidade
 node tools/engine-test.cjs        # glosa de 7 frases + lemas e plurais
+node tools/sinais-test.cjs        # contrato de api/sinais: estados, filtro, limite por IP, retrato
+node tools/gerar-sinais-llm.cjs   # reescreve app/api/sinais-lista.json a partir do léxico
 ```
 
 O teste de integridade avalia `dados.js` + `maos.js` num `vm` e falha se um
@@ -139,7 +153,8 @@ substituiu — não são usados por esta app.
 A interface não pode afirmar o que o código não faz:
 
 - não é tradução automática nem tradutor português ↔ LGA;
-- não reconhece sinais por câmara, nem voz, nem microfone;
+- não reconhece sinais por câmara; no modo ao vivo ouve voz, mas só para
+  escolher palavras do léxico, nunca para ler gestos;
 - nenhum sinal está «validado pela comunidade surda»;
 - não se usa «pessoas normais»;
 - não se inventam preços, depoimentos, mentores ou contagens;
@@ -229,8 +244,139 @@ rodapé, ícones novos, tema em azul-real `#1C4F9C` (também no estúdio do palc
 o nome da sinalizadora em `dados.js`, fora do texto dos botões. Em **vs120** o
 favorito passa a ser `app/favicon.ico` (disco com a orelha em 16/32/48/64 px),
 referenciado com `?v=` para o browser não reutilizar o ícone antigo que tinha em
-cache. O
-repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
+cache. Em **vs122** a camada 3D da LGA chega à página: `lga-3d.js` traz a pose já
+lida no quadro para 18 palavras (7 marcadas `≈` porque são aproximação
+declarada), os cartões da aba LGA mostram a mão da pose com um selo `3D`/`3D ≈`
+e abrem a Agatha no palco em vez de saltarem para o YouTube (o ▶ ao lado
+continua a abrir a aula no segundo certo; o selo fica à esquerda para não ficar
+debaixo do ▶); as restantes palavras continuam a abrir o vídeo. O favorito ganha um **círculo branco** por trás do disco (a marca
+azul-real desaparecia na barra de separadores escura), regerado a 16/32/48/64 px.
+Em **vs123** o dicionário abre numa **porta com duas fontes** — um cartão azul
+para a LGA, um branco para o International Sign, cada um com as contagens reais
+— e só depois entra na lista da língua escolhida (`#/dicionario?fonte=lga` ou
+`?fonte=is`); as migalhas «← Fontes» e o atalho para a outra língua ficam sempre
+no topo. Os cartões foram refeitos: a mão da pose passa a desenhar-se sem fundo
+sobre um painel com gradiente, os cartões sem pose passam a miniatura de vídeo
+(▶ ao centro, aula e segundo na faixa de baixo, em vez de uma caixa vazia), a
+confiança passa a `confiança alta/média/baixa` com o ponto colorido, e o selo
+`3D` fica à esquerda para o ▶ não o tapar. Em **vs124** as duas saudações da
+Aula 01 são refeitas contra os quadros: `oi/olá` desce do alto da cabeça para ao
+lado da cara (local novo `rosto`, punho a 1,43 m) e o aceno passa a ser um
+movimento próprio (`aceno`): a mão desloca-se ~15 cm de lado, com o antebraço a
+acompanhar, em vez de rodar só o pulso; vai e volta duas vezes, a 1,7 s.
+`bom dia` é composto e passa a tocar em dois compassos — polegar erguido ao
+peito e depois mão plana que sobe do queixo ao lado da cara —, por isso
+`notacao` na camada 3D aceita agora uma lista de passos (o cartão mostra o
+primeiro e o painel toca ambos, com um só chip). Em **vs125** `tchau/adeus` deixa
+de ser um aceno no alto com o pulso a rodar e passa a ser o **mesmo sinal** de
+`oi/olá` — mesma forma, mesmo lugar à altura da cara, mesmo movimento, mesma
+duração; a aula usa o mesmo aceno para chegar e para sair. Em **vs126** os
+cartões deixam de ser caixas brancas com três linhas: cada modo passa a ser um
+pequeno cartaz com campo de cor (azul-real, ciano, amarelo), uma ilustração
+desenhada a `currentColor` — o editor com a mão, o fotograma com legendas e
+tempo, duas fichas de dicionário com a lupa —, o número do modo em marca de
+água, a etiqueta do gesto e a acção escrita por baixo; nos cartões de fonte do
+dicionário o International Sign ganha globo, play e mão (era uma caixa vazia) e
+as pastilhas dizem `202 sinais IS · 439 no léxico · 83 comparados`. Os três
+temas servem-se das mesmas variáveis (`--card-*`), com pastilhas de acção
+cheias no escuro e preto sobre acento no contraste alto. A auditoria de
+controlos obrigou a mais: `Ficheiro` e `Abrir vídeo` passam a `<button>` (eram
+`<label>`, sem foco por teclado); os transportes ficam desligados sem glosa e
+`‹`/`›` desligam nos extremos; a fita vazia explica-se («a glosa aparece aqui»);
+o cartão `Texto` acende o painel do editor em vez de só lhe dar foco; `Ver
+sinais` com palavras sem sinal diz que nenhuma tem sinal (antes pedia para
+escrever algo com texto já escrito); a bolha flutuante usa o texto do editor; e
+carregar no separador onde já estamos volta ao topo e limpa os filtros do
+dicionário. `docs/AUDITORIA-BOTOES.md` guarda a tabela controlo a controlo.
+
+Em **vs127** o painel da sinalizadora passa a ocupar **80% da altura do ecrã**
+(560 px de largura), e o palco cresce com ele: o mesmo enquadramento mostra a
+figura cerca de 40% mais alta do que na janela de 340 px, e a folga da câmara
+desce de 1,16 para 1,06 para o rosto e as mãos lerem melhor sem cortar os
+braços. O canto superior ganha um botão de **ecrã inteiro**; onde a API não
+existe (Safari iOS) a mesma acção usa a classe `.cheio`, que ocupa o viewport, e
+`Esc` fecha o painel quando não há fullscreen nativo. A nota de estudo ganha um
+**«i»**: ao passar o rato, focar ou tocar abre a explicação de que são gestos de
+estudo e não tradução de LGA. No escuro, o `Repetir` ligado deixa de ficar
+azul-escuro sobre azul-escuro. O objectivo seguinte — a sinalizadora acompanhar
+uma pessoa a falar em tempo real (fala → glosa → sinal) — **ainda não está
+implementado**: o painel toca uma glosa preparada.
+
+Em **vs130** a página inicial passa a ter **três cartões e nada por baixo**: o
+editor, a fita, o leitor de vídeo e o botão flutuante saem (o `#/` deixa de ter
+um leitor de legendas com vídeo). `Texto` abre uma **caixa** por cima da página,
+com duas abas — escrever (contador de palavras, exemplo, `Ctrl + Enter`) e
+carregar ficheiro (`.txt`, `.srt`, `.vtt`, `.pdf`) —, e `Traduzir ao vivo` é o
+novo segundo cartão. O painel da sinalizadora encolhe de 560 para **430 px** e
+o palco azul passa a levar **89% da altura do painel** (673 de 756 px num ecrã
+1440×900; 745 de 828 px em 390×844, medido em Chrome headless com o avatar
+carregado): a nota legal muda-se para o «i» do topo, a frase fica numa linha e
+a glosa e o transporte assentam sobre um véu no fundo do próprio palco. O modo
+**ao vivo** deixa de ser promessa: `app/aoVivo.js` reconhece fala em pt-PT
+(volta a arrancar quando o Chrome fecha o reconhecedor por silêncio), cada frase
+fechada faz `POST api/sinais`, e a função da Vercel (`app/api/sinais.js`) pede
+ao modelo até oito palavras **da lista de 179 que a app sabe desenhar** — a
+mesma lista vai no prompt e filtra a resposta, por isso uma resposta inventada
+não produz um sinal inexistente. Sem `OPENROUTER_API_KEY`, sem rede ou com o
+modelo em baixo responde 503/502 e o cliente glosa com o motor de regras,
+mostrando `modo simples`. O `sinais.js` guarda os 20 pedidos por minuto e IP,
+limita a frase a 300 caracteres, usa `temperature: 0` e nunca deixa a chave
+sair no corpo do pedido (`tools/sinais-test.cjs`, 35 verificações).
+
+Em **vs131** o microfone deixa marca no ecrã: enquanto `AO_VIVO.ligado()` for
+verdade, a moldura do site ganha um anel de 4 px com um gradiente cónico que
+gira (18 s por volta, em `steps(90)` — o anel repinta 5×/s, não 60×/s), um halo
+parado colado às bordas (gradiente de 26 px de desfoque, rasterizado uma vez) e
+uma névoa que sobe 40vh da base, mais alta ao centro do que nos cantos; a névoa
+só anima opacidade e deslocamento, que fica no compositor, e nada disto é
+canvas, rAF ou DOM novo. Tudo pára quando o separador fica escondido, quando o
+painel fecha, quando a sinalização não é ao vivo ou com `prefers-reduced-motion`
+(aí o global `.001ms` faria o anel girar mil vezes por segundo, por isso o anel
+e a névoa ficam com `animation: none`); em alto contraste e `forced-colors` o
+brilho desaparece e o anel passa a branco ou `Highlight`. O `Repetir` passa a
+recomeçar a sequência quando a cabeça já está no fim (antes o clique só mudava a
+bandeira e nada mexia no palco). Os três cartões da página inicial ganham
+superfícies em gradiente — azul→branco, azul-escuro→branco e turquesa→branco —,
+perdem a numeração e a pastilha do canto, e o desenho do dicionário passa a
+mostrar a lista do léxico à esquerda, a mão em destaque e a marca de ▶ do vídeo
+(substituído em vs132).
+
+Em **vs132** a arte dos cartões deixa de ter mãos. Os desenhos eram feitos de
+rectângulos com dedos e liam-se como luvas, por isso cada cartão passa a mostrar
+um **objecto**: a janela de texto com um selo «Aa» no cartão Texto, o microfone
+com as ondas e o painel de legendas no Traduzir ao vivo, um **livro aberto** com
+marcador e lupa no Dicionário, uma **bandeira angolana** com a estrela emblema no
+cartão LGA do dicionário e um globo com ▶ no International Sign. Tudo a
+`currentColor` e opacidades — a mesma arte serve o tema claro, o escuro e o
+contraste alto. A moldura do modo ao vivo perde a lavagem de cor que subia pelos
+lados e passava por cima do conteúdo: fica um anel de **3 px** só nos azuis e no
+turquesa da marca, um halo interior de 26 px de desfoque e uma névoa de **34vh**
+colada à base, mais alta ao centro (o «brilho mais alto em baixo» do Gemini
+Live). O movimento não muda de custo: o anel gira em `steps(90)`, 5 repinturas
+por segundo, e a névoa só anima opacidade e deslocamento.
+
+Em **vs133** o brilho ganha a textura do exemplo «Gemini Live — Honeycomb &
+Pixel Edge Glow», mais discreta: uma faixa de **42 px** (26 px no telemóvel)
+colada à moldura, com favos de **12 px** contra os 28 px do exemplo. Cada célula
+tem só o contorno aceso e o interior quase transparente, e os intervalos entre
+células ficam escuros — por isso os favos leem-se um a um em vez de uma mancha
+contínua. O padrão desliza dois favos na diagonal em 12 s com `steps(24)` (duas
+repinturas por segundo) e um clarão cónico percorre a moldura em `steps(90)`: só
+as células por onde ele passa acendem, o resto fica no azul da cauda. O brilho
+geral desce (halo e anel mais fracos, névoa de 28vh), o `.vivo-favos` fica no
+`z-index: 78` — abaixo do painel da sinalizadora (79) — e em alto contraste,
+`forced-colors` ou movimento reduzido a faixa desaparece.
+
+Em **vs128–vs129** a espera do modelo deixa de ser muda: o GLTFLoader recebe um
+`progresso` e os palcos escrevem `A preparar a sinalizadora… 37%`. O ficheiro
+tem 13,8 MB e numa ligação lenta desce a 47–57 KB/s (243 s vindo do Pages, 294 s
+do Vercel), por isso «A preparar…» sem número lia-se como avaria. O Pages manda
+`Content-Length` e mostra a percentagem; o Vercel serve o GLB com Brotli e **sem**
+`Content-Length`, aí o total é 0 e a espera conta `… 2,4 MB` em vez de inventar
+uma percentagem. A escrita só acontece nos palcos que ainda dizem «A preparar…»,
+para não sobrepor «O modelo 3D não carregou» nem «Sem sinais para esta frase».
+
+O repositório de origem <https://7dark7cloud7.github.io/pamosii-viva-surdo/>
 continua na versão anterior (18 rotas): a conta de publicação só tem leitura no
 repositório original, por isso as versões novas saem pelo fork. O slug com dois
 erres (`pamosii-viva-surado`) devolve 404; o slug vivo é `pamosii-viva-surdo`.
@@ -239,10 +385,18 @@ Para publicar no Pages: copiar `app/` para a branch `gh-pages` **sem apagar o
 `.nojekyll`** que só existe nessa branch (um `rsync --delete` da pasta `app/`
 remove-o e o Jekyll volta a tentar processar os ficheiros), mudar `const VERSAO`
 em `app/sw.js` **e** todos os `?v=` em `app/index.html` para o mesmo valor
-(o local está em vs120: 12 ocorrências em `index.html`), correr
-`node tools/integridade-test.cjs` e `node tools/engine-test.cjs` e enviar a
-`gh-pages`. A Pages do fork pode precisar de um build manual
-(`POST /repos/Rafael-bulezi/pamosii-viva-surdo/pages/builds`).
+(o local está em vs133: 14 ocorrências em `index.html`, incluindo ícone e
+folhas de estilo), correr
+`node tools/integridade-test.cjs`, `node tools/engine-test.cjs` e
+`node tools/sinais-test.cjs` e enviar a `gh-pages`. A Pages do fork pode
+precisar de um build manual (`POST /repos/Rafael-bulezi/pamosii-viva-surdo/pages/builds`).
+
+O Pages só serve ficheiros estáticos: o modo ao vivo funciona lá a cair sempre
+no motor de regras. A função vive no Vercel, que tem a raiz do projecto em
+`app/` (por isso `app/api/sinais.js`); publica-se com
+`npx --yes vercel deploy --prod --yes` a partir de `app/`. A chave
+`OPENROUTER_API_KEY` é variável de ambiente do projecto Vercel — sem ela a
+função responde 503 e a app diz `modo simples`.
 
 O service worker guarda a página e os scripts, mas **não** guarda o GLB de
 13 MB. Uma escrita de cache falhada nunca pode substituir uma resposta boa da
@@ -270,4 +424,6 @@ rede — o `put` fica num try próprio e a resposta segue.
   leitura (alta/média/baixa); as 12 entradas de confiança baixa vêm do Diálogo
   01, cuja sinalização aparece numa janela pequena que as folhas de contacto
   não mostram — ficam para revisão humana. As descrições são leituras nossas
-  dos fotogramas e não substituem a validação por sinalizadores surdos.
+  dos fotogramas e não substituem a validação por sinalizadores surdos; o mesmo
+  vale para as 18 poses da Agatha, e as 7 com selo `3D ≈` dizem-se aproximação
+  na própria página.

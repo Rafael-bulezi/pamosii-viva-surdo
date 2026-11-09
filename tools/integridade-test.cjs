@@ -22,6 +22,7 @@ const referencias = ler('referencias.js');
 const html = ler('index.html');
 const css = ler('styles.css');
 const sw = ler('sw.js');
+const aoVivo = ler('aoVivo.js');
 const manifest = JSON.parse(ler('manifest.webmanifest'));
 
 const falhas = [];
@@ -149,7 +150,7 @@ if (versoesHtml.length !== 1) falhas.push('index.html com mais do que uma versã
 if (versaoSW && versoesHtml[0] && versaoSW !== versoesHtml[0]) {
   falhas.push('Offline desactualizado: sw.js é ' + versaoSW + ' mas o index pede ' + versoesHtml[0] + '.');
 }
-for (const ficheiro of ['styles.css', 'referencias.js', 'dados.js', 'lga.js', 'lga-3d.js', 'maos.js', 'app.js']) {
+for (const ficheiro of ['styles.css', 'referencias.js', 'dados.js', 'lga.js', 'lga-3d.js', 'maos.js', 'aoVivo.js', 'app.js']) {
   if (!new RegExp("'\\./" + ficheiro.replace('.', '\\.') + "\\?v=' \\+ VERSAO").test(sw)) {
     falhas.push('sw.js não pré-guarda ' + ficheiro + ' na chave versionada (?v= + VERSAO).');
   }
@@ -164,7 +165,17 @@ for (const f of iframesHTML) if (!/title=/.test(f)) falhas.push('iframe sem tít
 const imgs = [...app.matchAll(/<img\b[^>]*>/gi)].map(m => m[0]);
 for (const i of imgs) if (!/\balt=/.test(i)) falhas.push('<img> sem alt: ' + i.slice(0, 80));
 if (/<(?:video|audio)\b[^>]*autoplay/i.test(app)) falhas.push('Há <video>/<audio> com autoplay — proibido.');
-if (!/<video\b[^>]*controls/.test(app)) falhas.push('O vídeo de legendas perdeu os controlos.');
+/* a página inicial são três cartões e uma caixa de texto por cima; o editor e o
+   palco antigos ficaram de fora */
+if (!/id="caixa-texto"/.test(app) || !/id="txt"/.test(app)) {
+  falhas.push('A caixa de texto da página inicial desapareceu.');
+}
+if (!/data-modo="ao-vivo"/.test(app)) {
+  falhas.push('O cartão «Traduzir ao vivo» desapareceu da página inicial.');
+}
+if (/id="palco"/.test(app) || /class="demo"/.test(app) || /id="fita"/.test(app)) {
+  falhas.push('A página inicial voltou a ter palco, demonstração ou fita por baixo dos cartões.');
+}
 if (!/prefers-reduced-motion/.test(css)) falhas.push('O CSS deixou de respeitar prefers-reduced-motion.');
 if (!/prefers-reduced-motion/.test(app)) falhas.push('O JS deixou de parar a animação quando o sistema pede menos movimento.');
 if (!/:focus-visible/.test(css)) falhas.push('O CSS deixou de ter foco visível (:focus-visible).');
@@ -185,7 +196,6 @@ else if (!(ordem[0] < ordem[1] && ordem[1] < ordem[2] && ordem[2] < ordem[3])) {
 if (!/function maoCena/.test(maos) || !/function maoPecas/.test(maos) || !/function formaMisturar/.test(maos)) {
   falhas.push('maos.js perdeu o rig (maoCena / maoPecas / formaMisturar): as mãos deixariam de se transformar.');
 }
-if (!/maoCena\(/.test(app)) falhas.push('app.js deixou de usar o rig das mãos.');
 if (!/maoFigura\(/.test(app)) falhas.push('O dicionário deixou de desenhar a forma de cada sinal.');
 if (/<img[^>]+(?:mao|hand|sinal|sign)[^>]*>/i.test(app + html)) {
   falhas.push('Há uma imagem a fingir de mão/sinal — o rig tem de ser desenhado, não colado.');
@@ -272,7 +282,9 @@ for (const g of api.IS_TEMAS) {
 }
 
 /* uma palavra sem notação não pode aparecer como se a personagem soubesse o sinal */
-if (!/cartao-ref/.test(app)) falhas.push('O dicionário perdeu o cartão de referência sem pose (cartao-ref).');
+if (!/fig-fonte/.test(app)) falhas.push('O dicionário perdeu a figura dos cartões sem pose (fig-fonte).');
+/* a miniatura diz o que abre: aula e segundo ficam na faixa, não só no title */
+if (!/fig-rodape/.test(app) || !/fig-tempo/.test(app)) falhas.push('Os cartões sem pose perderam a faixa de miniatura (aula e segundo).');
 if (!/target="_blank" rel="noopener/.test(app)) falhas.push('Os cartões de referência deixaram de abrir a fonte em aba própria com rel=noopener.');
 /* o cartão com pose abre a personagem; o vídeo da fonte é um link à parte */
 if (!/class="cartao-video" href="\$\{esc\(e\.ref\.url\)\}"/.test(app)) {
@@ -387,66 +399,56 @@ nota('LGA: ' + chavesLga.length + ' palavras de ' + lga.LGA_META.aulas + ' aulas
 /* as duas fontes ficam em abas separadas: o cartão IS não pode mostrar LGA */
 const fCartoes = (app.match(/function cartoes\(\) \{[\s\S]*?\n\}/) || [''])[0];
 if (/LGA/.test(fCartoes)) falhas.push('A aba International Sign passou a mostrar conteúdo LGA — as fontes têm de ficar separadas.');
-if (!/fonte === 'lga'/.test(app)) falhas.push('O dicionário perdeu a aba LGA (#/dicionario?fonte=lga).');
+if (!/fonte === 'lga'/.test(app)) falhas.push('O dicionário perdeu a fonte LGA (#/dicionario?fonte=lga).');
+if (!/function vistaFontes\(/.test(app) || !/href="#\/dicionario\?fonte=is"/.test(app)) falhas.push('O dicionário perdeu a porta de entrada com as duas fontes.');
+/* a porta mostra duas fontes e nenhuma lista: quem escolhe vê só a língua escolhida */
+const fFontes = (app.match(/function vistaFontes\(\) \{[\s\S]*?\n\}/) || [''])[0];
+if ((fFontes.match(/class="fonte-card/g) || []).length !== 2) falhas.push('A porta do dicionário deixou de ter exatamente dois cartões de fonte.');
+if (!/function migalhas\(/.test(app)) falhas.push('O dicionário perdeu as migalhas (voltar às fontes / trocar de língua).');
 if (!/LGA_LISTA\.length/.test(app)) falhas.push('O título da aba LGA deixou de contar a partir dos dados.');
 if (!/cartao-lga/.test(app)) falhas.push('Os cartões da LGA desapareceram.');
 if (!/<script src="lga\.js\?v=/.test(html)) falhas.push('O index.html não carrega lga.js.');
 
-/* ------------------------------------ 9e. camada 3D da LGA (lga-3d.js) */
-const lga3dTexto = ler('lga-3d.js');
-const ctxLga3d = { console, window: {} };
-ctxLga3d.window = ctxLga3d;
-vm.createContext(ctxLga3d);
-vm.runInContext(lga3dTexto + '\n;globalThis.__lga3d = SINAIS_LGA;', ctxLga3d);
-const sinaisLga = ctxLga3d.__lga3d;
-if (!sinaisLga) {
+/* 9e. a camada 3D da LGA: só palavras da fonte e notação que o rig desenha.
+   A pose vive noutro ficheiro, por isso é aqui que se impede que ela invente
+   uma palavra, troque o segundo da aula ou peça uma forma de mão inexistente. */
+vm.runInContext(ler('lga-3d.js'), ctx);
+const sinaisLga3d = ctx.SINAIS_LGA;
+if (!sinaisLga3d) {
   falhas.push('lga-3d.js não expõe SINAIS_LGA.');
 } else {
-  const chavesLga3d = Object.keys(sinaisLga);
-  for (const [k, s] of Object.entries(sinaisLga)) {
-    if (!lga.FONTE_LGA[k]) {
-      falhas.push('lga-3d.js tem pose para chave inexistente em lga.js: ' + k);
-      continue;
-    }
-    const fonteRef = lga.FONTE_LGA[k];
-    if (s.aula !== fonteRef.aula) falhas.push('lga-3d.js [' + k + ']: aula diferente de lga.js');
-    if (JSON.stringify(s.segundos) !== JSON.stringify(fonteRef.segundos)) {
-      falhas.push('lga-3d.js [' + k + ']: segundos diferentes de lga.js');
-    }
-    if (s.confianca !== fonteRef.confianca) falhas.push('lga-3d.js [' + k + ']: confianca diferente de lga.js');
-    if (s.veSe !== fonteRef.veSe) falhas.push('lga-3d.js [' + k + ']: veSe diferente de lga.js');
-
-    if (!s.notacao) {
-      falhas.push('lga-3d.js [' + k + ']: entrada sem notacao');
-      continue;
-    }
-    let texto = s.notacao.trim();
-    if (texto.startsWith('2:')) texto = texto.slice(2).trim();
-    const partes = texto.split(/\s+/);
-    if (partes.length !== 3) {
-      falhas.push('lga-3d.js [' + k + ']: notação inválida (esperava forma lugar movimento): ' + s.notacao);
-      continue;
-    }
-    const [forma, local, mov] = partes;
-    if (!api.FORMAS_MAO[forma]) falhas.push('lga-3d.js [' + k + ']: forma de mão desconhecida: ' + forma);
-    if (!api.LOCAIS[local]) falhas.push('lga-3d.js [' + k + ']: local desconhecido: ' + local);
-    if (!api.MOVIMENTOS[mov]) falhas.push('lga-3d.js [' + k + ']: movimento desconhecido: ' + mov);
+  const maus = [];
+  for (const [k, e] of Object.entries(sinaisLga3d)) {
+    const fonte = lga.FONTE_LGA[k];
+    if (!fonte) { maus.push(k + ' (não existe em lga.js)'); continue; }
+    /* `notacao` pode ser uma lista: um compasso por passo dos sinais compostos */
+    const passos = (Array.isArray(e.notacao) ? e.notacao : [e.notacao]).map(t => String(t || '').trim()).filter(Boolean);
+    if (!passos.length) { maus.push(k + ' (sem notação)'); continue; }
+    passos.forEach((passo, i) => {
+      const tokens = passo.replace(/^2:/, '').split(/\s+/);
+      const onde = passos.length > 1 ? ' passo ' + (i + 1) : '';
+      if (tokens.length !== 3) { maus.push(k + onde + ' (esperava forma local movimento: «' + passo + '»)'); return; }
+      const [forma, local, mov] = tokens;
+      if (!api.FORMAS_MAO[forma]) maus.push(k + onde + ' (forma «' + forma + '» desconhecida)');
+      if (!api.LOCAIS[local]) maus.push(k + onde + ' (local «' + local + '» desconhecido)');
+      if (!api.MOVIMENTOS[mov]) maus.push(k + onde + ' (movimento «' + mov + '» desconhecido)');
+    });
+    if (e.aula !== fonte.aula) maus.push(k + ' (aula «' + e.aula + '» ≠ fonte «' + fonte.aula + '»)');
+    if (String(e.segundos) !== String(fonte.segundos)) maus.push(k + ' (segundos ' + e.segundos + ' ≠ fonte ' + fonte.segundos + ')');
+    if (e.confianca !== fonte.confianca) maus.push(k + ' (confiança «' + e.confianca + '» ≠ fonte «' + fonte.confianca + '»)');
+    if (!e.veSe) maus.push(k + ' (sem veSe)');
   }
-
-  if (!/<script src="lga-3d\.js\?v=/.test(html)) falhas.push('O index.html não carrega lga-3d.js.');
-  if (!/cartao-play-lga/.test(app)) falhas.push('app.js não tem o selo de reprodução cartao-play-lga.');
-  if (!/const botaoPlay = temPose\s*\?/.test(app)) {
-    falhas.push('O selo de reprodução LGA aparece mesmo sem pose.');
-  }
-  if (!/cartao-play-lga-aprox/.test(app)) falhas.push('app.js não distingue poses aproximadas no botão (cartao-play-lga-aprox).');
-  if (!/lga-cracha-aprox/.test(app)) falhas.push('app.js não mostra crachá visível aprox. para poses aproximadas.');
-  if (!/aproximação do sinal LGA de/.test(app)) falhas.push('app.js não altera aria-label para poses aproximadas.');
-  if (!/Leitura nossa das aulas do Viva surdo/.test(app)) falhas.push('app.js não atualiza nota do painel quando toca sinal LGA.');
-
-  const aproxQtd = chavesLga3d.filter(k => sinaisLga[k].aproximado).length;
-  nota('LGA 3D: ' + chavesLga3d.length + ' poses validadas contra as aulas do Viva surdo (' + (chavesLga3d.length - aproxQtd) + ' diretas, ' + aproxQtd + ' aproximadas)');
+  if (maus.length) falhas.push('Poses LGA em contradição com a fonte ou com o rig:\n    - ' + maus.join('\n    - '));
+  const total3d = Object.keys(sinaisLga3d).length;
+  const aprox3d = Object.values(sinaisLga3d).filter(e => e.aproximado).length;
+  nota('LGA 3D: ' + total3d + ' poses (' + aprox3d + ' aproximadas) — ' +
+    Math.round(100 * total3d / chavesLga.length) + '% das palavras');
 }
-
+if (!/<script src="lga-3d\.js\?v=/.test(html)) falhas.push('O index.html não carrega lga-3d.js.');
+if (!/lga-3d\.js\?v=/.test(sw)) falhas.push('O casulo offline não guarda lga-3d.js.');
+if (!/poseLga\(e\.chave\)/.test(app)) falhas.push('Os cartões da LGA deixaram de usar a pose 3D quando existe.');
+if (!/function abrirSignerNotacao\(/.test(app)) falhas.push('app.js não tem abrirSignerNotacao: os cartões 3D não abrem a pose.');
+if (!/sinalDeNotacao\([A-Za-z_$][\w$]*, \{\}\)/.test(app)) falhas.push('abrirSignerNotacao não usa sinalDeNotacao: a pose 3D ficava sem geometria.');
 
 /* o glosador tem de continuar a ordenar como promete a nota do site */
 for (const frase of ['Amanhã eu vou à escola.', 'Eu não quero água.']) {
@@ -467,18 +469,57 @@ for (const lema of ['vou', 'foi', 'vai']) {
 
 /* --------------------------------------------------------------- 10. privacidade */
 const semComApp = semComentarios(app);
-if (/navigator\.sendBeacon|XMLHttpRequest|method:\s*['"]POST/.test(semComApp)) {
-  falhas.push('O site passou a enviar dados para fora (sendBeacon/XHR/POST).');
+if (/navigator\.sendBeacon|XMLHttpRequest/.test(semComApp)) {
+  falhas.push('O site passou a enviar dados por sendBeacon/XHR — só a frase do modo ao vivo sai, e por fetch para api/sinais.');
 }
-if (/\bfetch\(/.test(semComApp)) falhas.push('O site passou a fazer fetch — os ficheiros lidos deviam ficar no aparelho.');
+const chamadas = [...semComApp.matchAll(/\bfetch\(\s*(['"`])([^'"`]+)\1/g)].map(m => m[2]);
+const estranhas = chamadas.filter(u => u !== 'api/sinais');
+if (estranhas.length) falhas.push('O site faz fetch para fora do endpoint de sinais: ' + estranhas.join(', '));
+if (!estranhas.length && !/method: 'POST'/.test(semComApp)) {
+  falhas.push('O modo ao vivo deixou de pedir a lista de sinais (fetch api/sinais + POST).');
+}
 if (/getUserMedia|MediaRecorder|AudioContext/.test(semComApp)) {
-  falhas.push('O site passou a captar áudio/microfone.');
+  falhas.push('app.js passou a captar áudio por conta própria; a captura é do SpeechRecognition em aoVivo.js.');
+}
+if (!/SpeechRecognition/.test(semComentarios(aoVivo))) {
+  falhas.push('aoVivo.js perdeu o reconhecimento de fala.');
+}
+if (/\bfetch\(/.test(semComentarios(aoVivo)) || /sendBeacon|XMLHttpRequest/.test(semComentarios(aoVivo))) {
+  falhas.push('aoVivo.js faz rede por conta própria; a frase tem de sair por app.js → api/sinais.');
 }
 const chavesLocal = [...semComApp.matchAll(/localStorage\.(?:get|set|remove)Item\('([^']+)'/g)].map(m => m[1]);
 for (const c of new Set(chavesLocal)) {
   if (c !== 'vs.a11y') falhas.push('O site guarda algo além das opções de acessibilidade: ' + c);
 }
 if (!/DecompressionStream/.test(app)) falhas.push('A leitura de PDF deixou de ser local (sem DecompressionStream).');
+
+/* ------------------------------------------- 10b. função da lista de sinais */
+const fnPath = path.join(RAIZ, 'api', 'sinais.js');
+const listaPath = path.join(RAIZ, 'api', 'sinais-lista.json');
+if (!fs.existsSync(fnPath) || !fs.existsSync(listaPath)) {
+  falhas.push('Falta api/sinais.js ou api/sinais-lista.json (a função que escolhe os sinais).');
+} else {
+  const fn = fs.readFileSync(fnPath, 'utf8');
+  if (/sk-or-[A-Za-z0-9-]{10,}/.test(fn)) falhas.push('Há uma chave do OpenRouter escrita no código da função.');
+  if (!/process\.env\.OPENROUTER_API_KEY/.test(fn)) falhas.push('api/sinais.js deixou de ler a chave do ambiente (OPENROUTER_API_KEY).');
+  if (!/openrouter\.ai/.test(fn)) falhas.push('api/sinais.js deixou de falar com o OpenRouter.');
+  if (!/temperature: 0/.test(fn)) falhas.push('api/sinais.js deixou de fixar a temperatura a 0: a resposta varia entre pedidos.');
+  const lista = JSON.parse(fs.readFileSync(listaPath, 'utf8'));
+  const esperado = new Map();
+  for (const grupo of api.GLOSSARIO) {
+    for (const termo of grupo.termos) {
+      const palavra = String(termo.palavra).toLowerCase().trim();
+      if (!esperado.has(palavra) && api.sinalNotacao(palavra)) esperado.set(palavra, grupo.tema);
+    }
+  }
+  if (lista.total !== esperado.size || lista.palavras.length !== esperado.size) {
+    falhas.push('api/sinais-lista.json está fora de sincronia: tem ' + lista.palavras.length +
+      ' palavras, o léxico tem ' + esperado.size + '. Corre node tools/gerar-sinais-llm.cjs.');
+  }
+  const fora = lista.palavras.filter(p => !esperado.has(p.palavra) || esperado.get(p.palavra) !== p.tema);
+  if (fora.length) falhas.push('Palavras do retrato fora do léxico ou com o tema errado: ' + fora.slice(0, 6).map(p => p.palavra).join(', '));
+  nota('modo ao vivo: ' + lista.palavras.length + ' sinais no retrato do modelo');
+}
 
 /* ---------------------------------------------------------------- 11. manifesto */
 if (!manifest.name || !manifest.short_name) falhas.push('manifest sem name/short_name.');

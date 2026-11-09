@@ -61,7 +61,7 @@ function montarA11y() {
     const k = el.dataset.a11y;
     A11Y[k] = el.type === 'checkbox' ? el.checked : Number(el.value);
     aplicarA11y();
-    if (k === 'movimento' && A11Y.movimento && P.tocando) pausar();
+    if (k === 'movimento' && A11Y.movimento && SG.tocando) pausarSigner();
   });
   raiz.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !painel.hidden) { painel.hidden = true; btn.setAttribute('aria-expanded', 'false'); btn.focus(); }
@@ -69,51 +69,9 @@ function montarA11y() {
   sync();
 }
 
-/* ---------------- avatar / player ---------------- */
-const P = {
-  frases: [], beats: [], fita: [], i: 0, t: 0, tocando: false, raf: 0, last: 0,
-  vel: 1, leg: [], cue: null, modo: 'texto', texto: '',
-  passos: [], poses: null, inicioBeat: [], avatarOn: false, carregando3d: false, salto: false,
-};
-const EL = {};
-
+/* ---------------- glosa em beats ---------------- */
 /* mão em descanso: à frente da cintura, palma virada para o corpo, dedos soltos */
 const REP = { forma: formaMisturar(FORMAS_MAO.curva, FORMAS_MAO.abre, 0.45), pos: [-1.04, 0.96, 0.30], rot: [6, 180, 186] };
-const repouso = (lado) => lado === 'E'
-  ? { forma: REP.forma, pos: [-REP.pos[0], REP.pos[1], REP.pos[2]], rot: [0, -REP.rot[1], -REP.rot[2]] }
-  : { forma: REP.forma, pos: REP.pos, rot: REP.rot };
-const suave = t => t * t * (3 - 2 * t);
-
-function maoPose(forma, pos, rot) { return { forma, pos, rot }; }
-
-function posesDe(b) {
-  const a = maoPose(b.forma, b.pos0, b.rot0);
-  const z = maoPose(b.forma, b.pos1, b.rot1);
-  if (!b.duas) return { a: { dir: a, esq: repouso('E') }, b: { dir: z, esq: repouso('E') } };
-  const espelhar = p => maoPose(p.forma, [-p.pos[0], p.pos[1], p.pos[2]], [p.rot[0], -p.rot[1], -p.rot[2]]);
-  return { a: { dir: a, esq: espelhar(a) }, b: { dir: z, esq: espelhar(z) } };
-}
-
-function mistura(x, y, e) {
-  return { dir: maoMisturar(x.dir, y.dir, e), esq: maoMisturar(x.esq, y.esq, e) };
-}
-
-function cenaEm(idx, t) {
-  const b = P.beats[idx];
-  if (!b) return { cena: { dir: repouso('D'), esq: repouso('E') }, rotulo: '' };
-  const prev = idx > 0 ? posesDe(P.beats[idx - 1]).b : { dir: repouso('D'), esq: repouso('E') };
-  const pr = posesDe(b);
-  const u = lim(t / b.dur, 0, 1);
-  const p = b.tipo === 'letra' ? 0.42 : 0.30;
-  if (u < p) return { cena: mistura(prev, pr.a, suave(u / p)), rotulo: b.rotulo };
-  const v = (u - p) / (1 - p);
-  if (b.reps === 2) {
-    const q = v * 3, seg = Math.min(2, Math.floor(q)), e = suave(q - seg);
-    const cena = seg === 1 ? mistura(pr.b, pr.a, e) : mistura(pr.a, pr.b, e);
-    return { cena, rotulo: b.rotulo };
-  }
-  return { cena: mistura(pr.a, pr.b, suave(v)), rotulo: b.rotulo };
-}
 
 function beatsDeItem(it) {
   if (it.marca === 'assinado') {
@@ -128,7 +86,7 @@ function beatsDeItem(it) {
     ? [...String(it.palavra).toUpperCase()].filter(l => /[A-Z]/.test(l))
     : (it.letras || []);
   return letras.filter(l => FORMAS_MAO[l]).map(l => ({
-    tipo: 'letra', rotulo: l, forma: l, duas: false, reps: 1, movimento: 'parado',
+    tipo: 'letra', rotulo: l, grupo: it.palavra, forma: l, duas: false, reps: 1, movimento: 'parado',
     pos0: LOCAIS.frente, rot0: [0, 0, 0], pos1: LOCAIS.frente, rot1: [0, 0, 0], dur: 340,
   }));
 }
@@ -148,135 +106,6 @@ function analisarEmBeats(texto) {
     beats.push(...bs, pausa());
   });
   return { frases, beats };
-}
-
-function preparar(texto) {
-  P.texto = String(texto || '');
-  const { frases, beats } = analisarEmBeats(texto);
-  P.frases = frases;
-  P.beats = beats;
-  P.fita = beats.map((b, i) => ({ i, rotulo: b.rotulo, tipo: b.tipo })).filter(b => b.rotulo);
-  P.i = 0;
-  P.t = 0;
-  recalcularPoses();
-  desenhar();
-  pintarFita();
-  pintarContas();
-}
-
-/* passos de osso e poses pré-calculadas a partir dos beats (o relógio manda) */
-function recalcularPoses() {
-  P.passos = (window.SINAL3D && P.beats.length) ? SINAL3D.sequencia(P.beats) : [];
-  P.inicioBeat = [];
-  let acc = 0;
-  P.passos.forEach(s => {
-    if (P.inicioBeat[s.beat] === undefined) P.inicioBeat[s.beat] = acc;
-    acc += s.dur;
-  });
-  P.poses = (P.avatarOn && window.AVATAR && AVATAR.pronto) ? AVATAR.prepararPoses(P.passos) : null;
-}
-
-let ULTIMO_BEAT = -1;
-
-function desenhar() {
-  if (!EL.palco || SG.aberto) return;
-  const b = P.beats[P.i];
-  const rotulo = b && b.tipo !== 'pausa' ? b.rotulo : '';
-  if (P.avatarOn && window.AVATAR && AVATAR.pronto) {
-    if (P.poses && P.poses.length) {
-      const t0 = P.inicioBeat[P.i] || 0;
-      /* parado no início de um salto: a mistura k=0 mostraria a pose anterior */
-      const saltar = P.salto ? 0.2 : 0;
-      P.salto = false;
-      AVATAR.mostrar(P.poses, t0 + P.t / 1000 + saltar);
-    } else {
-      AVATAR.pousar();
-    }
-  } else if (!P.carregando3d) {
-    const { cena, rotulo: r } = cenaEm(P.i, P.t);
-    EL.palco.innerHTML = maoCena(cena, r ? 'Sinal ' + r : 'Sinalizador em repouso');
-  }
-  if (EL.agora) EL.agora.textContent = rotulo || 'Em repouso';
-  if (P.i !== ULTIMO_BEAT) { ULTIMO_BEAT = P.i; marcarFita(); }
-}
-
-function pintarFita() {
-  if (!EL.fita) return;
-  EL.fita.innerHTML = P.fita.map(b => `<button type="button" class="fita-item fita-${b.tipo}" data-beat="${b.i}">${esc(b.rotulo)}</button>`).join('');
-  ULTIMO_BEAT = -1;
-}
-
-function marcarFita() {
-  if (!EL.fita) return;
-  const ativo = P.fita.find(b => b.i === P.i) || [...P.fita].reverse().find(b => b.i <= P.i);
-  $$('.fita-item', EL.fita).forEach(el => {
-    const on = ativo && Number(el.dataset.beat) === ativo.i;
-    el.classList.toggle('on', !!on);
-    if (on && P.tocando) {
-      const r = el.getBoundingClientRect(), c = EL.fita.getBoundingClientRect();
-      if (r.left < c.left || r.right > c.right) el.scrollIntoView({ block: 'nearest', inline: 'center' });
-    }
-  });
-}
-
-function pintarContas() {
-  if (!EL.contas) return;
-  if (!P.frases.length) { EL.contas.textContent = ''; EL.contas.hidden = true; return; }
-  const t = P.frases.reduce((a, f) => ({
-    p: a.p + f.contas.palavras, s: a.s + f.contas.assinados,
-    l: a.l + f.contas.letras, o: a.o + f.contas.omitidos,
-  }), { p: 0, s: 0, l: 0, o: 0 });
-  EL.contas.hidden = false;
-  let texto = `${t.p} palavras · ${t.s} com sinal`;
-  if (t.l) texto += ` · ${t.l} soletradas`;
-  if (t.o) texto += ` · ${t.o} omitidas`;
-  EL.contas.textContent = texto;
-}
-
-function passo(ts) {
-  if (!P.tocando) return;
-  const dt = P.last ? Math.min(80, ts - P.last) : 16;
-  P.last = ts;
-  P.t += dt * P.vel;
-  let b = P.beats[P.i];
-  while (b && P.t >= b.dur) {
-    P.t -= b.dur;
-    P.i += 1;
-    if (P.i >= P.beats.length) {
-      P.i = P.beats.length - 1;
-      P.t = P.beats[P.i] ? P.beats[P.i].dur : 0;
-      pausar();
-      desenhar();
-      return;
-    }
-    b = P.beats[P.i];
-  }
-  desenhar();
-  P.raf = requestAnimationFrame(passo);
-}
-
-function tocar() {
-  if (!P.beats.length) return;
-  if (P.i >= P.beats.length - 1 && P.t >= P.beats[P.i].dur - 1) { P.i = 0; P.t = 0; }
-  P.tocando = true;
-  P.last = 0;
-  if (EL.play) { EL.play.textContent = '❚❚'; EL.play.setAttribute('aria-label', 'Pausa'); }
-  cancelAnimationFrame(P.raf);
-  P.raf = requestAnimationFrame(passo);
-}
-
-function pausar() {
-  P.tocando = false;
-  cancelAnimationFrame(P.raf);
-  if (EL.play) { EL.play.textContent = '▶'; EL.play.setAttribute('aria-label', 'Reproduzir'); }
-}
-
-function irPara(i) {
-  P.i = lim(i, 0, Math.max(0, P.beats.length - 1));
-  P.t = 0;
-  P.salto = true;
-  desenhar();
-  if (P.tocando) { P.last = 0; cancelAnimationFrame(P.raf); P.raf = requestAnimationFrame(passo); }
 }
 
 /* ---------------- seleção de texto ---------------- */
@@ -301,7 +130,7 @@ function atualizarSelecao() {
   if (!pill) return;
   const texto = selecaoNaPagina().replace(/\s+/g, ' ').trim();
   if (texto.length < 3 || !/[A-Za-zÀ-ÿ]/.test(texto)) {
-    pill.hidden = true; SEL_TEXTO = ''; SG.pillVisivel = false; atualizarFab();
+    pill.hidden = true; SEL_TEXTO = '';
     return;
   }
   SEL_TEXTO = texto;
@@ -309,15 +138,11 @@ function atualizarSelecao() {
   pill.querySelector('.sel-txt').textContent = 'Sinalizar «' + (texto.length > 46 ? texto.slice(0, 46).trimEnd() + '…' : texto) + '»';
   pill.querySelector('.sel-conta').textContent = n === 1 ? '1 palavra' : n + ' palavras';
   pill.hidden = false;
-  SG.pillVisivel = true;
-  atualizarFab();
 }
 
 function esconderSelecao() {
   const pill = document.getElementById('sel-pill');
   if (pill) pill.hidden = true;
-  SG.pillVisivel = false;
-  atualizarFab();
   SEL_TEXTO = '';
 }
 
@@ -350,35 +175,11 @@ const SG_FRASE = 'Bom dia! Onde fica a escola? Amanhã eu vou com a minha famíl
 const SG = {
   aberto: false, texto: '', beats: [], passos: [], poses: null, inicio: [], total: 0,
   t: 0, beat: -1, tocando: false, raf: 0, last: 0, vel: 1, repetir: true,
-  pillVisivel: false, palcoAVista: false, editorAVista: false,
+  pronto: false, vivo: false, origem: null, poseLga: null,
 };
 
-/* o botão flutuante sai da frente da bolha de seleção, do transporte do palco
-   e dos botões do editor (no telemóvel tapava o «Ficheiro») */
-function atualizarFab() {
-  const fab = document.getElementById('sg-fab');
-  if (!fab) return;
-  fab.hidden = !!(SG.aberto || SG.pillVisivel || SG.palcoAVista || SG.editorAVista);
-}
-
-let OBS_PALCO = null;
-function vigiarPalco() {
-  if (OBS_PALCO) { OBS_PALCO.disconnect(); OBS_PALCO = null; }
-  SG.palcoAVista = false;
-  SG.editorAVista = false;
-  const alvos = [['palcoAVista', $('#palco-sec')], ['editorAVista', $('.painel.editor')]]
-    .filter(([, el]) => el);
-  if (!alvos.length || !('IntersectionObserver' in window)) return;
-  const chave = new WeakMap(alvos.map(([k, el]) => [el, k]));
-  OBS_PALCO = new IntersectionObserver((entradas) => {
-    entradas.forEach((e) => { SG[chave.get(e.target)] = e.isIntersecting; });
-    atualizarFab();
-  }, { threshold: 0.06 });
-  alvos.forEach(([, el]) => OBS_PALCO.observe(el));
-}
-
-/* o modelo só existe uma vez: o painel leva o mesmo canvas, e o palco da
-   página recebe-o de volta quando o painel fecha */
+/* o modelo só existe uma vez: o painel leva o mesmo canvas, e uma casa fora do
+   ecrã guarda-o quando o painel fecha */
 function casaSigner() {
   let casa = document.getElementById('sg-casa');
   if (!casa) {
@@ -391,16 +192,18 @@ function casaSigner() {
   return casa;
 }
 
+function marcarCheio() {
+  const p = document.getElementById('sg-painel');
+  const b = document.getElementById('sg-cheio');
+  if (!p || !b) return;
+  const on = document.fullscreenElement === p || p.classList.contains('cheio');
+  b.classList.toggle('on', on);
+  b.setAttribute('aria-pressed', String(on));
+  b.setAttribute('aria-label', on ? 'Sair do ecrã inteiro' : 'Ecrã inteiro');
+}
+
 function montarSigner() {
   if (document.getElementById('sg-painel')) return;
-
-  const fab = document.createElement('button');
-  fab.id = 'sg-fab';
-  fab.type = 'button';
-  fab.className = 'sg-fab';
-  fab.setAttribute('aria-expanded', 'false');
-  fab.setAttribute('aria-controls', 'sg-painel');
-  fab.innerHTML = '<img src="assets/logo-mark.png" alt="" width="22" height="22"><span>Sinalizador 3D</span>';
 
   const painel = document.createElement('div');
   painel.id = 'sg-painel';
@@ -411,33 +214,72 @@ function montarSigner() {
   painel.innerHTML = `
     <div class="sg-topo">
       <p class="sg-titulo" id="sg-titulo">${SINALIZADOR.nome} · ${SINALIZADOR.papel}</p>
-      <button class="sg-fechar" id="sg-fechar" type="button" aria-label="Fechar a sinalizadora">×</button>
-    </div>
-    <p class="sg-frase" id="sg-frase"></p>
-    <div class="sg-palco" id="sg-palco"><p class="sg-espera">A preparar a sinalizadora…</p></div>
-    <div class="sg-acoes">
-      <button class="bt icone" id="sg-play" type="button" aria-label="Reproduzir">▶</button>
-      <button class="sg-rep on" id="sg-rep" type="button" aria-pressed="true">Repetir</button>
-      <div class="vel" role="group" aria-label="Velocidade">
-        <button type="button" class="vel-b" data-sgvel="0.5">0,5×</button>
-        <button type="button" class="vel-b on" data-sgvel="1">1×</button>
-        <button type="button" class="vel-b" data-sgvel="1.5">1,5×</button>
+      <span class="sg-modo" id="sg-modo" hidden>modo simples</span>
+      <div class="sg-btns">
+        <button type="button" class="sg-fechar sg-info" id="sg-info" aria-label="Sobre estes gestos" aria-expanded="false">i</button>
+        <span class="sg-info-txt" id="sg-info-txt" role="tooltip">Gestos de estudo inspirados na língua gestual internacional. Não é tradução de LGA: a LGA tem gramática e sinais próprios, e esta versão ainda não foi validada por sinalizadores surdos. No modo ao vivo, o Chrome transcreve o áudio nos servidores da Google e a frase segue para um modelo que escolhe os sinais; nada fica guardado neste aparelho.</span>
+        <button class="sg-fechar" id="sg-cheio" type="button" aria-label="Ecrã inteiro" aria-pressed="false">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg>
+        </button>
+        <button class="sg-fechar" id="sg-fechar" type="button" aria-label="Fechar a sinalizadora">×</button>
       </div>
     </div>
-    <div class="sg-chips" id="sg-chips" aria-label="Glosa"></div>
-    <a class="sg-abrir" id="sg-abrir" href="#/" hidden>Abrir em Sinalizar →</a>
-    <p class="sg-nota">Gestos de estudo inspirados na língua gestual internacional. <b>Não</b> são sinais de LGA validados por sinalizadores surdos.</p>`;
-  document.body.append(painel, fab);
+    <div class="sg-palco" id="sg-palco">
+      <p class="sg-espera">A preparar a sinalizadora…</p>
+      <p class="sg-transcricao" id="sg-transcricao" aria-live="polite" hidden></p>
+      <div class="sg-palco-baixo">
+        <div class="sg-chips" id="sg-chips" aria-label="Glosa"></div>
+        <div class="sg-acoes">
+          <button class="sg-mic" id="sg-mic" type="button" aria-pressed="false" hidden>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>
+            <span id="sg-mic-txt">Microfone</span>
+          </button>
+          <button class="bt icone" id="sg-play" type="button" aria-label="Reproduzir">▶</button>
+          <button class="sg-rep on" id="sg-rep" type="button" aria-pressed="true">Repetir</button>
+          <div class="vel" role="group" aria-label="Velocidade">
+            <button type="button" class="vel-b" data-sgvel="0.5">0,5×</button>
+            <button type="button" class="vel-b on" data-sgvel="1">1×</button>
+            <button type="button" class="vel-b" data-sgvel="1.5">1,5×</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sg-rodape">
+      <p class="sg-frase" id="sg-frase"></p>
+      <p class="sg-nota sg-nota-vivo" id="sg-nota-vivo" hidden>Transcrição do Chrome (servidores Google) · a frase segue para o modelo · nada fica guardado.</p>
+    </div>`;
+  document.body.append(painel);
 
-  fab.addEventListener('click', () => {
-    if (SG.aberto) fecharSigner(); else abrirSigner(SG.texto || SG_FRASE);
-  });
   $('#sg-fechar').addEventListener('click', () => fecharSigner());
+  const info = $('#sg-info');
+  info.addEventListener('click', () => {
+    const on = info.getAttribute('aria-expanded') === 'true';
+    info.setAttribute('aria-expanded', String(!on));
+  });
+  $('#sg-cheio').addEventListener('click', async () => {
+    const p = $('#sg-painel');
+    try {
+      if (document.fullscreenElement) await document.exitFullscreen();
+      else await p.requestFullscreen();
+    } catch (err) {
+      p.classList.toggle('cheio');
+    }
+    marcarCheio();
+  });
+  document.addEventListener('fullscreenchange', marcarCheio);
   $('#sg-play').addEventListener('click', () => { if (SG.tocando) pausarSigner(); else tocarSigner(); });
   $('#sg-rep').addEventListener('click', (e) => {
     SG.repetir = !SG.repetir;
     e.currentTarget.classList.toggle('on', SG.repetir);
     e.currentTarget.setAttribute('aria-pressed', String(SG.repetir));
+    /* Sem ciclo, a sequência pára no fim. Ligar «Repetir» com a cabeça no fim
+       não mudava nada no ecrã: recomeça para a pessoa ver o ciclo a andar. */
+    if (SG.repetir && SG.total && SG.t >= SG.total - 0.05) {
+      SG.t = 0;
+      SG.beat = -1;
+      desenharSigner(0);
+      if (!SG.tocando) tocarSigner();
+    }
   });
   $$('[data-sgvel]').forEach(b => b.addEventListener('click', () => {
     SG.vel = Number(b.dataset.sgvel);
@@ -451,190 +293,341 @@ function montarSigner() {
     desenharSigner(SG.t);
     if (!SG.tocando) tocarSigner();
   });
+  $('#sg-mic').addEventListener('click', () => {
+    if (AO_VIVO.ligado()) pararAoVivo();
+    else ligarAoVivo();
+  });
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && SG.aberto) fecharSigner();
+    if (e.key === 'Escape' && SG.aberto && !document.fullscreenElement) fecharSigner();
   });
 }
 
 async function abrirSigner(texto) {
-  if (!document.getElementById('sg-painel')) montarSigner();
-  const notaEl = $('#sg-painel .sg-nota');
-  if (notaEl) {
-    notaEl.innerHTML = 'Gestos de estudo inspirados na língua gestual internacional. <b>Não</b> são sinais de LGA validados por sinalizadores surdos.';
+  const t = String(texto || '').replace(/\s+/g, ' ').trim() || SG_FRASE;
+  SG.poseLga = null;
+  return abrirSignerBeats(t, analisarEmBeats(t).beats, {});
+}
+
+/* Uma pose (ou uma lista de passos, nos sinais compostos) vinda da notação da
+   LGA: o painel mostra a mão em repouso entre repetições em vez de glosar a
+   palavra por regras que não são da LGA. */
+async function abrirSignerNotacao(notacao, rotulo, aproximado, dur) {
+  const partes = (Array.isArray(notacao) ? notacao : [notacao]).map(t => String(t).trim()).filter(Boolean);
+  const beats = [];
+  for (const parte of partes) {
+    const n = window.sinalDeNotacao ? sinalDeNotacao(parte, {}) : null;
+    if (!n) continue;
+    beats.push({
+      tipo: 'sinal', rotulo: rotulo || '', forma: n.forma, duas: n.duas, reps: n.reps, local: n.local,
+      pos0: n.inicio.pos, rot0: n.inicio.rot, pos1: n.fim.pos, rot1: n.fim.rot,
+      dur: (Array.isArray(dur) ? dur[beats.length] : dur) || 760,
+      palma: n.palma, esq: n.esq, amp: n.amp, movimento: n.movimento,
+      chip: beats.length === 0,
+    });
   }
-  const t = String(texto || '').replace(/\s+/g, ' ').trim() || SG.texto || SG_FRASE;
+  if (!beats.length) return false;
+  SG.poseLga = { notacao: partes, rotulo, aproximado: !!aproximado, dur: dur || null };
+  await abrirSignerBeats(rotulo || '', [...beats, pausa()], { notacao: true, aproximado: !!aproximado });
+  return true;
+}
+
+function esperaPalco(msg) {
+  const p = $('#sg-palco');
+  if (!p) return;
+  let e = p.querySelector('.sg-espera');
+  if (!e) {
+    e = document.createElement('p');
+    e.className = 'sg-espera';
+    p.prepend(e);
+  }
+  e.textContent = msg;
+}
+
+async function abrirSignerBeats(t, beats, opcoes) {
+  const o = opcoes || {};
+  if (!document.getElementById('sg-painel')) montarSigner();
+  if (!SG.aberto) SG.origem = document.activeElement;
   SG.texto = t;
   SG.aberto = true;
-  SG.beats = analisarEmBeats(t).beats;
+  SG.vivo = !!o.vivo;
+  if (!o.vivo && window.AO_VIVO && AO_VIVO.ligado()) pararAoVivo();
+  SG.beats = beats.slice();
   SG.passos = [];
   SG.poses = null;
   SG.inicio = [];
   SG.total = 0;
   SG.t = 0;
   SG.beat = -1;
-  pausar(); /* o leitor da página não pode conduzir o avatar com o painel aberto */
+  SG.pronto = false;
   $('#sg-painel').hidden = false;
-  $('#sg-fab').setAttribute('aria-expanded', 'true');
-  atualizarFab();
-  $('#sg-frase').textContent = '«' + t + '»';
+  $('#sg-frase').textContent = o.vivo ? 'Ao vivo · a ouvir' : '«' + t + '»' + (o.aproximado ? ' · aproximação à aula' : '');
+  $('#sg-nota-vivo').hidden = !o.vivo;
+  $('#sg-mic').hidden = !o.vivo;
+  const transcricao = $('#sg-transcricao');
+  if (transcricao) { transcricao.hidden = true; transcricao.textContent = ''; }
   pintarChipsSigner();
-  const abrir = $('#sg-abrir');
-  if (abrir) {
-    const rota = (location.hash || '').replace(/^#/, '').split('?')[0] || '/';
-    abrir.hidden = rota !== '/dicionario';
-    abrir.href = '#/?s=' + encodeURIComponent(t);
-  }
   $('#sg-fechar').focus({ preventScroll: true });
 
   const palco = $('#sg-palco');
   if (!(window.AVATAR && window.SINAL3D)) {
-    palco.innerHTML = '<p class="sg-espera">O modelo 3D não carregou.</p>';
+    esperaPalco('O modelo 3D não carregou.');
     return;
   }
-  if (!SG.beats.length) {
-    palco.innerHTML = '<p class="sg-espera">Sem sinais para esta frase. Escreve outra.</p>';
+  if (!SG.beats.length && !o.vivo) {
+    esperaPalco('Sem sinais para esta frase. Escreve outra.');
     return;
   }
   try {
-    await AVATAR.init(palco);
-    /* fechado enquanto o modelo carregava: o canvas volta para o palco da página */
+    await AVATAR.init(palco, { progresso: espera3d });
+    /* fechado enquanto o modelo carregava: o canvas volta para a casa */
     if (!SG.aberto) { devolverAvatar(); return; }
     const espera = palco.querySelector('.sg-espera');
     if (espera) espera.remove();
-    AVATAR.enquadrar('busto', 1.16);
-    SG.passos = SINAL3D.sequencia(SG.beats);
-    let acc = 0;
-    SG.passos.forEach((p) => {
-      if (SG.inicio[p.beat] === undefined) SG.inicio[p.beat] = acc;
-      acc += p.dur;
-    });
-    SG.total = acc;
-    SG.poses = AVATAR.prepararPoses(SG.passos);
-    if (!SG.poses.length) throw new Error('sem passos');
+    /* painel de 100dvh: enquadra dos joelhos ao alto dos braços */
+    AVATAR.enquadrar('joelhos', 1.0);
+    montarTimeline();
+    SG.pronto = true;
+    if (!SG.poses.length) { AVATAR.pousar(); return; }
     if (A11Y.movimento || matchMedia('(prefers-reduced-motion: reduce)').matches) desenharSigner(0);
     else tocarSigner();
   } catch (err) {
-    palco.innerHTML = '<p class="sg-espera">O modelo 3D não carregou.</p>';
+    esperaPalco('O modelo 3D não carregou.');
   }
 }
 
-function notacaoParaBeat(notacao, rotulo) {
-  let texto = String(notacao || '').trim(), duas = false;
-  if (texto.startsWith('2:')) { duas = true; texto = texto.slice(2).trim(); }
-  const [forma, local, mov] = texto.split(/\s+/);
-  if (!window.FORMAS_MAO || !window.FORMAS_MAO[forma] || !window.LOCAIS || !window.LOCAIS[local]) return null;
-  const [delta, giro] = (window.MOVIMENTOS && window.MOVIMENTOS[mov]) || [[0, 0, 0], [0, 0, 0]];
-  const L = window.LOCAIS[local];
-  const p = Array.isArray(L) ? L : L.p;
-  const base = Array.isArray(L) ? [0, 0, 0] : L.rot;
-  return {
-    tipo: 'sinal', rotulo: rotulo || '', forma, duas, reps: mov === 'repete' ? 2 : 1, local,
-    pos0: p.slice(), rot0: base.slice(),
-    pos1: [p[0] + delta[0], p[1] + delta[1], p[2] + delta[2]],
-    rot1: [base[0] + giro[0], base[1] + giro[1], base[2] + giro[2]],
-    dur: 760, palma: null, esq: null, amp: null, movimento: mov,
-  };
-}
-
-async function abrirSignerNotacao(notacao, rotulo, aproximado) {
-  if (!document.getElementById('sg-painel')) montarSigner();
-  const b = notacaoParaBeat(notacao, rotulo);
-  if (!b) return;
-  const r = String(rotulo || '').trim();
-  const ehAprox = !!aproximado;
-  const notaEl = $('#sg-painel .sg-nota');
-  if (notaEl) {
-    notaEl.innerHTML = ehAprox
-      ? 'Aproximação baseada nas aulas do Viva surdo. <b>Não</b> são sinais de LGA validados por sinalizadores surdos.'
-      : 'Leitura nossa das aulas do Viva surdo. <b>Não</b> são sinais de LGA validados por sinalizadores surdos.';
-  }
-  SG.texto = r;
-  SG.aberto = true;
-  SG.beats = [b, pausa()];
-  SG.passos = [];
-  SG.poses = null;
+/* Os beats viram passos e poses. Feito à parte para a fila do modo ao vivo
+   poder crescer sem reabrir o painel. */
+function montarTimeline() {
+  SG.passos = SG.beats.length ? SINAL3D.sequencia(SG.beats) : [];
   SG.inicio = [];
-  SG.total = 0;
-  SG.t = 0;
-  SG.beat = -1;
-  pausar();
-  $('#sg-painel').hidden = false;
-  $('#sg-fab').setAttribute('aria-expanded', 'true');
-  atualizarFab();
-  $('#sg-frase').textContent = '«' + r + '»';
-  pintarChipsSigner();
-  const abrir = $('#sg-abrir');
-  if (abrir) abrir.hidden = true;
-  $('#sg-fechar').focus({ preventScroll: true });
-
-  const palco = $('#sg-palco');
-  if (!(window.AVATAR && window.SINAL3D)) {
-    palco.innerHTML = '<p class="sg-espera">O modelo 3D não carregou.</p>';
-    return;
-  }
-  try {
-    await AVATAR.init(palco);
-    if (!SG.aberto) { devolverAvatar(); return; }
-    const espera = palco.querySelector('.sg-espera');
-    if (espera) espera.remove();
-    AVATAR.enquadrar('busto', 1.16);
-    SG.passos = SINAL3D.sequencia(SG.beats);
-    let acc = 0;
-    SG.passos.forEach((p) => {
-      if (SG.inicio[p.beat] === undefined) SG.inicio[p.beat] = acc;
-      acc += p.dur;
-    });
-    SG.total = acc;
-    SG.poses = AVATAR.prepararPoses(SG.passos);
-    if (!SG.poses.length) throw new Error('sem passos');
-    if (A11Y.movimento || matchMedia('(prefers-reduced-motion: reduce)').matches) desenharSigner(0);
-    else tocarSigner();
-  } catch (err) {
-    palco.innerHTML = '<p class="sg-espera">O modelo 3D não carregou.</p>';
-  }
+  let acc = 0;
+  SG.passos.forEach((p) => {
+    if (SG.inicio[p.beat] === undefined) SG.inicio[p.beat] = acc;
+    acc += p.dur;
+  });
+  SG.total = acc;
+  SG.poses = SG.passos.length ? AVATAR.prepararPoses(SG.passos) : [];
 }
-window.abrirSignerNotacao = abrirSignerNotacao;
 
 function devolverAvatar() {
   if (!(window.AVATAR && AVATAR.pronto)) return;
   AVATAR.pousar();
-  const casa = (EL.palco && EL.palco.isConnected) ? EL.palco : casaSigner();
-  AVATAR.init(casa);
-  if (casa === EL.palco) { AVATAR.enquadrar('busto', 1.18); desenhar(); }
+  AVATAR.init(casaSigner());
 }
 
 function fecharSigner(silencioso) {
   const painel = document.getElementById('sg-painel');
   if (!painel || painel.hidden) return;
+  if (document.fullscreenElement === painel) document.exitFullscreen().catch(() => {});
+  painel.classList.remove('cheio');
+  marcarCheio();
   painel.hidden = true;
   SG.aberto = false;
+  SG.vivo = false;
+  SG.pronto = false;
   SG.tocando = false;
   cancelAnimationFrame(SG.raf);
   SG.t = 0;
   SG.beat = -1;
-  const fab = document.getElementById('sg-fab');
-  if (fab) {
-    fab.setAttribute('aria-expanded', 'false');
-    atualizarFab();
-    if (!fab.hidden && !silencioso) fab.focus();
-  }
+  if (window.AO_VIVO && AO_VIVO.ligado()) pararAoVivo();
   const play = $('#sg-play');
   if (play) { play.textContent = '▶'; play.setAttribute('aria-label', 'Reproduzir'); }
   devolverAvatar();
+  const origem = SG.origem;
+  SG.origem = null;
+  if (!silencioso && origem && origem.isConnected && origem.focus) origem.focus({ preventScroll: true });
+}
+
+/* ---------------- modo ao vivo ---------------- */
+/* A fila é uma promessa encadeada: duas frases seguidas nunca chegam ao painel
+   fora de ordem, mesmo que a segunda resposta seja mais rápida. */
+const VIVO = { fila: Promise.resolve(), simples: false, fechada: '' };
+
+/* A cinta azul da borda acende enquanto o microfone ouve. O desenho é CSS
+   (`index.html` + `styles.css`); aqui só se liga a classe que a acende. */
+const BRILHO = {
+  sincronizar() {
+    const on = !!(window.AO_VIVO && AO_VIVO.ligado());
+    document.documentElement.classList.toggle('vivo-ligado', on);
+  },
+};
+BRILHO.sincronizar();
+
+function mostrarTranscricao(provisorio, fechada) {
+  const caixa = $('#sg-transcricao');
+  if (!caixa) return;
+  const texto = [fechada, provisorio].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
+  caixa.hidden = !texto;
+  caixa.textContent = texto.length > 170 ? '…' + texto.slice(-170) : texto;
+  caixa.classList.toggle('provisoria', !!provisorio);
+}
+
+function marcarModoSimples() {
+  VIVO.simples = true;
+  const m = $('#sg-modo');
+  if (m) m.hidden = false;
+}
+
+async function pedirSinais(frase) {
+  const r = await fetch('api/sinais', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ frase }),
+  });
+  if (!r.ok) throw new Error('http ' + r.status);
+  const d = await r.json();
+  return Array.isArray(d && d.sinais) ? d.sinais : null;
+}
+
+function beatsDePalavras(palavras) {
+  const beats = [];
+  palavras.forEach((p) => {
+    const n = sinalNotacao(String(p).toLowerCase().trim());
+    if (!n) return;
+    beats.push({
+      tipo: 'sinal', rotulo: p, forma: n.forma, duas: n.duas, reps: n.reps, local: n.local,
+      pos0: n.inicio.pos, rot0: n.inicio.rot, pos1: n.fim.pos, rot1: n.fim.rot, dur: 760,
+      palma: n.palma, esq: n.esq, amp: n.amp, movimento: n.movimento,
+    });
+  });
+  return beats;
+}
+
+function anexarAoPalco(beats) {
+  if (!beats || !beats.length || !SG.aberto) return;
+  SG.beats = SG.beats.concat(beats, pausa());
+  pintarChipsSigner();
+  if (!SG.pronto) return; /* o init usa SG.beats quando o modelo ficar pronto */
+  const t = SG.t;
+  montarTimeline();
+  SG.t = Math.min(t, Math.max(0, SG.total - 1));
+  SG.beat = -1;
+  desenharSigner(SG.t);
+  if (!SG.tocando) tocarSigner();
+}
+
+function enfileirarFrase(frase) {
+  VIVO.fila = VIVO.fila.then(async () => {
+    if (!SG.aberto || !SG.vivo) return;
+    let palavras = null;
+    try { palavras = await pedirSinais(frase); } catch (e) { palavras = null; }
+    if (!SG.aberto || !SG.vivo) return;
+    let beats;
+    if (palavras) {
+      beats = beatsDePalavras(palavras);
+    } else {
+      /* sem função (Pages), sem rede ou sem chave: o motor de regras segura a
+         glosa e o painel diz que está no modo simples */
+      marcarModoSimples();
+      beats = analisarEmBeats(frase).beats;
+    }
+    anexarAoPalco(beats);
+  });
+}
+
+function ligarAoVivo() {
+  if (!window.AO_VIVO) return;
+  SG.repetir = false;
+  const rep = $('#sg-rep');
+  if (rep) { rep.classList.remove('on'); rep.setAttribute('aria-pressed', 'false'); }
+  const ok = AO_VIVO.iniciar({
+    aoProvisorio: (txt) => mostrarTranscricao(txt, VIVO.fechada),
+    aoFrase: (frase) => {
+      VIVO.fechada = (VIVO.fechada + ' ' + frase).replace(/\s+/g, ' ').trim().slice(-170);
+      mostrarTranscricao('', VIVO.fechada);
+      enfileirarFrase(frase);
+    },
+    aoErro: (erro, fatal) => {
+      BRILHO.sincronizar();
+      if (erro === 'not-allowed' || erro === 'service-not-allowed') {
+        mostrarTranscricao('Permissão do microfone recusada.', '');
+        return;
+      }
+      if (erro === 'audio-capture') {
+        mostrarTranscricao('Não encontrei um microfone.', '');
+        return;
+      }
+      if (fatal) mostrarTranscricao('O reconhecimento de fala parou.', '');
+    },
+  });
+  const botao = $('#sg-mic');
+  const ligado = !!(ok && AO_VIVO.ligado());
+  if (botao) {
+    botao.classList.toggle('on', ligado);
+    botao.setAttribute('aria-pressed', String(ligado));
+  }
+  const rotulo = $('#sg-mic-txt');
+  if (rotulo) rotulo.textContent = ligado ? 'A ouvir' : 'Microfone';
+  BRILHO.sincronizar();
+}
+
+function pararAoVivo() {
+  if (window.AO_VIVO) AO_VIVO.parar();
+  BRILHO.sincronizar();
+  const botao = $('#sg-mic');
+  if (botao) { botao.classList.remove('on'); botao.setAttribute('aria-pressed', 'false'); }
+  const rotulo = $('#sg-mic-txt');
+  if (rotulo) rotulo.textContent = 'Microfone';
+}
+
+function abrirAoVivo() {
+  VIVO.fechada = '';
+  VIVO.simples = false;
+  const modo = $('#sg-modo');
+  if (modo) modo.hidden = true;
+  abrirSignerBeats('', [], { vivo: true });
+  if (!window.AO_VIVO || !AO_VIVO.suportado()) {
+    mostrarTranscricao('Este navegador não reconhece fala. Usa o cartão Texto.', '');
+    return;
+  }
+  ligarAoVivo();
+}
+
+/* Uma palavra soletrada dá um beat por letra para o corpo, mas no ecrã é uma
+   palavra só: a glosa agrupa letras seguidas da mesma palavra num único chip. */
+function glosaSigner() {
+  const out = [];
+  SG.beats.forEach((b, i) => {
+    if (!b.rotulo || b.tipo === 'pausa' || b.chip === false) return;
+    const ult = out[out.length - 1];
+    if (b.tipo === 'letra') {
+      if (ult && ult.tipo === 'letra' && ult.grupo === b.grupo && ult.fim === i - 1) {
+        ult.fim = i;
+        return;
+      }
+      out.push({ tipo: 'letra', grupo: b.grupo, rotulo: b.grupo || b.rotulo, ini: i, fim: i });
+      return;
+    }
+    out.push({ tipo: b.tipo, rotulo: b.rotulo, ini: i, fim: i });
+  });
+  return out;
 }
 
 function pintarChipsSigner() {
   const caixa = $('#sg-chips');
   if (!caixa) return;
-  caixa.innerHTML = SG.beats.map((b, i) => (!b.rotulo || b.tipo === 'pausa') ? ''
-    : `<button type="button" class="sg-chip${b.tipo === 'letra' ? ' sg-letra' : ''}" data-beat="${i}">${esc(b.rotulo)}</button>`).join('');
+  caixa.innerHTML = glosaSigner().map(c =>
+    `<button type="button" class="sg-chip${c.tipo === 'letra' ? ' sg-letra' : ''}" data-beat="${c.ini}" data-fim="${c.fim}">${esc(c.rotulo)}</button>`
+  ).join('');
   SG.beat = -1;
+  caixa.scrollLeft = 0;
 }
 
 function marcarChipsSigner() {
   const caixa = $('#sg-chips');
   if (!caixa) return;
-  $$('[data-beat]', caixa).forEach(el => el.classList.toggle('on', Number(el.dataset.beat) === SG.beat));
+  let ativo = null;
+  $$('[data-beat]', caixa).forEach((el) => {
+    const on = SG.beat >= Number(el.dataset.beat) && SG.beat <= Number(el.dataset.fim || el.dataset.beat);
+    el.classList.toggle('on', on);
+    el.setAttribute('aria-current', on ? 'true' : 'false');
+    if (on) ativo = el;
+  });
+  if (!ativo) return;
+  /* a fila desliza sozinha para a palavra que está a ser sinalizada */
+  const alvo = ativo.offsetLeft - (caixa.clientWidth - ativo.offsetWidth) / 2;
+  const max = caixa.scrollWidth - caixa.clientWidth;
+  caixa.scrollLeft = Math.max(0, Math.min(max, alvo));
 }
 
 function beatEm(t) {
@@ -793,47 +786,90 @@ const matchRoute = (hash) => {
 
 const NAV = [['/', 'Sinalizar'], ['/dicionario', 'Dicionário']];
 
-/* Ilustrações dos cartões da entrada: traço, não fotografia. */
+/* Ilustrações dos cartões. Tudo a `currentColor` e a opacidades: a mesma arte
+   serve o tema claro, o escuro e o contraste alto sem cores cravadas. Só
+   objectos — mão desenhada a partir de rectângulos lia-se como luva. */
 const ARTE = {
-  texto: `<svg viewBox="0 0 320 150" fill="none" aria-hidden="true">
-      <rect x="24" y="22" width="164" height="106" rx="15" fill="var(--surface)" stroke="currentColor" stroke-opacity=".4" stroke-width="3"/>
-      <rect x="38" y="42" width="86" height="9" rx="4.5" fill="currentColor" fill-opacity=".38"/>
-      <rect x="36" y="60" width="140" height="22" rx="8" fill="var(--brand)" fill-opacity=".22"/>
-      <rect x="38" y="66" width="124" height="9" rx="4.5" fill="currentColor" fill-opacity=".85"/>
-      <rect x="38" y="92" width="70" height="9" rx="4.5" fill="currentColor" fill-opacity=".38"/>
-      <g stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(212 30)">
-        <rect x="16" y="50" width="52" height="42" rx="16"/>
-        <path d="M25 50V32a6.5 6.5 0 0 1 13 0v18"/>
-        <path d="M38 50V25a6.5 6.5 0 0 1 13 0v25"/>
-        <path d="M51 50V31a6.5 6.5 0 0 1 13 0v19"/>
-        <path d="M64 54V45a6.5 6.5 0 0 1 13 0v9"/>
-        <path d="M16 64c-7 0-11 5-11 10s4 9 11 9"/>
+  /* O editor com a linha que está a ser sinalizada e o selo do texto. */
+  texto: `<svg viewBox="0 0 320 186" fill="none" aria-hidden="true">
+      <g transform="rotate(-3 118 92)">
+        <rect x="26" y="26" width="180" height="122" rx="15" fill="currentColor" fill-opacity=".14"/>
+        <rect x="26" y="26" width="180" height="122" rx="15" stroke="currentColor" stroke-opacity=".5" stroke-width="2.5"/>
+        <rect x="26" y="26" width="180" height="25" rx="12.5" fill="currentColor" fill-opacity=".13"/>
+        <circle cx="42" cy="38.5" r="3.4" fill="currentColor" fill-opacity=".85"/>
+        <circle cx="54" cy="38.5" r="3.4" fill="currentColor" fill-opacity=".85"/>
+        <circle cx="66" cy="38.5" r="3.4" fill="currentColor" fill-opacity=".85"/>
+        <rect x="42" y="68" width="92" height="8" rx="4" fill="currentColor" fill-opacity=".45"/>
+        <rect x="42" y="86" width="132" height="16" rx="8" fill="currentColor" fill-opacity=".2"/>
+        <rect x="44" y="90" width="106" height="8" rx="4" fill="currentColor"/>
+        <rect x="154" y="88" width="3" height="12" fill="currentColor"/>
+        <rect x="42" y="114" width="76" height="8" rx="4" fill="currentColor" fill-opacity=".45"/>
+        <rect x="42" y="130" width="50" height="8" rx="4" fill="currentColor" fill-opacity=".28"/>
+      </g>
+      <circle cx="256" cy="102" r="37" fill="currentColor" fill-opacity=".12"/>
+      <circle cx="256" cy="102" r="37" stroke="currentColor" stroke-opacity=".45" stroke-width="2.5"/>
+      <text x="256" y="114" text-anchor="middle" fill="currentColor" style="font:900 30px/1 var(--display);letter-spacing:-.5px">Aa</text>
+    </svg>`,
+  /* O microfone, as ondas e a legenda que fecha a frase. */
+  aoVivo: `<svg viewBox="0 0 320 186" fill="none" aria-hidden="true">
+      <g transform="translate(72 34)">
+        <rect x="-16" y="0" width="32" height="62" rx="16" fill="currentColor" fill-opacity=".9"/>
+        <rect x="-8" y="10" width="16" height="42" rx="8" fill="var(--surface)" fill-opacity=".55"/>
+        <path d="M-30 40v6a30 30 0 0 0 60 0v-6" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+        <path d="M0 76v18" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+        <path d="M-22 100h44" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-opacity=".6"/>
+      </g>
+      <g stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-opacity=".5">
+        <path d="M130 74h10M134 90h8M130 106h10"/>
+        <path d="M152 62h16M156 78h20M152 94h16M156 110h20"/>
+      </g>
+      <g transform="translate(196 50)">
+        <rect width="104" height="86" rx="14" fill="currentColor" fill-opacity=".12"/>
+        <rect width="104" height="86" rx="14" stroke="currentColor" stroke-opacity=".5" stroke-width="2.5"/>
+        <circle cx="88" cy="18" r="4.5" fill="currentColor"/>
+        <rect x="14" y="32" width="76" height="9" rx="4.5" fill="currentColor" fill-opacity=".9"/>
+        <rect x="14" y="50" width="58" height="9" rx="4.5" fill="currentColor" fill-opacity=".55"/>
+        <rect x="14" y="68" width="40" height="9" rx="4.5" fill="currentColor" fill-opacity=".3"/>
       </g>
     </svg>`,
-  legendas: `<svg viewBox="0 0 320 150" fill="none" aria-hidden="true">
-      <rect x="22" y="30" width="276" height="92" rx="16" fill="var(--surface)" stroke="currentColor" stroke-opacity=".4" stroke-width="3"/>
-      <g fill="currentColor" fill-opacity=".24">
-        <rect x="38" y="40" width="12" height="8" rx="2"/><rect x="60" y="40" width="12" height="8" rx="2"/><rect x="82" y="40" width="12" height="8" rx="2"/>
-        <rect x="38" y="102" width="12" height="8" rx="2"/><rect x="60" y="102" width="12" height="8" rx="2"/><rect x="82" y="102" width="12" height="8" rx="2"/>
-        <rect x="226" y="40" width="12" height="8" rx="2"/><rect x="248" y="40" width="12" height="8" rx="2"/><rect x="270" y="40" width="12" height="8" rx="2"/>
-        <rect x="226" y="102" width="12" height="8" rx="2"/><rect x="248" y="102" width="12" height="8" rx="2"/><rect x="270" y="102" width="12" height="8" rx="2"/>
+  /* O livro aberto do léxico e a lupa. */
+  dicionario: `<svg viewBox="0 0 320 186" fill="none" aria-hidden="true">
+      <path d="M160 52 56 62v82l104 12 104-12V62z" fill="currentColor" fill-opacity=".1" stroke="currentColor" stroke-opacity=".55" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M158 44 60 54v80l98 10z" fill="currentColor" fill-opacity=".2" stroke="currentColor" stroke-opacity=".55" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M162 44l98 10v80l-98 10z" fill="currentColor" fill-opacity=".28" stroke="currentColor" stroke-opacity=".55" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M160 44v100" stroke="currentColor" stroke-opacity=".7" stroke-width="2.5"/>
+      <g stroke="currentColor" stroke-linecap="round" stroke-width="6">
+        <path d="M74 72h64M74 88h52M74 104h58" stroke-opacity=".5"/>
+        <path d="M182 72h64M182 88h52M182 104h58" stroke-opacity=".62"/>
       </g>
-      <rect x="104" y="58" width="112" height="36" rx="10" fill="currentColor" fill-opacity=".1"/>
-      <rect x="116" y="66" width="88" height="8" rx="4" fill="currentColor" fill-opacity=".7"/>
-      <rect x="128" y="80" width="64" height="8" rx="4" fill="currentColor" fill-opacity=".4"/>
+      <path d="M226 50V30h13v20l-6.5-6z" fill="currentColor" fill-opacity=".85"/>
+      <g transform="translate(248 120)">
+        <circle r="26" fill="currentColor" fill-opacity=".1" stroke="currentColor" stroke-opacity=".9" stroke-width="3.5"/>
+        <path d="M19 19l16 16" stroke="currentColor" stroke-opacity=".9" stroke-width="7" stroke-linecap="round"/>
+      </g>
     </svg>`,
-  dicionario: `<svg viewBox="0 0 320 150" fill="none" aria-hidden="true">
-      <rect x="34" y="20" width="150" height="110" rx="16" fill="var(--surface)" stroke="currentColor" stroke-opacity=".4" stroke-width="3"/>
-      <g stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" transform="translate(56 36)">
-        <rect x="14" y="40" width="48" height="38" rx="14"/>
-        <path d="M23 40V22a6 6 0 0 1 12 0v18"/>
-        <path d="M35 40V16a6 6 0 0 1 12 0v24"/>
-        <path d="M47 40V23a6 6 0 0 1 12 0v17"/>
-        <path d="M59 44v-8a6 6 0 0 1 12 0v8"/>
-        <path d="M14 54c-6 0-10 5-10 9s4 9 10 9"/>
-      </g>
-      <circle cx="214" cy="96" r="34" fill="var(--yellow)" fill-opacity=".35" stroke="currentColor" stroke-width="4"/>
-      <path d="M238 120l24 24" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+  /* Cartão da fonte LGA: a bandeira de Angola no mastro — vermelho sobre negro,
+     com a catana, a meia engrenagem e a estrela a amarelo. */
+  fonteLga: `<svg viewBox="0 0 320 186" fill="none" aria-hidden="true">
+      <rect x="70" y="50" width="9" height="122" rx="4.5" fill="#59606E"/>
+      <circle cx="74.5" cy="44" r="6.5" fill="#59606E"/>
+      <rect x="79" y="52" width="190" height="127" rx="3" fill="#CC092F"/>
+      <path d="M79 115.5h190V176a3 3 0 0 1-3 3H82a3 3 0 0 1-3-3z" fill="#14161A"/>
+      <path d="M 156,150 L 155.4,156 L 148.8,155.1 L 149.8,149.2 L 146.8,148.2 L 146.8,148.2 L 144,153.5 L 138.2,150.1 L 141.4,145 L 139,143 L 139,143 L 134.4,146.8 L 130.3,141.5 L 135.2,138 L 133.8,135.2 L 133.8,135.2 L 128.1,136.9 L 126.3,130.5 L 132.2,129.1 L 132,126 L 132,126 L 126,125.4 L 126.9,118.8 L 132.8,119.8 L 133.8,116.8 L 133.8,116.8 L 128.5,114 L 131.9,108.2 L 137,111.4 L 139,109 L 139,109 L 135.2,104.4 L 140.5,100.3 L 144,105.2 L 146.8,103.8 L 146.8,103.8 L 145.1,98.1 L 151.5,96.3 L 152.9,102.2 L 156,102 L 156,113 L 151,114 L 146.8,116.8 L 144,121 L 143,126 L 144,131 L 146.8,135.2 L 151,138 L 156,139 Z" fill="#FFCB00"/>
+      <path d="M214 90c-18 18-30 42-37 66l-8-2c7-25 20-46 39-64z" fill="#FFCB00"/>
+      <rect x="146" y="151" width="30" height="9" rx="4.5" transform="rotate(-40 161 155)" fill="#FFCB00"/>
+      <path d="M 176,77 L 180.4,88.9 L 193.1,89.4 L 183.2,97.3 L 186.6,109.6 L 176,102.6 L 165.4,109.6 L 168.8,97.3 L 158.9,89.4 L 171.6,88.9 Z" fill="#FFCB00"/>
+      <rect x="79" y="52" width="190" height="127" rx="3" stroke="currentColor" stroke-opacity=".2"/>
+    </svg>`,
+  /* Cartão da fonte IS: o globo do léxico e o play. */
+  fonteIs: `<svg viewBox="0 0 320 186" fill="none" aria-hidden="true">
+      <circle cx="150" cy="93" r="58" fill="currentColor" fill-opacity=".1" stroke="currentColor" stroke-opacity=".8" stroke-width="3.5"/>
+      <ellipse cx="150" cy="93" rx="26" ry="58" stroke="currentColor" stroke-opacity=".55" stroke-width="2.5"/>
+      <path d="M122 44c14 30 14 68 0 98M178 44c-14 30-14 68 0 98" stroke="currentColor" stroke-opacity=".42" stroke-width="2.5"/>
+      <path d="M92 93h116" stroke="currentColor" stroke-opacity=".55" stroke-width="2.5"/>
+      <path d="M101 63h98M101 123h98" stroke="currentColor" stroke-opacity=".4" stroke-width="2.5"/>
+      <circle cx="208" cy="134" r="27" fill="currentColor"/>
+      <path d="M200 121l20 13-20 13z" fill="var(--surface)"/>
     </svg>`,
 };
 
@@ -856,6 +892,22 @@ function shell(conteudo, ativo) {
         <img class="rodape-marca" src="assets/logo-emblem.png" alt="" width="41" height="34">
         <p>Protótipo da Viva Surdo. As associações palavra-sinal estão <b>por validar</b> por sinalizadores surdos.</p>
       </div>
+      <div class="rodape-creditos">
+        <p class="creditos-marcas">
+          <span class="credito-marca">
+            <img src="assets/logo-mark.png" alt="" width="18" height="18">
+            <span>Viva Surdo</span>
+          </span>
+          <span class="credito-e" aria-hidden="true">+</span>
+          <span class="credito-marca credito-hf" tabindex="0" aria-describedby="credito-nif">
+            <span class="credito-sigla" aria-hidden="true">HF</span>
+            <span>Horizonte Futuro</span>
+            <span class="credito-nif" id="credito-nif" role="tooltip">NIF 5002540410</span>
+          </span>
+        </p>
+        <p class="creditos-txt">Aplicação criada pela <b>Horizonte Futuro</b> em parceria com a <b>Viva Surdo</b>.</p>
+        <p class="creditos-dir">Todos os direitos reservados 2026.</p>
+      </div>
     </footer>`;
 }
 
@@ -865,232 +917,230 @@ function vistaSinalizar() {
   <section class="entrada">
     <p class="kicker">Protótipo · Viva Surdo</p>
     <h1>Texto em,<br><em>sinais</em> out.</h1>
-    <p class="sub">Cola uma frase, um texto ou as legendas de um filme. Vê a glosa em sinais, gesto a gesto.</p>
+    <p class="sub">Escreve, carrega um ficheiro ou fala: a ${SINALIZADOR.nome} acompanha em gestos de estudo, gesto a gesto.</p>
   </section>
 
   <section class="modo-grid" aria-label="Começar">
     <button class="modo-card texto" type="button" data-modo="texto">
       <span class="mode-art">${ARTE.texto}</span>
       <span class="mode-copy">
-        <span class="mode-head"><span class="mode-name">Texto</span><span class="mode-go" aria-hidden="true">→</span></span>
-        <span class="mode-sub">Cola aqui e vê sinal a sinal.</span>
+        <span class="mode-name">Texto</span>
+        <span class="mode-sub">Uma caixa de texto, ou um ficheiro .txt, .srt, .vtt ou PDF.</span>
+        <span class="mode-foot">
+          <span class="mode-cta">Abrir a caixa de texto</span>
+          <span class="mode-go" aria-hidden="true">↗</span>
+        </span>
       </span>
     </button>
-    <button class="modo-card legendas" type="button" data-modo="legendas">
-      <span class="mode-art">${ARTE.legendas}</span>
+    <button class="modo-card ao-vivo" type="button" data-modo="ao-vivo">
+      <span class="mode-art">${ARTE.aoVivo}</span>
       <span class="mode-copy">
-        <span class="mode-head"><span class="mode-name">Legendas</span><span class="mode-go" aria-hidden="true">→</span></span>
-        <span class="mode-sub">Abre um .srt ou .vtt e um vídeo.</span>
+        <span class="mode-name">Traduzir ao vivo</span>
+        <span class="mode-sub">Fala em português: a transcrição escolhe os sinais do léxico.</span>
+        <span class="mode-foot">
+          <span class="mode-cta">Ligar o microfone</span>
+          <span class="mode-go" aria-hidden="true">●</span>
+        </span>
       </span>
     </button>
     <a class="modo-card dicionario" href="#/dicionario">
       <span class="mode-art">${ARTE.dicionario}</span>
       <span class="mode-copy">
-        <span class="mode-head"><span class="mode-name">Dicionário</span><span class="mode-go" aria-hidden="true">→</span></span>
-        <span class="mode-sub">${CONTAS.ref} palavras com sinal International Sign documentado.</span>
+        <span class="mode-name">Dicionário</span>
+        <span class="mode-sub">Duas línguas, cada palavra com o sinal, a aula e o vídeo de origem.</span>
+        <span class="mode-foot">
+          <span class="mode-cta">Abrir o dicionário</span>
+          <span class="mode-go" aria-hidden="true">→</span>
+        </span>
       </span>
     </a>
-  </section>
-
-  <section class="demo" aria-label="Frase de demonstração">
-    <div class="demo-topo">
-      <p class="rotulo">Frase de demonstração</p>
-      <button class="bt" id="bt-demo" type="button">Abrir sinalizadora</button>
-    </div>
-    <p class="demo-frase">${esc(SG_FRASE)}</p>
-    <p class="demo-dica">Seleciona uma frase com o rato ou com o dedo. A bolha verde abre a sinalizadora com essa frase.</p>
-  </section>
-
-  <section class="painel editor">
-    <div class="painel-topo">
-      <label class="rotulo" for="txt">Texto para sinalizar</label>
-      <span class="conta" id="editor-conta">0 palavras</span>
-    </div>
-    <textarea id="txt" rows="3" placeholder="Escreve ou cola aqui…" spellcheck="false"></textarea>
-    <div class="acoes">
-      <button class="bt primario" id="bt-ver" type="button">Ver sinais</button>
-      <label class="bt" for="fich">Ficheiro</label>
-      <input id="fich" type="file" accept=".txt,.srt,.vtt,.pdf,text/plain,application/pdf" hidden>
-      <button class="bt" id="bt-exemplo" type="button">Exemplo</button>
-    </div>
-    <p class="recado" id="recado" role="status" hidden></p>
-    <p class="dica">Ctrl + Enter para ver. Seleciona uma frase — aqui ou em qualquer parágrafo desta página — e a bolha verde abre a sinalizadora com essa frase.</p>
-  </section>
-
-  <section class="palco-sec" id="palco-sec" aria-label="Sinalizador">
-    <div class="palco" id="palco"></div>
-    <div class="controles">
-      <div class="ctrl-topo">
-        <p class="agora" id="agora" aria-live="polite">Em repouso</p>
-        <div class="transporte">
-          <button class="bt icone" id="bt-play" type="button" aria-label="Reproduzir">▶</button>
-          <button class="bt icone" id="bt-prev" type="button" aria-label="Sinal anterior">‹</button>
-          <button class="bt icone" id="bt-next" type="button" aria-label="Sinal seguinte">›</button>
-          <div class="vel" role="group" aria-label="Velocidade">
-            <button type="button" class="vel-b" data-vel="0.5">0,5×</button>
-            <button type="button" class="vel-b on" data-vel="1">1×</button>
-            <button type="button" class="vel-b" data-vel="1.5">1,5×</button>
-          </div>
-        </div>
-      </div>
-      <div class="fita" id="fita" aria-label="Glosa"></div>
-      <p class="contas" id="contas" hidden></p>
-    </div>
-  </section>
-
-  <section class="vcx" id="vcx" hidden>
-    <div class="vcx-topo">
-      <label class="bt" for="vid">Abrir vídeo</label>
-      <input id="vid" type="file" accept="video/*" hidden>
-      <span class="mini">Os sinais seguem o tempo das legendas.</span>
-    </div>
-    <video id="vid-el" playsinline controls></video>
   </section>
 
   <details class="nota">
     <summary>O que esta glosa não é</summary>
     <p>Não é tradução para LGA. Uma glosa é uma sequência de sinais: artigos e preposições caem, o tempo vai à frente e o «não» vai ao fim — mas a ordem, o espaço e a expressão facial de um sinalizador surdo não cabem numa lista de palavras.</p>
-  </details>`;
+  </details>
+
+  <dialog class="caixa" id="caixa-texto" aria-labelledby="caixa-titulo">
+    <div class="caixa-topo">
+      <p class="caixa-titulo" id="caixa-titulo">Texto para sinalizar</p>
+      <button class="sg-fechar" id="caixa-x" type="button" aria-label="Fechar">×</button>
+    </div>
+    <div class="caixa-abas" role="tablist" aria-label="Como carregar o texto">
+      <button class="caixa-aba on" id="aba-escrever" type="button" role="tab" aria-selected="true" aria-controls="pano-escrever">Escrever</button>
+      <button class="caixa-aba" id="aba-carregar" type="button" role="tab" aria-selected="false" aria-controls="pano-carregar" tabindex="-1">Carregar ficheiro</button>
+    </div>
+    <div class="caixa-pano" id="pano-escrever" role="tabpanel" aria-labelledby="aba-escrever">
+      <label class="sr-only" for="txt">Texto para sinalizar</label>
+      <textarea id="txt" rows="6" placeholder="Escreve ou cola aqui…" spellcheck="false"></textarea>
+      <div class="caixa-pe">
+        <span class="conta" id="editor-conta">0 palavras</span>
+        <div class="acoes">
+          <button class="bt" id="bt-exemplo" type="button">Exemplo</button>
+          <button class="bt primario" id="bt-ver" type="button">Ver sinais</button>
+        </div>
+      </div>
+      <p class="dica">Ctrl + Enter também abre a sinalizadora.</p>
+    </div>
+    <div class="caixa-pano" id="pano-carregar" role="tabpanel" aria-labelledby="aba-carregar" hidden>
+      <button class="caixa-solta" id="bt-fich" type="button">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+        <b>Escolher um ficheiro</b>
+        <span>.txt · .srt · .vtt · .pdf</span>
+      </button>
+      <input id="fich" type="file" accept=".txt,.srt,.vtt,.pdf,text/plain,application/pdf" hidden>
+      <p class="dica">Um PDF precisa de texto selecionável; digitalizações não têm texto para ler.</p>
+    </div>
+    <p class="recado" id="recado" role="status" hidden></p>
+  </dialog>`;
+}
+
+/* O GLB tem 13 MB: numa ligação lenta a espera passa dos quatro minutos.
+   Uma percentagem prova que está a andar, em vez de parecer pendurado. O
+   Vercel serve o ficheiro com Brotli e sem Content-Length, por isso aí o
+   total é 0 e a espera conta os MB que já chegaram. */
+function espera3d(carregados, total) {
+  const quanto = total
+    ? Math.max(1, Math.round((carregados / total) * 100)) + '%'
+    : (carregados / 1048576).toFixed(1).replace('.', ',') + ' MB';
+  const txt = 'A preparar a sinalizadora… ' + quanto;
+  document.querySelectorAll('.palco-espera, .sg-espera').forEach((e) => {
+    if (/^A preparar/.test(e.textContent)) e.textContent = txt;
+  });
 }
 
 function ligarSinalizar(params) {
-  EL.palco = $('#palco');
-  EL.agora = $('#agora');
-  EL.play = $('#bt-play');
-  EL.fita = $('#fita');
-  EL.contas = $('#contas');
-  vigiarPalco();
+  /* O modelo 3D é um GLB de 13 MB. A página inicial já o começa a descarregar
+     para a casa fora do ecrã, assim o painel abre com o trabalho adiantado. */
   if (window.AVATAR && window.SINAL3D) {
-    P.carregando3d = true;
-    EL.palco.innerHTML = '<p class="palco-espera">A preparar a sinalizadora…</p>';
-    AVATAR.init(EL.palco).then(() => {
-      P.avatarOn = true;
-      P.carregando3d = false;
-      const espera = EL.palco.querySelector('.palco-espera');
-      if (espera) espera.remove();
-      recalcularPoses();
-      if (!SG.aberto) { AVATAR.init(EL.palco); AVATAR.enquadrar('busto', 1.10); desenhar(); }
-    }).catch(() => {
-      P.avatarOn = false;
-      P.carregando3d = false;
-      P.poses = null;
-      desenhar();
-    });
+    AVATAR.init(casaSigner(), { progresso: espera3d }).catch(() => {});
   }
+
+  const caixa = $('#caixa-texto');
   const txt = $('#txt'), recado = $('#recado'), conta = $('#editor-conta');
-  const aviso = (m) => { recado.hidden = !m; recado.textContent = m || ''; };
-  const reduzido = () => A11Y.movimento || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fich = $('#fich');
+  const aviso = (m) => { if (!recado) return; recado.hidden = !m; recado.textContent = m || ''; };
 
   const contar = (v) => {
     if (!conta) return;
-    const n = String(v).trim() ? String(v).trim().split(/\s+/).length : 0;
+    const t = String(v).trim();
+    const n = t ? t.split(/\s+/).length : 0;
     conta.textContent = n === 1 ? '1 palavra' : n + ' palavras';
   };
-  contar('');
-  txt.addEventListener('input', () => contar(txt.value));
-  txt.addEventListener('select', () => atualizarSelecao());
-  txt.addEventListener('mouseup', () => setTimeout(atualizarSelecao, 0));
 
-  $$('.modo-card[data-modo]').forEach((c) => c.addEventListener('click', () => {
-    if (c.dataset.modo === 'legendas') { $('#fich').click(); return; }
-    txt.focus();
-    const alvo = $('.painel.editor');
-    if (alvo) alvo.scrollIntoView({ block: 'center', behavior: reduzido() ? 'auto' : 'smooth' });
-  }));
-
-  const aplicar = (texto) => {
-    txt.value = texto;
-    contar(texto);
-    preparar(texto);
-    if (!P.beats.length) { aviso('Escreve alguma coisa para ver sinais.'); return; }
-    aviso('');
-    if (reduzido()) pausar(); else tocar();
-    const palco = $('#palco-sec');
-    if (palco) palco.scrollIntoView({ block: 'start', behavior: reduzido() ? 'auto' : 'smooth' });
-  };
-
-  const ver = () => aplicar(txt.value);
-  $('#bt-ver').addEventListener('click', ver);
-  txt.addEventListener('keydown', (e) => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); ver(); } });
-  $('#bt-exemplo').addEventListener('click', () => { txt.value = PM_EXEMPLOS[Math.floor(Math.random() * PM_EXEMPLOS.length)]; aplicar(txt.value); });
-  const demo = $('#bt-demo');
-  if (demo) demo.addEventListener('click', () => abrirSigner(SG_FRASE));
-
-  EL.play.addEventListener('click', () => { if (P.tocando) pausar(); else tocar(); });
-  $('#bt-prev').addEventListener('click', () => { pausar(); irPara(P.i - 1); });
-  $('#bt-next').addEventListener('click', () => { pausar(); irPara(P.i + 1); });
-  $$('.vel-b', $('.controles')).forEach(b => b.addEventListener('click', () => {
-    P.vel = Number(b.dataset.vel);
-    $$('.vel-b', $('.controles')).forEach(x => x.classList.toggle('on', x === b));
-  }));
-  EL.fita.addEventListener('click', (e) => {
-    const b = e.target.closest('[data-beat]');
-    if (!b) return;
-    pausar(); irPara(Number(b.dataset.beat)); tocar();
+  const abas = [$('#aba-escrever'), $('#aba-carregar')].filter(Boolean);
+  const panos = { escrever: $('#pano-escrever'), carregar: $('#pano-carregar') };
+  function abrirAba(nome) {
+    abas.forEach((b) => {
+      const on = b.id === 'aba-' + nome;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-selected', String(on));
+      b.tabIndex = on ? 0 : -1;
+    });
+    Object.entries(panos).forEach(([k, p]) => { if (p) p.hidden = k !== nome; });
+  }
+  abas.forEach((b, i) => {
+    b.addEventListener('click', () => {
+      const nome = i === 0 ? 'escrever' : 'carregar';
+      abrirAba(nome);
+      const alvo = nome === 'escrever' ? txt : $('#bt-fich');
+      if (alvo) alvo.focus({ preventScroll: true });
+    });
+    b.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      e.preventDefault();
+      const outro = abas[(i + 1) % abas.length];
+      outro.focus();
+      outro.click();
+    });
   });
 
-  const fich = $('#fich');
-  fich.addEventListener('change', async () => {
-    const f = fich.files && fich.files[0];
-    fich.value = '';
-    if (!f) return;
+  function abrirCaixa() {
+    aviso('');
+    abrirAba('escrever');
+    if (!caixa.open) caixa.showModal();
+    contar(txt.value);
+    txt.focus({ preventScroll: true });
+    const fim = txt.value.length;
+    txt.setSelectionRange(fim, fim);
+  }
+  const fecharCaixa = () => { if (caixa.open) caixa.close(); };
+
+  $('#caixa-x').addEventListener('click', fecharCaixa);
+  caixa.addEventListener('close', () => aviso(''));
+  /* clicar no véu fecha; clicar dentro da caixa não */
+  caixa.addEventListener('click', (e) => {
+    if (e.target !== caixa) return;
+    const r = caixa.getBoundingClientRect();
+    const fora = e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
+    if (fora) fecharCaixa();
+  });
+
+  $$('.modo-card[data-modo]').forEach((c) => c.addEventListener('click', () => {
+    if (c.dataset.modo === 'ao-vivo') abrirAoVivo();
+    else abrirCaixa();
+  }));
+
+  txt.addEventListener('input', () => { contar(txt.value); aviso(''); });
+
+  const ver = () => {
+    const texto = String(txt.value || '').replace(/\s+/g, ' ').trim();
+    if (!texto) { aviso('Escreve alguma coisa para ver sinais.'); txt.focus(); return; }
+    if (!analisarEmBeats(texto).beats.length) {
+      aviso('Nenhuma palavra desta frase tem sinal na glosa. Tenta «Bom dia» ou usa o dicionário.');
+      txt.focus();
+      return;
+    }
+    aviso('');
+    fecharCaixa();
+    abrirSigner(texto);
+  };
+  $('#bt-ver').addEventListener('click', ver);
+  txt.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); ver(); }
+  });
+  $('#bt-exemplo').addEventListener('click', () => {
+    txt.value = PM_EXEMPLOS[Math.floor(Math.random() * PM_EXEMPLOS.length)];
+    contar(txt.value);
+    aviso('');
+    txt.focus();
+  });
+
+  const lerFicheiro = async (f) => {
     const nome = f.name.toLowerCase();
+    aviso('A ler o ficheiro…');
     try {
+      let texto;
       if (nome.endsWith('.pdf')) {
-        aviso('A ler o PDF…');
-        const t = await textoDePDF(await f.arrayBuffer());
-        if (!t) { aviso('Este PDF não tem texto legível — pode ser uma digitalização. Copia o texto e cola aqui.'); return; }
-        aplicar(t);
-        return;
+        texto = await textoDePDF(await f.arrayBuffer());
+        if (!texto) { aviso('Este PDF não tem texto legível — pode ser uma digitalização. Copia o texto e cola aqui.'); return; }
+      } else if (nome.endsWith('.srt') || nome.endsWith('.vtt')) {
+        const cues = lerLegendas(await f.text());
+        texto = cues.map((c) => c.texto).join(' ').replace(/\s+/g, ' ').trim();
+        if (!texto) { aviso('Não encontrei legendas com texto neste ficheiro.'); return; }
+      } else {
+        texto = await f.text();
       }
-      if (nome.endsWith('.srt') || nome.endsWith('.vtt')) {
-        P.leg = lerLegendas(await f.text());
-        if (!P.leg.length) { aviso('Não encontrei legendas com tempo neste ficheiro.'); return; }
-        P.modo = 'legendas';
-        $('#vcx').hidden = false;
-        aplicar(P.leg.map(c => c.texto).join(' '));
-        aviso(`Legendas carregadas: ${P.leg.length} blocos. Abre um vídeo para sincronizar.`);
-        return;
-      }
-      aplicar(await f.text());
+      abrirAba('escrever');
+      txt.value = texto.trim();
+      contar(txt.value);
+      aviso('');
+      txt.focus({ preventScroll: true });
     } catch (err) {
       aviso('Não consegui ler este ficheiro. Tenta copiar o texto e colar aqui.');
     }
-  });
-
-  const vid = $('#vid-el');
-  $('#vid').addEventListener('change', (e) => {
-    const f = e.target.files && e.target.files[0];
-    if (!f) return;
-    vid.src = URL.createObjectURL(f);
-    vid.load();
-  });
-  const cueDe = (t) => P.leg.find(c => t >= c.s - 0.08 && t <= c.e + 0.08) || null;
-  const cuePlay = (cue) => {
-    const dur = Math.max(400, (cue.e - cue.s) * 1000);
-    preparar(cue.texto);
-    const base = P.beats.reduce((n, b) => n + b.dur, 0) || 1;
-    const f = dur / base;
-    P.beats.forEach(b => { b.dur = Math.max(120, b.dur * f); });
-    P.i = 0; P.t = 0;
-    recalcularPoses();
-    desenhar();
-    if (!vid.paused) tocar();
   };
-  vid.addEventListener('timeupdate', () => {
-    if (P.modo !== 'legendas' || !P.leg.length) return;
-    const cue = cueDe(vid.currentTime);
-    if (!cue) return;
-    if (cue !== P.cue) { P.cue = cue; cuePlay(cue); }
-    else if (!vid.paused && !P.tocando) tocar();
-    else if (vid.paused && P.tocando) pausar();
+  $('#bt-fich').addEventListener('click', () => fich.click());
+  fich.addEventListener('change', () => {
+    const f = fich.files && fich.files[0];
+    fich.value = '';
+    if (f) lerFicheiro(f);
   });
-  vid.addEventListener('play', () => { if (P.modo === 'legendas' && P.cue) tocar(); });
-  vid.addEventListener('pause', () => pausar());
 
-  preparar('');
-  if (params && params.s) { txt.value = params.s; aplicar(params.s); }
-  else desenhar();
+  if (params && params.s) {
+    const t = String(params.s).replace(/\s+/g, ' ').trim();
+    if (t) abrirSigner(t);
+  }
 }
 
 /* ---------------- vista: dicionário ---------------- */
@@ -1149,17 +1199,87 @@ const FILTROS_ESTADO = [
 /* ---------------- dicionário: aba LGA (aulas do Viva surdo) ---------------- */
 const LGA_CONFIANCAS = [['', 'Tudo'], ['alta', 'Confiança alta'], ['média', 'Média'], ['baixa', 'Baixa']];
 
-function abasFonte(fonte) {
-  const aba = (consulta, rotulo, on) => `<a class="aba-fonte${on ? ' on' : ''}" href="#/dicionario${consulta}"${on ? ' aria-current="page"' : ''}>${rotulo}</a>`;
-  return `<nav class="abas-fonte" aria-label="Fonte do dicionário">
-    ${aba('', 'International Sign', fonte === 'is')}
-    ${aba('?fonte=lga', 'LGA · ' + esc(META_LGA.nome), fonte === 'lga')}
+/* A entrada do dicionário são duas fontes e só duas: primeiro escolhe-se a
+   língua, depois vê-se o vocabulário dela. Misturar as duas numa lista foi o
+   que tornou os cartões ilegíveis. */
+function vistaFontes() {
+  return `
+  <section class="entrada">
+    <p class="kicker">Dicionário</p>
+    <h1>Duas fontes, dois vocabulários.</h1>
+    <p class="sub">Escolhe a língua e vês só os sinais dela: as ${LGA_LISTA.length} palavras lidas nas aulas de LGA do ${esc(META_LGA.nome)}, ou as ${CONTAS.ref} referências International Sign do léxico da ${esc(FONTE_IS.nome)}.</p>
+  </section>
+  <section class="fontes">
+    <a class="fonte-card lga" href="#/dicionario?fonte=lga">
+      <span class="fonte-art">
+        <span class="fonte-num" aria-hidden="true">${LGA_LISTA.length}</span>
+        <span class="fonte-eyebrow">Aulas em vídeo</span>
+        ${ARTE.fonteLga}
+      </span>
+      <span class="fonte-copy">
+        <span class="fonte-nome">LGA · ${esc(META_LGA.nome)}</span>
+        <span class="fonte-desc">Palavras lidas fotograma a fotograma nas aulas. ${LGA_COM_POSE} já abrem no palco 3D da Agatha.</span>
+        <span class="fonte-chips">
+          <span>${LGA_LISTA.length} palavras</span>
+          <span>${META_LGA.aulas} aulas</span>
+          <span>${LGA_COM_POSE} em 3D</span>
+        </span>
+        <span class="fonte-seta">Ver a LGA <b aria-hidden="true">→</b></span>
+      </span>
+    </a>
+    <a class="fonte-card is" href="#/dicionario?fonte=is">
+      <span class="fonte-art">
+        <span class="fonte-num" aria-hidden="true">${CONTAS.ref}</span>
+        <span class="fonte-eyebrow">${esc(FONTE_IS.nome)}</span>
+        ${ARTE.fonteIs}
+      </span>
+      <span class="fonte-copy">
+        <span class="fonte-nome">International Sign</span>
+        <span class="fonte-chips">
+          <span>${CONTAS.ref} sinais IS</span>
+          <span>${FONTE_IS.total} no léxico</span>
+          <span>${CONTAS.comparado} comparados</span>
+        </span>
+        <span class="fonte-seta">Ver o International Sign <b aria-hidden="true">→</b></span>
+      </span>
+    </a>
+  </section>`;
+}
+
+function migalhas(fonte) {
+  const outra = fonte === 'lga'
+    ? ['?fonte=is', 'International Sign']
+    : ['?fonte=lga', 'LGA · ' + META_LGA.nome];
+  return `<nav class="migalhas" aria-label="Fonte do dicionário">
+    <a class="voltar" href="#/dicionario">← Fontes</a>
+    <a class="trocar" href="#/dicionario${outra[0]}">${esc(outra[1])} →</a>
   </nav>`;
 }
 
 /* O abecedário abre a Aula 00 mas enterra o vocabulário: no dicionário fica no fim. */
 const ehLetraLga = (e) => /^letra-/.test(e.palavra);
 const LGA_ORDEM = LGA_LISTA.filter(e => !ehLetraLga(e)).concat(LGA_LISTA.filter(ehLetraLga));
+
+/* A camada 3D (lga-3d.js) cobre só as palavras já lidas no quadro. Sem pose, o
+   cartão abre o vídeo: pôr a Agatha a fazer um gesto que ninguém comparou com a
+   aula seria dizer que sabemos o que não sabemos. `notacao` pode ser uma lista:
+   um compasso por passo dos sinais compostos (`bom dia` = polegar + mão que sobe). */
+function notacoesLga(p) {
+  if (!p || !p.notacao) return [];
+  return (Array.isArray(p.notacao) ? p.notacao : [p.notacao]).map(t => String(t).trim()).filter(Boolean);
+}
+
+function poseLga(chave) {
+  const p = window.SINAIS_LGA && window.SINAIS_LGA[chave];
+  const partes = notacoesLga(p);
+  if (!partes.length || !window.FORMAS_MAO || !window.LOCAIS) return null;
+  const campos = partes.map(t => String(t).replace(/^2:/, '').split(/\s+/));
+  if (campos.some(([forma, local]) => !FORMAS_MAO[forma] || !LOCAIS[local])) return null;
+  const [forma, local, movimento] = campos[0];
+  return { forma, local, movimento, notacao: partes, aproximado: !!p.aproximado, dur: p.dur };
+}
+
+const LGA_COM_POSE = LGA_LISTA.filter(e => poseLga(e.chave)).length;
 
 function cartoesLga() {
   const q = norm(LGA_PESQUISA);
@@ -1174,36 +1294,34 @@ function cartoesLga() {
     const tempo = Math.floor(seg / 60) + ':' + String(seg % 60).padStart(2, '0');
     const url = 'https://www.youtube.com/watch?v=' + encodeURIComponent(e.video) + '&t=' + seg + 's';
     const noDic = LGA_NO_DICIONARIO.has(e.chave);
-    const pose = (window.SINAIS_LGA && window.SINAIS_LGA[e.chave]) || null;
-    const temPose = !!(pose && pose.notacao);
-    const ehAprox = !!(pose && pose.aproximado);
-    const rotuloAria = ehAprox
-      ? `aproximação do sinal LGA de ${esc(e.palavra)}`
-      : `toca o sinal LGA de ${esc(e.palavra)}`;
-    const rotuloTitle = ehAprox
-      ? `Aproximação do sinal LGA de ${esc(e.palavra)}`
-      : `Toca o sinal LGA de ${esc(e.palavra)}`;
-    const crachaAprox = ehAprox
-      ? `<span class="lga-cracha-aprox" aria-hidden="true">aprox.</span>`
+    const pose = poseLga(e.chave);
+    const aulaCurta = e.aula.replace(/ —.*$/, '');
+    const fig = pose
+      ? maoFigura(pose.forma, true)
+      : `<span class="fig-play" aria-hidden="true">▶</span>
+         <span class="fig-rodape" aria-hidden="true"><span class="fig-fonte-nome">${esc(aulaCurta)}</span><span class="fig-tempo">${tempo}</span></span>`;
+    const selo = pose
+      ? `<span class="selo-3d"${pose.aproximado ? ' data-aprox="1"' : ''}>${pose.aproximado ? '3D ≈' : '3D'}</span>`
       : '';
-    const botaoPlay = temPose
-      ? `<button type="button" class="cartao-play-lga${ehAprox ? ' cartao-play-lga-aprox' : ''}" data-lga-chave="${esc(e.chave)}"
-                 aria-label="${rotuloAria}" title="${rotuloTitle}"><span class="play-ico" aria-hidden="true">▶</span>${crachaAprox}</button>`
+    const rotulo = pose
+      ? `${esc(e.palavra)} — pose 3D da Agatha${pose.aproximado ? ' (aproximação)' : ''}, ${esc(e.aula)}. Abre no palco 3D.`
+      : `${esc(e.palavra)} — ${esc(e.aula)}, ${tempo}, confiança ${esc(e.confianca)}. Abre a aula no YouTube.`;
+    const video = pose
+      ? `<a class="cartao-video" href="${url}" target="_blank" rel="noopener noreferrer"
+           title="Ver na aula de origem" aria-label="Ver ${esc(e.palavra)} na aula do Viva surdo no YouTube">▶</a>`
       : '';
-    const fig = temPose && typeof maoFigura === 'function'
-      ? maoFigura(pose.notacao.replace(/^2:/, '').split(/\s+/)[0])
-      : '<span class="ref-marca">LGA</span>';
     return `
     <div class="cartao-item">
-      <a class="cartao cartao-ref cartao-lga" data-conf="${esc(e.confianca)}" href="${url}"
-         target="_blank" rel="noopener noreferrer"
-         aria-label="${esc(e.palavra)} — ${esc(e.aula)}, ${tempo}, confiança ${esc(e.confianca)}. Abre a aula no YouTube.">
-        <span class="fig">${fig}</span>
+      <a class="cartao cartao-lga" data-conf="${esc(e.confianca)}"
+         href="${pose ? '#/dicionario?fonte=lga' : url}"
+         ${pose ? `data-lga-palavra="${esc(e.chave)}" data-lga-rotulo="${esc(e.palavra)}"` : 'target="_blank" rel="noopener noreferrer"'}
+         title="${esc(e.veSe)}" aria-label="${rotulo}">
+        <span class="fig${pose ? '' : ' fig-fonte'}">${fig}${selo}</span>
         <b>${esc(e.palavra)}</b>
-        <small>${esc(e.aula.replace(/ —.*$/, ''))} · ${tempo} · ${esc(e.confianca)}${noDic ? ' · no dicionário' : ''}</small>
+        <span class="meta"><span class="ponto"></span>${pose ? esc(aulaCurta) + ' · ' : ''}confiança ${esc(e.confianca)}${noDic ? '<span class="meta-selo">no dicionário</span>' : ''}</span>
         <small class="lga-ve">${esc(e.veSe)}</small>
       </a>
-      ${botaoPlay}
+      ${video}
     </div>`;
   }).join('');
 }
@@ -1219,7 +1337,7 @@ function vistaDicionarioLga() {
   <section class="entrada">
     <p class="kicker">Dicionário · LGA</p>
     <h1>${LGA_LISTA.length} palavras nas aulas de LGA do ${esc(META_LGA.nome)}.</h1>
-    <p class="sub">${META_LGA.aulas} aulas do Mini curso de LGA, lidas fotograma a fotograma a 540×360 no YouTube. ${LGA_NO_DICIONARIO.size} destas palavras já estão no dicionário; as restantes são o inventário das aulas. Confiança: ${conta('alta')} alta, ${conta('média')} média, ${conta('baixa')} baixa — as de confiança baixa estão marcadas para revisão humana.</p>
+    <p class="sub">${META_LGA.aulas} aulas do Mini curso de LGA, lidas fotograma a fotograma a 540×360 no YouTube. ${LGA_NO_DICIONARIO.size} destas palavras já estão no dicionário; ${LGA_COM_POSE} já abrem no palco 3D da Agatha e as restantes abrem a aula no segundo certo. Confiança: ${conta('alta')} alta, ${conta('média')} média, ${conta('baixa')} baixa — as de confiança baixa estão marcadas para revisão humana.</p>
   </section>
   <section class="painel busca">
     <label class="campo">
@@ -1230,7 +1348,7 @@ function vistaDicionarioLga() {
     <div class="chips" id="conf-lga">${chipsConf}</div>
   </section>
   <section class="grade" id="grade-lga" aria-live="polite">${cartoesLga()}</section>
-  <p class="rodape-nota">Cada cartão abre a aula no segundo em que a palavra é sinalizada. As descrições são leitura de fotogramas do canal Viva surdo e não substituem um sinalizador surdo: nenhuma foi validada pela comunidade.</p>`;
+  <p class="rodape-nota">Os cartões com selo 3D abrem no palco da Agatha; o ≈ marca as poses que são aproximação declarada. Os restantes abrem a aula no segundo em que a palavra é sinalizada. As descrições são leitura de fotogramas do canal Viva surdo e não substituem um sinalizador surdo: nenhuma foi validada pela comunidade.</p>`;
 }
 
 function cartoes() {
@@ -1257,23 +1375,26 @@ function cartoes() {
     const aria = e.ref
       ? `${esc(e.palavra)} — sinal International Sign documentado (${esc(e.ref.glossa)})`
       : `${esc(e.palavra)} — gesto de estudo, sem referência`;
+    const selo = temPose ? '<span class="selo-3d">3D</span>' : '';
     /* O selo verde é o vídeo da fonte, não a personagem. No cartão com pose ele
        não pode ficar dentro do <a> do cartão (link dentro de link é inválido),
        por isso é um irmão ancorado ao canto superior direito da figura. No
-       cartão que só tem referência, o cartão inteiro já é o vídeo. Sem
-       referência não há vídeo, e o cartão não inventa um selo. */
-    const selo = !temPose && e.ref ? '<span class="cartao-play" aria-hidden="true">▶</span>' : '';
+       cartão que só tem referência, a figura inteira já abre o vídeo. */
     const video = temPose && e.ref
       ? `<a class="cartao-video" href="${esc(e.ref.url)}" target="_blank" rel="noopener noreferrer"
            title="Vídeo de referência (Sématos)" aria-label="Ver o vídeo de referência de ${esc(e.palavra)} na Sématos">▶</a>`
       : '';
+    const fig = temPose
+      ? maoFigura(e.notacao.forma, true)
+      : `<span class="fig-play" aria-hidden="true">▶</span>
+         <span class="fig-rodape" aria-hidden="true"><span class="fig-fonte-nome">Sématos</span></span>`;
     return `
     <div class="cartao-item">
-      <a class="cartao${temPose ? '' : ' cartao-ref'}" href="${href}"${externo}
+      <a class="cartao" href="${href}"${externo}
          ${temPose ? `data-palavra="${esc(e.palavra)}"` : ''} aria-label="${aria}">
-        <span class="fig">${temPose ? maoFigura(e.notacao.forma) : '<span class="ref-marca">IS</span>'}${selo}</span>
+        <span class="fig${temPose ? '' : ' fig-fonte'}">${fig}${selo}</span>
         <b>${esc(e.palavra)}</b>
-        <small>${detalhe}${esc(nota)}</small>
+        <span class="meta">${detalhe}${esc(nota)}</span>
       </a>
       ${video}
     </div>`;
@@ -1281,15 +1402,16 @@ function cartoes() {
 }
 
 function vistaDicionario(params) {
-  const fonte = (params && params.fonte === 'lga') ? 'lga' : 'is';
-  if (fonte === 'lga') return abasFonte(fonte) + vistaDicionarioLga();
+  const fonte = (params && (params.fonte === 'lga' || params.fonte === 'is')) ? params.fonte : '';
+  if (!fonte) return vistaFontes();
+  if (fonte === 'lga') return migalhas(fonte) + vistaDicionarioLga();
   const chips = ['', ...TEMAS].map(t => `<button type="button" class="chip${t === TEMA ? ' on' : ''}" data-tema="${esc(t)}">${t || 'Tudo'}</button>`).join('');
   const estados = FILTROS_ESTADO.map(([v, r]) => `<button type="button" class="chip chip-estado${ESTADO === v ? ' on' : ''}" data-estado="${v}">${r}</button>`).join('');
-  return abasFonte(fonte) + `
+  return migalhas(fonte) + `
   <section class="entrada">
-    <p class="kicker">Dicionário</p>
+    <p class="kicker">Dicionário · International Sign</p>
     <h1>${CONTAS.ref} palavras com sinal documentado em International Sign.</h1>
-    <p class="sub">As ${CONTAS.ref} referências vêm do léxico International Sign da ${FONTE_IS.nome} (${FONTE_IS.total} sinais, colhido a ${FONTE_IS.colhido}) e ligam ao vídeo de cada sinal. ${CONTAS.pose} têm pose no palco 3D — ${CONTAS.soRef} ainda só existem na fonte, ${CONTAS.soPose} são gestos nossos sem correspondência IS. ${CONTAS.comparado} poses já foram comparadas fotograma a fotograma com o vídeo.</p>
+    <p class="sub">Sinais documentados no léxico da ${esc(FONTE_IS.nome)} — ${FONTE_IS.total} referências colhidas a ${FONTE_IS.colhido}, cada uma com o vídeo do sinal. ${CONTAS.pose} têm pose no palco 3D — ${CONTAS.soRef} ainda só existem na fonte, ${CONTAS.soPose} são gestos nossos sem correspondência IS. ${CONTAS.comparado} poses já foram comparadas fotograma a fotograma com o vídeo.</p>
   </section>
   <section class="painel busca">
     <label class="campo">
@@ -1335,20 +1457,14 @@ function ligarDicionario() {
   if (buscaL && gradeL) {
     buscaL.addEventListener('input', () => { LGA_PESQUISA = buscaL.value; gradeL.innerHTML = cartoesLga(); });
   }
-  if (gradeL) {
-    gradeL.addEventListener('click', (e) => {
-      const btn = e.target.closest('.cartao-play-lga');
-      if (!btn) return;
-      e.preventDefault();
-      e.stopPropagation();
-      const k = btn.dataset.lgaChave;
-      const pose = window.SINAIS_LGA && window.SINAIS_LGA[k];
-      const entry = window.FONTE_LGA && window.FONTE_LGA[k];
-      if (pose && pose.notacao) {
-        abrirSignerNotacao(pose.notacao, (entry && entry.palavra) || k, !!pose.aproximado);
-      }
-    });
-  }
+  if (gradeL) gradeL.addEventListener('click', (e) => {
+    const c = e.target.closest('[data-lga-palavra]');
+    if (!c || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const pose = poseLga(c.dataset.lgaPalavra);
+    if (!pose) return;
+    e.preventDefault();
+    abrirSignerNotacao(pose.notacao, c.dataset.lgaRotulo, pose.aproximado, pose.dur);
+  });
   const aulasL = $('#aulas-lga');
   if (aulasL && gradeL) aulasL.addEventListener('click', (e) => {
     const b = e.target.closest('[data-aula]');
@@ -1376,21 +1492,24 @@ function render() {
   const view = m ? m.view : vistaSinalizar;
   const ativo = (location.hash || '').replace(/^#/, '').split('?')[0] === '/dicionario' ? '/dicionario' : '/';
   const app = document.getElementById('app');
-  pausar();
   esconderSelecao();
   fecharSigner(true);
   app.innerHTML = shell(view(m ? m.params : {}), ativo);
   const live = document.getElementById('route-live');
   if (live) live.textContent = ativo === '/dicionario' ? 'Dicionário' : 'Sinalizar';
-  if (ativo === '/dicionario') {
-    if (OBS_PALCO) { OBS_PALCO.disconnect(); OBS_PALCO = null; }
-    SG.palcoAVista = false;
-    SG.editorAVista = false;
-    ligarDicionario();
-  }
+  if (ativo === '/dicionario') ligarDicionario();
   else ligarSinalizar(m ? m.params : {});
-  atualizarFab();
   montarA11y();
+  /* carregar no separador onde já estamos não muda o hash: leva ao topo e
+     limpa os filtros do dicionário, em vez de não fazer nada */
+  $$('.nav .nav-a, .marca').forEach(a => a.addEventListener('click', (e) => {
+    if (a.getAttribute('href') !== location.hash) return;
+    e.preventDefault();
+    PESQUISA = TEMA = ESTADO = '';
+    LGA_PESQUISA = LGA_AULA = LGA_CONF = '';
+    render();
+    window.scrollTo(0, 0);
+  }));
 }
 
 window.addEventListener('hashchange', render);

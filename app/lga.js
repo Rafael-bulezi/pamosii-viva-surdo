@@ -419,10 +419,10 @@
    7
   ],
   "confianca": "alta",
-  "veSe": "mão direita aberta com palma voltada para a frente à altura da cabeça a acenar suavemente",
-  "forma": "mão aberta, dedos estendidos juntos",
-  "lugar": "espaço neutro ao lado da cabeça",
-  "movimento": "aceno lateral de saudação",
+  "veSe": "mão direita aberta com os dedos afastados, palma para a frente à altura da cara, acena de lado a lado",
+  "forma": "mão aberta, dedos afastados",
+  "lugar": "à altura da cara, ao lado da cabeça",
+  "movimento": "aceno lateral de saudação, duas a três vezes",
   "duvida": "legenda cobre 'Oi/Olá'"
  },
  "bom/boa/bem": {
@@ -451,10 +451,10 @@
    27
   ],
   "confianca": "alta",
-  "veSe": "sinal de 'bom' (polegar erguido) seguido do sinal de 'dia' (braço/mão sobe como o sol nascente ou letra 'D')",
-  "forma": "composto: polegar vertical seguido de mão em 'D' / arco ascendente",
-  "lugar": "do peito ao espaço superior direito",
-  "movimento": "sequencial: positivo + arco ascendente de nascer do sol",
+  "veSe": "polegar erguido à frente do peito; depois a mão plana sobe do queixo ao lado da cara com a palma virada para si (o sol a nascer)",
+  "forma": "composto: punho com polegar vertical; depois mão plana com os dedos juntos",
+  "lugar": "do peito ao lado da cara",
+  "movimento": "sequencial: polegar erguido e mão que sobe como o sol",
   "duvida": ""
  },
  "boa tarde": {
@@ -675,11 +675,11 @@
    171
   ],
   "confianca": "alta",
-  "veSe": "mão direita aberta com palma virada para a frente acena lateralmente em despedida",
-  "forma": "mão aberta, dedos estendidos",
-  "lugar": "ao lado do rosto / ombro direito",
-  "movimento": "aceno lateral de despedida",
-  "duvida": ""
+  "veSe": "a mesma mão aberta de «oi/olá», à altura da cara, palma para a frente, a acenar de lado a lado",
+  "forma": "mão aberta, dedos afastados",
+  "lugar": "à altura da cara, ao lado da cabeça",
+  "movimento": "aceno lateral, duas a três vezes (o mesmo de «oi/olá»)",
+  "duvida": "a aula usa o mesmo aceno para chegar e para despedir"
  },
  "meu sinal": {
   "palavra": "meu sinal",
