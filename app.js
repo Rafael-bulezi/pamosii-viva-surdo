@@ -86,7 +86,7 @@ function beatsDeItem(it) {
     ? [...String(it.palavra).toUpperCase()].filter(l => /[A-Z]/.test(l))
     : (it.letras || []);
   return letras.filter(l => FORMAS_MAO[l]).map(l => ({
-    tipo: 'letra', rotulo: l, forma: l, duas: false, reps: 1, movimento: 'parado',
+    tipo: 'letra', rotulo: l, grupo: it.palavra, forma: l, duas: false, reps: 1, movimento: 'parado',
     pos0: LOCAIS.frente, rot0: [0, 0, 0], pos1: LOCAIS.frente, rot1: [0, 0, 0], dur: 340,
   }));
 }
@@ -383,9 +383,8 @@ async function abrirSignerBeats(t, beats, opcoes) {
     if (!SG.aberto) { devolverAvatar(); return; }
     const espera = palco.querySelector('.sg-espera');
     if (espera) espera.remove();
-    /* painel estreito e alto: 1,00 enche o quadro sem cortar os braços nos
-       sinais abertos */
-    AVATAR.enquadrar('busto', 1.0);
+    /* painel de 100dvh: enquadra dos joelhos ao alto dos braços */
+    AVATAR.enquadrar('joelhos', 1.0);
     montarTimeline();
     SG.pronto = true;
     if (!SG.poses.length) { AVATAR.pousar(); return; }
@@ -444,24 +443,15 @@ function fecharSigner(silencioso) {
    fora de ordem, mesmo que a segunda resposta seja mais rápida. */
 const VIVO = { fila: Promise.resolve(), simples: false, fechada: '' };
 
-/* A moldura respira enquanto o microfone ouve. As camadas são CSS; aqui só se
-   liga a classe e pausa-se a animação com o separador escondido. */
+/* A cinta azul da borda acende enquanto o microfone ouve. O desenho é CSS
+   (`index.html` + `styles.css`); aqui só se liga a classe que a acende. */
 const BRILHO = {
-  prefs: window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null,
-  pausar() {
-    const parado = document.hidden || !!(this.prefs && this.prefs.matches);
-    document.documentElement.classList.toggle('vivo-pausado', parado);
-  },
   sincronizar() {
     const on = !!(window.AO_VIVO && AO_VIVO.ligado());
     document.documentElement.classList.toggle('vivo-ligado', on);
-    this.pausar();
   },
 };
-document.addEventListener('visibilitychange', () => BRILHO.pausar());
-if (BRILHO.prefs && BRILHO.prefs.addEventListener) {
-  BRILHO.prefs.addEventListener('change', () => BRILHO.pausar());
-}
+BRILHO.sincronizar();
 
 function mostrarTranscricao(provisorio, fechada) {
   const caixa = $('#sg-transcricao');
@@ -593,18 +583,51 @@ function abrirAoVivo() {
   ligarAoVivo();
 }
 
+/* Uma palavra soletrada dá um beat por letra para o corpo, mas no ecrã é uma
+   palavra só: a glosa agrupa letras seguidas da mesma palavra num único chip. */
+function glosaSigner() {
+  const out = [];
+  SG.beats.forEach((b, i) => {
+    if (!b.rotulo || b.tipo === 'pausa' || b.chip === false) return;
+    const ult = out[out.length - 1];
+    if (b.tipo === 'letra') {
+      if (ult && ult.tipo === 'letra' && ult.grupo === b.grupo && ult.fim === i - 1) {
+        ult.fim = i;
+        return;
+      }
+      out.push({ tipo: 'letra', grupo: b.grupo, rotulo: b.grupo || b.rotulo, ini: i, fim: i });
+      return;
+    }
+    out.push({ tipo: b.tipo, rotulo: b.rotulo, ini: i, fim: i });
+  });
+  return out;
+}
+
 function pintarChipsSigner() {
   const caixa = $('#sg-chips');
   if (!caixa) return;
-  caixa.innerHTML = SG.beats.map((b, i) => (!b.rotulo || b.tipo === 'pausa' || b.chip === false) ? ''
-    : `<button type="button" class="sg-chip${b.tipo === 'letra' ? ' sg-letra' : ''}" data-beat="${i}">${esc(b.rotulo)}</button>`).join('');
+  caixa.innerHTML = glosaSigner().map(c =>
+    `<button type="button" class="sg-chip${c.tipo === 'letra' ? ' sg-letra' : ''}" data-beat="${c.ini}" data-fim="${c.fim}">${esc(c.rotulo)}</button>`
+  ).join('');
   SG.beat = -1;
+  caixa.scrollLeft = 0;
 }
 
 function marcarChipsSigner() {
   const caixa = $('#sg-chips');
   if (!caixa) return;
-  $$('[data-beat]', caixa).forEach(el => el.classList.toggle('on', Number(el.dataset.beat) === SG.beat));
+  let ativo = null;
+  $$('[data-beat]', caixa).forEach((el) => {
+    const on = SG.beat >= Number(el.dataset.beat) && SG.beat <= Number(el.dataset.fim || el.dataset.beat);
+    el.classList.toggle('on', on);
+    el.setAttribute('aria-current', on ? 'true' : 'false');
+    if (on) ativo = el;
+  });
+  if (!ativo) return;
+  /* a fila desliza sozinha para a palavra que está a ser sinalizada */
+  const alvo = ativo.offsetLeft - (caixa.clientWidth - ativo.offsetWidth) / 2;
+  const max = caixa.scrollWidth - caixa.clientWidth;
+  caixa.scrollLeft = Math.max(0, Math.min(max, alvo));
 }
 
 function beatEm(t) {
@@ -825,15 +848,18 @@ const ARTE = {
         <path d="M19 19l16 16" stroke="currentColor" stroke-opacity=".9" stroke-width="7" stroke-linecap="round"/>
       </g>
     </svg>`,
-  /* Cartão da fonte LGA: a bandeira de Angola no mastro. */
+  /* Cartão da fonte LGA: a bandeira de Angola no mastro — vermelho sobre negro,
+     com a catana, a meia engrenagem e a estrela a amarelo. */
   fonteLga: `<svg viewBox="0 0 320 186" fill="none" aria-hidden="true">
-      <rect x="70" y="50" width="9" height="122" rx="4.5" fill="currentColor" fill-opacity=".9"/>
-      <circle cx="74.5" cy="44" r="6.5" fill="currentColor" fill-opacity=".9"/>
-      <path d="M79 56C128 46 198 68 268 52c12 32 12 58 0 88-70 16-140-6-189-10z"
-        fill="currentColor" fill-opacity=".16" stroke="currentColor" stroke-opacity=".9" stroke-width="3" stroke-linejoin="round"/>
-      <path d="M81 103c26 5 66 6 66 6M192 109c26-1 46-4 66-8" stroke="currentColor" stroke-opacity=".55" stroke-width="2.5" stroke-linecap="round"/>
-      <circle cx="166" cy="102" r="20" stroke="currentColor" stroke-opacity=".55" stroke-width="2.5"/>
-      <path d="M166 90l3.2 6.6 7.3 1.1-5.3 5.1 1.3 7.2-6.5-3.4-6.5 3.4 1.3-7.2-5.3-5.1 7.3-1.1z" fill="currentColor"/>
+      <rect x="70" y="50" width="9" height="122" rx="4.5" fill="#59606E"/>
+      <circle cx="74.5" cy="44" r="6.5" fill="#59606E"/>
+      <rect x="79" y="52" width="190" height="127" rx="3" fill="#CC092F"/>
+      <path d="M79 115.5h190V176a3 3 0 0 1-3 3H82a3 3 0 0 1-3-3z" fill="#14161A"/>
+      <path d="M 156,150 L 155.4,156 L 148.8,155.1 L 149.8,149.2 L 146.8,148.2 L 146.8,148.2 L 144,153.5 L 138.2,150.1 L 141.4,145 L 139,143 L 139,143 L 134.4,146.8 L 130.3,141.5 L 135.2,138 L 133.8,135.2 L 133.8,135.2 L 128.1,136.9 L 126.3,130.5 L 132.2,129.1 L 132,126 L 132,126 L 126,125.4 L 126.9,118.8 L 132.8,119.8 L 133.8,116.8 L 133.8,116.8 L 128.5,114 L 131.9,108.2 L 137,111.4 L 139,109 L 139,109 L 135.2,104.4 L 140.5,100.3 L 144,105.2 L 146.8,103.8 L 146.8,103.8 L 145.1,98.1 L 151.5,96.3 L 152.9,102.2 L 156,102 L 156,113 L 151,114 L 146.8,116.8 L 144,121 L 143,126 L 144,131 L 146.8,135.2 L 151,138 L 156,139 Z" fill="#FFCB00"/>
+      <path d="M214 90c-18 18-30 42-37 66l-8-2c7-25 20-46 39-64z" fill="#FFCB00"/>
+      <rect x="146" y="151" width="30" height="9" rx="4.5" transform="rotate(-40 161 155)" fill="#FFCB00"/>
+      <path d="M 176,77 L 180.4,88.9 L 193.1,89.4 L 183.2,97.3 L 186.6,109.6 L 176,102.6 L 165.4,109.6 L 168.8,97.3 L 158.9,89.4 L 171.6,88.9 Z" fill="#FFCB00"/>
+      <rect x="79" y="52" width="190" height="127" rx="3" stroke="currentColor" stroke-opacity=".2"/>
     </svg>`,
   /* Cartão da fonte IS: o globo do léxico e o play. */
   fonteIs: `<svg viewBox="0 0 320 186" fill="none" aria-hidden="true">
@@ -865,6 +891,22 @@ function shell(conteudo, ativo) {
       <div class="rodape-linha">
         <img class="rodape-marca" src="assets/logo-emblem.png" alt="" width="41" height="34">
         <p>Protótipo da Viva Surdo. As associações palavra-sinal estão <b>por validar</b> por sinalizadores surdos.</p>
+      </div>
+      <div class="rodape-creditos">
+        <p class="creditos-marcas">
+          <span class="credito-marca">
+            <img src="assets/logo-mark.png" alt="" width="18" height="18">
+            <span>Viva Surdo</span>
+          </span>
+          <span class="credito-e" aria-hidden="true">+</span>
+          <span class="credito-marca credito-hf" tabindex="0" aria-describedby="credito-nif">
+            <span class="credito-sigla" aria-hidden="true">HF</span>
+            <span>Horizonte Futuro</span>
+            <span class="credito-nif" id="credito-nif" role="tooltip">NIF 5002540410</span>
+          </span>
+        </p>
+        <p class="creditos-txt">Aplicação criada pela <b>Horizonte Futuro</b> em parceria com a <b>Viva Surdo</b>.</p>
+        <p class="creditos-dir">Todos os direitos reservados 2026.</p>
       </div>
     </footer>`;
 }
@@ -1193,7 +1235,6 @@ function vistaFontes() {
       </span>
       <span class="fonte-copy">
         <span class="fonte-nome">International Sign</span>
-        <span class="fonte-desc">Sinais documentados no léxico da ${esc(FONTE_IS.nome)}, com o vídeo de cada um. ${CONTAS.comparado} já foram comparados fotograma a fotograma.</span>
         <span class="fonte-chips">
           <span>${CONTAS.ref} sinais IS</span>
           <span>${FONTE_IS.total} no léxico</span>
@@ -1370,7 +1411,7 @@ function vistaDicionario(params) {
   <section class="entrada">
     <p class="kicker">Dicionário · International Sign</p>
     <h1>${CONTAS.ref} palavras com sinal documentado em International Sign.</h1>
-    <p class="sub">As ${CONTAS.ref} referências vêm do léxico International Sign da ${FONTE_IS.nome} (${FONTE_IS.total} sinais, colhido a ${FONTE_IS.colhido}) e ligam ao vídeo de cada sinal. ${CONTAS.pose} têm pose no palco 3D — ${CONTAS.soRef} ainda só existem na fonte, ${CONTAS.soPose} são gestos nossos sem correspondência IS. ${CONTAS.comparado} poses já foram comparadas fotograma a fotograma com o vídeo.</p>
+    <p class="sub">Sinais documentados no léxico da ${esc(FONTE_IS.nome)} — ${FONTE_IS.total} referências colhidas a ${FONTE_IS.colhido}, cada uma com o vídeo do sinal. ${CONTAS.pose} têm pose no palco 3D — ${CONTAS.soRef} ainda só existem na fonte, ${CONTAS.soPose} são gestos nossos sem correspondência IS. ${CONTAS.comparado} poses já foram comparadas fotograma a fotograma com o vídeo.</p>
   </section>
   <section class="painel busca">
     <label class="campo">
