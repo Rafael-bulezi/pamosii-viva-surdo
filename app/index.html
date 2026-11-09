@@ -7,7 +7,7 @@
 <meta name="description" content="Cola texto, legendas ou um PDF e vê a glosa em sinais com mãos animadas. Dicionário de sinais de estudo em Língua Gestual Angolana, por validar por sinalizadores surdos. Sem conta, sem recolha de dados.">
 <meta name="theme-color" content="#F4F7FC">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="assets/icon-192.png?v=vs132">
+<link rel="apple-touch-icon" href="assets/icon-192.png?v=vs134">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Viva Surdo">
 <meta property="og:type" content="website">
@@ -15,8 +15,8 @@
 <meta property="og:site_name" content="Viva Surdo">
 <meta property="og:title" content="Viva Surdo — texto em, sinais out">
 <meta property="og:description" content="Cola texto, legendas ou um PDF e vê a glosa em sinais com mãos animadas. Glosa de estudo, não tradução automática.">
-<link rel="icon" href="favicon.ico?v=vs132" sizes="any">
-<link rel="stylesheet" href="styles.css?v=vs132">
+<link rel="icon" href="favicon.ico?v=vs134" sizes="any">
+<link rel="stylesheet" href="styles.css?v=vs134">
 <script>
 /* Aplicar as opções de acessibilidade antes do primeiro paint. */
 (function () {
@@ -35,16 +35,47 @@
 <a class="skip" href="#conteudo">Saltar para o conteúdo principal</a>
 <div id="app"></div>
 <span id="route-live" class="sr-only" aria-live="polite"></span>
-<script src="referencias.js?v=vs132"></script>
-<script src="dados.js?v=vs132"></script>
-<script src="lga.js?v=vs132"></script>
-<script src="lga-3d.js?v=vs132"></script>
-<script src="maos.js?v=vs132"></script>
-<script src="vendor/three.min.js?v=vs132"></script>
-<script src="vendor/GLTFLoader.js?v=vs132"></script>
-<script src="avatar.js?v=vs132"></script>
-<script src="sinal3d.js?v=vs132"></script>
-<script src="aoVivo.js?v=vs132"></script>
-<script src="app.js?v=vs132"></script>
+<div id="vivo-fluxo" class="vivo-fluxo" aria-hidden="true">
+  <!-- o clarão: uma cópia estática, desfocada e ondulada pela turbulência. Fica
+       num SVG próprio porque qualquer animação no mesmo SVG obriga o Chrome a
+       repetir os filtros de ecrã inteiro a cada quadro (10 fps em vez de 60). -->
+  <svg class="vivo-liquido vivo-liquido-veu" viewBox="0 0 1600 1000" preserveAspectRatio="none" focusable="false">
+    <defs>
+      <filter id="vivo-onda" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.008 0.012" numOctaves="2" seed="11" result="ruido"/>
+        <feDisplacementMap in="SourceGraphic" in2="ruido" scale="26" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <!-- uma só cinta (a «#2 Ribbon» da referência): um laço fechado de béziers -->
+      <path id="vivo-cinta" fill="none" d="M 800,78.2 C 809.2,78.5 818.5,80.3 827.4,82.7 C 836.3,85 845,89.5 853.5,92.4 C 862,95.4 870.1,99.3 878.7,100.5 C 887.3,101.8 895.7,101.8 905.1,99.8 C 914.5,97.7 924.5,93 935.2,88.2 C 945.8,83.3 957.6,76 969.1,70.7 C 980.5,65.4 992.9,59.4 1003.8,56.5 C 1014.7,53.6 1025.5,52.3 1034.6,53.2 C 1043.8,54.2 1051.5,58.3 1058.6,62.4 C 1065.7,66.5 1070.9,73.3 1077.2,77.8 C 1083.6,82.4 1088.8,87.8 1096.5,89.7 C 1104.3,91.7 1112.6,92.1 1123.7,89.7 C 1134.8,87.4 1148.2,81.9 1163.1,75.7 C 1177.9,69.5 1195.7,60.3 1212.8,52.7 C 1229.9,45.1 1249.1,36.2 1265.8,30.1 C 1282.5,24.1 1299.2,18.9 1313,16.4 C 1326.9,13.9 1338.8,13.9 1348.8,15.3 C 1358.9,16.7 1366.2,20.8 1373.4,24.8 C 1380.5,28.7 1385.6,34.4 1391.9,39.2 C 1398.1,43.9 1403.9,48.9 1410.8,53.4 C 1417.7,57.8 1425.5,61.6 1433.2,65.8 C 1440.8,70.1 1449.7,73.8 1456.7,79 C 1463.6,84.3 1470.7,90 1475,97.5 C 1479.2,105 1481.7,114 1482,124.1 C 1482.2,134.2 1479.4,146.4 1476.4,158.1 C 1473.4,169.8 1467.5,182.8 1463.9,194.3 C 1460.4,205.8 1455.8,217.2 1455.1,227 C 1454.3,236.7 1455.3,245.2 1459.4,252.9 C 1463.5,260.6 1471.3,266.6 1479.7,273.1 C 1488.1,279.5 1500,284.9 1509.7,291.4 C 1519.5,297.9 1530.6,304.5 1538,312.3 C 1545.3,320 1551.3,328.6 1553.8,337.8 C 1556.4,347 1555.5,357.3 1553.5,367.4 C 1551.5,377.5 1545.9,388.3 1541.8,398.5 C 1537.8,408.7 1532,418.9 1529.2,428.7 C 1526.4,438.6 1524.4,448 1525.1,457.5 C 1525.7,467 1529,476.1 1533,485.7 C 1537,495.2 1543.7,504.8 1548.8,514.6 C 1554,524.5 1560.2,534.7 1564,544.8 C 1567.7,554.9 1570.4,565.3 1571.4,575.4 C 1572.3,585.5 1570.9,595.5 1569.8,605.3 C 1568.7,615.2 1565.6,624.7 1564.6,634.5 C 1563.6,644.4 1562.5,654 1563.7,664.3 C 1564.8,674.6 1567.8,685.2 1571.5,696.3 C 1575.2,707.4 1581.5,719.3 1585.7,730.9 C 1590,742.6 1595.7,755 1597.2,766.2 C 1598.7,777.3 1599.1,788.6 1595,797.9 C 1590.8,807.2 1583.1,815.5 1572.4,821.9 C 1561.6,828.3 1546.3,832.9 1530.7,836.5 C 1515.2,840 1495.9,841.5 1479.1,843.3 C 1462.2,845.1 1444.2,845.4 1429.8,847.1 C 1415.3,848.8 1402.5,850.3 1392.5,853.3 C 1382.5,856.4 1375.7,860.5 1369.6,865.1 C 1363.5,869.8 1360.4,875.9 1356.1,881.3 C 1351.8,886.7 1348.7,892.8 1343.6,897.5 C 1338.6,902.2 1332.8,906.4 1325.9,909.4 C 1318.9,912.5 1310.2,914.2 1301.8,916 C 1293.5,917.7 1283.9,918.3 1275.7,920.1 C 1267.5,921.9 1259.4,923.6 1252.7,926.8 C 1246,930 1240.7,934.3 1235.5,939.3 C 1230.3,944.3 1226.6,951 1221.5,956.6 C 1216.3,962.2 1211.7,968.9 1204.7,972.9 C 1197.7,977 1189.5,980.4 1179.5,981 C 1169.4,981.5 1157.1,979.7 1144.4,976.5 C 1131.6,973.2 1116.8,966.9 1103.2,961.6 C 1089.5,956.3 1075.1,948.9 1062.7,944.6 C 1050.3,940.2 1038.7,936.1 1028.7,935.5 C 1018.7,934.9 1010.5,936.9 1002.6,940.8 C 994.6,944.8 988.3,952.4 980.8,959.2 C 973.4,966 966.5,975.4 958,981.6 C 949.6,987.7 940.4,993.9 930.2,996.1 C 920.1,998.3 908.7,997.8 897.4,994.7 C 886.1,991.5 873.9,984.4 862.6,977.2 C 851.3,970 840.1,959.6 829.6,951.4 C 819.2,943.2 809.5,934.1 800,927.8 C 790.5,921.4 781.8,916.6 772.9,913.2 C 764,909.9 755.3,909 746.5,907.7 C 737.7,906.4 728.8,906.7 720.2,905.3 C 711.6,903.9 703.1,902.3 695.1,899.5 C 687.2,896.7 679.8,892.3 672.5,888.6 C 665.2,884.8 658.9,879.6 651.5,877.1 C 644.1,874.6 637.3,872.4 628.3,873.7 C 619.4,875 609.7,878.7 597.9,884.9 C 586,891.1 572.1,901 557.2,911 C 542.2,920.9 524.7,934 508,944.6 C 491.3,955.2 473,966.7 457.1,974.5 C 441.2,982.2 425.5,988.2 412.6,990.9 C 399.8,993.7 389,992.9 380,990.8 C 371,988.7 364.9,983.1 358.6,978.2 C 352.3,973.4 348.2,966.6 342.3,961.7 C 336.4,956.9 330.9,952.2 323.3,949.4 C 315.7,946.5 306.7,945.3 296.6,944.6 C 286.6,943.8 274.5,944.9 263.1,945 C 251.7,945.2 239,946.1 228.2,945.2 C 217.5,944.3 207.1,942.8 198.5,939.8 C 190,936.8 183.3,932.2 177.1,927.1 C 170.9,922 166.7,915.5 161.5,909.3 C 156.3,903.1 151.9,896.3 145.9,890.1 C 139.8,883.9 132.8,878 125.1,872 C 117.4,866 107.8,860.5 99.6,854.1 C 91.3,847.7 81.8,841.3 75.6,833.5 C 69.4,825.8 63.9,817.2 62.3,807.5 C 60.6,797.7 61.9,786.6 65.9,775.1 C 69.8,763.6 77.9,750.7 85.9,738.4 C 93.8,726.2 105.3,713.3 113.7,701.7 C 122.1,690.1 131.5,678.9 136.3,668.8 C 141,658.8 143.6,649.9 142.2,641.5 C 140.8,633.1 135.1,625.9 127.7,618.3 C 120.4,610.7 108.7,603.8 98.3,596 C 87.8,588.3 74.9,580.4 65.1,571.8 C 55.2,563.3 45.7,554.1 39,544.6 C 32.4,535.2 28.2,525.1 25.1,515.2 C 22,505.2 21.7,494.9 20.5,484.8 C 19.4,474.6 19.6,464.4 18.2,454.2 C 16.8,443.9 14.8,433.5 12.1,423 C 9.4,412.4 5,401.6 2,390.8 C -1,380 -5.1,368.8 -6.1,358.2 C -7.2,347.5 -7.3,336.8 -4.2,327 C -1.1,317.3 4.9,308 12.4,299.7 C 20,291.3 31.1,284.1 41.2,277 C 51.3,269.9 63.8,264 73.1,257.3 C 82.4,250.6 91.4,244.3 97.1,236.6 C 102.8,228.9 105.8,220.6 107.2,211.2 C 108.6,201.9 106.5,191 105.6,180.3 C 104.8,169.6 101.8,157.5 102.2,147.3 C 102.7,137 103.6,126.5 108.3,118.8 C 113.1,111.1 120.7,104.8 130.7,100.8 C 140.7,96.9 154.5,95.5 168.2,95 C 182,94.5 198.7,96.5 213.3,97.7 C 228,99 243.5,101.5 256.3,102.4 C 269.1,103.3 280.6,104 290.3,103.2 C 300,102.4 307.4,100.1 314.6,97.7 C 321.8,95.2 327.2,91.3 333.8,88.3 C 340.4,85.3 346.6,81.9 354.2,79.8 C 361.8,77.7 370.4,76.4 379.3,75.6 C 388.3,74.8 398.6,75.5 407.8,75.1 C 417.1,74.8 426.9,75.2 434.9,73.3 C 442.9,71.4 449.9,68.8 455.8,63.7 C 461.6,58.7 465.6,51.4 469.9,43.2 C 474.1,35.1 476.8,24.1 481.4,14.9 C 486,5.7 490.4,-5.1 497.5,-12 C 504.5,-18.9 513,-24.9 523.5,-26.5 C 534,-28.1 547,-26.3 560.4,-21.6 C 573.7,-16.9 589.3,-7.6 603.8,1.7 C 618.2,11 633.5,23.9 647.1,34.2 C 660.7,44.5 673.7,55.8 685.4,63.5 C 697.1,71.2 707.4,77.2 717.4,80.6 C 727.4,84.1 736.2,84.2 745.4,84.2 C 754.6,84.2 763.4,81.5 772.5,80.5 C 781.6,79.5 790.8,77.8 800,78.2 Z"/>
+    </defs>
+    <g class="vivo-veu"><use class="vivo-risco" href="#vivo-cinta"/></g>
+  </svg>
+  <!-- a água que corre: dois traços sem filtro, um largo e um fino -->
+  <svg class="vivo-liquido vivo-liquido-agua" viewBox="0 0 1600 1000" preserveAspectRatio="none" focusable="false">
+    <defs>
+      <linearGradient id="vivo-azul" x1="100%" y1="100%" x2="0%" y2="0%">
+        <stop offset="0%" stop-color="#1157AE"/>
+        <stop offset="25%" stop-color="#3FA9EE"/>
+        <stop offset="55%" stop-color="#0F63C2"/>
+        <stop offset="82%" stop-color="#6FD0FF"/>
+        <stop offset="100%" stop-color="#0B4E9E"/>
+      </linearGradient>
+    </defs>
+    <g class="vivo-fio"><use class="vivo-risco" href="#vivo-cinta"/></g>
+    <g class="vivo-filamento"><use class="vivo-risco" href="#vivo-cinta"/></g>
+  </svg>
+  <div class="vivo-ondas"><i></i><i></i><i></i></div>
+</div>
+<script src="referencias.js?v=vs134"></script>
+<script src="dados.js?v=vs134"></script>
+<script src="lga.js?v=vs134"></script>
+<script src="lga-3d.js?v=vs134"></script>
+<script src="maos.js?v=vs134"></script>
+<script src="vendor/three.min.js?v=vs134"></script>
+<script src="vendor/GLTFLoader.js?v=vs134"></script>
+<script src="avatar.js?v=vs134"></script>
+<script src="sinal3d.js?v=vs134"></script>
+<script src="aoVivo.js?v=vs134"></script>
+<script src="app.js?v=vs134"></script>
 </body>
 </html>

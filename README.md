@@ -355,6 +355,18 @@ colada à base, mais alta ao centro (o «brilho mais alto em baixo» do Gemini
 Live). O movimento não muda de custo: o anel gira em `steps(90)`, 5 repinturas
 por segundo, e a névoa só anima opacidade e deslocamento.
 
+Em **vs133** o brilho ganha a textura do exemplo «Gemini Live — Honeycomb &
+Pixel Edge Glow», mais discreta: uma faixa de **42 px** (26 px no telemóvel)
+colada à moldura, com favos de **12 px** contra os 28 px do exemplo. Cada célula
+tem só o contorno aceso e o interior quase transparente, e os intervalos entre
+células ficam escuros — por isso os favos leem-se um a um em vez de uma mancha
+contínua. O padrão desliza dois favos na diagonal em 12 s com `steps(24)` (duas
+repinturas por segundo) e um clarão cónico percorre a moldura em `steps(90)`: só
+as células por onde ele passa acendem, o resto fica no azul da cauda. O brilho
+geral desce (halo e anel mais fracos, névoa de 28vh), o `.vivo-favos` fica no
+`z-index: 78` — abaixo do painel da sinalizadora (79) — e em alto contraste,
+`forced-colors` ou movimento reduzido a faixa desaparece.
+
 Em **vs128–vs129** a espera do modelo deixa de ser muda: o GLTFLoader recebe um
 `progresso` e os palcos escrevem `A preparar a sinalizadora… 37%`. O ficheiro
 tem 13,8 MB e numa ligação lenta desce a 47–57 KB/s (243 s vindo do Pages, 294 s
@@ -373,7 +385,7 @@ Para publicar no Pages: copiar `app/` para a branch `gh-pages` **sem apagar o
 `.nojekyll`** que só existe nessa branch (um `rsync --delete` da pasta `app/`
 remove-o e o Jekyll volta a tentar processar os ficheiros), mudar `const VERSAO`
 em `app/sw.js` **e** todos os `?v=` em `app/index.html` para o mesmo valor
-(o local está em vs132: 14 ocorrências em `index.html`, incluindo ícone e
+(o local está em vs133: 14 ocorrências em `index.html`, incluindo ícone e
 folhas de estilo), correr
 `node tools/integridade-test.cjs`, `node tools/engine-test.cjs` e
 `node tools/sinais-test.cjs` e enviar a `gh-pages`. A Pages do fork pode
