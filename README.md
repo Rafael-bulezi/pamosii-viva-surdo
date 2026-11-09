@@ -338,7 +338,22 @@ recomeçar a sequência quando a cabeça já está no fim (antes o clique só mu
 bandeira e nada mexia no palco). Os três cartões da página inicial ganham
 superfícies em gradiente — azul→branco, azul-escuro→branco e turquesa→branco —,
 perdem a numeração e a pastilha do canto, e o desenho do dicionário passa a
-mostrar a lista do léxico à esquerda, a mão em destaque e a marca de ▶ do vídeo.
+mostrar a lista do léxico à esquerda, a mão em destaque e a marca de ▶ do vídeo
+(substituído em vs132).
+
+Em **vs132** a arte dos cartões deixa de ter mãos. Os desenhos eram feitos de
+rectângulos com dedos e liam-se como luvas, por isso cada cartão passa a mostrar
+um **objecto**: a janela de texto com um selo «Aa» no cartão Texto, o microfone
+com as ondas e o painel de legendas no Traduzir ao vivo, um **livro aberto** com
+marcador e lupa no Dicionário, uma **bandeira angolana** com a estrela emblema no
+cartão LGA do dicionário e um globo com ▶ no International Sign. Tudo a
+`currentColor` e opacidades — a mesma arte serve o tema claro, o escuro e o
+contraste alto. A moldura do modo ao vivo perde a lavagem de cor que subia pelos
+lados e passava por cima do conteúdo: fica um anel de **3 px** só nos azuis e no
+turquesa da marca, um halo interior de 26 px de desfoque e uma névoa de **34vh**
+colada à base, mais alta ao centro (o «brilho mais alto em baixo» do Gemini
+Live). O movimento não muda de custo: o anel gira em `steps(90)`, 5 repinturas
+por segundo, e a névoa só anima opacidade e deslocamento.
 
 Em **vs128–vs129** a espera do modelo deixa de ser muda: o GLTFLoader recebe um
 `progresso` e os palcos escrevem `A preparar a sinalizadora… 37%`. O ficheiro
@@ -358,7 +373,7 @@ Para publicar no Pages: copiar `app/` para a branch `gh-pages` **sem apagar o
 `.nojekyll`** que só existe nessa branch (um `rsync --delete` da pasta `app/`
 remove-o e o Jekyll volta a tentar processar os ficheiros), mudar `const VERSAO`
 em `app/sw.js` **e** todos os `?v=` em `app/index.html` para o mesmo valor
-(o local está em vs131: 14 ocorrências em `index.html`, incluindo ícone e
+(o local está em vs132: 14 ocorrências em `index.html`, incluindo ícone e
 folhas de estilo), correr
 `node tools/integridade-test.cjs`, `node tools/engine-test.cjs` e
 `node tools/sinais-test.cjs` e enviar a `gh-pages`. A Pages do fork pode
