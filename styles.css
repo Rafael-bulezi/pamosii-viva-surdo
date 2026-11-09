@@ -1058,36 +1058,34 @@ html::after {
   opacity: 0; visibility: hidden;
   transition: opacity .5s ease, visibility .5s ease;
 }
-/* 0 — o halo: a cor a entornar para dentro das bordas, mais forte em baixo */
+/* 0 — o brilho colado à borda: sombras interiores paradas, sem desfoque de
+   camada nem gradiente a atravessar o conteúdo */
 body::before {
   inset: 0; z-index: 84;
-  background:
-    linear-gradient(180deg, rgba(56, 207, 192, .26), rgba(56, 207, 192, 0) 6%),
-    linear-gradient(0deg, rgba(28, 176, 246, .40), rgba(28, 176, 246, 0) 14%),
-    linear-gradient(90deg, rgba(28, 79, 156, .30), rgba(28, 79, 156, 0) 6%),
-    linear-gradient(270deg, rgba(139, 92, 246, .26), rgba(139, 92, 246, 0) 6%);
-  filter: blur(24px);
+  box-shadow:
+    inset 0 0 0 1px rgba(28, 176, 246, .34),
+    inset 0 0 26px -6px rgba(28, 176, 246, .55),
+    inset 0 0 96px -34px rgba(56, 207, 192, .55);
 }
 /* 1 — a moldura: um anel fino cortado de um gradiente cónico */
 html::before {
-  inset: 0; z-index: 85; padding: 4px;
+  inset: 0; z-index: 85; padding: 3px;
   background: conic-gradient(from var(--vivo-angulo) at 50% 64%,
-    #1C4F9C, #1CB0F6, #38CFC0, #8B5CF6, #1CB0F6, #1C4F9C);
+    #2E7CE0, #1CB0F6, #38CFC0, #1CB0F6, #2E7CE0);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   mask-composite: exclude;
   /* Passos de 4° cinco vezes por segundo: o olho não distingue um salto de 4°
-     num anel de 4px, e a moldura repinta 5×/s em vez de 60×/s. */
+     num anel de 3px, e a moldura repinta 5×/s em vez de 60×/s. */
   animation: vivo-girar 18s steps(90) infinite paused;
 }
 /* 2 — a névoa que sobe da base, mais alta ao centro */
 html::after {
-  left: -12%; right: -12%; bottom: -14%; height: 40vh; z-index: 85;
+  left: -10%; right: -10%; bottom: -8%; height: 34vh; z-index: 85;
   background:
-    radial-gradient(52% 96% at 50% 100%, rgba(28, 176, 246, .64), rgba(28, 176, 246, 0) 70%),
-    radial-gradient(40% 88% at 12% 100%, rgba(139, 92, 246, .44), transparent 72%),
-    radial-gradient(42% 88% at 88% 100%, rgba(56, 207, 192, .48), transparent 72%);
+    radial-gradient(46% 100% at 50% 100%, rgba(28, 176, 246, .6), rgba(28, 176, 246, 0) 74%),
+    radial-gradient(82% 92% at 50% 100%, rgba(56, 207, 192, .34), transparent 80%);
   animation: vivo-respira 7s ease-in-out infinite alternate paused;
   will-change: opacity;
 }

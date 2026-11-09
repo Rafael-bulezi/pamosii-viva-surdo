@@ -764,19 +764,10 @@ const matchRoute = (hash) => {
 const NAV = [['/', 'Sinalizar'], ['/dicionario', 'Dicionário']];
 
 /* Ilustrações dos cartões. Tudo a `currentColor` e a opacidades: a mesma arte
-   serve o tema claro, o escuro e o contraste alto sem cores cravadas. */
-const MAO_ARTE = (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})" fill="currentColor">
-  <rect x="-27" y="2" width="54" height="52" rx="16"/>
-  <rect x="-25" y="-26" width="12" height="38" rx="6"/>
-  <rect x="-9.5" y="-36" width="12" height="48" rx="6"/>
-  <rect x="6" y="-32" width="12" height="44" rx="6"/>
-  <rect x="21" y="-20" width="11" height="32" rx="5.5"/>
-  <rect x="-39" y="6" width="13" height="30" rx="6.5" transform="rotate(-24 -32.5 21)"/>
-  <rect x="-7" y="50" width="22" height="16" rx="8"/>
-</g>`;
-
+   serve o tema claro, o escuro e o contraste alto sem cores cravadas. Só
+   objectos — mão desenhada a partir de rectângulos lia-se como luva. */
 const ARTE = {
-  /* Um editor com a linha que está a ser sinalizada, e a mão a acompanhar. */
+  /* O editor com a linha que está a ser sinalizada e o selo do texto. */
   texto: `<svg viewBox="0 0 320 186" fill="none" aria-hidden="true">
       <g transform="rotate(-3 118 92)">
         <rect x="26" y="26" width="180" height="122" rx="15" fill="currentColor" fill-opacity=".14"/>
@@ -792,11 +783,13 @@ const ARTE = {
         <rect x="42" y="114" width="76" height="8" rx="4" fill="currentColor" fill-opacity=".45"/>
         <rect x="42" y="130" width="50" height="8" rx="4" fill="currentColor" fill-opacity=".28"/>
       </g>
-      ${MAO_ARTE(246, 102, 0.9)}
+      <circle cx="256" cy="102" r="37" fill="currentColor" fill-opacity=".12"/>
+      <circle cx="256" cy="102" r="37" stroke="currentColor" stroke-opacity=".45" stroke-width="2.5"/>
+      <text x="256" y="114" text-anchor="middle" fill="currentColor" style="font:900 30px/1 var(--display);letter-spacing:-.5px">Aa</text>
     </svg>`,
-  /* Um microfone com ondas de voz a sair para a mão que responde. */
+  /* O microfone, as ondas e a legenda que fecha a frase. */
   aoVivo: `<svg viewBox="0 0 320 186" fill="none" aria-hidden="true">
-      <g transform="translate(78 34)">
+      <g transform="translate(72 34)">
         <rect x="-16" y="0" width="32" height="62" rx="16" fill="currentColor" fill-opacity=".9"/>
         <rect x="-8" y="10" width="16" height="42" rx="8" fill="var(--surface)" fill-opacity=".55"/>
         <path d="M-30 40v6a30 30 0 0 0 60 0v-6" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
@@ -804,55 +797,53 @@ const ARTE = {
         <path d="M-22 100h44" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-opacity=".6"/>
       </g>
       <g stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-opacity=".5">
-        <path d="M136 74h10M140 90h8M136 106h10"/>
-        <path d="M158 62h16M162 78h20M158 94h16M162 110h20"/>
+        <path d="M130 74h10M134 90h8M130 106h10"/>
+        <path d="M152 62h16M156 78h20M152 94h16M156 110h20"/>
       </g>
-      <circle cx="228" cy="88" r="40" fill="currentColor" fill-opacity=".08" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/>
-      ${MAO_ARTE(228, 78, 0.86)}
+      <g transform="translate(196 50)">
+        <rect width="104" height="86" rx="14" fill="currentColor" fill-opacity=".12"/>
+        <rect width="104" height="86" rx="14" stroke="currentColor" stroke-opacity=".5" stroke-width="2.5"/>
+        <circle cx="88" cy="18" r="4.5" fill="currentColor"/>
+        <rect x="14" y="32" width="76" height="9" rx="4.5" fill="currentColor" fill-opacity=".9"/>
+        <rect x="14" y="50" width="58" height="9" rx="4.5" fill="currentColor" fill-opacity=".55"/>
+        <rect x="14" y="68" width="40" height="9" rx="4.5" fill="currentColor" fill-opacity=".3"/>
+      </g>
     </svg>`,
-  /* Uma lista de entradas do léxico à esquerda e o sinal em destaque à direita,
-     com a marca de vídeo: palavra, sinal e origem, que é o que a ficha mostra. */
+  /* O livro aberto do léxico e a lupa. */
   dicionario: `<svg viewBox="0 0 320 186" fill="none" aria-hidden="true">
-      <g transform="rotate(-2 104 96)">
-        <rect x="22" y="30" width="166" height="126" rx="15" fill="currentColor" fill-opacity=".12"/>
-        <rect x="22" y="30" width="166" height="126" rx="15" stroke="currentColor" stroke-opacity=".55" stroke-width="2.5"/>
-        <rect x="36" y="44" width="52" height="8" rx="4" fill="currentColor" fill-opacity=".7"/>
-        <rect x="36" y="64" width="20" height="20" rx="6" fill="currentColor" fill-opacity=".22"/>
-        <rect x="64" y="70" width="88" height="9" rx="4.5" fill="currentColor" fill-opacity=".85"/>
-        <rect x="36" y="94" width="20" height="20" rx="6" fill="currentColor" fill-opacity=".22"/>
-        <rect x="64" y="100" width="64" height="9" rx="4.5" fill="currentColor" fill-opacity=".5"/>
-        <rect x="36" y="124" width="20" height="20" rx="6" fill="currentColor" fill-opacity=".22"/>
-        <rect x="64" y="130" width="76" height="9" rx="4.5" fill="currentColor" fill-opacity=".35"/>
+      <path d="M160 52 56 62v82l104 12 104-12V62z" fill="currentColor" fill-opacity=".1" stroke="currentColor" stroke-opacity=".55" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M158 44 60 54v80l98 10z" fill="currentColor" fill-opacity=".2" stroke="currentColor" stroke-opacity=".55" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M162 44l98 10v80l-98 10z" fill="currentColor" fill-opacity=".28" stroke="currentColor" stroke-opacity=".55" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M160 44v100" stroke="currentColor" stroke-opacity=".7" stroke-width="2.5"/>
+      <g stroke="currentColor" stroke-linecap="round" stroke-width="6">
+        <path d="M74 72h64M74 88h52M74 104h58" stroke-opacity=".5"/>
+        <path d="M182 72h64M182 88h52M182 104h58" stroke-opacity=".62"/>
       </g>
-      <circle cx="238" cy="92" r="54" fill="currentColor" fill-opacity=".1"/>
-      <circle cx="238" cy="92" r="54" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/>
-      ${MAO_ARTE(238, 76, 0.94)}
-      <circle cx="278" cy="143" r="19" fill="currentColor"/>
-      <path d="M273 135l14 8-14 8z" fill="var(--surface)"/>
+      <path d="M226 50V30h13v20l-6.5-6z" fill="currentColor" fill-opacity=".85"/>
+      <g transform="translate(248 120)">
+        <circle r="26" fill="currentColor" fill-opacity=".1" stroke="currentColor" stroke-opacity=".9" stroke-width="3.5"/>
+        <path d="M19 19l16 16" stroke="currentColor" stroke-opacity=".9" stroke-width="7" stroke-linecap="round"/>
+      </g>
     </svg>`,
-  /* Cartão da fonte LGA: uma aula em vídeo com a mão a sinalizar. */
+  /* Cartão da fonte LGA: a bandeira de Angola no mastro. */
   fonteLga: `<svg viewBox="0 0 320 186" fill="none" aria-hidden="true">
-      <rect x="16" y="18" width="288" height="150" rx="18" fill="currentColor" fill-opacity=".09" stroke="currentColor" stroke-opacity=".32" stroke-width="2"/>
-      <rect x="32" y="34" width="46" height="7" rx="3.5" fill="currentColor" fill-opacity=".55"/>
-      <rect x="86" y="34" width="26" height="7" rx="3.5" fill="currentColor" fill-opacity=".3"/>
-      <circle cx="118" cy="86" r="30" fill="currentColor" fill-opacity=".18" stroke="currentColor" stroke-opacity=".55" stroke-width="2.5"/>
-      <path d="M110 71l23 15-23 15z" fill="currentColor"/>
-      <rect x="32" y="128" width="256" height="10" rx="5" fill="currentColor" fill-opacity=".22"/>
-      <rect x="32" y="128" width="96" height="10" rx="5" fill="currentColor" fill-opacity=".9"/>
-      <circle cx="128" cy="133" r="8" fill="currentColor"/>
-      <rect x="32" y="148" width="64" height="7" rx="3.5" fill="currentColor" fill-opacity=".4"/>
-      ${MAO_ARTE(240, 92, 0.78)}
+      <rect x="70" y="50" width="9" height="122" rx="4.5" fill="currentColor" fill-opacity=".9"/>
+      <circle cx="74.5" cy="44" r="6.5" fill="currentColor" fill-opacity=".9"/>
+      <path d="M79 56C128 46 198 68 268 52c12 32 12 58 0 88-70 16-140-6-189-10z"
+        fill="currentColor" fill-opacity=".16" stroke="currentColor" stroke-opacity=".9" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M81 103c26 5 66 6 66 6M192 109c26-1 46-4 66-8" stroke="currentColor" stroke-opacity=".55" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="166" cy="102" r="20" stroke="currentColor" stroke-opacity=".55" stroke-width="2.5"/>
+      <path d="M166 90l3.2 6.6 7.3 1.1-5.3 5.1 1.3 7.2-6.5-3.4-6.5 3.4 1.3-7.2-5.3-5.1 7.3-1.1z" fill="currentColor"/>
     </svg>`,
-  /* Cartão da fonte IS: o globo do léxico, o play e a mão. */
+  /* Cartão da fonte IS: o globo do léxico e o play. */
   fonteIs: `<svg viewBox="0 0 320 186" fill="none" aria-hidden="true">
-      <circle cx="112" cy="93" r="58" fill="currentColor" fill-opacity=".1" stroke="currentColor" stroke-opacity=".8" stroke-width="3.5"/>
-      <ellipse cx="112" cy="93" rx="26" ry="58" stroke="currentColor" stroke-opacity=".55" stroke-width="2.5"/>
-      <path d="M84 44c14 30 14 68 0 98M140 44c-14 30-14 68 0 98" stroke="currentColor" stroke-opacity=".42" stroke-width="2.5"/>
-      <path d="M54 93h116" stroke="currentColor" stroke-opacity=".55" stroke-width="2.5"/>
-      <path d="M63 63h98M63 123h98" stroke="currentColor" stroke-opacity=".4" stroke-width="2.5"/>
-      <circle cx="170" cy="134" r="27" fill="currentColor"/>
-      <path d="M162 121l20 13-20 13z" fill="var(--surface)"/>
-      ${MAO_ARTE(246, 90, 0.8)}
+      <circle cx="150" cy="93" r="58" fill="currentColor" fill-opacity=".1" stroke="currentColor" stroke-opacity=".8" stroke-width="3.5"/>
+      <ellipse cx="150" cy="93" rx="26" ry="58" stroke="currentColor" stroke-opacity=".55" stroke-width="2.5"/>
+      <path d="M122 44c14 30 14 68 0 98M178 44c-14 30-14 68 0 98" stroke="currentColor" stroke-opacity=".42" stroke-width="2.5"/>
+      <path d="M92 93h116" stroke="currentColor" stroke-opacity=".55" stroke-width="2.5"/>
+      <path d="M101 63h98M101 123h98" stroke="currentColor" stroke-opacity=".4" stroke-width="2.5"/>
+      <circle cx="208" cy="134" r="27" fill="currentColor"/>
+      <path d="M200 121l20 13-20 13z" fill="var(--surface)"/>
     </svg>`,
 };
 
