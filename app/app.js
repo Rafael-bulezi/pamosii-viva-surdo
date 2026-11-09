@@ -272,6 +272,14 @@ function montarSigner() {
     SG.repetir = !SG.repetir;
     e.currentTarget.classList.toggle('on', SG.repetir);
     e.currentTarget.setAttribute('aria-pressed', String(SG.repetir));
+    /* Sem ciclo, a sequência pára no fim. Ligar «Repetir» com a cabeça no fim
+       não mudava nada no ecrã: recomeça para a pessoa ver o ciclo a andar. */
+    if (SG.repetir && SG.total && SG.t >= SG.total - 0.05) {
+      SG.t = 0;
+      SG.beat = -1;
+      desenharSigner(0);
+      if (!SG.tocando) tocarSigner();
+    }
   });
   $$('[data-sgvel]').forEach(b => b.addEventListener('click', () => {
     SG.vel = Number(b.dataset.sgvel);
@@ -342,6 +350,7 @@ async function abrirSignerBeats(t, beats, opcoes) {
   SG.texto = t;
   SG.aberto = true;
   SG.vivo = !!o.vivo;
+  if (!o.vivo && window.AO_VIVO && AO_VIVO.ligado()) pararAoVivo();
   SG.beats = beats.slice();
   SG.passos = [];
   SG.poses = null;
@@ -435,6 +444,25 @@ function fecharSigner(silencioso) {
    fora de ordem, mesmo que a segunda resposta seja mais rápida. */
 const VIVO = { fila: Promise.resolve(), simples: false, fechada: '' };
 
+/* A moldura respira enquanto o microfone ouve. As camadas são CSS; aqui só se
+   liga a classe e pausa-se a animação com o separador escondido. */
+const BRILHO = {
+  prefs: window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null,
+  pausar() {
+    const parado = document.hidden || !!(this.prefs && this.prefs.matches);
+    document.documentElement.classList.toggle('vivo-pausado', parado);
+  },
+  sincronizar() {
+    const on = !!(window.AO_VIVO && AO_VIVO.ligado());
+    document.documentElement.classList.toggle('vivo-ligado', on);
+    this.pausar();
+  },
+};
+document.addEventListener('visibilitychange', () => BRILHO.pausar());
+if (BRILHO.prefs && BRILHO.prefs.addEventListener) {
+  BRILHO.prefs.addEventListener('change', () => BRILHO.pausar());
+}
+
 function mostrarTranscricao(provisorio, fechada) {
   const caixa = $('#sg-transcricao');
   if (!caixa) return;
@@ -520,6 +548,7 @@ function ligarAoVivo() {
       enfileirarFrase(frase);
     },
     aoErro: (erro, fatal) => {
+      BRILHO.sincronizar();
       if (erro === 'not-allowed' || erro === 'service-not-allowed') {
         mostrarTranscricao('Permissão do microfone recusada.', '');
         return;
@@ -539,10 +568,12 @@ function ligarAoVivo() {
   }
   const rotulo = $('#sg-mic-txt');
   if (rotulo) rotulo.textContent = ligado ? 'A ouvir' : 'Microfone';
+  BRILHO.sincronizar();
 }
 
 function pararAoVivo() {
   if (window.AO_VIVO) AO_VIVO.parar();
+  BRILHO.sincronizar();
   const botao = $('#sg-mic');
   if (botao) { botao.classList.remove('on'); botao.setAttribute('aria-pressed', 'false'); }
   const rotulo = $('#sg-mic-txt');
@@ -779,24 +810,25 @@ const ARTE = {
       <circle cx="228" cy="88" r="40" fill="currentColor" fill-opacity=".08" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/>
       ${MAO_ARTE(228, 78, 0.86)}
     </svg>`,
-  /* Duas fichas de dicionário, uma à frente com a mão, e a lupa por cima. */
+  /* Uma lista de entradas do léxico à esquerda e o sinal em destaque à direita,
+     com a marca de vídeo: palavra, sinal e origem, que é o que a ficha mostra. */
   dicionario: `<svg viewBox="0 0 320 186" fill="none" aria-hidden="true">
-      <g transform="rotate(-5 88 100)">
-        <rect x="28" y="46" width="118" height="106" rx="13" fill="currentColor" fill-opacity=".1" stroke="currentColor" stroke-opacity=".35" stroke-width="2"/>
-        <rect x="40" y="58" width="54" height="44" rx="9" fill="currentColor" fill-opacity=".16"/>
-        <rect x="42" y="114" width="70" height="8" rx="4" fill="currentColor" fill-opacity=".4"/>
-        <rect x="42" y="128" width="46" height="7" rx="3.5" fill="currentColor" fill-opacity=".25"/>
+      <g transform="rotate(-2 104 96)">
+        <rect x="22" y="30" width="166" height="126" rx="15" fill="currentColor" fill-opacity=".12"/>
+        <rect x="22" y="30" width="166" height="126" rx="15" stroke="currentColor" stroke-opacity=".55" stroke-width="2.5"/>
+        <rect x="36" y="44" width="52" height="8" rx="4" fill="currentColor" fill-opacity=".7"/>
+        <rect x="36" y="64" width="20" height="20" rx="6" fill="currentColor" fill-opacity=".22"/>
+        <rect x="64" y="70" width="88" height="9" rx="4.5" fill="currentColor" fill-opacity=".85"/>
+        <rect x="36" y="94" width="20" height="20" rx="6" fill="currentColor" fill-opacity=".22"/>
+        <rect x="64" y="100" width="64" height="9" rx="4.5" fill="currentColor" fill-opacity=".5"/>
+        <rect x="36" y="124" width="20" height="20" rx="6" fill="currentColor" fill-opacity=".22"/>
+        <rect x="64" y="130" width="76" height="9" rx="4.5" fill="currentColor" fill-opacity=".35"/>
       </g>
-      <g transform="rotate(3 176 96)">
-        <rect x="106" y="34" width="130" height="112" rx="13" fill="currentColor" fill-opacity=".18"/>
-        <rect x="106" y="34" width="130" height="112" rx="13" stroke="currentColor" stroke-opacity=".6" stroke-width="2.5"/>
-        <rect x="118" y="46" width="62" height="54" rx="9" fill="currentColor" fill-opacity=".2"/>
-        ${MAO_ARTE(149, 84, 0.34)}
-        <rect x="120" y="112" width="78" height="9" rx="4.5" fill="currentColor" fill-opacity=".8"/>
-        <rect x="120" y="128" width="52" height="7" rx="3.5" fill="currentColor" fill-opacity=".45"/>
-      </g>
-      <circle cx="252" cy="132" r="26" fill="currentColor" fill-opacity=".14" stroke="currentColor" stroke-width="6"/>
-      <path d="M271 151l17 17" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+      <circle cx="238" cy="92" r="54" fill="currentColor" fill-opacity=".1"/>
+      <circle cx="238" cy="92" r="54" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/>
+      ${MAO_ARTE(238, 76, 0.94)}
+      <circle cx="278" cy="143" r="19" fill="currentColor"/>
+      <path d="M273 135l14 8-14 8z" fill="var(--surface)"/>
     </svg>`,
   /* Cartão da fonte LGA: uma aula em vídeo com a mão a sinalizar. */
   fonteLga: `<svg viewBox="0 0 320 186" fill="none" aria-hidden="true">
@@ -857,11 +889,7 @@ function vistaSinalizar() {
 
   <section class="modo-grid" aria-label="Começar">
     <button class="modo-card texto" type="button" data-modo="texto">
-      <span class="mode-art">
-        <span class="mode-num" aria-hidden="true">01</span>
-        <span class="mode-eyebrow">Escreve · Carrega</span>
-        ${ARTE.texto}
-      </span>
+      <span class="mode-art">${ARTE.texto}</span>
       <span class="mode-copy">
         <span class="mode-name">Texto</span>
         <span class="mode-sub">Uma caixa de texto, ou um ficheiro .txt, .srt, .vtt ou PDF.</span>
@@ -872,11 +900,7 @@ function vistaSinalizar() {
       </span>
     </button>
     <button class="modo-card ao-vivo" type="button" data-modo="ao-vivo">
-      <span class="mode-art">
-        <span class="mode-num" aria-hidden="true">02</span>
-        <span class="mode-eyebrow">Microfone</span>
-        ${ARTE.aoVivo}
-      </span>
+      <span class="mode-art">${ARTE.aoVivo}</span>
       <span class="mode-copy">
         <span class="mode-name">Traduzir ao vivo</span>
         <span class="mode-sub">Fala em português: a transcrição escolhe os sinais do léxico.</span>
@@ -887,11 +911,7 @@ function vistaSinalizar() {
       </span>
     </button>
     <a class="modo-card dicionario" href="#/dicionario">
-      <span class="mode-art">
-        <span class="mode-num" aria-hidden="true">03</span>
-        <span class="mode-eyebrow">${LGA_LISTA.length} LGA · ${CONTAS.ref} IS</span>
-        ${ARTE.dicionario}
-      </span>
+      <span class="mode-art">${ARTE.dicionario}</span>
       <span class="mode-copy">
         <span class="mode-name">Dicionário</span>
         <span class="mode-sub">Duas línguas, cada palavra com o sinal, a aula e o vídeo de origem.</span>

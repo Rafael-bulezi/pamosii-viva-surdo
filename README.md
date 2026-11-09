@@ -323,6 +323,23 @@ mostrando `modo simples`. O `sinais.js` guarda os 20 pedidos por minuto e IP,
 limita a frase a 300 caracteres, usa `temperature: 0` e nunca deixa a chave
 sair no corpo do pedido (`tools/sinais-test.cjs`, 35 verificações).
 
+Em **vs131** o microfone deixa marca no ecrã: enquanto `AO_VIVO.ligado()` for
+verdade, a moldura do site ganha um anel de 4 px com um gradiente cónico que
+gira (18 s por volta, em `steps(90)` — o anel repinta 5×/s, não 60×/s), um halo
+parado colado às bordas (gradiente de 26 px de desfoque, rasterizado uma vez) e
+uma névoa que sobe 40vh da base, mais alta ao centro do que nos cantos; a névoa
+só anima opacidade e deslocamento, que fica no compositor, e nada disto é
+canvas, rAF ou DOM novo. Tudo pára quando o separador fica escondido, quando o
+painel fecha, quando a sinalização não é ao vivo ou com `prefers-reduced-motion`
+(aí o global `.001ms` faria o anel girar mil vezes por segundo, por isso o anel
+e a névoa ficam com `animation: none`); em alto contraste e `forced-colors` o
+brilho desaparece e o anel passa a branco ou `Highlight`. O `Repetir` passa a
+recomeçar a sequência quando a cabeça já está no fim (antes o clique só mudava a
+bandeira e nada mexia no palco). Os três cartões da página inicial ganham
+superfícies em gradiente — azul→branco, azul-escuro→branco e turquesa→branco —,
+perdem a numeração e a pastilha do canto, e o desenho do dicionário passa a
+mostrar a lista do léxico à esquerda, a mão em destaque e a marca de ▶ do vídeo.
+
 Em **vs128–vs129** a espera do modelo deixa de ser muda: o GLTFLoader recebe um
 `progresso` e os palcos escrevem `A preparar a sinalizadora… 37%`. O ficheiro
 tem 13,8 MB e numa ligação lenta desce a 47–57 KB/s (243 s vindo do Pages, 294 s
@@ -341,7 +358,7 @@ Para publicar no Pages: copiar `app/` para a branch `gh-pages` **sem apagar o
 `.nojekyll`** que só existe nessa branch (um `rsync --delete` da pasta `app/`
 remove-o e o Jekyll volta a tentar processar os ficheiros), mudar `const VERSAO`
 em `app/sw.js` **e** todos os `?v=` em `app/index.html` para o mesmo valor
-(o local está em vs130: 14 ocorrências em `index.html`, incluindo ícone e
+(o local está em vs131: 14 ocorrências em `index.html`, incluindo ícone e
 folhas de estilo), correr
 `node tools/integridade-test.cjs`, `node tools/engine-test.cjs` e
 `node tools/sinais-test.cjs` e enviar a `gh-pages`. A Pages do fork pode
