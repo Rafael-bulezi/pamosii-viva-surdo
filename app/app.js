@@ -1479,7 +1479,7 @@ function vistaDicionarioLga() {
   <section class="entrada">
     <p class="kicker">Dicionário · LGA</p>
     <h1>${LGA_LISTA.length} palavras nas aulas de LGA do ${esc(META_LGA.nome)}.</h1>
-    <p class="sub">${META_LGA.aulas} aulas do Mini curso de LGA, lidas fotograma a fotograma a 540×360 no YouTube. ${LGA_NO_DICIONARIO.size} destas palavras já estão no dicionário; ${LGA_COM_POSE} já abrem no palco 3D da Agatha e as restantes abrem a aula no segundo certo. Confiança: ${conta('alta')} alta, ${conta('média')} média, ${conta('baixa')} baixa — as de confiança baixa estão marcadas para revisão humana.</p>
+    <p class="sub">${META_LGA.aulas} aulas do Mini curso de LGA, lidas fotograma a fotograma a 540×360 no YouTube. ${LGA_NO_DICIONARIO.size} destas palavras já estão no dicionário; ${LGA_COM_POSE === LGA_LISTA.length ? 'todas as ' + LGA_COM_POSE + ' palavras já abrem no palco 3D da Agatha com link para a aula de origem.' : LGA_COM_POSE + ' já abrem no palco 3D da Agatha e as restantes abrem a aula no segundo certo.'} Confiança: ${conta('alta')} alta, ${conta('média')} média, ${conta('baixa')} baixa — as de confiança baixa estão marcadas para revisão humana.</p>
   </section>
   <section class="painel busca">
     <label class="campo">
