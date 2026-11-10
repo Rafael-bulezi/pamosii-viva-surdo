@@ -29,7 +29,7 @@
       veSe: "polegar erguido à frente do peito; depois a mão plana sobe do queixo ao lado da cara com a palma virada para si (o sol a nascer)",
     },
     "bom/boa/bem": {
-      notacao: "joinha peito frente",
+      notacao: ["punho peito parado","joinha peito frente"],
       aula: "Aula 01 — Saudação de LGA",
       segundos: [10,16],
       confianca: "alta",
@@ -119,7 +119,7 @@
       veSe: "dedo indicador da mão direita aponta para junto do olho e projeta-se ligeiramente para a frente",
     },
     "comer": {
-      notacao: "curva boca repete",
+      notacao: ["curva peito frente","curva boca toque"],
       aproximado: true,
       aula: "Aula 06 — Verbos de LGA 1",
       segundos: [37,40],
@@ -127,7 +127,7 @@
       veSe: "mão direita com dedos juntos em cúspide/pinça fecha repetidamente junto à boca",
     },
     "poder": {
-      notacao: "2:punho ombro baixo",
+      notacao: ["2:punho ombro parado","2:punho peito baixo"],
       aula: "Aula 06 — Verbos de LGA 1",
       segundos: [71,74],
       confianca: "alta",
@@ -178,7 +178,7 @@
       veSe: "mão espalmada com borda radial vertical posicionada em frente à boca aberta simulando roer uma fatia de manga",
     },
     "funge": {
-      notacao: "punho barriga circulo",
+      notacao: ["punho barriga circulo","punho barriga bate"],
       aproximado: true,
       aula: "Aula 07 — Comida e Bebida (1ª parte)",
       segundos: [183,189],
@@ -186,7 +186,7 @@
       veSe: "mão esquerda em punho segura a panela; mão direita em punho vertical segurando colher de pau mexe com grande força circular batendo a massa contra a panela (sinal icónico e cultural de bater funge)",
     },
     "massa-macarrao": {
-      notacao: "2:Y peito onda",
+      notacao: ["2:Y peito toque","2:Y lado onda"],
       aproximado: true,
       aula: "Aula 07 — Comida e Bebida (1ª parte)",
       segundos: [195,199],
@@ -208,21 +208,21 @@
       veSe: "mão direita em 'L' com indicador erguido e polegar estendido; ponta do indicador toca repetidamente o queixo / lábio inferior",
     },
     "leite": {
-      notacao: "punho orelha repete",
+      notacao: ["abre orelha parado","punho orelha repete"],
       aula: "Aula 08 — Comida e Bebida (2ª parte)",
       segundos: [79,83],
       confianca: "alta",
       veSe: "mão direita aberta ao lado da cabeça/orelha fecha sucessivamente em punho simulando ordenha com uma mão",
     },
     "manteiga": {
-      notacao: "H mao varre",
+      notacao: ["H mao toque","H mao varre"],
       aula: "Aula 08 — Comida e Bebida (2ª parte)",
       segundos: [71,76],
       confianca: "alta",
       veSe: "mão esquerda aberta palma para cima como fatia; dedos indicador e médio da mão direita deslizam sobre a palma como faca a barrar manteiga",
     },
     "hamburguer": {
-      notacao: "2:C peito parado",
+      notacao: ["2:C peito frente","2:C peito toque"],
       aula: "Aula 08 — Comida e Bebida (2ª parte)",
       segundos: [156,161],
       confianca: "alta",
@@ -237,7 +237,7 @@
       veSe: "mão direita em concha fletida toca ou bate suavemente no lado da bochecha/mandíbula",
     },
     "cafe": {
-      notacao: "F mao toque",
+      notacao: ["F peito frente","F mao toque"],
       aproximado: true,
       aula: "Aula 08 — Comida e Bebida (2ª parte)",
       segundos: [88,91],
@@ -253,14 +253,14 @@
       veSe: "mão direita em punho vertical simulando segurar o cone de gelado, aproximando-o da boca aberta e simulando o ato de lamber com a língua",
     },
     "casa": {
-      notacao: "2:plano alto bate",
+      notacao: ["2:plano alto frente","2:plano alto bate"],
       aula: "Aula 11 — Casa (1ª parte)",
       segundos: [3,5],
       confianca: "alta",
       veSe: "ambas as mãos abertas com pontas dos dedos unidas acima da cabeça formando um telhado triangular",
     },
     "chao": {
-      notacao: "2:plano baixo varre",
+      notacao: ["2:plano peito baixo","2:plano baixo varre"],
       aula: "Aula 11 — Casa (1ª parte)",
       segundos: [63,65],
       confianca: "alta",
@@ -274,21 +274,21 @@
       veSe: "ambas as mãos abertas verticais com palmas para a frente aproximam-se até as palmas se unirem (fechar a porta)",
     },
     "lampada": {
-      notacao: "curva alto abre",
+      notacao: ["curva alto baixo","abre alto cima"],
       aula: "Aula 11 — Casa (1ª parte)",
       segundos: [87,89],
       confianca: "alta",
       veSe: "mão direita em cúspide/garra virada para baixo acima da cabeça abre os dedos irradiando luz",
     },
     "colher": {
-      notacao: "curva boca toque",
+      notacao: ["curva peito frente","curva boca toque"],
       aula: "Aula 11 — Casa (1ª parte)",
       segundos: [135,137],
       confianca: "alta",
       veSe: "mão direita com dedos fletidos em concha simula segurar uma colher e leva à boca",
     },
     "garfo": {
-      notacao: "tres boca toque",
+      notacao: ["tres peito frente","tres boca toque"],
       aula: "Aula 11 — Casa (1ª parte)",
       segundos: [142,144],
       confianca: "alta",
@@ -311,7 +311,7 @@
       veSe: "mão direita segura comando remoto imaginário virado para a frente e polegar prime repetidamente o botão",
     },
     "trabalhar": {
-      notacao: "2:punho peito bate",
+      notacao: ["2:punho peito toque","2:punho peito bate"],
       aproximado: true,
       aula: "Aula 06 — Verbos de LGA 1",
       segundos: [84,88],
@@ -327,7 +327,7 @@
       veSe: "mão esquerda aberta palma para cima serve de suporte; mão direita em punho com polegar estendido apoia-se sobre ela e ambas deslocam-se para a frente",
     },
     "estudar": {
-      notacao: "plano mao bate",
+      notacao: ["plano mao toque","plano mao bate","plano mao bate"],
       aproximado: true,
       aula: "Aula 06 — Verbos de LGA 1",
       segundos: [91,95],
@@ -335,7 +335,7 @@
       veSe: "ambas as mãos abertas com dedos juntos batem as palmas repetidamente imitando o folhear/leitura de um livro",
     },
     "ler": {
-      notacao: "V mao varre",
+      notacao: ["V mao toque","V mao varre"],
       aproximado: true,
       aula: "Aula 06 — Verbos de LGA 1",
       segundos: [144,147],
@@ -343,7 +343,7 @@
       veSe: "mão esquerda aberta palma para cima (livro); dedos indicador e médio da mão direita em 'V' virados para baixo varrem a palma da esquerda para a direita",
     },
     "cozinhar": {
-      notacao: "punho mao circulo",
+      notacao: ["punho mao toque","punho mao circulo"],
       aproximado: true,
       aula: "Aula 06 — Verbos de LGA 1",
       segundos: [31,34],
@@ -359,7 +359,7 @@
       veSe: "dedos indicadores de ambas as mãos apontados um para o outro à frente do queixo em movimento alternado de vai-vem",
     },
     "pedir": {
-      notacao: "2:plano peito toque",
+      notacao: ["2:plano peito toque","2:plano frente frente"],
       aproximado: true,
       aula: "Aula 06 — Verbos de LGA 1",
       segundos: [132,134],
@@ -407,7 +407,7 @@
       veSe: "mãos saem da face e abrem-se para os lados do tronco enquanto o corpo se espreguiça e a cabeça ergue",
     },
     "sentar": {
-      notacao: "curva mao toque",
+      notacao: ["curva peito frente","curva mao toque"],
       aproximado: true,
       aula: "Aula 06 — Verbos de LGA 1",
       segundos: [42,45],
@@ -415,7 +415,7 @@
       veSe: "mão esquerda com dedos indicador e médio horizontais (banco); dedos indicador e médio da mão direita fletidos pousam sobre eles a cavalo",
     },
     "levantar": {
-      notacao: "plano mao cima",
+      notacao: ["V mao toque","V mao cima"],
       aproximado: true,
       aula: "Aula 06 — Verbos de LGA 1",
       segundos: [52,56],
@@ -423,7 +423,7 @@
       veSe: "mão esquerda aberta palma para cima; dedos indicador e médio da mão direita saem da palma e erguem-se para cima",
     },
     "perder": {
-      notacao: "2:plano peito baixo",
+      notacao: ["2:plano peito frente","2:plano peito baixo"],
       aproximado: true,
       aula: "Aula 06 — Verbos de LGA 1",
       segundos: [66,69],
@@ -431,7 +431,7 @@
       veSe: "ambas as mãos abertas com palmas para cima descem abrindo os dedos e virando para baixo/fora",
     },
     "levar": {
-      notacao: "2:plano peito frente",
+      notacao: ["2:plano peito parado","2:plano lado frente"],
       aproximado: true,
       aula: "Aula 06 — Verbos de LGA 1",
       segundos: [115,117],
@@ -439,7 +439,7 @@
       veSe: "ambas as mãos abertas com dedos estendidos juntos deslocam-se juntas em linha reta para a frente e lateral",
     },
     "trazer": {
-      notacao: "2:curva peito tras",
+      notacao: ["2:garra frente parado","2:garra peito tras"],
       aproximado: true,
       aula: "Aula 06 — Verbos de LGA 1",
       segundos: [121,123],
@@ -471,7 +471,7 @@
       veSe: "mão esquerda aberta palma para cima segura a base; mão direita em garra acima delineia a coroa e a casca espinhosa do ananás/abacaxi",
     },
     "arroz": {
-      notacao: "curva mao repete",
+      notacao: ["curva mao toque","curva mao repete"],
       aproximado: true,
       aula: "Aula 07 — Comida e Bebida (1ª parte)",
       segundos: [124,135],
@@ -479,7 +479,7 @@
       veSe: "mão esquerda aberta côncava para cima; pontas dos dedos da mão direita unidas recolhem grãos e soltam-nos sobre a palma esquerda",
     },
     "sopa": {
-      notacao: "curva boca toque",
+      notacao: ["curva peito frente","curva boca toque"],
       aproximado: true,
       aula: "Aula 07 — Comida e Bebida (1ª parte)",
       segundos: [191,193],
@@ -559,7 +559,7 @@
       veSe: "ambas as mãos espalmadas viradas para baixo sobrepostas pelos punhos, ondulando simulando o nado e barbatanas do peixe",
     },
     "ovo": {
-      notacao: "2:curva peito baixo",
+      notacao: ["2:curva peito toque","2:curva peito baixo"],
       aula: "Aula 08 — Comida e Bebida (2ª parte)",
       segundos: [42,46],
       confianca: "alta",
@@ -660,7 +660,7 @@
       veSe: "ambas as mãos em 'L' ou 'V' desenham a área / assento macio de sofá à frente do corpo",
     },
     "quarto": {
-      notacao: "plano rosto toque",
+      notacao: ["plano rosto toque","2:plano peito parado"],
       aproximado: true,
       aula: "Aula 11 — Casa (1ª parte)",
       segundos: [21,23],
@@ -684,7 +684,7 @@
       veSe: "ambos os indicadores estendidos para cima oscilam/vibram rapidamente (corrente elétrica)",
     },
     "tomada": {
-      notacao: "aponta mao toque",
+      notacao: ["aponta peito frente","aponta mao toque"],
       aproximado: true,
       aula: "Aula 11 — Casa (1ª parte)",
       segundos: [100,102],
@@ -724,7 +724,7 @@
       veSe: "mão direita com dedos indicador e médio invertidos para baixo (pernas) a subir no ar em movimentos curtos de degrau em degrau",
     },
     "elevador": {
-      notacao: "plano mao cima",
+      notacao: ["plano mao toque","plano alto cima"],
       aproximado: true,
       aula: "Aula 12 — Casa (2ª parte)",
       segundos: [10,12],
@@ -762,21 +762,21 @@
       veSe: "ambas as palmas abertas e paralelas viradas uma para a outra à frente do peito definindo uma passagem muito estreita (beco)",
     },
     "arca": {
-      notacao: "2:punho baixo cima",
+      notacao: ["2:punho baixo parado","2:punho peito cima"],
       aula: "Aula 12 — Casa (2ª parte)",
       segundos: [50,52],
       confianca: "alta",
       veSe: "ambas as mãos em punho cerrado à frente do tronco puxam para cima como se abrissem a tampa pesada de uma arca horizontal",
     },
     "mesa": {
-      notacao: "2:plano peito parado",
+      notacao: ["2:plano peito toque","2:plano lado varre"],
       aula: "Aula 12 — Casa (2ª parte)",
       segundos: [59,61],
       confianca: "alta",
       veSe: "ambas as mãos abertas com palmas para baixo partem do centro e deslizam lateralmente desenhando o tampo plano de uma mesa",
     },
     "chave": {
-      notacao: "X frente torce",
+      notacao: ["F peito frente","F peito torce"],
       aula: "Aula 12 — Casa (2ª parte)",
       segundos: [66,68],
       confianca: "alta",
@@ -806,7 +806,7 @@
       veSe: "ambas as mãos em punho viradas para baixo realizam um movimento firme para fora e rotação (fechar ferrolho/trinco)",
     },
     "fora": {
-      notacao: "plano peito frente",
+      notacao: ["plano mao toque","plano frente frente"],
       aproximado: true,
       aula: "Aula 12 — Casa (2ª parte)",
       segundos: [93,95],
@@ -814,7 +814,7 @@
       veSe: "mão esquerda semicerrada forma limite; mão direita sai do interior da mão esquerda e projeta-se abertamente para fora",
     },
     "dentro": {
-      notacao: "curva mao toque",
+      notacao: ["curva peito frente","curva mao toque"],
       aproximado: true,
       aula: "Aula 12 — Casa (2ª parte)",
       segundos: [102,104],
@@ -853,7 +853,7 @@
       veSe: "mão direita aberta com palma lateral desloca-se com gesto nítido para o lado direito do corpo",
     },
     "em cima": {
-      notacao: "plano alto parado",
+      notacao: ["plano peito toque","plano alto cima"],
       aproximado: true,
       aula: "Aula 12 — Casa (2ª parte)",
       segundos: [140,142],
@@ -861,7 +861,7 @@
       veSe: "mão esquerda horizontal palma para baixo serve de plano de referência; mão direita sobe para um plano horizontal superior bem destacado",
     },
     "em baixo": {
-      notacao: "plano baixo parado",
+      notacao: ["plano peito toque","plano baixo baixo"],
       aproximado: true,
       aula: "Aula 12 — Casa (2ª parte)",
       segundos: [151,153],
@@ -1116,7 +1116,7 @@
       veSe: "ambas as mãos abertas com palmas para cima que fecham em dois punhos com polegares verticais (duplo positivo) acompanhadas de sorriso",
     },
     "desculpa": {
-      notacao: "Y mao varre",
+      notacao: ["Y mao toque","Y mao varre"],
       aproximado: true,
       aula: "Aula 01 — Saudação de LGA",
       segundos: [91,98],
@@ -1199,7 +1199,7 @@
       veSe: "mão com dedos curvados em concha virados para baixo ou indicador em gancho dobrado",
     },
     "dez": {
-      notacao: "joinha peito onda",
+      notacao: ["joinha peito parado","joinha peito onda"],
       aproximado: true,
       aula: "Aula 03 — Números",
       segundos: [84,90],
@@ -1553,7 +1553,7 @@
       veSe: "dedo indicador da mão direita aponta para trás por cima do ombro direito",
     },
     "hoje/agora": {
-      notacao: "2:plano peito baixo",
+      notacao: ["2:plano peito frente","2:plano peito baixo"],
       aproximado: true,
       aula: "Aula 13 — Tempos e Meses",
       segundos: [21,26],
@@ -1617,7 +1617,7 @@
       veSe: "mão direita erguida junto à cabeça/testa desenha o traço da letra 'J' no ar",
     },
     "fevereiro": {
-      notacao: "abre rosto onda",
+      notacao: ["abre olho toque","abre rosto onda"],
       aproximado: true,
       aula: "Aula 13 — Tempos e Meses",
       segundos: [97,103],
@@ -1673,7 +1673,7 @@
       veSe: "dedo indicador da mão direita aponta horizontalmente para o lado esquerdo do peito",
     },
     "setembro": {
-      notacao: "2:F ombro baixo",
+      notacao: ["2:F ombro frente","2:F peito baixo"],
       aproximado: true,
       aula: "Aula 13 — Tempos e Meses",
       segundos: [146,150],
@@ -1716,7 +1716,7 @@
       veSe: "mão direita aberta com dedos estendidos juntos, pontas dos dedos a tocar no lado direito superior da cabeça/fronte",
     },
     "braco": {
-      notacao: "punho ombro parado",
+      notacao: ["punho peito baixo","punho ombro cima"],
       aproximado: true,
       aula: "Aula 14 — As partes do corpo",
       segundos: [8,10],
@@ -1724,7 +1724,7 @@
       veSe: "braço direito erguido com punho fechado e flexionado junto ao ombro (gesto de bíceps / músculo)",
     },
     "mao": {
-      notacao: "abre frente parado",
+      notacao: ["abre peito toque","abre frente parado"],
       aproximado: true,
       aula: "Aula 14 — As partes do corpo",
       segundos: [13,15],
@@ -1732,7 +1732,7 @@
       veSe: "mão direita aberta com os dedos bem espalmados e virados para cima; mão esquerda segura o pulso direito",
     },
     "pe": {
-      notacao: "curva mao toque",
+      notacao: ["curva peito frente","curva mao toque"],
       aproximado: true,
       aula: "Aula 14 — As partes do corpo",
       segundos: [19,21],
@@ -1815,7 +1815,7 @@
       veSe: "sinalizador principal cruza os indicadores (sinal 'nome') e soletra em datilologia o nome Milton (M, I, L, T, O, N)",
     },
     "qual e o seu nome pergunta de retorno": {
-      notacao: "2:plano frente frente",
+      notacao: ["2:plano peito baixo","2:plano frente frente"],
       aproximado: true,
       aula: "Diálogo 01",
       segundos: [20,21],
@@ -1847,7 +1847,7 @@
       veSe: "sinalizador principal faz movimento para a frente com as duas mãos e em seguida soletra A-N-G-O-L-A (visíveis 'A', 'O', 'L', 'A')",
     },
     "onde voce nasceu segunda ocorrencia": {
-      notacao: "2:plano frente onda",
+      notacao: ["2:plano peito nasce","2:plano frente onda"],
       aproximado: true,
       aula: "Diálogo 01",
       segundos: [39,40],

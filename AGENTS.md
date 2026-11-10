@@ -10,6 +10,10 @@ scripts clássicos (`app.js`, `avatar.js`, `sinal3d.js`, `maos.js`, `dados.js`,
 `referencias.js`, `lga.js`) e um three.js **r147** em `app/vendor/`. O apresentador 3D é
 `app/assets/agatha-mpfb-rig.glb` (13,8 MB, 55 ossos com nomes VRM) — nunca apagar.
 
+### Visão de Evolução (Roadmap)
+- **Homepage cinematográfica com 2 personagens**: Palco 3D de entrada com dois avatares a interagir/dialogar em cena cinematográfica, ilustrando a conversação natural em LGA (ex: cena de diálogo inspirada no Diálogo 01). Detalhes a aprofundar pelo Rafael.
+
+
 `app/lga.js` é **gerado**: `python tools/gerar-lga.py` lê
 `tools/fonte/aulas-lga/*.json` (inventário minerado das aulas do Viva surdo) e
 escreve o ficheiro. Não editar à mão; o `integridade-test.cjs` compara os dois e

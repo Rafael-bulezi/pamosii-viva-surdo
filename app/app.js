@@ -2,6 +2,9 @@
    AGATHA — duas funções: ver sinais de um texto, e procurar uma palavra.
    Sem contas, sem recolha de dados, sem build. Ficheiros: dados.js (glossário e
    glosador), maos.js (rig 3D desenhado em SVG) e este.
+   ----------------------------------------------------------------------------
+   [VISÃO DE EVOLUÇÃO]: Futura homepage cinematográfica com 2 personagens
+   em interação 3D (diálogo em palco partilhado, troca de turnos e câmara dinâmica).
    ============================================================================ */
 'use strict';
 

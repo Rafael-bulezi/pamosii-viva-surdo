@@ -427,3 +427,10 @@ rede — o `put` fica num try próprio e a resposta segue.
   dos fotogramas e não substituem a validação por sinalizadores surdos; o mesmo
   vale para as 18 poses da Agatha, e as 7 com selo `3D ≈` dizem-se aproximação
   na própria página.
+
+## Visão & Próximos Passos — Homepage Cinematográfica (2 Personagens)
+
+Ideia arquitetural e visual para as próximas iterações:
+- **Homepage cinematográfica com 2 personagens**: Transformar o palco inicial da aplicação num ambiente imersivo onde dois personagens 3D interagem e dialogam em tempo real (inspirado nas aulas de diálogo da LGA, com troca fluida de turnos e enquadramento de câmara cinematográfico).
+- Detalhes e especificações a aprofundar pelo Rafael nas próximas fases.
+
