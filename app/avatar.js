@@ -127,6 +127,7 @@
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.domElement.style.display = 'block';
     el.appendChild(renderer.domElement);
+    ligarControloGestos(renderer.domElement);
 
     cena = new THREE.Scene();
     cam = new THREE.PerspectiveCamera(o.fov || 30, (el.clientWidth || 16) / (el.clientHeight || 9), 0.05, 30);
@@ -853,6 +854,110 @@
     }
   }
 
+  /* ===================== câmara orbital delimitada (zoom e ângulos) ===================== */
+  /* Inspirado na arquitetura do Learn Arduino: rotação limitada (azimute e elevação)
+     e zoom delimitado sem bibliotecas externas (sem OrbitControls), com amortecimento
+     suave por quadro via coordenadas esféricas. */
+  const LIMITES_CAM = {
+    thetaMin: -50 * Math.PI / 180, // ±50° de rotação horizontal (evita ver as costas e preserva enquadramento)
+    thetaMax:  50 * Math.PI / 180,
+    phiMin:   -15 * Math.PI / 180, // elevação subtil (baixo/cima)
+    phiMax:    20 * Math.PI / 180,
+    rMin:      1.10,               // zoom máximo (aproximação para ver dedos/configurações)
+    rMax:      2.60                // zoom mínimo (afastado, corpo todo e braços)
+  };
+
+  const camPadrao = { alvo: new THREE.Vector3(), r: 1.95, theta: 0.15, phi: 0 };
+  const camMeta   = { alvo: new THREE.Vector3(), r: 1.95, theta: 0.15, phi: 0 };
+  const camAtual  = { alvo: new THREE.Vector3(), r: 1.95, theta: 0.15, phi: 0 };
+  let camIniciada = false;
+
+  function aplicarCamara() {
+    if (!cam) return;
+    const cosPhi = Math.cos(camAtual.phi);
+    cam.position.set(
+      camAtual.alvo.x + camAtual.r * cosPhi * Math.sin(camAtual.theta),
+      camAtual.alvo.y + camAtual.r * Math.sin(camAtual.phi),
+      camAtual.alvo.z + camAtual.r * cosPhi * Math.cos(camAtual.theta)
+    );
+    cam.lookAt(camAtual.alvo);
+  }
+
+  function girar(dir, graus) {
+    const delta = (dir || 1) * ((graus || 25) * Math.PI / 180);
+    camMeta.theta = Math.max(LIMITES_CAM.thetaMin, Math.min(LIMITES_CAM.thetaMax, camMeta.theta + delta));
+  }
+
+  function zoom(fator) {
+    camMeta.r = Math.max(LIMITES_CAM.rMin, Math.min(LIMITES_CAM.rMax, camMeta.r * (fator || 1)));
+  }
+
+  function redefinirCamera() {
+    camMeta.alvo.copy(camPadrao.alvo);
+    camMeta.r = camPadrao.r;
+    camMeta.theta = camPadrao.theta;
+    camMeta.phi = camPadrao.phi;
+  }
+
+  function orbitarPorPixels(dx, dy, sensibilidade) {
+    const s = sensibilidade || 0.005;
+    camMeta.theta = Math.max(LIMITES_CAM.thetaMin, Math.min(LIMITES_CAM.thetaMax, camMeta.theta - dx * s));
+    camMeta.phi   = Math.max(LIMITES_CAM.phiMin,   Math.min(LIMITES_CAM.phiMax,   camMeta.phi   + dy * s));
+  }
+
+  function ligarControloGestos(canvas) {
+    if (!canvas || canvas.dataset.gestosLigados) return;
+    canvas.dataset.gestosLigados = '1';
+    canvas.style.touchAction = 'none';
+
+    const ponteiros = new Map();
+    let distPinch = null;
+
+    const distEntre = () => {
+      const pts = Array.from(ponteiros.values());
+      if (pts.length < 2) return 0;
+      return Math.hypot(pts[1].x - pts[0].x, pts[1].y - pts[0].y);
+    };
+
+    canvas.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      try { canvas.setPointerCapture(e.pointerId); } catch (_) {}
+      ponteiros.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (ponteiros.size === 2) distPinch = distEntre();
+    });
+
+    canvas.addEventListener('pointermove', (e) => {
+      if (!ponteiros.has(e.pointerId)) return;
+      const ant = ponteiros.get(e.pointerId);
+      const atual = { x: e.clientX, y: e.clientY };
+      ponteiros.set(e.pointerId, atual);
+
+      if (ponteiros.size === 1) {
+        orbitarPorPixels(atual.x - ant.x, atual.y - ant.y);
+      } else if (ponteiros.size === 2) {
+        const d = distEntre();
+        if (distPinch > 10 && d > 10) {
+          zoom(distPinch / d);
+        }
+        distPinch = d;
+      }
+    });
+
+    const largar = (e) => {
+      ponteiros.delete(e.pointerId);
+      try { canvas.releasePointerCapture(e.pointerId); } catch (_) {}
+      if (ponteiros.size < 2) distPinch = null;
+    };
+
+    canvas.addEventListener('pointerup', largar);
+    canvas.addEventListener('pointercancel', largar);
+
+    canvas.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      zoom(Math.exp(e.deltaY * 0.0012));
+    }, { passive: false });
+  }
+
   /* ===================== enquadramento ===================== */
   /* `folga` > 1 afasta a câmara do alvo: o painel 4:5 é mais estreito do que o
      palco da página e os braços abertos ficavam fora do quadro. */
@@ -861,9 +966,10 @@
     const h = modelo.userData.altura || 1.75;
     const f = folga || 1;
     const alvo = new THREE.Vector3();
+    const pos = new THREE.Vector3();
     if (tipo === 'corpo') {
       cam.fov = 30;
-      cam.position.set(0.7, h * 0.55, h * 2.0);
+      pos.set(0.7, h * 0.55, h * 2.0);
       alvo.set(0, h * 0.5, 0);
     } else if (tipo === 'joelhos') {
       /* painel de 100dvh: nesta malha o joelho fica a 0,515 m e o cabelo acaba
@@ -872,7 +978,7 @@
          palco baixo perde uma fatia maior dela: 13% a 1080p, 21% a 720p — o
          joelho fica acima da faixa nos dois. */
       cam.fov = 34;
-      cam.position.set(0.26, h * 0.536, h * 1.853);
+      pos.set(0.26, h * 0.536, h * 1.853);
       alvo.set(0, h * 0.536, 0);
     } else {
       /* plano de sinalização: das mãos em repouso (~0,80 m) a acima da cabeça
@@ -880,12 +986,36 @@
          Com fov 34 e 1,93 m de distância o quadro cobre 1,18 m: centro em
          0,749h = 1,31 m num corpo de 1,75 m, ou seja 0,72 a 1,90 m. */
       cam.fov = 34;
-      cam.position.set(0.30, h * 0.749, h * 1.114);
+      pos.set(0.30, h * 0.749, h * 1.114);
       alvo.set(0, h * 0.749, 0);
     }
-    if (f !== 1) cam.position.sub(alvo).multiplyScalar(f).add(alvo);
-    cam.lookAt(alvo);
+    if (f !== 1) pos.sub(alvo).multiplyScalar(f).add(alvo);
     cam.updateProjectionMatrix();
+
+    // Decompõe para coordenadas esféricas delimitadas
+    const offset = new THREE.Vector3().subVectors(pos, alvo);
+    const r0 = offset.length();
+    const theta0 = Math.atan2(offset.x, offset.z);
+    const phi0 = Math.asin(Math.max(-1, Math.min(1, offset.y / r0)));
+
+    camPadrao.alvo.copy(alvo);
+    camPadrao.r = r0;
+    camPadrao.theta = Math.max(LIMITES_CAM.thetaMin, Math.min(LIMITES_CAM.thetaMax, theta0));
+    camPadrao.phi = Math.max(LIMITES_CAM.phiMin, Math.min(LIMITES_CAM.phiMax, phi0));
+
+    camMeta.alvo.copy(alvo);
+    camMeta.r = Math.max(LIMITES_CAM.rMin, Math.min(LIMITES_CAM.rMax, r0));
+    camMeta.theta = camPadrao.theta;
+    camMeta.phi = camPadrao.phi;
+
+    if (!camIniciada) {
+      camAtual.alvo.copy(camMeta.alvo);
+      camAtual.r = camMeta.r;
+      camAtual.theta = camMeta.theta;
+      camAtual.phi = camMeta.phi;
+      camIniciada = true;
+    }
+    aplicarCamara();
   }
 
   /* ===================== quadro ===================== */
@@ -894,6 +1024,14 @@
     ultimo = agora;
     relogio += dt;
     if (pronto) {
+      if (camIniciada) {
+        const alphaCam = 1 - Math.exp(-12.0 * dt);
+        camAtual.alvo.lerp(camMeta.alvo, alphaCam);
+        camAtual.r     += (camMeta.r - camAtual.r) * alphaCam;
+        camAtual.theta += (camMeta.theta - camAtual.theta) * alphaCam;
+        camAtual.phi   += (camMeta.phi - camAtual.phi) * alphaCam;
+        aplicarCamara();
+      }
       if (FILA.ativo) avancar(dt);
       else if (EXTERNO) mostrar(EXTERNO.poses, EXTERNO.tempo);
       else if (poseBase) {
@@ -923,6 +1061,9 @@
     init, enquadrar, tocarSequencia, pararSequencia, congelar, poseParaQuats,
     prepararPoses, mostrar,
     aplicarExpressao, aplicarMao, ikBraco, rodarMao, orientarPalma, repor, capturar, pousar,
+    girar, zoom, redefinirCamera, orbitarPorPixels,
+    get limitesCamera() { return LIMITES_CAM; },
+    get estadoCamera() { return { atual: camAtual, meta: camMeta, padrao: camPadrao }; },
     get ossos() { return ossos; },
     get pronto() { return pronto; },
     get cena() { return cena; },

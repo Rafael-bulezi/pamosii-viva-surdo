@@ -848,6 +848,42 @@ textarea::placeholder, input[type="search"]::placeholder { color: var(--muted); 
 }
 .sg-transcricao.provisoria { opacity: .66; font-style: italic; }
 
+/* barra de controlo de visualização 3D (zoom e ângulos inspirada no learnarduino) */
+.sg-viewbar {
+  position: absolute; top: 10px; right: 10px; z-index: 3;
+  display: inline-flex; align-items: center; gap: 3px;
+  padding: 3px 5px; border-radius: 12px;
+  background: rgba(10, 23, 48, 0.76);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  user-select: none;
+}
+.sg-vb-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; padding: 0;
+  border: 1px solid transparent; border-radius: 8px;
+  background: transparent; color: #EDF3FC;
+  font: 700 13px/1 var(--sans, system-ui);
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, transform 100ms ease;
+}
+.sg-vb-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+.sg-vb-btn:active {
+  transform: scale(0.92);
+}
+.sg-vb-btn:focus-visible {
+  outline: 2px solid var(--brand, #3874CC); outline-offset: 1px;
+}
+.sg-vb-sep {
+  width: 1px; height: 16px;
+  background: rgba(255, 255, 255, 0.18);
+  margin: 0 2px;
+}
+
 /* glosa e transporte assentam no fundo do palco sobre um véu, e não numa
    faixa própria: o palco fica com a altura toda */
 .sg-palco-baixo {

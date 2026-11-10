@@ -246,6 +246,14 @@ function montarSigner() {
       </div>
     </div>
     <div class="sg-palco" id="sg-palco">
+      <div class="sg-viewbar" id="sg-viewbar" role="toolbar" aria-label="Controlo de visualização 3D">
+        <button class="sg-vb-btn" id="sg-vb-esq" type="button" title="Girar à esquerda (Q)" aria-label="Girar o modelo para a esquerda">↺</button>
+        <button class="sg-vb-btn" id="sg-vb-reset" type="button" title="Redefinir vista (0)" aria-label="Redefinir ângulo e zoom da câmara">⊙</button>
+        <button class="sg-vb-btn" id="sg-vb-dir" type="button" title="Girar à direita (E)" aria-label="Girar o modelo para a direita">↻</button>
+        <span class="sg-vb-sep" aria-hidden="true"></span>
+        <button class="sg-vb-btn" id="sg-vb-mais" type="button" title="Aproximar (+)" aria-label="Aproximar a câmara">+</button>
+        <button class="sg-vb-btn" id="sg-vb-menos" type="button" title="Afastar (-)" aria-label="Afastar a câmara">−</button>
+      </div>
       <p class="sg-espera">A preparar a sinalizadora…</p>
       <p class="sg-transcricao" id="sg-transcricao" aria-live="polite" hidden></p>
       <div class="sg-palco-baixo">
@@ -318,8 +326,44 @@ function montarSigner() {
     if (AO_VIVO.ligado()) pararAoVivo();
     else ligarAoVivo();
   });
+
+  /* Controlo de câmara 3D (botões da barra e atalhos de teclado) */
+  const vbEsq = $('#sg-vb-esq');
+  const vbReset = $('#sg-vb-reset');
+  const vbDir = $('#sg-vb-dir');
+  const vbMais = $('#sg-vb-mais');
+  const vbMenos = $('#sg-vb-menos');
+  if (vbEsq) vbEsq.addEventListener('click', () => window.AVATAR?.girar?.(-1));
+  if (vbDir) vbDir.addEventListener('click', () => window.AVATAR?.girar?.(1));
+  if (vbReset) vbReset.addEventListener('click', () => window.AVATAR?.redefinirCamera?.());
+  if (vbMais) vbMais.addEventListener('click', () => window.AVATAR?.zoom?.(1 / 1.25));
+  if (vbMenos) vbMenos.addEventListener('click', () => window.AVATAR?.zoom?.(1.25));
+
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && SG.aberto && !document.fullscreenElement) fecharSigner();
+    if (e.key === 'Escape' && SG.aberto && !document.fullscreenElement) {
+      fecharSigner();
+      return;
+    }
+    if (!SG.aberto || e.ctrlKey || e.metaKey || e.altKey) return;
+    const foco = document.activeElement ? document.activeElement.tagName : '';
+    if (foco === 'INPUT' || foco === 'TEXTAREA' || document.activeElement?.isContentEditable) return;
+
+    if (e.code === 'KeyQ' || e.key === '[') {
+      e.preventDefault();
+      window.AVATAR?.girar?.(-1);
+    } else if (e.code === 'KeyE' || e.key === ']') {
+      e.preventDefault();
+      window.AVATAR?.girar?.(1);
+    } else if (e.key === '+' || e.key === '=' || e.code === 'NumpadAdd') {
+      e.preventDefault();
+      window.AVATAR?.zoom?.(1 / 1.25);
+    } else if (e.key === '-' || e.key === '_' || e.code === 'NumpadSubtract') {
+      e.preventDefault();
+      window.AVATAR?.zoom?.(1.25);
+    } else if (e.key === '0' || e.code === 'Numpad0') {
+      e.preventDefault();
+      window.AVATAR?.redefinirCamera?.();
+    }
   });
 }
 
