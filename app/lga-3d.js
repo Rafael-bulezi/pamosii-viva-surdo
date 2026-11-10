@@ -36,7 +36,7 @@
       veSe: "mão direita fecha em punho e projeta o polegar estendido para cima (sinal de positivo)",
     },
     "obrigado/a": {
-      notacao: "2:plano boca frente",
+      notacao: ["2:plano queixo toque","2:plano frente frente"],
       aproximado: true,
       aula: "Aula 01 — Saudação de LGA",
       segundos: [102,107],
@@ -44,7 +44,7 @@
       veSe: "pontas dos dedos de ambas as mãos tocam nos lábios/queixo e projetam-se abertas para a frente com palmas para cima",
     },
     "por favor": {
-      notacao: "plano boca frente",
+      notacao: ["plano queixo toque","plano frente frente"],
       aproximado: true,
       aula: "Aula 01 — Saudação de LGA",
       segundos: [123,129],
@@ -112,7 +112,7 @@
       veSe: "polegar e indicador unidos em círculo/pinça (configuração em 'F'), com os outros três dedos estendidos para cima",
     },
     "ver": {
-      notacao: "aponta olho toque",
+      notacao: ["aponta olho toque","aponta frente frente"],
       aula: "Aula 06 — Verbos de LGA 1",
       segundos: [15,16],
       confianca: "alta",
@@ -134,7 +134,7 @@
       veSe: "ambas as mãos em punho cerrado à altura dos ombros descem firmemente à frente do peito com movimento assertivo",
     },
     "falar": {
-      notacao: "curva boca frente",
+      notacao: ["curva boca toque","curva frente frente"],
       aproximado: true,
       aula: "Aula 06 — Verbos de LGA 1",
       segundos: [97,101],
@@ -267,7 +267,7 @@
       veSe: "ambas as mãos abertas com palmas voltadas para baixo descem e estendem-se no plano inferior",
     },
     "porta": {
-      notacao: "2:plano frente bate",
+      notacao: ["2:plano peito frente","2:plano frente bate"],
       aula: "Aula 11 — Casa (1ª parte)",
       segundos: [68,70],
       confianca: "alta",
@@ -319,7 +319,7 @@
       veSe: "ambos os punhos fechados batem um sobre o outro alternadamente com movimento vertical de corte",
     },
     "ajudar": {
-      notacao: "joinha mao frente",
+      notacao: ["joinha mao toque","joinha mao frente"],
       aproximado: true,
       aula: "Aula 06 — Verbos de LGA 1",
       segundos: [77,81],
@@ -367,7 +367,7 @@
       veSe: "ambas as mãos com palmas unidas à frente do peito/queixo em gesto de súplica",
     },
     "usar": {
-      notacao: "U mao circulo",
+      notacao: ["U mao circulo","U mao toque"],
       aproximado: true,
       aula: "Aula 06 — Verbos de LGA 1",
       segundos: [125,130],
@@ -391,7 +391,7 @@
       veSe: "mão direita aberta fecha em punho com polegar estendido que bate/cruza com o polegar esquerdo à frente do peito",
     },
     "dormir": {
-      notacao: "plano rosto toque",
+      notacao: ["plano rosto toque","2:abre alto cima"],
       aproximado: true,
       aula: "Aula 06 — Verbos de LGA 1",
       segundos: [18,24],
@@ -799,7 +799,7 @@
       veSe: "ambas as mãos abertas com dedos virados para a frente definem a forma e os lados de uma cama",
     },
     "trancar": {
-      notacao: "2:punho peito torce",
+      notacao: ["2:punho peito frente","2:punho peito torce"],
       aula: "Aula 12 — Casa (2ª parte)",
       segundos: [86,88],
       confianca: "alta",
@@ -1124,7 +1124,7 @@
       veSe: "mão esquerda aberta horizontal serve de base; mão direita em 'Y' ou dedos fletidos passa sobre ela com expressão facial contrita",
     },
     "de nada": {
-      notacao: "2:abre frente onda",
+      notacao: ["2:joinha peito parado","2:abre frente onda"],
       aproximado: true,
       aula: "Aula 01 — Saudação de LGA",
       segundos: [110,120],
@@ -1148,7 +1148,7 @@
       veSe: "dedo indicador da mão direita toca junto ao ouvido direito e em seguida toca na boca",
     },
     "interprete": {
-      notacao: "2:F peito circulo",
+      notacao: ["2:F peito toque","2:F peito circulo"],
       aproximado: true,
       aula: "Aula 01 — Saudação de LGA",
       segundos: [158,164],
@@ -1207,7 +1207,7 @@
       veSe: "mão fechada com polegar estendido que oscila/sacode lateralmente à frente do peito",
     },
     "onze": {
-      notacao: "joinha peito frente",
+      notacao: ["joinha peito parado","joinha peito frente"],
       aproximado: true,
       aula: "Aula 03 — Números",
       segundos: [91,96],
@@ -1215,7 +1215,7 @@
       veSe: "mão em configuração de 1 (polegar vertical) com ligeiro movimento repetido para a frente",
     },
     "doze": {
-      notacao: "Y peito frente",
+      notacao: ["Y peito parado","Y peito frente"],
       aproximado: true,
       aula: "Aula 03 — Números",
       segundos: [97,99],
@@ -1223,7 +1223,7 @@
       veSe: "mão em configuração de 2 (polegar e mindinho) que oscila com impulso para a frente",
     },
     "treze": {
-      notacao: "tres peito frente",
+      notacao: ["tres peito parado","tres peito frente"],
       aproximado: true,
       aula: "Aula 03 — Números",
       segundos: [100,102],
@@ -1231,7 +1231,7 @@
       veSe: "três dedos erguidos com impulso oscilante para a frente",
     },
     "catorze": {
-      notacao: "B peito frente",
+      notacao: ["B peito parado","B peito frente"],
       aproximado: true,
       aula: "Aula 03 — Números",
       segundos: [103,104],
@@ -1239,7 +1239,7 @@
       veSe: "quatro dedos erguidos com impulso oscilante para a frente",
     },
     "quinze": {
-      notacao: "joinha peito frente",
+      notacao: ["joinha peito parado","joinha peito frente"],
       aproximado: true,
       aula: "Aula 03 — Números",
       segundos: [105,107],
@@ -1491,7 +1491,7 @@
       veSe: "mão esquerda aberta horizontalmente com a palma para cima; mão direita com indicador fletido em gancho desce da altura da têmpora e bate na palma esquerda",
     },
     "pagar": {
-      notacao: "plano mao frente",
+      notacao: ["plano mao toque","plano mao frente"],
       aproximado: true,
       aula: "Aula 10 — Verbos de LGA 2",
       segundos: [25,30],
@@ -1499,7 +1499,7 @@
       veSe: "mão esquerda aberta palma para cima; mão direita com indicador ou pinça desliza da base da mão esquerda para a frente em direção aos dedos / interlocutor",
     },
     "querer": {
-      notacao: "2:garra peito tras",
+      notacao: ["2:garra frente parado","2:garra peito tras"],
       aproximado: true,
       aula: "Aula 10 — Verbos de LGA 2",
       segundos: [34,38],
@@ -1507,7 +1507,7 @@
       veSe: "ambas as mãos à frente do peito com as palmas voltadas para cima e dedos em garra que fecham enquanto puxam em direção ao corpo",
     },
     "pegar": {
-      notacao: "garra mao toque",
+      notacao: ["garra peito frente","garra mao toque"],
       aproximado: true,
       aula: "Aula 10 — Verbos de LGA 2",
       segundos: [41,45],
@@ -1537,7 +1537,7 @@
        Aula 13 — Tempos e Meses (21 palavras)
        ------------------------------------------------------------------------ */
     "tempo/hora": {
-      notacao: "aponta mao bate",
+      notacao: ["aponta mao toque","aponta mao bate"],
       aproximado: true,
       aula: "Aula 13 — Tempos e Meses",
       segundos: [2,10],
@@ -1561,7 +1561,7 @@
       veSe: "ambas as mãos abertas com palmas voltadas para o corpo/cima descem firmemente à frente do peito",
     },
     "amanha": {
-      notacao: "aponta queixo arco",
+      notacao: ["aponta queixo toque","aponta frente arco"],
       aproximado: true,
       aula: "Aula 13 — Tempos e Meses",
       segundos: [29,34],
@@ -1585,7 +1585,7 @@
       veSe: "mão direita aberta com palma para a frente desloca-se lateralmente em corte para a direita, ou fecha em pinça 'B'",
     },
     "atrasar/demorar": {
-      notacao: "aponta mao tras",
+      notacao: ["aponta mao toque","aponta mao tras"],
       aproximado: true,
       aula: "Aula 13 — Tempos e Meses",
       segundos: [61,66],
@@ -1601,7 +1601,7 @@
       veSe: "ambas as mãos abertas com palmas para cima em frente ao peito realizam ligeiro movimento ondulatório/dedilhar paciente",
     },
     "mes": {
-      notacao: "2:aponta peito varre",
+      notacao: ["2:aponta peito toque","2:aponta lado varre"],
       aproximado: true,
       aula: "Aula 13 — Tempos e Meses",
       segundos: [86,89],
@@ -1756,7 +1756,7 @@
       veSe: "ambas as mãos abertas com palmas voltadas para o corpo na zona do abdómen, tocando a barriga",
     },
     "coracao": {
-      notacao: "garra peito bate",
+      notacao: ["garra peito toque","garra peito bate"],
       aproximado: true,
       aula: "Aula 14 — As partes do corpo",
       segundos: [33,35],
@@ -1799,7 +1799,7 @@
       veSe: "sinalizador principal toca no peito com ambos os polegares estendidos (bem), e em seguida aponta o indicador para a frente/câmara (e tu?)",
     },
     "qual e o seu nome": {
-      notacao: "2:aponta peito bate",
+      notacao: ["2:aponta peito bate","aponta frente frente"],
       aproximado: true,
       aula: "Diálogo 01",
       segundos: [12,13],
@@ -1831,7 +1831,7 @@
       veSe: "interlocutor soletra o nome Eduany",
     },
     "onde voce nasceu": {
-      notacao: "2:plano frente onda",
+      notacao: ["2:plano peito nasce","2:plano frente onda"],
       aproximado: true,
       aula: "Diálogo 01",
       segundos: [28,30],
@@ -1903,7 +1903,7 @@
       veSe: "interlocutor na janela remota continua a responder",
     },
     "quantos irmaos voce tem": {
-      notacao: "2:aponta peito onda",
+      notacao: ["2:aponta peito bate","2:aponta peito onda"],
       aproximado: true,
       aula: "Diálogo 01",
       segundos: [67,69],
