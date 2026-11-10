@@ -487,29 +487,46 @@
         const b1 = ossos['J_Bip_' + L + '_Thumb1'];
         const b2 = ossos['J_Bip_' + L + '_Thumb2'];
         const b3 = ossos['J_Bip_' + L + '_Thumb3'];
+
+        /* 3-DOF da articulação em sela CMC do polegar:
+           - Leque radial / adução palmar em AZ: abre para L/Y ou aduz para B/E
+           - Pronação axial de oposição em AY: roda a polpa para encarar os dedos
+           - Flexão palmar em AX: varre ligeiramente para dentro da palma */
+        const oppRatio = lim(flexao / 48, 0, 1);
+        const sinalLado = lado === 'D' ? -1 : 1;
+        const pronacao = oppRatio * 42 * sinalLado;
+
         if (b1) {
-          /* leque: o bind já está a 42°, e 1° de Z local é 1° de leque */
-          b1.quaternion.multiply(eixo(AZ, (abertura - POLEGAR_BIND) * -1));
-          /* oposição: o metacarpo fecha para o indicador dentro do plano da palma.
-             Fora do plano vai pouco — medido na sonda, 0.45 de flexão aqui punha a
-             ponta do polegar 42 mm à frente da palma em B e 50 mm em E; o polegar
-             saía como um espeto em vez de deitar sobre os dedos. */
-          b1.quaternion.multiply(eixo(AZ, flexao * 0.30));
-          b1.quaternion.multiply(eixo(AX, flexao * 0.16));
+          b1.quaternion.multiply(eixo(AZ, (abertura - POLEGAR_BIND) * -1 + flexao * 0.28));
+          b1.quaternion.multiply(eixo(AY, pronacao));
+          b1.quaternion.multiply(eixo(AX, flexao * 0.12));
         }
-        if (b2) b2.quaternion.multiply(eixo(AX, flexao * 0.45 + enrolar * 0.10));
-        if (b3) b3.quaternion.multiply(eixo(AX, flexao * 0.30 + enrolar * 0.55));
+        if (b2) b2.quaternion.multiply(eixo(AX, flexao * 0.38 + enrolar * 0.12));
+        if (b3) b3.quaternion.multiply(eixo(AX, flexao * 0.25 + enrolar * 0.50));
       } else if (ang) {
         for (let j = 0; j < 3; j++) {
           const b = ossos['J_Bip_' + L + '_' + nome + (j + 1)];
           if (!b) continue;
-          const a = j === 0 ? Math.min(ang[0] * GANHO_MCP, MCP_MAX) : ang[j];
+          let a;
+          if (j === 0) {
+            a = Math.min(Math.max(2.5, ang[0] * GANHO_MCP), MCP_MAX);
+          } else if (j === 1) {
+            a = Math.max(2.0, ang[1]);
+          } else {
+            const dipCoupled = ang[1] > 20 ? Math.max(ang[2], ang[1] * 0.65) : ang[2];
+            a = Math.max(2.0, dipCoupled);
+          }
           b.quaternion.multiply(eixo(AX, a));
         }
       }
       if (f.esp && iEsp < 4) {
         const b = ossos['J_Bip_' + L + '_' + nome + '1'];
-        if (b) b.quaternion.multiply(eixo(AZ, -f.esp[iEsp]));
+        if (b) {
+          const mcpAng = ang ? ang[0] : 0;
+          const flexFactor = lim(mcpAng / 80, 0, 1);
+          const atten = 1.0 - 0.85 * flexFactor;
+          b.quaternion.multiply(eixo(AZ, -f.esp[iEsp] * atten));
+        }
       }
     });
     modelo.updateMatrixWorld(true);
@@ -592,11 +609,12 @@
        ~150° no total, por isso o limite é largo */
     phi = lim(phi, -2.4, 2.4);
 
-    /* a pronação é do antebraço: roda o osso de torção (que leva a pele) e a mão
-       juntos. Rodar o LowerArm inteiro torcia também a pele do cotovelo. */
-    const qPron = new THREE.Quaternion().setFromAxisAngle(eixoF, phi);
-    if (torcao) rodarMundo(torcao, qPron);
-    rodarMundo(mao, qPron);
+    /* Distribuição anatómica da pronação do antebraço:
+       75% da torção no osso de torção intermediário (LowerArm_twist) que deforma
+       a massa muscular do antebraço, e a rotação total (100%) no Hand / pulso.
+       Isto evita o colapso tipo "candy-wrapper" da malha do pulso e do cotovelo. */
+    if (torcao) rodarMundo(torcao, new THREE.Quaternion().setFromAxisAngle(eixoF, phi * 0.75));
+    rodarMundo(mao, new THREE.Quaternion().setFromAxisAngle(eixoF, phi));
   }
 
   /* ===================== expressão ===================== */
@@ -707,6 +725,13 @@
     FILA.aoFim = aoFim || null;
     FILA.base = capturar();
     FILA.alvo = poseParaQuats(passos[0].pose);
+    if (FILA.base && FILA.alvo.quats) {
+      Object.keys(FILA.alvo.quats).forEach((bn) => {
+        if (FILA.base[bn] && FILA.alvo.quats[bn].dot(FILA.base[bn]) < 0) {
+          FILA.alvo.quats[bn].negate();
+        }
+      });
+    }
     FILA.mix = 0;
     FILA.mixDur = passos[0].mistura === 0 ? 0.001 : (passos[0].mistura || 0.18);
     aplicarExpressao(FILA.alvo.expr);
@@ -729,13 +754,27 @@
   let EXTERNO = null;
 
   function prepararPoses(passos) {
-    return passos.map((p) => {
+    const preparadas = passos.map((p) => {
       const alvo = poseParaQuats(p.pose);
       return {
         quats: alvo.quats, expr: alvo.expr || 'neutro',
         dur: Math.max(0.05, p.dur || 0.3), mistura: p.mistura || 0.16,
       };
     });
+    /* Verificação de caminho mais curto na hiperesfera S³ (anti-flip 180°):
+       Garante que poses consecutivas partilham o mesmo hemisfério de quaterniões */
+    for (let k = 1; k < preparadas.length; k++) {
+      const prevQ = preparadas[k - 1].quats;
+      const currQ = preparadas[k].quats;
+      if (prevQ && currQ) {
+        Object.keys(currQ).forEach((bn) => {
+          if (prevQ[bn] && currQ[bn].dot(prevQ[bn]) < 0) {
+            currQ[bn].negate();
+          }
+        });
+      }
+    }
+    return preparadas;
   }
 
   function mostrar(poses, tempo) {
@@ -762,8 +801,13 @@
     Object.keys(alvo).forEach((nome) => {
       const b = ossos[nome];
       if (!b) return;
-      if (base && base[nome]) b.quaternion.copy(base[nome]).slerp(alvo[nome], k);
-      else b.quaternion.copy(alvo[nome]);
+      if (base && base[nome]) {
+        const targetQ = alvo[nome];
+        if (base[nome].dot(targetQ) < 0) targetQ.negate();
+        b.quaternion.copy(base[nome]).slerp(targetQ, k);
+      } else {
+        b.quaternion.copy(alvo[nome]);
+      }
     });
     modelo.updateMatrixWorld(true);
   }
@@ -771,9 +815,21 @@
   function avancar(dt) {
     if (!FILA.ativo) return;
     FILA.t += dt;
-    FILA.mix = lim(FILA.mix + dt / FILA.mixDur, 0, 1);
-    misturarQuats(FILA.base, FILA.alvo.quats, suave(FILA.mix));
     const p = FILA.passos[FILA.i];
+    /* Interpolação suave contínua: amortecimento exponencial (dampQuaternion)
+       com taxa proporcional à mistura pedida pelo passo, eliminando o congelamento
+       abrupto e descontinuidades de aceleração entre passos. */
+    const lambda = 3.2 / Math.max(0.04, FILA.mixDur);
+    const factor = 1.0 - Math.exp(-lambda * dt);
+    Object.keys(FILA.alvo.quats).forEach((nome) => {
+      const b = ossos[nome];
+      if (!b) return;
+      const targetQ = FILA.alvo.quats[nome];
+      if (b.quaternion.dot(targetQ) < 0) targetQ.negate();
+      b.quaternion.slerp(targetQ, factor);
+    });
+    modelo.updateMatrixWorld(true);
+
     if (FILA.t >= p.dur) {
       FILA.t -= p.dur;
       FILA.i++;
@@ -782,9 +838,15 @@
         if (FILA.aoFim) FILA.aoFim();
         return;
       }
-      FILA.base = capturar();
       FILA.alvo = poseParaQuats(FILA.passos[FILA.i].pose);
-      FILA.mix = 0;
+      if (FILA.alvo && FILA.alvo.quats) {
+        Object.keys(FILA.alvo.quats).forEach((bn) => {
+          const b = ossos[bn];
+          if (b && FILA.alvo.quats[bn].dot(b.quaternion) < 0) {
+            FILA.alvo.quats[bn].negate();
+          }
+        });
+      }
       const prox = FILA.passos[FILA.i];
       FILA.mixDur = prox.mistura === 0 ? 0.001 : (prox.mistura || 0.16);
       aplicarExpressao(FILA.alvo.expr);

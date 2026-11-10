@@ -612,7 +612,9 @@ async function main() {
   }
 }
 
-main().catch(err => {
+main().then(() => {
+  process.exit(0);
+}).catch(err => {
   console.log('ERRO:', err);
   console.error('ERRO:', err);
   process.exit(1);
