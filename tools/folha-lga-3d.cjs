@@ -71,6 +71,13 @@ const CONFIG_LOTE = {
     saida: path.join(RAIZ, 'tools', 'fonte', 'lga-3d', 'lote-3a-casa1.png'),
     modo: 'verbos',
   },
+  '3b': {
+    aula: 'Casa (2ª parte)',
+    titulo: 'LGA 3D — Lote 3b: Aula 12 (Casa 2)',
+    subtitulo: 'Avatar 3D Agatha (Three.js WebGL) · 4 vistas por sinal: início, meio, fim e close-up · viva-surdo',
+    saida: path.join(RAIZ, 'tools', 'fonte', 'lga-3d', 'lote-3b-casa2.png'),
+    modo: 'verbos',
+  },
 }[LOTE] || {
   aula: 'Números',
   titulo: 'LGA 3D — Lote 1b: Aula 03 (Números)',
@@ -105,6 +112,17 @@ const tiposMime = {
 
 function criarServidor() {
   const srv = http.createServer((req, res) => {
+    if (req.method === 'POST' && req.url === '/salvar-folha') {
+      const chunks = [];
+      req.on('data', chunk => chunks.push(chunk));
+      req.on('end', () => {
+        const buffer = Buffer.concat(chunks);
+        fs.writeFileSync(CONFIG_LOTE.saida, buffer);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, bytes: buffer.length }));
+      });
+      return;
+    }
     let p = decodeURIComponent(new URL(req.url, 'http://127.0.0.1').pathname);
     if (p === '/') p = '/index.html';
     const ficheiro = path.normalize(path.join(APP_DIR, p));
@@ -149,7 +167,19 @@ function ligarCDP(url) {
       }
       eventos.forEach(fn => fn(m));
     };
-    ws.onerror = e => rej(new Error('WebSocket: ' + (e.message || 'erro')));
+    ws.onclose = ev => {
+      for (const [reqId, { ko }] of espera.entries()) {
+        ko(new Error(`WebSocket fechado (${ev.code}: ${ev.reason || 'sem razão'})`));
+      }
+      espera.clear();
+    };
+    ws.onerror = e => {
+      rej(new Error('WebSocket: ' + (e.message || 'erro')));
+      for (const [reqId, { ko }] of espera.entries()) {
+        ko(new Error(`WebSocket erro`));
+      }
+      espera.clear();
+    };
     ws.onopen = () => res({
       pedir(method, params) {
         return new Promise((ok, ko) => {
@@ -200,7 +230,7 @@ function scriptRenderizacao(filtroAula, titulo, subtitulo, modo) {
 
     if (!itens.length) return { ok: 0, erro: 'Nenhum sinal LGA com notação encontrado para ' + filtro };
 
-    const palco = document.querySelector('#palco canvas');
+    const palco = (window.AVATAR && AVATAR.renderer && AVATAR.renderer.domElement) || document.querySelector('#sg-palco canvas, #palco canvas, canvas');
     if (!palco) return { ok: 0, erro: 'Canvas 3D (#palco canvas) não encontrado' };
 
     const VISTAS_ANGULOS = [
@@ -259,13 +289,22 @@ function scriptRenderizacao(filtroAula, titulo, subtitulo, modo) {
     const tmp = document.createElement('canvas');
     const tg = tmp.getContext('2d');
     const espera2 = () => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+    const pausa = ms => new Promise(r => setTimeout(r, ms));
 
     let ok = 0;
     const falhas = [];
 
     for (let i = 0; i < itens.length; i++) {
       const item = itens[i];
-      const beat = window.notacaoParaBeat ? window.notacaoParaBeat(item.notacao, item.chave) : null;
+      const rotuloLog = '[' + (i + 1) + '/' + itens.length + '] ' + (item.palavra || item.chave) + (item.aproximado ? ' (aprox)' : '');
+      console.log(rotuloLog);
+      const parte = (Array.isArray(item.notacao) ? item.notacao[0] : item.notacao) || '';
+      const n = window.sinalDeNotacao ? window.sinalDeNotacao(parte, {}) : null;
+      const beat = n ? {
+        tipo: 'sinal', rotulo: item.palavra || '', forma: n.forma, duas: n.duas, reps: n.reps, local: n.local,
+        pos0: n.inicio.pos, rot0: n.inicio.rot, pos1: n.fim.pos, rot1: n.fim.rot,
+        dur: 760, palma: n.palma, esq: n.esq, amp: n.amp, movimento: n.movimento,
+      } : (window.notacaoParaBeat ? window.notacaoParaBeat(item.notacao, item.chave) : null);
       if (!beat) {
         falhas.push(item.chave + ': beat inválido');
         continue;
@@ -348,7 +387,7 @@ function scriptRenderizacao(filtroAula, titulo, subtitulo, modo) {
                 vMid.set(vMao.x, vMao.y + 0.08, vMao.z);
               }
 
-              const eBimanual = item.notacao.startsWith('2:');
+              const eBimanual = parte.startsWith('2:');
               if (eBimanual) {
                 AVATAR.cam.fov = 32;
                 AVATAR.cam.position.set(0, vMid.y - 0.02, vMid.z + 0.65);
@@ -428,7 +467,8 @@ function scriptRenderizacao(filtroAula, titulo, subtitulo, modo) {
 
           g.fillStyle = item.aproximado ? '#fbbf24' : '#38bdf8';
           g.font = '12px monospace';
-          g.fillText(item.notacao, x + 8, y + BANDA_TOPO + TH + 18);
+          const textoNotacao = Array.isArray(item.notacao) ? item.notacao.join(' + ') : item.notacao;
+          g.fillText(textoNotacao, x + 8, y + BANDA_TOPO + TH + 18);
 
           g.fillStyle = '#94a3b8';
           g.font = '11px system-ui, sans-serif';
@@ -437,22 +477,35 @@ function scriptRenderizacao(filtroAula, titulo, subtitulo, modo) {
           g.fillText(aulaTxt, x + TW - wAula - 8, y + BANDA_TOPO + TH + 18);
 
           ok++;
+          await pausa(80);
         } catch (e) {
           falhas.push(item.chave + '/' + vista.id + ': ' + e.message);
         }
       }
+      await pausa(200);
     }
 
     try { AVATAR.pousar(); } catch (e) {}
 
+    let bytesSalvos = 0;
     let png = null;
     try {
-      png = folha.toDataURL('image/png');
+      const blob = await new Promise(r => folha.toBlob(r, 'image/png'));
+      const resp = await fetch('/salvar-folha', { method: 'POST', body: blob });
+      const info = await resp.json();
+      bytesSalvos = info.bytes || 0;
     } catch (e) {
-      falhas.push('erro toDataURL: ' + e.message);
+      falhas.push('erro ao salvar folha via HTTP: ' + e.message);
+    }
+    if (!bytesSalvos) {
+      try {
+        png = folha.toDataURL('image/png');
+      } catch (e) {
+        falhas.push('erro toDataURL: ' + e.message);
+      }
     }
 
-    return { ok, falhas, largura: folha.width, altura: folha.height, png };
+    return { ok, falhas, largura: folha.width, altura: folha.height, bytes: bytesSalvos, png };
   })()`;
 }
 
@@ -494,8 +547,15 @@ async function main() {
     await p('Runtime.enable');
     await p('Emulation.setDeviceMetricsOverride', { width: 1000, height: 700, deviceScaleFactor: 1, mobile: false });
 
+    cliente.ao(m => {
+      if (m.method === 'Runtime.consoleAPICalled' && m.params && m.params.args && m.params.args[0]) {
+        console.log('   ' + m.params.args[0].value);
+      }
+    });
+    await frear(chrome.pid, 7);
+
     const avaliar = async expr => {
-      const r = await p('Runtime.evaluate', { expression: expr, awaitPromise: true, returnByValue: true, timeout: 180000 });
+      const r = await p('Runtime.evaluate', { expression: expr, awaitPromise: true, returnByValue: true, timeout: 900000 });
       if (r.exceptionDetails) {
         throw new Error(r.exceptionDetails.text + ' ' + ((r.exceptionDetails.exception || {}).description || ''));
       }
@@ -514,11 +574,11 @@ async function main() {
 
     console.log('A aguardar que a personagem 3D Agatha (AVATAR) carregue...');
     for (let i = 0; i < 120; i++) {
-      const pronto = await avaliar('!!(window.AVATAR && AVATAR.pronto && window.SINAL3D && window.SINAIS_LGA && typeof notacaoParaBeat === "function")');
+      const pronto = await avaliar('!!(window.AVATAR && AVATAR.pronto && window.SINAL3D && window.SINAIS_LGA && (typeof sinalDeNotacao === "function" || typeof notacaoParaBeat === "function"))');
       if (pronto) break;
       await dormir(500);
       if (i === 119) {
-        const estado = await avaliar('JSON.stringify({AVATAR:!!window.AVATAR, pronto:!!(window.AVATAR&&AVATAR.pronto), SINAL3D:!!window.SINAL3D, LGA:!!window.SINAIS_LGA, beat:typeof notacaoParaBeat})');
+        const estado = await avaliar('JSON.stringify({AVATAR:!!window.AVATAR, pronto:!!(window.AVATAR&&AVATAR.pronto), SINAL3D:!!window.SINAL3D, LGA:!!window.SINAIS_LGA, sinalDeNotacao:typeof sinalDeNotacao})');
         throw new Error('A sinalizadora 3D não carregou a tempo: ' + estado);
       }
     }
@@ -526,11 +586,14 @@ async function main() {
 
     console.log(`A gerar folha de prova 3D para ${CONFIG_LOTE.titulo} (modo: ${CONFIG_LOTE.modo})...`);
     const r = await avaliar(scriptRenderizacao(CONFIG_LOTE.aula, CONFIG_LOTE.titulo, CONFIG_LOTE.subtitulo, CONFIG_LOTE.modo));
-    if (!r.png) throw new Error('A folha voltou sem PNG: ' + (r.falhas || []).join(' | '));
+    if (!r || (!r.bytes && !r.png)) throw new Error('A folha voltou sem imagem: ' + ((r && r.erro) || (r && (r.falhas || []).join(' | ')) || JSON.stringify(r)));
+    if (r.png && !r.bytes) {
+      const buffer = Buffer.from(r.png.slice(r.png.indexOf(',') + 1), 'base64');
+      fs.writeFileSync(CONFIG_LOTE.saida, buffer);
+      r.bytes = buffer.length;
+    }
 
-    const buffer = Buffer.from(r.png.slice(r.png.indexOf(',') + 1), 'base64');
-    fs.writeFileSync(CONFIG_LOTE.saida, buffer);
-    console.log(`Prova 3D gerada com sucesso (${r.ok} quadros 3D WebGL, ${r.largura}x${r.altura}px, ${buffer.length} bytes):`);
+    console.log(`Prova 3D gerada com sucesso (${r.ok} quadros 3D WebGL, ${r.largura}x${r.altura}px, ${r.bytes} bytes):`);
     console.log('  -> ' + CONFIG_LOTE.saida);
 
     if (r.falhas && r.falhas.length) {
@@ -550,6 +613,7 @@ async function main() {
 }
 
 main().catch(err => {
+  console.log('ERRO:', err);
   console.error('ERRO:', err);
   process.exit(1);
 });

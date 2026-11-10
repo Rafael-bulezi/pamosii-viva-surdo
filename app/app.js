@@ -12,7 +12,7 @@ const esc = (s) => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt
 
 /* ---------------- acessibilidade ---------------- */
 const A11Y_KEY = 'vs.a11y';
-const A11Y_PADRAO = { temaEscuro: false, contraste: false, movimento: false, escala: 100 };
+const A11Y_PADRAO = { temaEscuro: false, contraste: false, movimento: false, escala: 100, brilhoAoVivo: 'horizonte' };
 let A11Y = { ...A11Y_PADRAO };
 try { A11Y = { ...A11Y_PADRAO, ...(JSON.parse(localStorage.getItem(A11Y_KEY) || '{}')) }; } catch (e) { /* sem armazenamento */ }
 
@@ -23,30 +23,48 @@ function aplicarA11y() {
   h.toggleAttribute('data-movimento-reduzido', !!A11Y.movimento);
   h.style.setProperty('--escala', ([100, 115, 130, 150].includes(Number(A11Y.escala)) ? Number(A11Y.escala) : 100) / 100);
   try { localStorage.setItem(A11Y_KEY, JSON.stringify(A11Y)); } catch (e) { /* modo privado */ }
+  if (typeof BRILHO !== 'undefined' && BRILHO.sincronizar) BRILHO.sincronizar();
 }
 
 function montarA11y() {
   const raiz = $('#a11y-root');
   if (!raiz) return;
   raiz.innerHTML = `
-    <button class="a11y-btn" id="a11y-btn" type="button" aria-expanded="false" aria-controls="a11y-painel" aria-label="Opções de acessibilidade">Aa</button>
+    <button class="a11y-btn" id="a11y-btn" type="button" aria-expanded="false" aria-controls="a11y-painel" title="Definições e acessibilidade" aria-label="Opções de acessibilidade">
+      <svg class="a11y-ico" viewBox="0 0 20 20" fill="currentColor" width="16" height="16" aria-hidden="true">
+        <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
+      </svg>
+      <span class="a11y-btn-rotulo">Definições</span>
+    </button>
     <div class="a11y-painel" id="a11y-painel" hidden>
-      <p class="a11y-titulo">Acessibilidade</p>
-      <label class="a11y-linha"><input type="checkbox" data-a11y="temaEscuro"> Fundo escuro</label>
-      <label class="a11y-linha"><input type="checkbox" data-a11y="contraste"> Contraste alto</label>
-      <label class="a11y-linha"><input type="checkbox" data-a11y="movimento"> Parar animações</label>
-      <label class="a11y-linha a11y-escala">Texto
-        <select data-a11y="escala">
-          <option value="100">100%</option><option value="115">115%</option>
-          <option value="130">130%</option><option value="150">150%</option>
-        </select>
-      </label>
+      <p class="a11y-titulo">Definições</p>
+      <div class="a11y-seccao">
+        <label class="a11y-linha a11y-escala">Brilho ao vivo
+          <select data-a11y="brilhoAoVivo">
+            <option value="horizonte">Horizonte (Horizon Cue)</option>
+            <option value="fita">Fita líquida (Ribbon)</option>
+            <option value="nenhum">Desligado</option>
+          </select>
+        </label>
+      </div>
+      <div class="a11y-seccao">
+        <p class="a11y-subtitulo">Acessibilidade</p>
+        <label class="a11y-linha"><input type="checkbox" data-a11y="temaEscuro"> Fundo escuro</label>
+        <label class="a11y-linha"><input type="checkbox" data-a11y="contraste"> Contraste alto</label>
+        <label class="a11y-linha"><input type="checkbox" data-a11y="movimento"> Parar animações</label>
+        <label class="a11y-linha a11y-escala">Texto
+          <select data-a11y="escala">
+            <option value="100">100%</option><option value="115">115%</option>
+            <option value="130">130%</option><option value="150">150%</option>
+          </select>
+        </label>
+      </div>
     </div>`;
   const btn = $('#a11y-btn'), painel = $('#a11y-painel');
   const sync = () => {
     $$('[data-a11y]', painel).forEach(el => {
       const k = el.dataset.a11y;
-      if (el.type === 'checkbox') el.checked = !!A11Y[k]; else el.value = String(A11Y[k]);
+      if (el.type === 'checkbox') el.checked = !!A11Y[k]; else el.value = String(A11Y[k] || '');
     });
   };
   btn.addEventListener('click', () => {
@@ -59,7 +77,7 @@ function montarA11y() {
     const el = e.target.closest('[data-a11y]');
     if (!el) return;
     const k = el.dataset.a11y;
-    A11Y[k] = el.type === 'checkbox' ? el.checked : Number(el.value);
+    A11Y[k] = el.type === 'checkbox' ? el.checked : (k === 'escala' ? Number(el.value) : el.value);
     aplicarA11y();
     if (k === 'movimento' && A11Y.movimento && SG.tocando) pausarSigner();
   });
@@ -443,12 +461,123 @@ function fecharSigner(silencioso) {
    fora de ordem, mesmo que a segunda resposta seja mais rápida. */
 const VIVO = { fila: Promise.resolve(), simples: false, fechada: '' };
 
-/* A cinta azul da borda acende enquanto o microfone ouve. O desenho é CSS
-   (`index.html` + `styles.css`); aqui só se liga a classe que a acende. */
+/* ---------------- indicador de voz: horizonte ---------------- */
+const HORIZONTE = (() => {
+  let montado = false;
+  let ativo = false;
+  let estado = 'listening';
+  let cur = 0;
+  let escrito = -1;
+  let rafId = null;
+  let vozAtivaAte = 0;
+  let gate = 0;
+  let gateAte = 0;
+
+  function montar() {
+    if (montado) return;
+    const hexWrap = $('#vgHexes');
+    if (hexWrap && !hexWrap.children.length) {
+      const HEX_COUNT = 40;
+      const hexSvg = '<svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7"/></svg>';
+      for (let i = 0; i < HEX_COUNT; i++) {
+        const r = (n) => { const x = Math.sin(i * 12.9898 + n * 78.233) * 43758.5453; return x - Math.floor(x); };
+        const v = ((i + r(1)) / HEX_COUNT) * 2 - 1;
+        const x = 50 + 44 * Math.sign(v) * Math.pow(Math.abs(v), 1.35);
+        const h = document.createElement('i');
+        h.className = 'vg-hex';
+        h.innerHTML = hexSvg;
+        h.style.setProperty('--x', x.toFixed(1) + '%');
+        h.style.setProperty('--y', (r(2) * 20).toFixed(0) + 'px');
+        h.style.setProperty('--s', (5 + r(3) * 4).toFixed(1) + 'px');
+        h.style.setProperty('--dx', ((r(4) - 0.5) * 30).toFixed(0) + 'px');
+        h.style.setProperty('--dy', (-(16 + r(5) * 52)).toFixed(0) + 'px');
+        h.style.setProperty('--rot', ((r(6) - 0.5) * 90).toFixed(0) + 'deg');
+        h.style.setProperty('--d', (10 + r(7) * 8).toFixed(1) + 's');
+        h.style.setProperty('--dl', '-' + (r(8) * 18).toFixed(1) + 's');
+        h.style.setProperty('--po', (0.3 + r(9) * 0.3).toFixed(2));
+        hexWrap.appendChild(h);
+      }
+    }
+    montado = true;
+  }
+
+  function simular(t) {
+    if (estado === 'listening') {
+      const vozReal = performance.now() < vozAtivaAte;
+      if (vozReal) {
+        const ond = 0.6 + 0.4 * Math.sin(t / 140);
+        return 0.75 * ond;
+      }
+      if (t > gateAte) {
+        gate = Math.random() < 0.6 ? 1 : 0;
+        gateAte = t + (gate ? 700 + Math.random() * 1800 : 500 + Math.random() * 1400);
+      }
+      const syl = 0.5 + 0.5 * Math.sin(t / 260) * Math.sin(t / 420 + 1);
+      return gate * (0.25 + 0.6 * syl * (0.6 + 0.4 * Math.sin(t / 900)));
+    }
+    if (estado === 'speaking') {
+      const syl = 0.5 + 0.5 * Math.sin(t / 240 + Math.sin(t / 700) * 2);
+      const phrase = 0.55 + 0.45 * Math.sin(t / 1300);
+      return 0.2 + 0.55 * syl * phrase;
+    }
+    return 0;
+  }
+
+  function loop(t) {
+    if (!ativo) { rafId = null; return; }
+    const vg = $('#vg');
+    if (vg && !document.hidden) {
+      const target = simular(t);
+      cur += (target - cur) * (target > cur ? 0.2 : 0.05);
+      if (Math.abs(cur - escrito) > 0.004) {
+        vg.style.setProperty('--level', cur.toFixed(3));
+        escrito = cur;
+      }
+    }
+    rafId = requestAnimationFrame(loop);
+  }
+
+  return {
+    ligar() {
+      montar();
+      ativo = true;
+      const vg = $('#vg');
+      if (vg) {
+        vg.classList.add('is-on');
+        vg.dataset.state = estado;
+      }
+      if (!rafId) rafId = requestAnimationFrame(loop);
+    },
+    desligar() {
+      ativo = false;
+      const vg = $('#vg');
+      if (vg) vg.classList.remove('is-on');
+      if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+    },
+    setState(s) {
+      estado = s;
+      const vg = $('#vg');
+      if (vg) vg.dataset.state = s;
+    },
+    notarVoz() {
+      vozAtivaAte = performance.now() + 600;
+    },
+  };
+})();
+
+/* A cinta azul ou o horizonte acendem enquanto o microfone ouve. */
 const BRILHO = {
   sincronizar() {
-    const on = !!(window.AO_VIVO && AO_VIVO.ligado());
-    document.documentElement.classList.toggle('vivo-ligado', on);
+    const ligado = !!(window.AO_VIVO && AO_VIVO.ligado());
+    const modo = A11Y.brilhoAoVivo || 'horizonte';
+    const htmlEl = document.documentElement;
+    htmlEl.classList.toggle('vivo-ligado', ligado && modo === 'fita');
+    htmlEl.classList.toggle('horizonte-ligado', ligado && modo === 'horizonte');
+    if (ligado && modo === 'horizonte') {
+      HORIZONTE.ligar();
+    } else {
+      HORIZONTE.desligar();
+    }
   },
 };
 BRILHO.sincronizar();
@@ -531,8 +660,12 @@ function ligarAoVivo() {
   const rep = $('#sg-rep');
   if (rep) { rep.classList.remove('on'); rep.setAttribute('aria-pressed', 'false'); }
   const ok = AO_VIVO.iniciar({
-    aoProvisorio: (txt) => mostrarTranscricao(txt, VIVO.fechada),
+    aoProvisorio: (txt) => {
+      HORIZONTE.notarVoz();
+      mostrarTranscricao(txt, VIVO.fechada);
+    },
     aoFrase: (frase) => {
+      HORIZONTE.setState('thinking');
       VIVO.fechada = (VIVO.fechada + ' ' + frase).replace(/\s+/g, ' ').trim().slice(-170);
       mostrarTranscricao('', VIVO.fechada);
       enfileirarFrase(frase);
@@ -558,11 +691,13 @@ function ligarAoVivo() {
   }
   const rotulo = $('#sg-mic-txt');
   if (rotulo) rotulo.textContent = ligado ? 'A ouvir' : 'Microfone';
+  HORIZONTE.setState(ligado ? 'listening' : 'muted');
   BRILHO.sincronizar();
 }
 
 function pararAoVivo() {
   if (window.AO_VIVO) AO_VIVO.parar();
+  HORIZONTE.setState('muted');
   BRILHO.sincronizar();
   const botao = $('#sg-mic');
   if (botao) { botao.classList.remove('on'); botao.setAttribute('aria-pressed', 'false'); }
@@ -652,6 +787,7 @@ function tocarSigner() {
   if (SG.total && SG.t >= SG.total - 0.01) SG.t = 0;
   SG.tocando = true;
   SG.last = 0;
+  if (SG.vivo && typeof HORIZONTE !== 'undefined') HORIZONTE.setState('speaking');
   const play = $('#sg-play');
   if (play) { play.textContent = '❚❚'; play.setAttribute('aria-label', 'Pausa'); }
   cancelAnimationFrame(SG.raf);
@@ -661,6 +797,9 @@ function tocarSigner() {
 function pausarSigner() {
   SG.tocando = false;
   cancelAnimationFrame(SG.raf);
+  if (SG.vivo && typeof HORIZONTE !== 'undefined') {
+    HORIZONTE.setState(window.AO_VIVO && AO_VIVO.ligado() ? 'listening' : 'muted');
+  }
   const play = $('#sg-play');
   if (play) { play.textContent = '▶'; play.setAttribute('aria-label', 'Reproduzir'); }
 }
@@ -677,6 +816,9 @@ function passoSigner(ts) {
       SG.t = SG.total - 0.001;
       desenharSigner(SG.t);
       pausarSigner();
+      if (SG.vivo && typeof HORIZONTE !== 'undefined') {
+        HORIZONTE.setState(window.AO_VIVO && AO_VIVO.ligado() ? 'listening' : 'muted');
+      }
       return;
     }
   }

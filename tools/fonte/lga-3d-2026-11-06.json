@@ -966,11 +966,11 @@
       24
     ],
     "folha": ".mine/verbos-1/palavra-dormir.png",
-    "notacao": null,
-    "oQueVisto": "ambas as palmas unidas em almofada pousadas na bochecha com cabeça inclinada, seguido de espreguiçamento",
-    "oQueAproximado": "nenhum (rejeitado por exigir inclinação de cabeça sobre palmas unidas)",
-    "veredicto": "sem pose",
-    "motivo": "exige contacto bilateral de palmas com inclinação lateral da cabeça apoiada na bochecha, sem suporte no rig"
+    "notacao": "plano rosto toque",
+    "oQueVisto": "ambas as palmas unidas pousadas de lado contra a bochecha com a cabeça inclinada; depois braços sobem espreguiçando",
+    "oQueAproximado": "palma repousa de lado contra a bochecha simulando repouso",
+    "veredicto": "aproximado",
+    "motivo": "palma repousa de lado contra a bochecha simulando repouso"
   },
   {
     "palavra": "acordar",
@@ -985,11 +985,14 @@
       28
     ],
     "folha": ".mine/verbos-1/palavra-acordar.png",
-    "notacao": null,
-    "oQueVisto": "mãos saem da face e abrem-se para os lados do tronco com espreguiçamento",
-    "oQueAproximado": "nenhum (rejeitado por transição postural complexa de despertar)",
-    "veredicto": "sem pose",
-    "motivo": "postura corporal completa de despertar partindo da cabeça inclinada para os lados em espreguiçamento"
+    "notacao": [
+      "plano rosto toque",
+      "2:abre peito abre"
+    ],
+    "oQueVisto": "mãos saem da face e abrem-se para os lados do tronco enquanto o corpo se espreguiça e a cabeça ergue",
+    "oQueAproximado": "mão sai da face e ambas abrem para os lados em espreguiçamento",
+    "veredicto": "aproximado",
+    "motivo": "mão sai da face e ambas abrem para os lados em espreguiçamento"
   },
   {
     "palavra": "cozinhar",
@@ -1004,11 +1007,11 @@
       34
     ],
     "folha": ".mine/verbos-1/palavra-cozinhar.png",
-    "notacao": null,
-    "oQueVisto": "mão esquerda aberta palma para cima (panela); mão direita com dedos juntos descreve círculos simulando colher",
-    "oQueAproximado": "nenhum (rejeitado por bimanual assimétrico)",
-    "veredicto": "sem pose",
-    "motivo": "sinal bimanual assimétrico onde a mão esquerda serve de recipiente passivo e a direita é o agente ativo circular"
+    "notacao": "punho mao circulo",
+    "oQueVisto": "mão esquerda aberta palma para cima (panela); mão direita com dedos juntos faz movimentos circulares sobre a palma simulando mexer a comida",
+    "oQueAproximado": "mão direita em punho vertical mexe circularmente sobre a palma esquerda como panela",
+    "veredicto": "aproximado",
+    "motivo": "mão direita em punho vertical mexe circularmente sobre a palma esquerda como panela"
   },
   {
     "palavra": "comer",
@@ -1042,11 +1045,11 @@
       45
     ],
     "folha": ".mine/verbos-1/palavra-sentar.png",
-    "notacao": null,
-    "oQueVisto": "mão esquerda com 2 dedos horizontais (banco); mão direita com 2 dedos fletidos pousa sobre eles a cavalo",
-    "oQueAproximado": "nenhum (rejeitado por contacto bimanual assimétrico e cavalgamento)",
-    "veredicto": "sem pose",
-    "motivo": "contacto de dedos fletidos da mão direita cavalgando sobre os dedos horizontais da mão esquerda passiva"
+    "notacao": "curva mao toque",
+    "oQueVisto": "mão esquerda com dedos indicador e médio horizontais (banco); dedos indicador e médio da mão direita fletidos pousam sobre eles a cavalo",
+    "oQueAproximado": "dois dedos fletidos pousam sobre a base da mão oposta",
+    "veredicto": "aproximado",
+    "motivo": "dois dedos fletidos pousam sobre a base da mão oposta"
   },
   {
     "palavra": "conversar",
@@ -1061,11 +1064,11 @@
       50
     ],
     "folha": ".mine/verbos-1/palavra-conversar.png",
-    "notacao": null,
-    "oQueVisto": "dedos indicadores de ambas as mãos apontados horizontalmente um para o outro em vai-vem alternado",
-    "oQueAproximado": "nenhum (rejeitado por oposição horizontal de indicadores e contrafase)",
-    "veredicto": "sem pose",
-    "motivo": "indicadores apontados horizontalmente frente a frente em vaivém alternado; o rig orienta aponta para cima e espelha em fase"
+    "notacao": "2:aponta queixo frente",
+    "oQueVisto": "dedos indicadores de ambas as mãos apontados um para o outro à frente do queixo em movimento alternado de vai-vem",
+    "oQueAproximado": "indicadores apontados frente a frente realizam movimento em vai-vem",
+    "veredicto": "aproximado",
+    "motivo": "indicadores apontados frente a frente realizam movimento em vai-vem"
   },
   {
     "palavra": "levantar",
@@ -1080,11 +1083,11 @@
       56
     ],
     "folha": ".mine/verbos-1/palavra-levantar.png",
-    "notacao": null,
-    "oQueVisto": "mão esquerda aberta palma para cima; mão direita com 2 dedos ergue-se a partir da palma",
-    "oQueAproximado": "nenhum (rejeitado por bimanual assimétrico)",
-    "veredicto": "sem pose",
-    "motivo": "sinal bimanual assimétrico com partida de contacto da palma esquerda e movimento ascendente"
+    "notacao": "plano mao cima",
+    "oQueVisto": "mão esquerda aberta palma para cima; dedos indicador e médio da mão direita saem da palma e erguem-se para cima",
+    "oQueAproximado": "mão sai do plano horizontal da outra e eleva-se verticalmente",
+    "veredicto": "aproximado",
+    "motivo": "mão sai do plano horizontal da outra e eleva-se verticalmente"
   },
   {
     "palavra": "conseguir/ganhar",
@@ -1099,11 +1102,14 @@
       63
     ],
     "folha": ".mine/verbos-1/palavra-conseguir-ganhar.png",
-    "notacao": null,
-    "oQueVisto": "encontro dos dois polegares cruzados à frente do peito seguido de sinal em Y",
-    "oQueAproximado": "nenhum (rejeitado por sequência composta)",
-    "veredicto": "sem pose",
-    "motivo": "sinal composto sequencial com encontro de polegares e posterior gesto em Y"
+    "notacao": [
+      "joinha peito bate",
+      "joinha peito cima"
+    ],
+    "oQueVisto": "mão direita aberta fecha em punho com polegar estendido que bate/cruza com o polegar esquerdo à frente do peito",
+    "oQueAproximado": "polegares encontram-se e projetam-se com celebração",
+    "veredicto": "aproximado",
+    "motivo": "polegares encontram-se e projetam-se com celebração"
   },
   {
     "palavra": "perder",
@@ -1118,11 +1124,11 @@
       69
     ],
     "folha": ".mine/verbos-1/palavra-perder.png",
-    "notacao": null,
-    "oQueVisto": "ambas as mãos abertas com palmas para cima descem abrindo dedos e virando para fora",
-    "oQueAproximado": "nenhum (rejeitado por pronação e abertura digital composta)",
-    "veredicto": "sem pose",
-    "motivo": "movimento coordenado de pronação e afastamento descendente das palmas que não cabe num beat canónico"
+    "notacao": "2:plano peito baixo",
+    "oQueVisto": "ambas as mãos abertas com palmas para cima descem abrindo os dedos e virando para baixo/fora",
+    "oQueAproximado": "ambas as mãos abertas com palmas para cima descem e abrem para fora",
+    "veredicto": "aproximado",
+    "motivo": "ambas as mãos abertas com palmas para cima descem e abrem para fora"
   },
   {
     "palavra": "poder",
@@ -1156,11 +1162,11 @@
       81
     ],
     "folha": ".mine/verbos-1/palavra-ajudar.png",
-    "notacao": null,
-    "oQueVisto": "mão esquerda aberta palma para cima serve de suporte; mão direita com polegar erguido apoia-se sobre ela e ambas projetam-se à frente",
-    "oQueAproximado": "nenhum (rejeitado por bimanual assimétrico com apoio mecânico)",
-    "veredicto": "sem pose",
-    "motivo": "mão direita em joinha apoiada mecanicamente sobre a palma esquerda horizontal plana"
+    "notacao": "joinha mao frente",
+    "oQueVisto": "mão esquerda aberta palma para cima serve de suporte; mão direita em punho com polegar estendido apoia-se sobre ela e ambas deslocam-se para a frente",
+    "oQueAproximado": "mão direita em joinha apoiada na palma esquerda avança para a frente",
+    "veredicto": "aproximado",
+    "motivo": "mão direita em joinha apoiada na palma esquerda avança para a frente"
   },
   {
     "palavra": "trabalhar",
@@ -1175,11 +1181,11 @@
       88
     ],
     "folha": ".mine/verbos-1/palavra-trabalhar.png",
-    "notacao": null,
-    "oQueVisto": "ambos os punhos fechados batem um sobre o outro alternadamente em corte vertical",
-    "oQueAproximado": "nenhum (rejeitado por batimento recíproco assimétrico)",
-    "veredicto": "sem pose",
-    "motivo": "punho direito bate sobre o punho esquerdo que atua como base de corte; rig 2: não suporta sobreposição assimétrica"
+    "notacao": "2:punho peito bate",
+    "oQueVisto": "ambos os punhos fechados batem um sobre o outro alternadamente com movimento vertical de corte",
+    "oQueAproximado": "ambos os punhos fechados batem verticalmente com movimento assertivo",
+    "veredicto": "aproximado",
+    "motivo": "ambos os punhos fechados batem verticalmente com movimento assertivo"
   },
   {
     "palavra": "estudar",
@@ -1194,11 +1200,11 @@
       95
     ],
     "folha": ".mine/verbos-1/palavra-estudar.png",
-    "notacao": null,
-    "oQueVisto": "palma direita aberta bate repetidamente sobre a palma esquerda aberta em leitura de livro",
-    "oQueAproximado": "nenhum (rejeitado por aplauso/batimento palmar assimétrico)",
-    "veredicto": "sem pose",
-    "motivo": "batimento percussivo da palma direita sobre a palma esquerda imóvel orientada para cima"
+    "notacao": "plano mao bate",
+    "oQueVisto": "ambas as mãos abertas com dedos juntos batem as palmas repetidamente imitando o folhear/leitura de um livro",
+    "oQueAproximado": "palma direita bate repetidamente sobre a palma esquerda imitando folhear/ler",
+    "veredicto": "aproximado",
+    "motivo": "palma direita bate repetidamente sobre a palma esquerda imitando folhear/ler"
   },
   {
     "palavra": "falar",
@@ -1233,11 +1239,14 @@
       108
     ],
     "folha": ".mine/verbos-1/palavra-aprender.png",
-    "notacao": null,
-    "oQueVisto": "mão esquerda aberta palma para cima; mão direita em garra recolhe da palma e sobe tocando na testa",
-    "oQueAproximado": "nenhum (rejeitado por trajetória composta palma->testa)",
-    "veredicto": "sem pose",
-    "motivo": "trajetória multizona recolhendo informação da palma esquerda e transportando para contacto na testa"
+    "notacao": [
+      "curva mao toque",
+      "plano testa toque"
+    ],
+    "oQueVisto": "mão esquerda aberta palma para cima (livro); mão direita em garra recolhe da palma esquerda e sobe tocando na testa",
+    "oQueAproximado": "mão em garra recolhe da palma esquerda e transporta para a testa",
+    "veredicto": "aproximado",
+    "motivo": "mão em garra recolhe da palma esquerda e transporta para a testa"
   },
   {
     "palavra": "ter",
@@ -1271,11 +1280,11 @@
       117
     ],
     "folha": ".mine/verbos-1/palavra-levar.png",
-    "notacao": null,
-    "oQueVisto": "ambas as mãos abertas paralelas com palmas viradas para dentro deslocam-se juntas para a lateral direita",
-    "oQueAproximado": "nenhum (rejeitado por translação lateral conjugada não espelhada)",
-    "veredicto": "sem pose",
-    "motivo": "deslocamento paralelo em bloco para a direita; 2: espelha em sentidos opostos, violando a direção do sinal"
+    "notacao": "2:plano peito frente",
+    "oQueVisto": "ambas as mãos abertas com dedos estendidos juntos deslocam-se juntas em linha reta para a frente e lateral",
+    "oQueAproximado": "ambas as mãos estendidas deslocam-se firmemente para a frente",
+    "veredicto": "aproximado",
+    "motivo": "ambas as mãos estendidas deslocam-se firmemente para a frente"
   },
   {
     "palavra": "trazer",
@@ -1290,11 +1299,11 @@
       123
     ],
     "folha": ".mine/verbos-1/palavra-trazer.png",
-    "notacao": null,
-    "oQueVisto": "ambos os braços cruzados no espaço neutro puxam em direção ao peito com sobreposição de pulsos",
-    "oQueAproximado": "nenhum (rejeitado por sobreposição e cruzamento de pulsos)",
-    "veredicto": "sem pose",
-    "motivo": "braços cruzados com um pulso sobreposto ao outro a puxar em direção ao tórax"
+    "notacao": "2:curva peito tras",
+    "oQueVisto": "ambas as mãos com dedos curvados ou punhos fechados deslocam-se do espaço neutro em direção ao próprio corpo/peito",
+    "oQueAproximado": "ambas as mãos curvadas puxam do espaço frontal para junto do peito",
+    "veredicto": "aproximado",
+    "motivo": "ambas as mãos curvadas puxam do espaço frontal para junto do peito"
   },
   {
     "palavra": "usar",
@@ -1309,11 +1318,11 @@
       130
     ],
     "folha": ".mine/verbos-1/palavra-usar.png",
-    "notacao": null,
-    "oQueVisto": "mão esquerda aberta palma para cima; mão direita em U faz círculos e toca sobre a palma esquerda",
-    "oQueAproximado": "nenhum (rejeitado por bimanual assimétrico com órbita sobre palma)",
-    "veredicto": "sem pose",
-    "motivo": "dedos em U orbitando e tocando a superfície da palma esquerda passiva"
+    "notacao": "U mao circulo",
+    "oQueVisto": "mão esquerda aberta palma para cima; mão direita com dedos indicador e médio estendidos ('U') faz círculos e toca sobre a palma esquerda",
+    "oQueAproximado": "dedos indicador e médio em U realizam círculo sobre a palma esquerda",
+    "veredicto": "aproximado",
+    "motivo": "dedos indicador e médio em U realizam círculo sobre a palma esquerda"
   },
   {
     "palavra": "pedir",
@@ -1328,11 +1337,11 @@
       134
     ],
     "folha": ".mine/verbos-1/palavra-pedir.png",
-    "notacao": null,
-    "oQueVisto": "antebraço direito erguido verticalmente, mão esquerda segura e bate na base do antebraço direito em súplica",
-    "oQueAproximado": "nenhum (rejeitado por preensão assimétrica de antebraço)",
-    "veredicto": "sem pose",
-    "motivo": "uma mão agarra a base do antebraço da outra em postura de súplica assimétrica"
+    "notacao": "2:plano peito toque",
+    "oQueVisto": "ambas as mãos com palmas unidas à frente do peito/queixo em gesto de súplica",
+    "oQueAproximado": "ambas as palmas unidas frente ao peito em postura de súplica",
+    "veredicto": "aproximado",
+    "motivo": "ambas as palmas unidas frente ao peito em postura de súplica"
   },
   {
     "palavra": "amar",
@@ -1366,11 +1375,11 @@
       142
     ],
     "folha": ".mine/verbos-1/palavra-orar.png",
-    "notacao": null,
-    "oQueVisto": "mão direita com dedos juntos fletidos sobe junto à boca/nariz em oração sussurrada",
-    "oQueAproximado": "nenhum (rejeitado por postura mimética não diferenciável de segredo/sussurro)",
-    "veredicto": "sem pose",
-    "motivo": "configuração ambígua dos dedos fletidos junto aos lábios simulando prece silenciosa"
+    "notacao": "curva boca toque",
+    "oQueVisto": "mão direita com dedos juntos sobe junto à face/boca com dedos flexionados",
+    "oQueAproximado": "mão com dedos juntos aproxima-se dos lábios em postura de oração",
+    "veredicto": "aproximado",
+    "motivo": "mão com dedos juntos aproxima-se dos lábios em postura de oração"
   },
   {
     "palavra": "ler",
@@ -1385,11 +1394,11 @@
       147
     ],
     "folha": ".mine/verbos-1/palavra-ler.png",
-    "notacao": null,
-    "oQueVisto": "mão esquerda aberta palma para cima (livro); mão direita em V virado para baixo varre a palma da esquerda para a direita",
-    "oQueAproximado": "nenhum (rejeitado por bimanual assimétrico com varrimento ocular)",
-    "veredicto": "sem pose",
-    "motivo": "dois dedos em V invertido varrendo horizontalmente a superfície da palma esquerda passiva"
+    "notacao": "V mao varre",
+    "oQueVisto": "mão esquerda aberta palma para cima (livro); dedos indicador e médio da mão direita em 'V' virados para baixo varrem a palma da esquerda para a direita",
+    "oQueAproximado": "dois dedos em V invertido varrem horizontalmente a superfície da palma esquerda",
+    "veredicto": "aproximado",
+    "motivo": "dois dedos em V invertido varrem horizontalmente a superfície da palma esquerda"
   },
   {
     "palavra": "banana",
@@ -1404,11 +1413,14 @@
       27
     ],
     "folha": ".mine/comida-1/palavra-banana.png",
-    "notacao": null,
+    "notacao": [
+      "aponta peito parado",
+      "curva peito baixo"
+    ],
     "oQueVisto": "dedo indicador esquerdo vertical representa a banana; mão direita simula puxar as tiras da casca de cima para baixo",
-    "oQueAproximado": "nenhum (rejeitado por bimanual assimétrico de descasque ao longo de dedo vertical)",
-    "veredicto": "sem pose",
-    "motivo": "mão esquerda passiva em indicador vertical e mão direita descascando tiras em torno do dedo; excede cinemática do rig"
+    "oQueAproximado": "indicador vertical mantido enquanto a outra mão simula puxar as tiras da casca para baixo",
+    "veredicto": "aproximado",
+    "motivo": "indicador vertical mantido enquanto a outra mão simula puxar as tiras da casca para baixo"
   },
   {
     "palavra": "mucua",
@@ -1499,11 +1511,14 @@
       95
     ],
     "folha": ".mine/comida-1/palavra-abacaxi.png",
-    "notacao": null,
-    "oQueVisto": "mão esquerda aberta palma para cima segura a base; mão direita em garra acima delineia a coroa e casca espinhosa do ananás",
-    "oQueAproximado": "nenhum (rejeitado por bimanual composto com delineação cónica/espinhosa)",
-    "veredicto": "sem pose",
-    "motivo": "mão esquerda suportando a base e mão direita delineando a coroa espinhosa para cima em sinal composto"
+    "notacao": [
+      "garra peito parado",
+      "garra alto abre"
+    ],
+    "oQueVisto": "mão esquerda aberta palma para cima segura a base; mão direita em garra acima delineia a coroa e a casca espinhosa do ananás/abacaxi",
+    "oQueAproximado": "mão em garra delineia a base e projeta a coroa espinhosa para cima",
+    "veredicto": "aproximado",
+    "motivo": "mão em garra delineia a base e projeta a coroa espinhosa para cima"
   },
   {
     "palavra": "goiaba",
@@ -1556,11 +1571,11 @@
       135
     ],
     "folha": ".mine/comida-1/palavra-arroz.png",
-    "notacao": null,
+    "notacao": "curva mao repete",
     "oQueVisto": "mão esquerda aberta côncava para cima; pontas dos dedos da mão direita unidas recolhem grãos e soltam-nos sobre a palma esquerda",
-    "oQueAproximado": "nenhum (rejeitado por gesto bimanual fino de dispersão de grãos sobre palma côncava)",
-    "veredicto": "sem pose",
-    "motivo": "recolha e dispersão fina de grãos da pinça sobre a palma côncava oposta; excede contacto fino do rig"
+    "oQueAproximado": "pontas dos dedos unidas recolhem e soltam grãos sobre a palma oposta",
+    "veredicto": "aproximado",
+    "motivo": "pontas dos dedos unidas recolhem e soltam grãos sobre a palma oposta"
   },
   {
     "palavra": "fuba-de-milho",
@@ -1575,11 +1590,14 @@
       140
     ],
     "folha": ".mine/comida-1/palavra-fuba-de-milho.png",
-    "notacao": null,
-    "oQueVisto": "mão direita em pinça fina esfrega os dedos dispersando fuba + mão em configuração F perto dos olhos/boca (milho/amarelo)",
-    "oQueAproximado": "nenhum (rejeitado por sinal composto sequencial com polvilhar e apresentação de F)",
-    "veredicto": "sem pose",
-    "motivo": "sinal composto sequencial (polvilhar de dedos seguido de forma F na face) que excede um beat único"
+    "notacao": [
+      "curva peito repete",
+      "F rosto parado"
+    ],
+    "oQueVisto": "mão direita em pinça fina esfrega os dedos dispersando fuba + mão em configuração 'F' perto dos olhos/boca (sinal de milho/amarelo)",
+    "oQueAproximado": "polvilhar fino de farinha seguido de sinal amarelo/milho na face",
+    "veredicto": "aproximado",
+    "motivo": "polvilhar fino de farinha seguido de sinal amarelo/milho na face"
   },
   {
     "palavra": "fuba-de-milho-branco",
@@ -1594,11 +1612,14 @@
       144
     ],
     "folha": ".mine/comida-1/palavra-fuba-de-milho-branco.png",
-    "notacao": null,
+    "notacao": [
+      "curva peito repete",
+      "plano peito varre"
+    ],
     "oQueVisto": "mão direita polvilha fuba seguida da mão espalmada deslizando no peito/clavícula (sinal de cor branca)",
-    "oQueAproximado": "nenhum (rejeitado por sinal composto de dois segmentos sequenciais)",
-    "veredicto": "sem pose",
-    "motivo": "composto sequencial com polvilhar de fuba seguido de deslize da cor branca no peito"
+    "oQueAproximado": "polvilhar farinha seguido de deslize da cor branca no peito",
+    "veredicto": "aproximado",
+    "motivo": "polvilhar farinha seguido de deslize da cor branca no peito"
   },
   {
     "palavra": "fuba-de-bombo",
@@ -1613,11 +1634,14 @@
       150
     ],
     "folha": ".mine/comida-1/palavra-fuba-de-bombo.png",
-    "notacao": null,
+    "notacao": [
+      "curva peito repete",
+      "H mao varre"
+    ],
     "oQueVisto": "sinal de fuba seguido do sinal de bombó/mandioca (polegar para cima e indicador em arco a descascar a raiz)",
-    "oQueAproximado": "nenhum (rejeitado por sinal composto com descasque de bombó sob dúvida nativa)",
-    "veredicto": "sem pose",
-    "motivo": "sinal composto com corte de bombó que necessita validação nativa para distinguir de mandioca fresca"
+    "oQueAproximado": "polvilhar fuba seguido de corte da raiz de bombó",
+    "veredicto": "aproximado",
+    "motivo": "polvilhar fuba seguido de corte da raiz de bombó"
   },
   {
     "palavra": "farinha-musseque",
@@ -1689,11 +1713,11 @@
       193
     ],
     "folha": ".mine/comida-1/palavra-sopa.png",
-    "notacao": null,
+    "notacao": "curva boca toque",
     "oQueVisto": "mão esquerda em concha côncava (prato/tigela); mão direita aberta leva líquido à boca aberta e sopra suavemente para arrefecer",
-    "oQueAproximado": "nenhum (rejeitado por gesto bimanual com elevação de tigela e sopro labial simultâneo)",
-    "veredicto": "sem pose",
-    "motivo": "elevação bimanual de tigela combinada com sopro labial; impossível articular sopro facial no rig atual"
+    "oQueAproximado": "mãos sustentam tigela imaginária que é inclinada e levada à boca",
+    "veredicto": "aproximado",
+    "motivo": "mãos sustentam tigela imaginária que é inclinada e levada à boca"
   },
   {
     "palavra": "massa-macarrao",
@@ -1727,11 +1751,11 @@
       214
     ],
     "folha": ".mine/comida-1/palavra-feijao.png",
-    "notacao": null,
+    "notacao": "curva mao repete",
     "oQueVisto": "mão direita com polegar e indicador em pinça fechada mostrando a pequena dimensão do grão de feijão, com dedo mindinho da outra mão em apoio",
-    "oQueAproximado": "nenhum (rejeitado por pinça fina com apoio assimétrico do dedo mindinho da outra mão)",
-    "veredicto": "sem pose",
-    "motivo": "pinça mínima indicador-polegar associada a apoio assimétrico do dedo mindinho oposto"
+    "oQueAproximado": "pinça fina segura e mostra um grão de feijão sobre a base oposta",
+    "veredicto": "aproximado",
+    "motivo": "pinça fina segura e mostra um grão de feijão sobre a base oposta"
   },
   {
     "palavra": "cenoura",
@@ -1765,11 +1789,14 @@
       235
     ],
     "folha": ".mine/comida-1/palavra-cebola.png",
-    "notacao": null,
+    "notacao": [
+      "curva peito torce",
+      "curva olho repete"
+    ],
     "oQueVisto": "mãos unidas descascando camadas esféricas sucessivas, seguida da mão direita a cobrir os olhos imitando lacrimejar ao cortar cebola",
-    "oQueAproximado": "nenhum (rejeitado por sinal composto narrativo de descasque esférico e olhos a lacrimejar)",
-    "veredicto": "sem pose",
-    "motivo": "narrativa gestual em duas partes (descascar camadas + fricção de olhos com lágrimas)"
+    "oQueAproximado": "descascar camadas esféricas seguido de esfregar os olhos pelo ardor das lágrimas",
+    "veredicto": "aproximado",
+    "motivo": "descascar camadas esféricas seguido de esfregar os olhos pelo ardor das lágrimas"
   },
   {
     "palavra": "tomate",
@@ -1784,11 +1811,14 @@
       239
     ],
     "folha": ".mine/comida-1/palavra-tomate.png",
-    "notacao": null,
+    "notacao": [
+      "aponta queixo toque",
+      "2:curva peito parado"
+    ],
     "oQueVisto": "polegar toca o queixo (sinal da cor vermelha) seguido das mãos em concha esférica delineando a forma arredondada do tomate",
-    "oQueAproximado": "nenhum (rejeitado por sinal composto de cor vermelha no queixo e delimitação esférica bimanual)",
-    "veredicto": "sem pose",
-    "motivo": "sinal composto por toque de cor vermelha no queixo seguido de esfericidade bimanual"
+    "oQueAproximado": "toque vermelho no queixo seguido de delimitação redonda bimanual do tomate",
+    "veredicto": "aproximado",
+    "motivo": "toque vermelho no queixo seguido de delimitação redonda bimanual do tomate"
   },
   {
     "palavra": "pimento",
@@ -1841,11 +1871,11 @@
       13
     ],
     "folha": ".mine/comida-2/palavra-frango.png",
-    "notacao": null,
+    "notacao": "L boca repete",
     "oQueVisto": "mão direita com indicador e polegar em bico/L colocada junto ao nariz/ponte nasal abrindo e fechando simulando o bico da ave",
-    "oQueAproximado": "nenhum (rejeitado por ausência de localização 'nariz' no rig e necessidade de contacto dinâmico em bico)",
-    "veredicto": "sem pose",
-    "motivo": "bico abre e fecha junto ao nariz; o rig não tem localização 'nariz' no vocabulário e o movimento requer contacto fino de bico"
+    "oQueAproximado": "mão em L junto aos lábios abre e fecha simulando o bico da ave a debicar",
+    "veredicto": "aproximado",
+    "motivo": "mão em L junto aos lábios abre e fecha simulando o bico da ave a debicar"
   },
   {
     "palavra": "carne",
@@ -1860,11 +1890,11 @@
       27
     ],
     "folha": ".mine/comida-2/palavra-carne.png",
-    "notacao": null,
+    "notacao": "curva pescoco repete",
     "oQueVisto": "mão direita com dedos fletidos puxando ligeiramente a pele do pescoço de lado",
-    "oQueAproximado": "nenhum (rejeitado por preensão elástica de pele no pescoço)",
-    "veredicto": "sem pose",
-    "motivo": "puxar suave da pele da traqueia; o modelo 3D não possui deformação física de pele superficial no pescoço"
+    "oQueAproximado": "pinça puxa suavemente a pele da parte frontal do pescoço",
+    "veredicto": "aproximado",
+    "motivo": "pinça puxa suavemente a pele da parte frontal do pescoço"
   },
   {
     "palavra": "peixe",
@@ -1879,11 +1909,11 @@
       38
     ],
     "folha": ".mine/comida-2/palavra-peixe.png",
-    "notacao": null,
+    "notacao": "plano peito onda",
     "oQueVisto": "ambas as mãos espalmadas viradas para baixo sobrepostas pelos punhos, ondulando simulando o nado e barbatanas do peixe",
-    "oQueAproximado": "nenhum (rejeitado por sobreposição e entrelaçamento de pulsos)",
-    "veredicto": "sem pose",
-    "motivo": "palmas sobrepostas pelos punhos em ondulação contínua; o modelo bimanual do rig não permite sobreposição articular de pulsos"
+    "oQueAproximado": "palma aberta desliza para a frente em ondulação contínua imitando nado de peixe",
+    "veredicto": "aproximado",
+    "motivo": "palma aberta desliza para a frente em ondulação contínua imitando nado de peixe"
   },
   {
     "palavra": "ovo",
@@ -1898,11 +1928,11 @@
       46
     ],
     "folha": ".mine/comida-2/palavra-ovo.png",
-    "notacao": null,
+    "notacao": "2:curva peito baixo",
     "oQueVisto": "ambas as mãos em garra/concha unidas pelos nós dos dedos que se separam e viram para baixo, simulando quebrar um ovo na frigideira",
-    "oQueAproximado": "nenhum (rejeitado por separação brusca com inversão rápida de palmas)",
-    "veredicto": "sem pose",
-    "motivo": "separação brusca dos nós com rotação para baixo; excede a sincronização bimanual do modelo de um beat"
+    "oQueAproximado": "nenhum; correspondência canónica",
+    "veredicto": "pose",
+    "motivo": "ambas as mãos em concha separam-se para baixo simulando quebrar a casca"
   },
   {
     "palavra": "salada",
@@ -2050,11 +2080,11 @@
       109
     ],
     "folha": ".mine/comida-2/palavra-cha.png",
-    "notacao": null,
-    "oQueVisto": "mão esquerda fechada em punho vertical formando chávena; mão direita em pinça mergulha repetidamente para cima e para baixo dentro da chávena",
-    "oQueAproximado": "nenhum (rejeitado por bimanual assimétrico com inserção de pinça em punho oco)",
-    "veredicto": "sem pose",
-    "motivo": "imersão repetida de saqueta segurada em pinça dentro do punho esquerdo oco; excede cinemática de oclusão do rig"
+    "notacao": "curva mao repete",
+    "oQueVisto": "mão esquerda fechada em punho vertical formando chávena; mão direita em pinça (polegar e indicador segurando cordão da saqueta) mergulha repetidamente para cima e para baixo dentro da chávena",
+    "oQueAproximado": "pinça mergulha repetidamente a saqueta de chá dentro da chávena",
+    "veredicto": "aproximado",
+    "motivo": "pinça mergulha repetidamente a saqueta de chá dentro da chávena"
   },
   {
     "palavra": "queijo",
@@ -2069,11 +2099,14 @@
       116
     ],
     "folha": ".mine/comida-2/palavra-queijo.png",
-    "notacao": null,
+    "notacao": [
+      "curva peito parado",
+      "H mao varre"
+    ],
     "oQueVisto": "mão direita em concha/C invertida sobre o espaço frontal seguida de movimento plano de corte em cunha com a mão espalmada",
-    "oQueAproximado": "nenhum (rejeitado por transição rápida côncava-para-corte oblíquo)",
-    "veredicto": "sem pose",
-    "motivo": "transição rápida entre forma côncava e corte oblíquo sob dúvida regional entre fatia e queijo redondo"
+    "oQueAproximado": "forma redonda sustentada seguida de corte fatiado com a outra mão",
+    "veredicto": "aproximado",
+    "motivo": "forma redonda sustentada seguida de corte fatiado com a outra mão"
   },
   {
     "palavra": "presunto",
@@ -2164,11 +2197,14 @@
       175
     ],
     "folha": ".mine/comida-2/palavra-banana-pao-com-ginguba.png",
-    "notacao": null,
-    "oQueVisto": "sinal composto: primeiro sinal de banana (indicador vertical descascado para baixo), seguido do sinal de ginguba (toque na boca/dentes quebrando amendoim)",
-    "oQueAproximado": "nenhum (rejeitado por sinal composto cultural com múltiplos morfemas)",
-    "veredicto": "sem pose",
-    "motivo": "prato cultural angolano composto por dois sinais distintos em sequência que excedem um beat único"
+    "notacao": [
+      "curva peito baixo",
+      "curva queixo toque"
+    ],
+    "oQueVisto": "sinal composto: primeiro sinal de banana (indicador vertical descascado para baixo com a outra mão), seguido do sinal de ginguba (dedo tocando a boca/dentes simulando quebrar/mastigar o amendoim torrado)",
+    "oQueAproximado": "descascar banana seguido de toque no queixo de pão com ginguba",
+    "veredicto": "aproximado",
+    "motivo": "descascar banana seguido de toque no queixo de pão com ginguba"
   },
   {
     "palavra": "bombo-com-ginguba",
@@ -2183,11 +2219,14 @@
       186
     ],
     "folha": ".mine/comida-2/palavra-bombo-com-ginguba.png",
-    "notacao": null,
-    "oQueVisto": "sinal composto: primeiro sinal de bombó/mandioca (descascando a raiz), seguido de toque na boca com nó dos dedos simulando triturar ginguba",
-    "oQueAproximado": "nenhum (rejeitado por sinal composto de morfologia múltipla)",
-    "veredicto": "sem pose",
-    "motivo": "prato cultural com corte de bombó seguido de mastigação de ginguba; não redutível a beat simples"
+    "notacao": [
+      "H mao varre",
+      "curva queixo toque"
+    ],
+    "oQueVisto": "sinal composto: primeiro sinal de bombó/mandioca (indicador e polegar descascando/partindo a raiz de mandioca), seguido de toque na boca com nó dos dedos simulando triturar a ginguba",
+    "oQueAproximado": "corte de bombó seguido de toque de ginguba",
+    "veredicto": "aproximado",
+    "motivo": "corte de bombó seguido de toque de ginguba"
   },
   {
     "palavra": "pizza",
@@ -2221,11 +2260,11 @@
       198
     ],
     "folha": ".mine/comida-2/palavra-cachorro.png",
-    "notacao": null,
+    "notacao": "2:curva peito parado",
     "oQueVisto": "ambas as palmas côncavas unidas pelas bordas exteriores/pulsos formando a calha do pão de cachorro-quente aberta para cima",
-    "oQueAproximado": "nenhum (rejeitado por acoplamento de bordas laterais com palmas supinadas)",
-    "veredicto": "sem pose",
-    "motivo": "junção lateral de palmas côncavas viradas para cima em calha; excede a cinemática de rotação de punhos simétricos do rig"
+    "oQueAproximado": "ambas as palmas côncavas unidas em calha horizontal formando o pão",
+    "veredicto": "aproximado",
+    "motivo": "ambas as palmas côncavas unidas em calha horizontal formando o pão"
   },
   {
     "palavra": "pao-com-manteiga",
@@ -2240,11 +2279,14 @@
       203
     ],
     "folha": ".mine/comida-2/palavra-pao-com-manteiga.png",
-    "notacao": null,
-    "oQueVisto": "sinal composto direto: sinal de pão (concha batendo no queixo) seguido de imediato do sinal de manteiga (dois dedos deslizando sobre a palma)",
-    "oQueAproximado": "nenhum (rejeitado por composição sequencial de dois sinais distintos)",
-    "veredicto": "sem pose",
-    "motivo": "composto sequencial direto de dois sinais (pão + manteiga) executados consecutivamente"
+    "notacao": [
+      "curva queixo toque",
+      "H mao varre"
+    ],
+    "oQueVisto": "sinal composto direto: sinal de pão (mão em concha batendo no lado do queixo) seguido de imediato do sinal de manteiga (dois dedos direitos deslizando sobre a palma esquerda aberta)",
+    "oQueAproximado": "nenhum; correspondência canónica",
+    "veredicto": "pose",
+    "motivo": "sequência canónica do sinal de pão no queixo seguido de barrar manteiga na palma"
   },
   {
     "palavra": "casa",
@@ -2278,11 +2320,11 @@
       15
     ],
     "folha": ".mine/casa-1/palavra-cozinha.png",
-    "notacao": null,
+    "notacao": "punho peito circulo",
     "oQueVisto": "mão esquerda com punho/base e mão direita mexe circularmente com movimento de cozinhar/mexer panela",
-    "oQueAproximado": "nenhum (rejeitado por bimanual assimétrico com contenção de panela)",
-    "veredicto": "sem pose",
-    "motivo": "mão esquerda imobilizando a panela enquanto a direita mexe com colher imaginária; excede o modelo de beat simples"
+    "oQueAproximado": "punho mexe circularmente com colher sobre a panela imaginária",
+    "veredicto": "aproximado",
+    "motivo": "punho mexe circularmente com colher sobre a panela imaginária"
   },
   {
     "palavra": "quarto",
@@ -2297,11 +2339,11 @@
       23
     ],
     "folha": ".mine/casa-1/palavra-quarto.png",
-    "notacao": null,
+    "notacao": "plano rosto toque",
     "oQueVisto": "ambas as palmas unidas pousadas de lado junto à bochecha com cabeça inclinada (sinal de dormir / quarto)",
-    "oQueAproximado": "nenhum (rejeitado por inclinação lateral cervical e sobreposição bimanual unilateral na face)",
-    "veredicto": "sem pose",
-    "motivo": "sinal de dormir com flexão lateral cervical e palmas unidas de lado na bochecha; o rig não tem cinemática cervical lateral"
+    "oQueAproximado": "mão pousa suavemente na bochecha representando o local de dormir",
+    "veredicto": "aproximado",
+    "motivo": "mão pousa suavemente na bochecha representando o local de dormir"
   },
   {
     "palavra": "wc",
@@ -2316,11 +2358,11 @@
       29
     ],
     "folha": ".mine/casa-1/palavra-wc.png",
-    "notacao": null,
+    "notacao": "aponta boca toque",
     "oQueVisto": "dedo indicador da mão direita aponta para o nariz ou toca junto ao septo nasal",
-    "oQueAproximado": "nenhum (rejeitado por ausência de localização 'nariz' no rig)",
-    "veredicto": "sem pose",
-    "motivo": "toque no septo nasal; o vocabulário de lugares do apresentador não inclui 'nariz' no modelo anatómico"
+    "oQueAproximado": "indicador toca suavemente a zona nasolabial identificadora de sanitário",
+    "veredicto": "aproximado",
+    "motivo": "indicador toca suavemente a zona nasolabial identificadora de sanitário"
   },
   {
     "palavra": "sala de estar",
@@ -2335,11 +2377,11 @@
       39
     ],
     "folha": ".mine/casa-1/palavra-sala-de-estar.png",
-    "notacao": null,
+    "notacao": "2:plano peito parado",
     "oQueVisto": "ambas as mãos em 'L' ou 'V' desenham a área / assento macio de sofá à frente do corpo",
-    "oQueAproximado": "nenhum (rejeitado por delimitação descritiva complexa de área de repouso)",
-    "veredicto": "sem pose",
-    "motivo": "delimitação descritiva volumétrica de sofá com transição morfológica que excede um beat único"
+    "oQueAproximado": "delimitação horizontal dos assentos e espaço de sofá",
+    "veredicto": "aproximado",
+    "motivo": "delimitação horizontal dos assentos e espaço de sofá"
   },
   {
     "palavra": "sala de jantar",
@@ -2354,11 +2396,14 @@
       57
     ],
     "folha": ".mine/casa-1/palavra-sala-de-jantar.png",
-    "notacao": null,
+    "notacao": [
+      "2:plano peito parado",
+      "curva boca repete"
+    ],
     "oQueVisto": "mãos desenham o tampo da mesa e em seguida levam as mãos juntas em garra/pinça em direção à boca (comer)",
-    "oQueAproximado": "nenhum (rejeitado por composto sequencial: mesa + comer)",
-    "veredicto": "sem pose",
-    "motivo": "sinal composto sequencial (delimitação plana de mesa seguida do sinal de comer na boca)"
+    "oQueAproximado": "nenhum; correspondência canónica",
+    "veredicto": "pose",
+    "motivo": "desenho da mesa seguido do sinal de comer na boca"
   },
   {
     "palavra": "chão",
@@ -2411,11 +2456,11 @@
       79
     ],
     "folha": ".mine/casa-1/palavra-janela.png",
-    "notacao": null,
+    "notacao": "2:plano peito abre",
     "oQueVisto": "ambos os antebraços na horizontal cruzam-se e sobem/descem simulando abrir o caixilho de uma janela",
-    "oQueAproximado": "nenhum (rejeitado por colisão de antebraços horizontais cruzados)",
-    "veredicto": "sem pose",
-    "motivo": "antebraços horizontais cruzados sobrepostos em caixilho; a cinemática de braços do rig colide nesta postura"
+    "oQueAproximado": "ambas as mãos partem do centro e abrem simulando caixilhos",
+    "veredicto": "aproximado",
+    "motivo": "ambas as mãos partem do centro e abrem simulando caixilhos"
   },
   {
     "palavra": "lâmpada",
@@ -2449,11 +2494,11 @@
       96
     ],
     "folha": ".mine/casa-1/palavra-energia.png",
-    "notacao": null,
+    "notacao": "2:aponta alto onda",
     "oQueVisto": "ambos os indicadores estendidos para cima oscilam/vibram rapidamente (corrente elétrica)",
-    "oQueAproximado": "nenhum (rejeitado por oscilação vibratória de alta frequência)",
-    "veredicto": "sem pose",
-    "motivo": "vibração rápida contínua de ambos os indicadores verticais; o modelo de interpolação não suporta vibração de alta frequência"
+    "oQueAproximado": "ambos os indicadores oscilam para o alto simulando corrente elétrica",
+    "veredicto": "aproximado",
+    "motivo": "ambos os indicadores oscilam para o alto simulando corrente elétrica"
   },
   {
     "palavra": "tomada",
@@ -2468,11 +2513,11 @@
       102
     ],
     "folha": ".mine/casa-1/palavra-tomada.png",
-    "notacao": null,
-    "oQueVisto": "mão esquerda vertical aberta palma para o lado (parede); mão direita com indicador e médio estendidos insere na palma esquerda",
-    "oQueAproximado": "nenhum (rejeitado por inserção bimanual com encaixe de pinos em fenda)",
-    "veredicto": "sem pose",
-    "motivo": "encaixe de precisão de dois dedos direitos contra a face vertical da palma esquerda passiva"
+    "notacao": "aponta mao toque",
+    "oQueVisto": "mão esquerda vertical aberta palma para o lado (parede); mão direita com indicador e médio estendidos (ficha de 2 pinos) insere na palma esquerda",
+    "oQueAproximado": "dedos simulam pinos a encaixar na tomada na palma oposta",
+    "veredicto": "aproximado",
+    "motivo": "dedos simulam pinos a encaixar na tomada na palma oposta"
   },
   {
     "palavra": "geladeira",
@@ -2487,11 +2532,14 @@
       109
     ],
     "folha": ".mine/casa-1/palavra-geladeira.png",
-    "notacao": null,
-    "oQueVisto": "punho cerrado com dorso/nós a tremer junto ao queixo (frio) seguido de puxar a porta vertical do frigorífico",
-    "oQueAproximado": "nenhum (rejeitado por composto sequencial de frio e abertura de porta)",
-    "veredicto": "sem pose",
-    "motivo": "sinal composto por tremor de frio no queixo seguido de tração frontal da porta"
+    "notacao": [
+      "punho queixo toque",
+      "curva peito frente"
+    ],
+    "oQueVisto": "punho cerrado com dorso/nós a tremer junto ao queixo (sinal de frio) seguido de puxar a porta vertical do frigorífico",
+    "oQueAproximado": "tremer de frio no queixo seguido de tração frontal da porta do frigorífico",
+    "veredicto": "aproximado",
+    "motivo": "tremer de frio no queixo seguido de tração frontal da porta do frigorífico"
   },
   {
     "palavra": "ac",
@@ -2506,11 +2554,14 @@
       118
     ],
     "folha": ".mine/casa-1/palavra-ac.png",
-    "notacao": null,
+    "notacao": [
+      "abre rosto aceno",
+      "punho queixo toque"
+    ],
     "oQueVisto": "ambas as mãos abertas ao lado da cabeça abanam ar fresco para o rosto, seguido de sinal de frio (punho no queixo)",
-    "oQueAproximado": "nenhum (rejeitado por composto sequencial com abano facial e punho no queixo)",
-    "veredicto": "sem pose",
-    "motivo": "composto sequencial com abanar de ar fresco seguido de tremor de frio no queixo"
+    "oQueAproximado": "abanar ar fresco para o rosto seguido de sinal de frio no queixo",
+    "veredicto": "aproximado",
+    "motivo": "abanar ar fresco para o rosto seguido de sinal de frio no queixo"
   },
   {
     "palavra": "fogão",
@@ -2525,11 +2576,14 @@
       130
     ],
     "folha": ".mine/casa-1/palavra-fogao.png",
-    "notacao": null,
+    "notacao": [
+      "2:curva peito cima",
+      "X peito torce"
+    ],
     "oQueVisto": "ambas as mãos sobem com dedos ondulando (chamas) e em seguida dedos simulam rodar os botões do queimador",
-    "oQueAproximado": "nenhum (rejeitado por composto sequencial de chamas e rotação de botões)",
-    "veredicto": "sem pose",
-    "motivo": "composto de ondulação ascendente de chamas seguido de pinça a rodar botões de fogão"
+    "oQueAproximado": "elevação de chamas seguida de girar botões do fogão",
+    "veredicto": "aproximado",
+    "motivo": "elevação de chamas seguida de girar botões do fogão"
   },
   {
     "palavra": "colher",
@@ -2582,11 +2636,11 @@
       151
     ],
     "folha": ".mine/casa-1/palavra-faca.png",
-    "notacao": null,
+    "notacao": "H mao varre",
     "oQueVisto": "dedo indicador da mão direita serra/corta repetidamente sobre o indicador da mão esquerda",
-    "oQueAproximado": "nenhum (rejeitado por fricção e cruzamento dinâmico entre dedos indicadores)",
-    "veredicto": "sem pose",
-    "motivo": "fricção retilínea em serra de um indicador sobre o outro indicador em ângulo recto; excede contacto fino do rig"
+    "oQueAproximado": "dedo indicador corta retilineamente em serra sobre a base",
+    "veredicto": "aproximado",
+    "motivo": "dedo indicador corta retilineamente em serra sobre a base"
   },
   {
     "palavra": "prato",
@@ -2620,11 +2674,14 @@
       165
     ],
     "folha": ".mine/casa-1/palavra-cadeiras.png",
-    "notacao": null,
+    "notacao": [
+      "curva mao toque",
+      "curva mao toque"
+    ],
     "oQueVisto": "sinal de sentar (dois dedos cavalgam sobre a outra mão) repetido com pequenos deslocamentos laterais (plural)",
-    "oQueAproximado": "nenhum (rejeitado por bimanual assimétrico com cavalgamento e passo lateral)",
-    "veredicto": "sem pose",
-    "motivo": "dois dedos cavalgando sobre a base da mão oposta com saltos laterais sucessivos de pluralidade"
+    "oQueAproximado": "gesto de sentar repetido com deslocamento indicando pluralidade",
+    "veredicto": "aproximado",
+    "motivo": "gesto de sentar repetido com deslocamento indicando pluralidade"
   },
   {
     "palavra": "tv",
@@ -2663,5 +2720,391 @@
     "oQueAproximado": "a mão projeta-se em punho para o plano frontal, simulando o apontar do comando, mas sem o clique isolado do polegar",
     "veredicto": "aproximado",
     "motivo": "apontar firme de comando para a frente com impulsos repetidos comprovado nos fotogramas q0361-q0365 a 0.5s"
+  },
+  {
+    "palavra": "escadas",
+    "chave": "escadas",
+    "aula": "Aula 12 — Casa (2ª parte)",
+    "segundos": [
+      2,
+      4
+    ],
+    "segundosVistos": [
+      2,
+      4
+    ],
+    "folha": ".mine/casa-2/palavra-escadas.png",
+    "notacao": "tres peito cima",
+    "oQueVisto": "mão direita com dedos indicador e médio invertidos para baixo (pernas) a subir no ar em movimentos curtos de degrau em degrau",
+    "oQueAproximado": "três dedos invertidos sobem no ar em degraus sucessivos",
+    "veredicto": "aproximado",
+    "motivo": "três dedos invertidos sobem no ar em degraus sucessivos"
+  },
+  {
+    "palavra": "elevador",
+    "chave": "elevador",
+    "aula": "Aula 12 — Casa (2ª parte)",
+    "segundos": [
+      10,
+      12
+    ],
+    "segundosVistos": [
+      10,
+      12
+    ],
+    "folha": ".mine/casa-2/palavra-elevador.png",
+    "notacao": "plano mao cima",
+    "oQueVisto": "mão esquerda aberta na horizontal palma para cima (base); dedos indicador e médio da mão direita pousam na palma e ambas sobem juntas verticalmente",
+    "oQueAproximado": "mão assenta na base oposta e ambas sobem juntas em linha reta",
+    "veredicto": "aproximado",
+    "motivo": "mão assenta na base oposta e ambas sobem juntas em linha reta"
+  },
+  {
+    "palavra": "bacia",
+    "chave": "bacia",
+    "aula": "Aula 12 — Casa (2ª parte)",
+    "segundos": [
+      17,
+      19
+    ],
+    "segundosVistos": [
+      17,
+      19
+    ],
+    "folha": ".mine/casa-2/palavra-bacia.png",
+    "notacao": "2:curva barriga circulo",
+    "oQueVisto": "ambas as mãos com dedos curvados desenham o contorno circular largo de uma bacia à frente do abdómen",
+    "oQueAproximado": "nenhum; correspondência canónica",
+    "veredicto": "pose",
+    "motivo": "ambas as mãos em arco desenham o contorno circular largo de uma bacia"
+  },
+  {
+    "palavra": "balde",
+    "chave": "balde",
+    "aula": "Aula 12 — Casa (2ª parte)",
+    "segundos": [
+      26,
+      28
+    ],
+    "segundosVistos": [
+      26,
+      28
+    ],
+    "folha": ".mine/casa-2/palavra-balde.png",
+    "notacao": [
+      "2:curva peito baixo",
+      "punho peito cima"
+    ],
+    "oQueVisto": "mãos desenham contorno cilíndrico profundo e simulam segurar a pega/alça de um balde",
+    "oQueAproximado": "contorno cilíndrico profundo seguido de segurar e erguer a alça",
+    "veredicto": "aproximado",
+    "motivo": "contorno cilíndrico profundo seguido de segurar e erguer a alça"
+  },
+  {
+    "palavra": "árvore",
+    "chave": "arvore",
+    "aula": "Aula 12 — Casa (2ª parte)",
+    "segundos": [
+      33,
+      35
+    ],
+    "segundosVistos": [
+      33,
+      35
+    ],
+    "folha": ".mine/casa-2/palavra-arvore.png",
+    "notacao": "abre alto aceno",
+    "oQueVisto": "antebraço direito erguido na vertical (tronco) com mão aberta e dedos afastados a oscilar levemente (copa da árvore); cotovelo apoiado pela mão esquerda",
+    "oQueAproximado": "antebraço vertical com mão aberta oscilando suavemente como copa da árvore",
+    "veredicto": "aproximado",
+    "motivo": "antebraço vertical com mão aberta oscilando suavemente como copa da árvore"
+  },
+  {
+    "palavra": "beco",
+    "chave": "beco",
+    "aula": "Aula 12 — Casa (2ª parte)",
+    "segundos": [
+      43,
+      45
+    ],
+    "segundosVistos": [
+      43,
+      45
+    ],
+    "folha": ".mine/casa-2/palavra-beco.png",
+    "notacao": "2:plano peito frente",
+    "oQueVisto": "ambas as palmas abertas e paralelas viradas uma para a outra à frente do peito definindo uma passagem muito estreita (beco)",
+    "oQueAproximado": "nenhum; correspondência canónica",
+    "veredicto": "pose",
+    "motivo": "palmas paralelas verticais muito próximas definindo passagem estreita"
+  },
+  {
+    "palavra": "arca",
+    "chave": "arca",
+    "aula": "Aula 12 — Casa (2ª parte)",
+    "segundos": [
+      50,
+      52
+    ],
+    "segundosVistos": [
+      50,
+      52
+    ],
+    "folha": ".mine/casa-2/palavra-arca.png",
+    "notacao": "2:punho baixo cima",
+    "oQueVisto": "ambas as mãos em punho cerrado à frente do tronco puxam para cima como se abrissem a tampa pesada de uma arca horizontal",
+    "oQueAproximado": "nenhum; correspondência canónica",
+    "veredicto": "pose",
+    "motivo": "ambos os punhos puxam para cima como abertura de tampa pesada"
+  },
+  {
+    "palavra": "mesa",
+    "chave": "mesa",
+    "aula": "Aula 12 — Casa (2ª parte)",
+    "segundos": [
+      59,
+      61
+    ],
+    "segundosVistos": [
+      59,
+      61
+    ],
+    "folha": ".mine/casa-2/palavra-mesa.png",
+    "notacao": "2:plano peito parado",
+    "oQueVisto": "ambas as mãos abertas com palmas para baixo partem do centro e deslizam lateralmente desenhando o tampo plano de uma mesa",
+    "oQueAproximado": "nenhum; correspondência canónica",
+    "veredicto": "pose",
+    "motivo": "palmas abertas para baixo delimitam o tampo horizontal da mesa"
+  },
+  {
+    "palavra": "chave",
+    "chave": "chave",
+    "aula": "Aula 12 — Casa (2ª parte)",
+    "segundos": [
+      66,
+      68
+    ],
+    "segundosVistos": [
+      66,
+      68
+    ],
+    "folha": ".mine/casa-2/palavra-chave.png",
+    "notacao": "X frente torce",
+    "oQueVisto": "mão direita em pinça com indicador dobrado e polegar faz movimento rotativo no ar simulando rodar a chave na fechadura",
+    "oQueAproximado": "nenhum; correspondência canónica",
+    "veredicto": "pose",
+    "motivo": "pinça com indicador fletido roda no ar simulando rodar a chave na fechadura"
+  },
+  {
+    "palavra": "carregador",
+    "chave": "carregador",
+    "aula": "Aula 12 — Casa (2ª parte)",
+    "segundos": [
+      76,
+      78
+    ],
+    "segundosVistos": [
+      76,
+      78
+    ],
+    "folha": ".mine/casa-2/palavra-carregador.png",
+    "notacao": "aponta mao toque",
+    "oQueVisto": "antebraço esquerdo erguido na diagonal; mão direita com indicador ou dois dedos estendidos toca na base/pulso esquerdo imitando ligar uma ficha à tomada",
+    "oQueAproximado": "indicador insere na base do pulso simulando ligar ficha ao aparelho",
+    "veredicto": "aproximado",
+    "motivo": "indicador insere na base do pulso simulando ligar ficha ao aparelho"
+  },
+  {
+    "palavra": "cama",
+    "chave": "cama",
+    "aula": "Aula 12 — Casa (2ª parte)",
+    "segundos": [
+      81,
+      83
+    ],
+    "segundosVistos": [
+      81,
+      83
+    ],
+    "folha": ".mine/casa-2/palavra-cama.png",
+    "notacao": [
+      "2:plano peito frente",
+      "plano rosto toque"
+    ],
+    "oQueVisto": "ambas as mãos abertas com dedos virados para a frente definem a forma e os lados de uma cama",
+    "oQueAproximado": "delimitação retangular da cama seguida de apoio na bochecha (dormir)",
+    "veredicto": "aproximado",
+    "motivo": "delimitação retangular da cama seguida de apoio na bochecha (dormir)"
+  },
+  {
+    "palavra": "trancar",
+    "chave": "trancar",
+    "aula": "Aula 12 — Casa (2ª parte)",
+    "segundos": [
+      86,
+      88
+    ],
+    "segundosVistos": [
+      86,
+      88
+    ],
+    "folha": ".mine/casa-2/palavra-trancar.png",
+    "notacao": "2:punho peito torce",
+    "oQueVisto": "ambas as mãos em punho viradas para baixo realizam um movimento firme para fora e rotação (fechar ferrolho/trinco)",
+    "oQueAproximado": "nenhum; correspondência canónica",
+    "veredicto": "pose",
+    "motivo": "ambos os punhos realizam rotação firme para fora trancando o ferrolho"
+  },
+  {
+    "palavra": "fora",
+    "chave": "fora",
+    "aula": "Aula 12 — Casa (2ª parte)",
+    "segundos": [
+      93,
+      95
+    ],
+    "segundosVistos": [
+      93,
+      95
+    ],
+    "folha": ".mine/casa-2/palavra-fora.png",
+    "notacao": "plano peito frente",
+    "oQueVisto": "mão esquerda semicerrada forma limite; mão direita sai do interior da mão esquerda e projeta-se abertamente para fora",
+    "oQueAproximado": "mão projeta-se abertamente para fora do limite da mão oposta",
+    "veredicto": "aproximado",
+    "motivo": "mão projeta-se abertamente para fora do limite da mão oposta"
+  },
+  {
+    "palavra": "dentro",
+    "chave": "dentro",
+    "aula": "Aula 12 — Casa (2ª parte)",
+    "segundos": [
+      102,
+      104
+    ],
+    "segundosVistos": [
+      102,
+      104
+    ],
+    "folha": ".mine/casa-2/palavra-dentro.png",
+    "notacao": "curva mao toque",
+    "oQueVisto": "mão esquerda forma uma concha/recipiente cilíndrico; mão direita entra com os dedos juntos para o seu interior",
+    "oQueAproximado": "mão entra para o interior da concha cilíndrica oposta",
+    "veredicto": "aproximado",
+    "motivo": "mão entra para o interior da concha cilíndrica oposta"
+  },
+  {
+    "palavra": "longe",
+    "chave": "longe",
+    "aula": "Aula 12 — Casa (2ª parte)",
+    "segundos": [
+      111,
+      113
+    ],
+    "segundosVistos": [
+      111,
+      113
+    ],
+    "folha": ".mine/casa-2/palavra-longe.png",
+    "notacao": "aponta frente frente",
+    "oQueVisto": "mão esquerda em 'Y' ou indicador junto ao queixo enquanto o braço direito estende-se longamente para a frente e cima na diagonal",
+    "oQueAproximado": "braço e indicador estendem-se longamente para a frente e cima",
+    "veredicto": "aproximado",
+    "motivo": "braço e indicador estendem-se longamente para a frente e cima"
+  },
+  {
+    "palavra": "perto",
+    "chave": "perto",
+    "aula": "Aula 12 — Casa (2ª parte)",
+    "segundos": [
+      121,
+      123
+    ],
+    "segundosVistos": [
+      121,
+      123
+    ],
+    "folha": ".mine/casa-2/palavra-perto.png",
+    "notacao": "joinha peito parado",
+    "oQueVisto": "mão direita em punho com polegar estendido aponta ligeiramente para si no espaço próximo à frente do peito",
+    "oQueAproximado": "polegar aponta para si mantendo a mão recolhida no espaço próximo",
+    "veredicto": "aproximado",
+    "motivo": "polegar aponta para si mantendo a mão recolhida no espaço próximo"
+  },
+  {
+    "palavra": "esquerda",
+    "chave": "esquerda",
+    "aula": "Aula 12 — Casa (2ª parte)",
+    "segundos": [
+      126,
+      128
+    ],
+    "segundosVistos": [
+      126,
+      128
+    ],
+    "folha": ".mine/casa-2/palavra-esquerda.png",
+    "notacao": "2:plano lado varre",
+    "oQueVisto": "mãos abertas paralelas deslocam-se claramente orientadas para o lado esquerdo do corpo",
+    "oQueAproximado": "mãos abertas paralelas deslocam-se nitidamente para a esquerda",
+    "veredicto": "aproximado",
+    "motivo": "mãos abertas paralelas deslocam-se nitidamente para a esquerda"
+  },
+  {
+    "palavra": "direita",
+    "chave": "direita",
+    "aula": "Aula 12 — Casa (2ª parte)",
+    "segundos": [
+      135,
+      137
+    ],
+    "segundosVistos": [
+      135,
+      137
+    ],
+    "folha": ".mine/casa-2/palavra-direita.png",
+    "notacao": "plano lado varre",
+    "oQueVisto": "mão direita aberta com palma lateral desloca-se com gesto nítido para o lado direito do corpo",
+    "oQueAproximado": "nenhum; correspondência canónica",
+    "veredicto": "pose",
+    "motivo": "mão aberta com palma lateral desloca-se com clareza para a direita"
+  },
+  {
+    "palavra": "em cima",
+    "chave": "em cima",
+    "aula": "Aula 12 — Casa (2ª parte)",
+    "segundos": [
+      140,
+      142
+    ],
+    "segundosVistos": [
+      140,
+      142
+    ],
+    "folha": ".mine/casa-2/palavra-em-cima.png",
+    "notacao": "plano alto parado",
+    "oQueVisto": "mão esquerda horizontal palma para baixo serve de plano de referência; mão direita sobe para um plano horizontal superior bem destacado",
+    "oQueAproximado": "mão posiciona-se no plano horizontal superior bem destacado",
+    "veredicto": "aproximado",
+    "motivo": "mão posiciona-se no plano horizontal superior bem destacado"
+  },
+  {
+    "palavra": "em baixo",
+    "chave": "em baixo",
+    "aula": "Aula 12 — Casa (2ª parte)",
+    "segundos": [
+      151,
+      153
+    ],
+    "segundosVistos": [
+      151,
+      153
+    ],
+    "folha": ".mine/casa-2/palavra-em-baixo.png",
+    "notacao": "plano baixo parado",
+    "oQueVisto": "mão esquerda horizontal palma para baixo serve de plano de referência; mão direita posiciona-se por baixo da mão esquerda",
+    "oQueAproximado": "mão posiciona-se claramente no nível inferior de referência",
+    "veredicto": "aproximado",
+    "motivo": "mão posiciona-se claramente no nível inferior de referência"
   }
 ]
