@@ -729,13 +729,17 @@
     if (FILA.base && FILA.alvo.quats) {
       Object.keys(FILA.alvo.quats).forEach((bn) => {
         if (FILA.base[bn] && FILA.alvo.quats[bn].dot(FILA.base[bn]) < 0) {
-          FILA.alvo.quats[bn].negate();
+          negarQ(FILA.alvo.quats[bn]);
         }
       });
     }
     FILA.mix = 0;
     FILA.mixDur = passos[0].mistura === 0 ? 0.001 : (passos[0].mistura || 0.18);
     aplicarExpressao(FILA.alvo.expr);
+  }
+
+  function negarQ(q) {
+    return q.set(-q.x, -q.y, -q.z, -q.w);
   }
 
   function pararSequencia() {
@@ -770,7 +774,7 @@
       if (prevQ && currQ) {
         Object.keys(currQ).forEach((bn) => {
           if (prevQ[bn] && currQ[bn].dot(prevQ[bn]) < 0) {
-            currQ[bn].negate();
+            negarQ(currQ[bn]);
           }
         });
       }
@@ -798,14 +802,15 @@
   }
   let ULTIMO_PASSO = -1, ULTIMA_EXPR = '';
 
+  const _tmpQ = new THREE.Quaternion();
   function misturarQuats(base, alvo, k) {
     Object.keys(alvo).forEach((nome) => {
       const b = ossos[nome];
       if (!b) return;
       if (base && base[nome]) {
-        const targetQ = alvo[nome];
-        if (base[nome].dot(targetQ) < 0) targetQ.negate();
-        b.quaternion.copy(base[nome]).slerp(targetQ, k);
+        _tmpQ.copy(alvo[nome]);
+        if (base[nome].dot(_tmpQ) < 0) negarQ(_tmpQ);
+        b.quaternion.copy(base[nome]).slerp(_tmpQ, k);
       } else {
         b.quaternion.copy(alvo[nome]);
       }
@@ -826,7 +831,7 @@
       const b = ossos[nome];
       if (!b) return;
       const targetQ = FILA.alvo.quats[nome];
-      if (b.quaternion.dot(targetQ) < 0) targetQ.negate();
+      if (b.quaternion.dot(targetQ) < 0) negarQ(targetQ);
       b.quaternion.slerp(targetQ, factor);
     });
     modelo.updateMatrixWorld(true);
@@ -844,7 +849,7 @@
         Object.keys(FILA.alvo.quats).forEach((bn) => {
           const b = ossos[bn];
           if (b && FILA.alvo.quats[bn].dot(b.quaternion) < 0) {
-            FILA.alvo.quats[bn].negate();
+            negarQ(FILA.alvo.quats[bn]);
           }
         });
       }
