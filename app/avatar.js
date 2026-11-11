@@ -868,8 +868,8 @@
     thetaMax:  50 * Math.PI / 180,
     phiMin:   -15 * Math.PI / 180, // elevação subtil (baixo/cima)
     phiMax:    20 * Math.PI / 180,
-    rMin:      1.10,               // zoom máximo (aproximação para ver dedos/configurações)
-    rMax:      2.60                // zoom mínimo (afastado, corpo todo e braços)
+    rMin:      1.15,               // zoom máximo (aproximação para ver dedos/configurações)
+    rMax:      3.80                // zoom mínimo (cobre joelhos 3.25m e corpo inteiro 3.57m sem corte)
   };
 
   const camPadrao = { alvo: new THREE.Vector3(), r: 1.95, theta: 0.15, phi: 0 };
@@ -894,7 +894,16 @@
   }
 
   function zoom(fator) {
-    camMeta.r = Math.max(LIMITES_CAM.rMin, Math.min(LIMITES_CAM.rMax, camMeta.r * (fator || 1)));
+    const rMaxAtual = Math.max(LIMITES_CAM.rMax, camPadrao.r);
+    camMeta.r = Math.max(LIMITES_CAM.rMin, Math.min(rMaxAtual, camMeta.r * (fator || 1)));
+    /* Ao aproximar desde o plano dos joelhos, sobe o alvo progressivamente para a zona
+       do peito/mãos (~0.76h) para nunca cortar a cabeça nem focar só a cintura. */
+    const h = (modelo && modelo.userData.altura) || 1.75;
+    const alvoFocoY = h * 0.76;
+    if (camPadrao.r > LIMITES_CAM.rMin && alvoFocoY > camPadrao.alvo.y) {
+      const tZoom = Math.max(0, Math.min(1, (camPadrao.r - camMeta.r) / (camPadrao.r - LIMITES_CAM.rMin)));
+      camMeta.alvo.y = camPadrao.alvo.y + (alvoFocoY - camPadrao.alvo.y) * tZoom;
+    }
   }
 
   function redefinirCamera() {
@@ -1009,17 +1018,15 @@
     camPadrao.phi = Math.max(LIMITES_CAM.phiMin, Math.min(LIMITES_CAM.phiMax, phi0));
 
     camMeta.alvo.copy(alvo);
-    camMeta.r = Math.max(LIMITES_CAM.rMin, Math.min(LIMITES_CAM.rMax, r0));
+    camMeta.r = Math.max(LIMITES_CAM.rMin, Math.min(Math.max(LIMITES_CAM.rMax, r0), r0));
     camMeta.theta = camPadrao.theta;
     camMeta.phi = camPadrao.phi;
 
-    if (!camIniciada) {
-      camAtual.alvo.copy(camMeta.alvo);
-      camAtual.r = camMeta.r;
-      camAtual.theta = camMeta.theta;
-      camAtual.phi = camMeta.phi;
-      camIniciada = true;
-    }
+    camAtual.alvo.copy(camMeta.alvo);
+    camAtual.r = camMeta.r;
+    camAtual.theta = camMeta.theta;
+    camAtual.phi = camMeta.phi;
+    camIniciada = true;
     aplicarCamara();
   }
 
