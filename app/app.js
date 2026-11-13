@@ -784,7 +784,7 @@ const matchRoute = (hash) => {
   return null;
 };
 
-const NAV = [['/', 'Sinalizar'], ['/dicionario', 'Dicionário']];
+const NAV = [['/sinalizar', 'Sinalizar'], ['/dicionario', 'Dicionário']];
 
 /* Ilustrações dos cartões. Tudo a `currentColor` e a opacidades: a mesma arte
    serve o tema claro, o escuro e o contraste alto sem cores cravadas. Só
@@ -961,6 +961,13 @@ function vistaSinalizar() {
     <p>Não é tradução para LGA. Uma glosa é uma sequência de sinais: artigos e preposições caem, o tempo vai à frente e o «não» vai ao fim — mas a ordem, o espaço e a expressão facial de um sinalizador surdo não cabem numa lista de palavras.</p>
   </details>
 
+  ${caixaTexto()}`;
+}
+
+/* A caixa de texto é partilhada pela casa antiga e pelo anel: um só sítio com
+   os ids, para o `ligarSinalizar` ligar os mesmos botões nas duas vistas. */
+function caixaTexto() {
+  return `
   <dialog class="caixa" id="caixa-texto" aria-labelledby="caixa-titulo">
     <div class="caixa-topo">
       <p class="caixa-titulo" id="caixa-titulo">Texto para sinalizar</p>
@@ -1011,8 +1018,9 @@ function espera3d(carregados, total) {
 
 function ligarSinalizar(params) {
   /* O modelo 3D é um GLB de 13 MB. A página inicial já o começa a descarregar
-     para a casa fora do ecrã, assim o painel abre com o trabalho adiantado. */
-  if (window.AVATAR && window.SINAL3D) {
+     para a casa fora do ecrã, assim o painel abre com o trabalho adiantado.
+     No anel o canvas está em cena: levá-lo para a casa apagava a Agatha. */
+  if (window.AVATAR && window.SINAL3D && !document.getElementById('rg-palco')) {
     AVATAR.init(casaSigner(), { progresso: espera3d }).catch(() => {});
   }
 
@@ -1076,7 +1084,7 @@ function ligarSinalizar(params) {
     if (fora) fecharCaixa();
   });
 
-  $$('.modo-card[data-modo]').forEach((c) => c.addEventListener('click', () => {
+  $$('[data-modo]').forEach((c) => c.addEventListener('click', () => {
     if (c.dataset.modo === 'ao-vivo') abrirAoVivo();
     else abrirCaixa();
   }));
@@ -1483,22 +1491,36 @@ function ligarDicionario() {
   });
 }
 
-on('/', vistaSinalizar);
+/* A casa é o anel (ring.js). A casa antiga fica em #/sinalizar, inteira: nenhum
+   caminho antigo se perde, e o anel pode cair para ela se o módulo faltar. */
+function vistaAnel() {
+  return (window.RING && RING.vista) ? RING.vista() : vistaSinalizar();
+}
+
+on('/', vistaAnel);
+on('/sinalizar', vistaSinalizar);
 on('/dicionario', vistaDicionario);
 
 /* ---------------- arranque ---------------- */
 function render() {
   const m = matchRoute(location.hash || '#/');
-  const view = m ? m.view : vistaSinalizar;
-  const ativo = (location.hash || '').replace(/^#/, '').split('?')[0] === '/dicionario' ? '/dicionario' : '/';
+  const view = m ? m.view : vistaAnel;
+  const rota = (location.hash || '#/').replace(/^#/, '').split('?')[0] || '/';
+  const ativo = rota === '/dicionario' ? '/dicionario' : (rota === '/sinalizar' ? '/sinalizar' : '/');
+  if (window.RING && RING.parar) RING.parar();
   const app = document.getElementById('app');
   esconderSelecao();
   fecharSigner(true);
+  if (rota === '/') document.documentElement.dataset.vista = 'ring';
+  else delete document.documentElement.dataset.vista;
   app.innerHTML = shell(view(m ? m.params : {}), ativo);
   const live = document.getElementById('route-live');
-  if (live) live.textContent = ativo === '/dicionario' ? 'Dicionário' : 'Sinalizar';
+  if (live) live.textContent = ativo === '/dicionario' ? 'Dicionário' : (rota === '/' ? 'Anel de sinais' : 'Sinalizar');
   if (ativo === '/dicionario') ligarDicionario();
-  else ligarSinalizar(m ? m.params : {});
+  else {
+    ligarSinalizar(m ? m.params : {});
+    if (rota === '/' && window.RING && RING.ligar) RING.ligar();
+  }
   montarA11y();
   /* carregar no separador onde já estamos não muda o hash: leva ao topo e
      limpa os filtros do dicionário, em vez de não fazer nada */
