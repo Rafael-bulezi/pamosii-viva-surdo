@@ -1067,9 +1067,19 @@ const ARTE = {
       <text x="160" y="116" text-anchor="middle" fill="currentColor" font-family="Arial, Helvetica, sans-serif" font-size="63" font-weight="900" letter-spacing="-3">LGA</text>
       <!-- Emblema dourado reduzido como selo na ponta da fita. -->
       <g transform="translate(258 77)" fill="#FFCC00">
-        <!-- Secção da roda dentada: preservada para a próxima revisão. -->
-        <path d="M-9-15a18 18 0 0 1 23-5l-5 4a12 12 0 0 0-15-3z"/>
-        <path d="m-3 2 4-2 3 5-4 2z"/>
+        <!-- Roda dentada: secção em C com nove dentes radiais distintos. -->
+        <path fill-rule="evenodd" d="M-13.1-13.1A18.5 18.5 0 0 1 13.1-13.1L9.2-9.2A13 13 0 0 0-9.2-9.2Z"/>
+        <g>
+          <path d="M-2.5-25h5v7h-5z" transform="rotate(-135)"/>
+          <path d="M-2.5-25h5v7h-5z" transform="rotate(-101.25)"/>
+          <path d="M-2.5-25h5v7h-5z" transform="rotate(-67.5)"/>
+          <path d="M-2.5-25h5v7h-5z" transform="rotate(-33.75)"/>
+          <path d="M-2.5-25h5v7h-5z" transform="rotate(0)"/>
+          <path d="M-2.5-25h5v7h-5z" transform="rotate(33.75)"/>
+          <path d="M-2.5-25h5v7h-5z" transform="rotate(67.5)"/>
+          <path d="M-2.5-25h5v7h-5z" transform="rotate(101.25)"/>
+          <path d="M-2.5-25h5v7h-5z" transform="rotate(135)"/>
+        </g>
         <!-- Estrela de cinco pontas, com proporções geométricas mais fiéis. -->
         <path d="M-7-24-2.7-12.8 9.2-12.5-.4-5.2 3.1 6.2-7-1-17.1 6.2-13.6-5.2-23.2-12.5-11.3-12.8Z"/>
         <!-- Catana: lâmina curva voltada à esquerda e punho à direita. -->
