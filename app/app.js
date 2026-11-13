@@ -1067,10 +1067,18 @@ const ARTE = {
       <text x="160" y="116" text-anchor="middle" fill="currentColor" font-family="Arial, Helvetica, sans-serif" font-size="63" font-weight="900" letter-spacing="-3">LGA</text>
       <!-- Emblema dourado reduzido como selo na ponta da fita. -->
       <g transform="translate(258 77)" fill="#FFCC00">
-        <path d="M-9-15a18 18 0 0 1 23 5l-5 4a12 12 0 0 0-15-3z"/>
+        <!-- Secção da roda dentada: preservada para a próxima revisão. -->
+        <path d="M-9-15a18 18 0 0 1 23-5l-5 4a12 12 0 0 0-15-3z"/>
         <path d="m-3 2 4-2 3 5-4 2z"/>
-        <path d="m6-17 2-5 3 5 6 1-5 4 1 6-5-3-5 3 1-6-5-4z"/>
-        <path d="M-8 8 14-10l3 3L-5 12z"/>
+        <!-- Estrela de cinco pontas, com proporções geométricas mais fiéis. -->
+        <path d="M-7-24-2.7-12.8 9.2-12.5-.4-5.2 3.1 6.2-7-1-17.1 6.2-13.6-5.2-23.2-12.5-11.3-12.8Z"/>
+        <!-- Catana: lâmina curva voltada à esquerda e punho à direita. -->
+        <path d="M-20-7C-22-1-18 6-11 11L13 29l7-8L-2 1C-9-5-12-12-9-19-14-17-18-13-20-7Z"/>
+        <path d="m13 23 5-7 5 4-5 8z"/>
+        <path d="m19 22 4-5 8 7c4 3 5 7 2 10-3 3-7 2-10-1l-7-7z"/>
+        <path d="M-13 2 16 23" fill="none" stroke="#A87500" stroke-width="1.2" stroke-linecap="round"/>
+        <circle cx="25" cy="27" r="1.15" fill="#A87500"/>
+        <circle cx="28" cy="30" r="1.15" fill="#A87500"/>
       </g>
       <path d="M16 164c43-14 78-9 111 3" stroke="#FFCC00" stroke-opacity=".8" stroke-width="3" stroke-linecap="round"/>
       <circle cx="20" cy="164" r="3" fill="#FFCC00"/>
