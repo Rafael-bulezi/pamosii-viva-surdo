@@ -1068,7 +1068,7 @@ const ARTE = {
       <!-- Emblema dourado reduzido como selo na ponta da fita. -->
       <g transform="translate(258 77)" fill="#FFCC00">
         <!-- Roda dentada: secção em C com nove dentes radiais distintos. -->
-        <path fill-rule="evenodd" d="M-13.1-13.1A18.5 18.5 0 0 1 13.1-13.1L9.2-9.2A13 13 0 0 0-9.2-9.2Z"/>
+        <path fill-rule="evenodd" d="M-13.1-13.1A18.5 18.5 0 1 1-13.1 13.1L-9.2 9.2A13 13 0 1 0-9.2-9.2Z"/>
         <g>
           <path d="M-2.5-25h5v7h-5z" transform="rotate(-135)"/>
           <path d="M-2.5-25h5v7h-5z" transform="rotate(-101.25)"/>
