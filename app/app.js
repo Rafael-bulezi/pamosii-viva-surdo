@@ -1039,18 +1039,27 @@ const ARTE = {
         <path d="M19 19l16 16" stroke="currentColor" stroke-opacity=".9" stroke-width="7" stroke-linecap="round"/>
       </g>
     </svg>`,
-  /* Cartão da fonte LGA: a bandeira de Angola no mastro — vermelho sobre negro,
-     com a catana, a meia engrenagem e a estrela a amarelo. */
+  /* Bandeira Nacional de Angola para o cartão LGA.
+     Proporção 3:2 e emblema amarelo: roda dentada de nove dentes,
+     catana com o punho à direita e estrela de cinco pontas. */
   fonteLga: `<svg viewBox="0 0 320 186" fill="none" aria-hidden="true">
-      <rect x="70" y="50" width="9" height="122" rx="4.5" fill="#59606E"/>
-      <circle cx="74.5" cy="44" r="6.5" fill="#59606E"/>
-      <rect x="79" y="52" width="190" height="127" rx="3" fill="#CC092F"/>
-      <path d="M79 115.5h190V176a3 3 0 0 1-3 3H82a3 3 0 0 1-3-3z" fill="#14161A"/>
-      <path d="M 156,150 L 155.4,156 L 148.8,155.1 L 149.8,149.2 L 146.8,148.2 L 146.8,148.2 L 144,153.5 L 138.2,150.1 L 141.4,145 L 139,143 L 139,143 L 134.4,146.8 L 130.3,141.5 L 135.2,138 L 133.8,135.2 L 133.8,135.2 L 128.1,136.9 L 126.3,130.5 L 132.2,129.1 L 132,126 L 132,126 L 126,125.4 L 126.9,118.8 L 132.8,119.8 L 133.8,116.8 L 133.8,116.8 L 128.5,114 L 131.9,108.2 L 137,111.4 L 139,109 L 139,109 L 135.2,104.4 L 140.5,100.3 L 144,105.2 L 146.8,103.8 L 146.8,103.8 L 145.1,98.1 L 151.5,96.3 L 152.9,102.2 L 156,102 L 156,113 L 151,114 L 146.8,116.8 L 144,121 L 143,126 L 144,131 L 146.8,135.2 L 151,138 L 156,139 Z" fill="#FFCB00"/>
-      <path d="M214 90c-18 18-30 42-37 66l-8-2c7-25 20-46 39-64z" fill="#FFCB00"/>
-      <rect x="146" y="151" width="30" height="9" rx="4.5" transform="rotate(-40 161 155)" fill="#FFCB00"/>
-      <path d="M 176,77 L 180.4,88.9 L 193.1,89.4 L 183.2,97.3 L 186.6,109.6 L 176,102.6 L 165.4,109.6 L 168.8,97.3 L 158.9,89.4 L 171.6,88.9 Z" fill="#FFCB00"/>
-      <rect x="79" y="52" width="190" height="127" rx="3" stroke="currentColor" stroke-opacity=".2"/>
+      <defs>
+        <clipPath id="flag-lga-clip"><rect x="23.5" y="2" width="273" height="182" rx="2"/></clipPath>
+      </defs>
+      <g clip-path="url(#flag-lga-clip)">
+        <g transform="translate(23.5 2) scale(.4265625 .3791666667)">
+          <rect width="640" height="240" fill="#CD022B"/>
+          <rect y="240" width="640" height="240" fill="#000000"/>
+          <path fill="#FFCC00" fill-rule="evenodd" d="M228.7 148.2c165.2 43.3 59 255.6-71.3 167.2l-8.8 13.6c76.7 54.6 152.6 10.6 174-46.4 22.2-58.8-7.6-141.5-92.6-150z"/>
+          <path fill="#FFCC00" fill-rule="evenodd" d="m170 330.8 21.7 10.1-10.2 21.8-21.7-10.2zm149-99.5h24v24h-24zm-11.7-38.9 22.3-8.6 8.7 22.3-22.3 8.7zm-26-29.1 17.1-16.9 16.9 17-17 16.9zm-26.2-39.8 22.4 8.4-8.5 22.4-22.4-8.4zM316 270l22.3 8.9-9 22.2-22.2-8.9zm-69.9 70 22-9.3 9.5 22-22 9.4zm-39.5 2.8h24v24h-24zm41.3-116-20.3-15-20.3 14.6 8-23-20.3-15h24.5l8.5-22.6 7.8 22.7 24.7-.3-19.6 15.3z"/>
+          <path fill="#FFCC00" fill-rule="evenodd" d="M336 346.4c-1.2.4-6.2 12.4-9.7 18.2l3.7 1c13.6 4.8 20.4 9.2 26.2 17.5a8 8 0 0 0 10.2.7s2.8-1 6.4-5c3-4.5 2.2-8-1.4-11.1-11-8-22.9-14-35.4-21.3"/>
+          <path fill="#000000" fill-rule="evenodd" d="M365.3 372.8a4.3 4.3 0 1 1-8.7 0 4.3 4.3 0 0 1 8.6 0zm-21.4-13.6a4.3 4.3 0 1 1-8.7 0 4.3 4.3 0 0 1 8.7 0m10.9 7a4.3 4.3 0 1 1-8.7 0 4.3 4.3 0 0 1 8.7 0"/>
+          <path fill="#FFCC00" fill-rule="evenodd" d="M324.5 363.7c-42.6-24.3-87.3-50.5-130-74.8-18.7-11.7-19.6-33.4-7-49.9 1.2-2.3 2.8-1.8 3.4-.5 1.5 8 6 16.3 11.4 21.5A5288 5288 0 0 1 334 345.6c-3.4 5.8-6 12.3-9.5 18z"/>
+          <path fill="#FFCC00" fill-rule="evenodd" d="m297.2 305.5 17.8 16-16 17.8-17.8-16z"/>
+          <path fill="none" stroke="#000000" stroke-width="3" d="m331.5 348.8-125-75.5m109.6 58.1L274 304.1m18.2 42.7L249.3 322"/>
+        </g>
+      </g>
+      <rect x="23.5" y="2" width="273" height="182" rx="2" stroke="#FFCC00" stroke-opacity=".22"/>
     </svg>`,
   /* Cartão da fonte IS: o globo do léxico e o play. */
   fonteIs: `<svg viewBox="0 0 320 186" fill="none" aria-hidden="true">
