@@ -22,6 +22,7 @@ const referencias = ler('referencias.js');
 const html = ler('index.html');
 const css = ler('styles.css');
 const sw = ler('sw.js');
+const avatar3d = ler('avatar.js');
 const aoVivo = ler('aoVivo.js');
 const manifest = JSON.parse(ler('manifest.webmanifest'));
 
@@ -528,6 +529,22 @@ const atalhos = (manifest.shortcuts || []).map(s => s.url || '');
 for (const u of atalhos) {
   const r = (u.match(/#(\/[a-z0-9:._-]*)/) || [])[1];
   if (r && !rotas.includes(r)) falhas.push('Atalho do manifest para uma rota que já não existe: ' + u);
+}
+
+/* ----------------------------------------------- 10c. ciclo de vida 3D */
+const inicioSinalizar = app.indexOf('function ligarSinalizar(params) {');
+const fimSinalizar = app.indexOf('\nfunction ', inicioSinalizar + 1);
+const corpoSinalizar = inicioSinalizar < 0 ? '' :
+  app.slice(inicioSinalizar, fimSinalizar < 0 ? app.length : fimSinalizar);
+if (/AVATAR\.init/.test(corpoSinalizar)) {
+  falhas.push('A página inicial voltou a pré-carregar o modelo 3D antes de abrir a sinalizadora.');
+}
+if (!/AVATAR\.retomar\(\)/.test(app) || !/AVATAR\.suspender\(\)/.test(app)) {
+  falhas.push('A sinalizadora deixou de retomar ao abrir e suspender ao fechar o avatar.');
+}
+if (!/function retomar\(/.test(avatar3d) || !/function suspender\(/.test(avatar3d) ||
+    !/cancelAnimationFrame\(quadroId\)/.test(avatar3d)) {
+  falhas.push('O renderizador 3D perdeu os controlos de pausa/retoma do ciclo de desenho.');
 }
 
 /* ------------------------------------------------------------------- resultado */
