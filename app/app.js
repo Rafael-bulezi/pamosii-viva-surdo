@@ -446,6 +446,7 @@ async function abrirSignerBeats(t, beats, opcoes) {
     await AVATAR.init(palco, { progresso: espera3d });
     /* fechado enquanto o modelo carregava: o canvas volta para a casa */
     if (!SG.aberto) { devolverAvatar(); return; }
+    AVATAR.retomar();
     const espera = palco.querySelector('.sg-espera');
     if (espera) espera.remove();
     /* painel de 100dvh: enquadra dos joelhos ao alto dos braços */
@@ -478,6 +479,7 @@ function devolverAvatar() {
   if (!(window.AVATAR && AVATAR.pronto)) return;
   AVATAR.pousar();
   AVATAR.init(casaSigner());
+  AVATAR.suspender();
 }
 
 function fecharSigner(silencioso) {
@@ -1199,12 +1201,8 @@ function espera3d(carregados, total) {
 }
 
 function ligarSinalizar(params) {
-  /* O modelo 3D é um GLB de 13 MB. A página inicial já o começa a descarregar
-     para a casa fora do ecrã, assim o painel abre com o trabalho adiantado. */
-  if (window.AVATAR && window.SINAL3D) {
-    AVATAR.init(casaSigner(), { progresso: espera3d }).catch(() => {});
-  }
-
+  /* O GLB e o renderizador só são preparados quando a pessoa abre a
+     sinalizadora: a página inicial não precisa de criar o palco 3D. */
   const caixa = $('#caixa-texto');
   const txt = $('#txt'), recado = $('#recado'), conta = $('#editor-conta');
   const fich = $('#fich');
