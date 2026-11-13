@@ -1039,27 +1039,41 @@ const ARTE = {
         <path d="M19 19l16 16" stroke="currentColor" stroke-opacity=".9" stroke-width="7" stroke-linecap="round"/>
       </g>
     </svg>`,
-  /* Bandeira Nacional de Angola para o cartão LGA.
-     Proporção 3:2 e emblema amarelo: roda dentada de nove dentes,
-     catana com o punho à direita e estrela de cinco pontas. */
+  /* LGA em destaque, envolvida por uma fita inspirada na bandeira angolana. */
   fonteLga: `<svg viewBox="0 0 320 186" fill="none" aria-hidden="true">
       <defs>
-        <clipPath id="flag-lga-clip"><rect x="23.5" y="2" width="273" height="182" rx="2"/></clipPath>
+        <linearGradient id="lga-ribbon-red" x1="25" y1="28" x2="290" y2="126" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#E22B43"/><stop offset=".58" stop-color="#CD022B"/><stop offset="1" stop-color="#A90025"/>
+        </linearGradient>
+        <linearGradient id="lga-ribbon-black" x1="22" y1="72" x2="300" y2="166" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#303039"/><stop offset=".52" stop-color="#111116"/><stop offset="1" stop-color="#292830"/>
+        </linearGradient>
+        <filter id="lga-soft-shadow" x="8" y="4" width="306" height="178" filterUnits="userSpaceOnUse">
+          <feGaussianBlur stdDeviation="3"/>
+        </filter>
       </defs>
-      <g clip-path="url(#flag-lga-clip)">
-        <g transform="translate(23.5 2) scale(.4265625 .3791666667)">
-          <rect width="640" height="240" fill="#CD022B"/>
-          <rect y="240" width="640" height="240" fill="#000000"/>
-          <path fill="#FFCC00" fill-rule="evenodd" d="M228.7 148.2c165.2 43.3 59 255.6-71.3 167.2l-8.8 13.6c76.7 54.6 152.6 10.6 174-46.4 22.2-58.8-7.6-141.5-92.6-150z"/>
-          <path fill="#FFCC00" fill-rule="evenodd" d="m170 330.8 21.7 10.1-10.2 21.8-21.7-10.2zm149-99.5h24v24h-24zm-11.7-38.9 22.3-8.6 8.7 22.3-22.3 8.7zm-26-29.1 17.1-16.9 16.9 17-17 16.9zm-26.2-39.8 22.4 8.4-8.5 22.4-22.4-8.4zM316 270l22.3 8.9-9 22.2-22.2-8.9zm-69.9 70 22-9.3 9.5 22-22 9.4zm-39.5 2.8h24v24h-24zm41.3-116-20.3-15-20.3 14.6 8-23-20.3-15h24.5l8.5-22.6 7.8 22.7 24.7-.3-19.6 15.3z"/>
-          <path fill="#FFCC00" fill-rule="evenodd" d="M336 346.4c-1.2.4-6.2 12.4-9.7 18.2l3.7 1c13.6 4.8 20.4 9.2 26.2 17.5a8 8 0 0 0 10.2.7s2.8-1 6.4-5c3-4.5 2.2-8-1.4-11.1-11-8-22.9-14-35.4-21.3"/>
-          <path fill="#000000" fill-rule="evenodd" d="M365.3 372.8a4.3 4.3 0 1 1-8.7 0 4.3 4.3 0 0 1 8.6 0zm-21.4-13.6a4.3 4.3 0 1 1-8.7 0 4.3 4.3 0 0 1 8.7 0m10.9 7a4.3 4.3 0 1 1-8.7 0 4.3 4.3 0 0 1 8.7 0"/>
-          <path fill="#FFCC00" fill-rule="evenodd" d="M324.5 363.7c-42.6-24.3-87.3-50.5-130-74.8-18.7-11.7-19.6-33.4-7-49.9 1.2-2.3 2.8-1.8 3.4-.5 1.5 8 6 16.3 11.4 21.5A5288 5288 0 0 1 334 345.6c-3.4 5.8-6 12.3-9.5 18z"/>
-          <path fill="#FFCC00" fill-rule="evenodd" d="m297.2 305.5 17.8 16-16 17.8-17.8-16z"/>
-          <path fill="none" stroke="#000000" stroke-width="3" d="m331.5 348.8-125-75.5m109.6 58.1L274 304.1m18.2 42.7L249.3 322"/>
-        </g>
+      <circle cx="160" cy="94" r="76" fill="#FFFFFF" fill-opacity=".22"/>
+      <path d="M15 110C46 34 111 22 173 46c55 22 88 17 132-20l7 19c-42 43-89 52-148 28C107 48 51 62 26 133z" fill="#111116" opacity=".13" filter="url(#lga-soft-shadow)"/>
+      <!-- A fita passa por trás das letras e regressa pela frente, como tecido enrolado. -->
+      <path d="M14 105C45 32 111 20 173 45c56 22 88 17 132-20l7 19c-42 43-89 52-148 28C107 48 51 62 26 133z" fill="url(#lga-ribbon-red)"/>
+      <path d="M18 120C49 47 114 35 177 60c55 22 87 17 132-20l4 19c-42 43-90 52-148 28C110 63 55 77 30 148z" fill="url(#lga-ribbon-black)"/>
+      <path d="M26 132c39-34 78-38 123-17 48 22 91 26 143-11l9 16c-55 40-110 39-160 16-39-18-73-15-108 12z" fill="url(#lga-ribbon-red)"/>
+      <path d="M30 148c38-27 69-30 105-14 52 23 105 24 157-13l8 15c-55 39-112 39-169 15-32-14-60-11-91 12z" fill="url(#lga-ribbon-black)"/>
+      <!-- Reflexos discretos dão volume à fita sem alterar a leitura das cores nacionais. -->
+      <path d="M26 97C58 43 111 35 165 55" stroke="#FF9AA7" stroke-opacity=".55" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M44 142c30-17 57-16 83-5" stroke="#FFFFFF" stroke-opacity=".28" stroke-width="2" stroke-linecap="round"/>
+      <!-- Letras em primeiro plano: a sigla é a protagonista do cartão. -->
+      <text x="160" y="116" text-anchor="middle" fill="#17263A" stroke="#FFF9EF" stroke-width="8" stroke-linejoin="round" paint-order="stroke" font-family="Arial, Helvetica, sans-serif" font-size="63" font-weight="900" letter-spacing="-3">LGA</text>
+      <text x="160" y="116" text-anchor="middle" fill="currentColor" font-family="Arial, Helvetica, sans-serif" font-size="63" font-weight="900" letter-spacing="-3">LGA</text>
+      <!-- Emblema dourado reduzido como selo na ponta da fita. -->
+      <g transform="translate(258 77)" fill="#FFCC00">
+        <path d="M-9-15a18 18 0 0 1 23 5l-5 4a12 12 0 0 0-15-3z"/>
+        <path d="m-3 2 4-2 3 5-4 2z"/>
+        <path d="m6-17 2-5 3 5 6 1-5 4 1 6-5-3-5 3 1-6-5-4z"/>
+        <path d="M-8 8 14-10l3 3L-5 12z"/>
       </g>
-      <rect x="23.5" y="2" width="273" height="182" rx="2" stroke="#FFCC00" stroke-opacity=".22"/>
+      <path d="M16 164c43-14 78-9 111 3" stroke="#FFCC00" stroke-opacity=".8" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="20" cy="164" r="3" fill="#FFCC00"/>
     </svg>`,
   /* Cartão da fonte IS: o globo do léxico e o play. */
   fonteIs: `<svg viewBox="0 0 320 186" fill="none" aria-hidden="true">
