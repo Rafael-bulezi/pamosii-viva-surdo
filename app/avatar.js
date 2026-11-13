@@ -12,6 +12,7 @@
 
   let renderer, cena, cam, modelo;
   let ossos = {}, malhas = [], pronto = false;
+  let quadroId = 0, animacaoAtiva = false;
   /* quem estiver à espera do GLB no ecrã recebe o progresso (o ficheiro tem 13 MB) */
   let aoProgresso = null;
   let relogio = 0, ultimo = performance.now();
@@ -178,7 +179,7 @@
     carregando = new Promise((ok, falha) => {
       new THREE.GLTFLoader().load('assets/agatha-mpfb-rig.glb', (g) => {
         montarModelo(g.scene);
-        requestAnimationFrame(quadro);
+        /* O modelo fica pronto sem animar até a sinalizadora estar visível. */
         ok(API);
       }, (e) => { if (aoProgresso) aoProgresso(e.loaded, e.total); }, falha);
     });
@@ -1030,8 +1031,33 @@
     aplicarCamara();
   }
 
-  /* ===================== quadro ===================== */
+  /* ===================== ciclo de desenho ===================== */
+  function retomar() {
+    if (!pronto || !renderer) return;
+    animacaoAtiva = true;
+    if (document.hidden || quadroId) return;
+    ultimo = performance.now();
+    quadroId = requestAnimationFrame(quadro);
+  }
+
+  function suspender() {
+    animacaoAtiva = false;
+    if (quadroId) cancelAnimationFrame(quadroId);
+    quadroId = 0;
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      if (quadroId) cancelAnimationFrame(quadroId);
+      quadroId = 0;
+    } else if (animacaoAtiva) {
+      retomar();
+    }
+  });
+
   function quadro(agora) {
+    quadroId = 0;
+    if (!animacaoAtiva || document.hidden) return;
     const dt = Math.min(0.05, (agora - ultimo) / 1000);
     ultimo = agora;
     relogio += dt;
@@ -1066,11 +1092,11 @@
       }
       renderer.render(cena, cam);
     }
-    requestAnimationFrame(quadro);
+    if (animacaoAtiva && !document.hidden) quadroId = requestAnimationFrame(quadro);
   }
 
   const API = {
-    init, enquadrar, tocarSequencia, pararSequencia, congelar, poseParaQuats,
+    init, retomar, suspender, enquadrar, tocarSequencia, pararSequencia, congelar, poseParaQuats,
     prepararPoses, mostrar,
     aplicarExpressao, aplicarMao, ikBraco, rodarMao, orientarPalma, repor, capturar, pousar,
     girar, zoom, redefinirCamera, orbitarPorPixels,
